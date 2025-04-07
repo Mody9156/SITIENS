@@ -11,7 +11,11 @@ import SwiftUI
 struct SITIENSApp: App {
     var body: some Scene {
         WindowGroup {
-            TapView()
+            TabView{
+                HomeView()
+            }
+            .tabViewStyle(.page(indexDisplayMode: .always))
+            
         }
     }
 }
