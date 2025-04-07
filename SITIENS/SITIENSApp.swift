@@ -13,6 +13,8 @@ struct SITIENSApp: App {
         WindowGroup {
             TabView{
                 HomeView()
+                    
+                InfosView()
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             
