@@ -10,9 +10,7 @@ import SwiftUI
 struct TapView: View {
     var body: some View {
         VStack {
-            TapView{
-                
-            }
+            
             
             
         }
