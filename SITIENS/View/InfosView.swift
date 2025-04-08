@@ -34,12 +34,7 @@ struct InfosView: View {
                         .frame(width: 300)
                     
                     Spacer()
-                    
-                    NavigationLink {
-                        Timer()
-                    } label: {
-                    Image(systemName: "rectangle.portrait.and.arrow.right.fill")
-                    }
+                   
                 }
             }
         }
