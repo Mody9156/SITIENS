@@ -19,25 +19,33 @@ struct Timer: View {
                 Text("Chronomètre")
                 Text("Temps : \(time)")
                 
-                Button {
-                    
-                } label: {
-                    Text("lap")
+                HStack {
+                    ActiveTimer(name: "lap")
+                    ActiveTimer(name: "Start")
                 }
-                
-                Button {
-                    
-                } label: {
-                    Text("Start")
-                }
-                
                 
             }
-            
         }
     }
 }
 
 #Preview {
     Timer()
+}
+
+struct ActiveTimer: View {
+    var name : String
+    var body: some View {
+        Button {
+            
+        } label: {
+            ZStack {
+                Circle()
+                    .frame(height: 50)
+                Text(name)
+                    .foregroundStyle(.white)
+                
+            }
+        }
+    }
 }
