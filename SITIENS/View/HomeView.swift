@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State var slider : Double = 0
     var body: some View {
         ZStack{
             Color("BackgroundColor")
                 .ignoresSafeArea()
             
             VStack {
+                
                 Spacer()
                 
                 Image(systemName: "waterbottle.fill")

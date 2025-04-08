@@ -17,7 +17,7 @@ struct InfosView: View {
                 
                 Spacer()
                 
-                Image(systemName: "waterbottle.fill")
+                Image(systemName: "drop")
                     .resizable()
                     .frame(width: 100,height: 200)
                     .foregroundStyle(.white)
