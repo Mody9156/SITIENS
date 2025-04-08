@@ -8,8 +8,33 @@
 import SwiftUI
 
 struct Timer: View {
+    @State var startDate = Date.now
+    @State var time : Int = 0
+    
     var body: some View {
-        Text("Chronomètre")
+        ZStack{
+            Color("BackgroundColor")
+                .ignoresSafeArea()
+            VStack {
+                Text("Chronomètre")
+                Text("Temps : \(time)")
+                
+                Button {
+                    
+                } label: {
+                    Text("lap")
+                }
+                
+                Button {
+                    
+                } label: {
+                    Text("Start")
+                }
+                
+                
+            }
+            
+        }
     }
 }
 
