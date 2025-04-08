@@ -17,12 +17,31 @@ struct Timer: View {
                 .ignoresSafeArea()
             VStack {
                 Text("Chronomètre")
-                Text("Temps : \(time)")
                 
-                HStack {
-                    ActiveTimer(name: "lap")
-                    ActiveTimer(name: "Start")
+//                Text("\(time)")
+//                    .fontWeight(.heavy)
+//
+                Text("\(Date.now.formatted(date: .omitted, time: .shortened))")
+                
+                Button {
+                    withAnimation {
+                        
+                    }
+                } label: {
+                    ZStack {
+                        Circle()
+                            .frame(height: 100)
+                        Text("Commencer")
+                            .foregroundStyle(.white)
+                        
+                    }
                 }
+
+                
+//                HStack {
+//                    ActiveTimer(name: "lap")
+//                    ActiveTimer(name: "Start")
+//                }
                 
             }
         }
