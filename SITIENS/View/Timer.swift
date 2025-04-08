@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct Timer: View {
     @State var startDate = Date.now
-    @State var time : Int = 0
+    @State var timeRemaining : Int = 60
+    @State var timerIsReading = false
+    @State private var autioPlayer : AVAudioPlayer?
     
     var body: some View {
         ZStack{
@@ -18,10 +21,15 @@ struct Timer: View {
             VStack {
                 Text("Chronomètre")
                 
+//                Gauge(value: 0.5, in: 0...1) {
+//                    Text("Label")
+//                }
 //                Text("\(time)")
 //                    .fontWeight(.heavy)
 //
                 Text("\(Date.now.formatted(date: .omitted, time: .shortened))")
+                    .font(.system(size: 100, weight: .heavy))
+                    .foregroundStyle(.white)
                 
                 Button {
                     withAnimation {
@@ -30,12 +38,13 @@ struct Timer: View {
                 } label: {
                     ZStack {
                         Circle()
-                            .frame(height: 100)
+                            .frame(height: 200)
                         Text("Commencer")
                             .foregroundStyle(.white)
                         
                     }
                 }
+                .buttonStyle(.plain)
 
                 
 //                HStack {
