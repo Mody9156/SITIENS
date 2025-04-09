@@ -22,7 +22,7 @@ struct HomeView: View {
                         
                         Spacer()
                         NavigationLink {
-                            Timer()
+                            hydrationActivation()
                         } label: {
                             Button(action:{
                                 activeNavLink = true

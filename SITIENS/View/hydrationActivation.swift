@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 
-struct Timer: View {
+struct hydrationActivation: View {
     @State var startDate = Date.now
     @State var timeRemaining : Int = 60
     @State var timerIsReading = false
@@ -58,7 +58,7 @@ struct Timer: View {
 }
 
 #Preview {
-    Timer()
+    hydrationActivation()
 }
 
 struct ActiveTimer: View {

@@ -13,13 +13,19 @@ struct SITIENSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TabView{
-                HomeView()
-                    
-                InfosView()
+            if useNavLink {
+                TabView{
+                    hydrationActivation()
+                }
+                
+            }else {
+                TabView{
+                    HomeView()
+                        
+                    InfosView()
+                }
+                .tabViewStyle(.page(indexDisplayMode: .always))
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
-            
         }
     }
 }
