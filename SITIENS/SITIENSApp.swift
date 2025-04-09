@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct SITIENSApp: App {
+    @State var useNavLink = UserDefaults.standard.bool(forKey:"navlink")
+    
     var body: some Scene {
         WindowGroup {
             TabView{
