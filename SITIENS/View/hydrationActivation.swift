@@ -37,14 +37,8 @@ struct hydrationActivation: View {
                     .foregroundStyle(.white)
                     .font(.title)
                     .padding()
-                Toggle("Notification",isOn: $activeToggle).onChange(of: activeToggle) {
-                    if activeToggle {
-                        hydrationActivationViewModel.atuhorzation()
-                    }
-                   
-                }
+               
                 
-              
                 
                 Button {
                     withAnimation {
