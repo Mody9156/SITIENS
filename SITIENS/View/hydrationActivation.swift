@@ -13,6 +13,7 @@ struct hydrationActivation: View {
     @State var timeRemaining : Int = 60
     @State var timerIsReading = false
     @State private var autioPlayer : AVAudioPlayer?
+    @StateObject var hydrationActivationViewModel : HydrationActivationViewModel
     
     var body: some View {
         ZStack{

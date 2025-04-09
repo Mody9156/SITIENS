@@ -9,7 +9,7 @@ import Foundation
 import UserNotifications
 
 
-class hydrationActivationViewModel : ObservableObject {
+class HydrationActivationViewModel : ObservableObject {
     
     func notification(){
         //Contenu de la notification
