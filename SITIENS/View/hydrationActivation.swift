@@ -55,11 +55,14 @@ struct hydrationActivation: View {
                 
             }
         }
+        .onAppear{
+            hydrationActivationViewModel.notification()
+        }
     }
 }
 
 #Preview {
-    hydrationActivation()
+    hydrationActivation(hydrationActivationViewModel: HydrationActivationViewModel())
 }
 
 struct ActiveTimer: View {

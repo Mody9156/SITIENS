@@ -18,7 +18,9 @@ struct SITIENSApp: App {
                     Tab(
                         "Home",
                         systemImage: "house.fill") {
-                        hydrationActivation()
+                            hydrationActivation(
+                                hydrationActivationViewModel: HydrationActivationViewModel()
+                            )
                     }
                 }
                 
