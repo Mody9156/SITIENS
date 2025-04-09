@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 18.0, *)
 @main
 struct SITIENSApp: App {
     @State var useNavLink : Bool = false 
@@ -18,9 +19,7 @@ struct SITIENSApp: App {
                     Tab(
                         "Home",
                         systemImage: "house.fill") {
-                            hydrationActivation(
-                                hydrationActivationViewModel: HydrationActivationViewModel()
-                            )
+                            hydrationActivation()
                     }
                 }
                 

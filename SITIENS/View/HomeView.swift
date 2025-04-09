@@ -57,8 +57,12 @@ struct HomeView: View {
         }
     }
 }
-
-#Preview {
-    @Previewable @State var activeNavLink: Bool =  true
-    HomeView(activeNavLink: $activeNavLink)
-}
+//
+//#Preview if #available(iOS 17.0, *) {
+//    {
+//        @Previewable @State var activeNavLink: Bool =  true
+//        HomeView
+//    } else {
+//        // Fallback on earlier versions
+//    }(activeNavLink: $activeNavLink)
+//}

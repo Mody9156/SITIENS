@@ -7,62 +7,114 @@
 
 import SwiftUI
 import AVFoundation
+import Combine
 
 struct hydrationActivation: View {
-    @State var startDate = Date.now
-    @State var timeRemaining : Int = 60
     @State var timerIsReading = false
     @State private var autioPlayer : AVAudioPlayer?
-    @StateObject var hydrationActivationViewModel : HydrationActivationViewModel
+    @StateObject var hydrationActivationViewModel  = HydrationActivationViewModel()
+    @State var notification : Bool = false
+    @State var timeInterval : Int = 10
+    @State private var cancellable : Cancellable?
     
     var body: some View {
         ZStack{
             Color("BackgroundColor")
                 .ignoresSafeArea()
+            
             VStack {
                 Text("Chronomètre")
                 
-//                Gauge(value: 0.5, in: 0...1) {
-//                    Text("Label")
-//                }
-//                Text("\(time)")
-//                    .fontWeight(.heavy)
-//
-                Text("\(Date.now.formatted(date: .omitted, time: .shortened))")
-                    .font(.system(size: 100, weight: .heavy))
+                //                Gauge(value: 0.5, in: 0...1) {
+                //                    Text("Label")
+                //                }
+                //                Text("\(time)")
+                //                    .fontWeight(.heavy)
+                //
+                Text("Temps restant: \(formatTimer(timeInterval)) secondes")
                     .foregroundStyle(.white)
+                    .font(.title)
+                    .padding()
                 
                 Button {
                     withAnimation {
                         
+                        timerIsReading.toggle()
+                        
+                        if timerIsReading {
+                            startTimer()
+                        }else{
+                            cancellable?.cancel()
+                        }
                     }
+                    
                 } label: {
                     ZStack {
                         Circle()
                             .frame(height: 200)
-                        Text("Commencer")
+                            .foregroundStyle(
+                                timerIsReading && timeInterval != 0 ? .orange:.green
+                            )
+                        Text(timerIsReading && timeInterval != 0 ? "Stopper" : "Commencer")
                             .foregroundStyle(.white)
                         
                     }
                 }
                 .buttonStyle(.plain)
-
                 
-//                HStack {
-//                    ActiveTimer(name: "lap")
-//                    ActiveTimer(name: "Start")
-//                }
+                
+                //                HStack {
+                //                    ActiveTimer(name: "lap")
+                //                    ActiveTimer(name: "Start")
+                //                }
                 
             }
         }
         .onAppear{
-            hydrationActivationViewModel.notification()
+            if timeInterval == 0 {
+                hydrationActivationViewModel.notification()
+            }
+                
+            
+            
+            startTimer()
+            
         }
+    }
+    
+    func startTimer(){
+        
+        cancellable?.cancel()
+        
+        cancellable = Timer
+            .publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink { _ in
+                if timeInterval > 0 {
+                    timeInterval -= 1
+                }else{
+                    timeInterval = 0
+                    hydrationActivationViewModel.notification()
+                }
+            }
+        
+    }
+    
+    func stopTimer(){
+        cancellable?.cancel()
+        timeInterval = 10  
+    }
+    
+    func formatTimer(_ secondes :Int) -> String {
+        let hours = secondes / 3600
+        let minutes = (secondes % 3600) / 60
+        let seconds = (secondes % 3600) % 60
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
 }
 
 #Preview {
-    hydrationActivation(hydrationActivationViewModel: HydrationActivationViewModel())
+    hydrationActivation()
 }
 
 struct ActiveTimer: View {
