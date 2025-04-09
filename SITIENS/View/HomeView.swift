@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @AppStorage("navlink") var activeNavLink : Bool = false
+    @Binding var activeNavLink : Bool
     
     var body: some View {
         NavigationStack {
@@ -21,20 +21,14 @@ struct HomeView: View {
                     HStack {
                         
                         Spacer()
-                        NavigationLink {
-                            hydrationActivation()
-                        } label: {
-                            Button(action:{
-                                activeNavLink = true
-                            }){
-                                Text("Skip")
-                                    .foregroundStyle(.white)
-                                    .font(.headline)
-                            }
-                        }
-
-                     
                         
+                        Button(action:{
+                            activeNavLink = true
+                        }){
+                            Text("Skip")
+                                .foregroundStyle(.white)
+                                .font(.headline)
+                        }
                     }
                     .padding()
                     
@@ -42,24 +36,22 @@ struct HomeView: View {
                     
                     Image(systemName: "waterbottle.fill")
                         .resizable()
-                        .frame(width: 100,height: 200)
+                        .frame(width: 100, height: 150)
                         .foregroundStyle(.white)
                     
                     Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
                         .font(.title2)
                         .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
                         .padding()
                     
                     Text("Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps en bonne santé.")
                         .font(.callout)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(width: 300)
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
                     
                     Spacer()
-                    
-                    
-                    
-                    
                 }
             }
         }
@@ -67,5 +59,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    @Previewable @State var activeNavLink: Bool =  true
+    HomeView(activeNavLink: $activeNavLink)
 }

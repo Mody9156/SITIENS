@@ -9,18 +9,22 @@ import SwiftUI
 
 @main
 struct SITIENSApp: App {
-    @State var useNavLink = UserDefaults.standard.bool(forKey:"navlink")
+    @State var useNavLink : Bool = false 
     
     var body: some Scene {
         WindowGroup {
             if useNavLink {
-                TabView{
-                    hydrationActivation()
+                TabView {
+                    Tab(
+                        "Home",
+                        systemImage: "house.fill") {
+                        hydrationActivation()
+                    }
                 }
                 
             }else {
                 TabView{
-                    HomeView()
+                    HomeView(activeNavLink: $useNavLink)
                         
                     InfosView()
                 }
