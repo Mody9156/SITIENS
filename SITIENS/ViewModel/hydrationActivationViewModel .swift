@@ -11,7 +11,13 @@ import UserNotifications
 
 class HydrationActivationViewModel : ObservableObject {
     
-    
+    func atuhorzation(){
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
+            if let error = error {
+                print("Error requesting authorization: \(error)")
+            }
+        }
+    }
     
     func notification(){
         //Contenu de la notification
@@ -32,11 +38,11 @@ class HydrationActivationViewModel : ObservableObject {
             content: userNotification,
             trigger: trigger
         )
-        UNUserNotificationCenter.current().add(request){ error in
-            if let error = error {
-                           print("Erreur lors de l'ajout de la notification: \(error)")
-                       }
-        }
+        
+        UNUserNotificationCenter
+            .current()
+            .add(request)
+           
     }
 }
 

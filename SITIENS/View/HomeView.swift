@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Binding var activeNavLink : Bool
+    @Binding  var activeNavLink : Bool
     
     var body: some View {
         NavigationStack {
@@ -57,12 +57,15 @@ struct HomeView: View {
         }
     }
 }
-//
-//#Preview if #available(iOS 17.0, *) {
-//    {
-//        @Previewable @State var activeNavLink: Bool =  true
-//        HomeView
-//    } else {
-//        // Fallback on earlier versions
-//    }(activeNavLink: $activeNavLink)
+
+//#Preview {
+//    struct Active: View {
+//        @State var activeNavLink: Bool = false
+//           
+//           var body: some View {
+//               HomeView(activeNavLink: $activeNavLink)
+//           }
+//       }
+//    Active()
+//    
 //}

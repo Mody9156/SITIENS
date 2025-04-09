@@ -15,6 +15,8 @@ struct hydrationActivation: View {
     @StateObject var hydrationActivationViewModel  = HydrationActivationViewModel()
     @State var notification : Bool = false
     @State var timeInterval : Int = 10
+    @State var activeToggle : Bool = false
+    
     @State private var cancellable : Cancellable?
     
     var body: some View {
@@ -35,16 +37,24 @@ struct hydrationActivation: View {
                     .foregroundStyle(.white)
                     .font(.title)
                     .padding()
+                Toggle("Notification",isOn: $activeToggle).onChange(of: activeToggle) {
+                    if activeToggle {
+                        hydrationActivationViewModel.atuhorzation()
+                    }
+                   
+                }
+                
+              
                 
                 Button {
                     withAnimation {
-                        
+                        hydrationActivationViewModel.atuhorzation()
                         timerIsReading.toggle()
                         
                         if timerIsReading {
                             startTimer()
                         }else{
-                            cancellable?.cancel()
+                            stopTimer()
                         }
                     }
                     
