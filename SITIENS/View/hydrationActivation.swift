@@ -16,6 +16,7 @@ struct hydrationActivation: View {
     @State var notification : Bool = false
     @State var timeInterval : Int = 10
     @State var activeToggle : Bool = false
+    var timeManager : [TimeManager] = []
     
     @State private var cancellable : Cancellable?
     
