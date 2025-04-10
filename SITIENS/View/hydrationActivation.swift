@@ -1,110 +1,116 @@
-//
-//  Timer.swift
-//  SITIENS
-//
-//  Created by Modibo on 08/04/2025.
-//
-
 import SwiftUI
 import AVFoundation
 import Combine
 
-struct hydrationActivation: View {
+struct HydrationActivation: View {
     @State var timerIsReading = false
-    @State private var autioPlayer : AVAudioPlayer?
-    @StateObject var hydrationActivationViewModel  = HydrationActivationViewModel()
-    @State var notification : Bool = false
-    @State var timeInterval : Int = 10
-    @State var activeToggle : Bool = false
-    var timeManager : [TimeManager] = []
-    @State var showNewView : Bool = false
+    @State private var audioPlayer: AVAudioPlayer?
+    @StateObject var hydrationActivationViewModel = HydrationActivationViewModel()
+    @State var notification: Bool = false
+    @State var timeInterval: Int = 10
+    @State var activeToggle: Bool = false
+    var timeManager: [TimeManager] = []
+    @State var showNewView: Bool = false
     
-    @State private var cancellable : Cancellable?
+    @State private var cancellable: Cancellable?
     
     var body: some View {
-        ZStack{
+        ZStack {
             Color("BackgroundColor")
                 .ignoresSafeArea()
             
             VStack {
-                Text("Chronomètre")
+                Text("Hydradation")
+                    .foregroundStyle(.blue)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
                 
-                //                Gauge(value: 0.5, in: 0...1) {
-                //                    Text("Label")
-                //                }
-                //                Text("\(time)")
-                //                    .fontWeight(.heavy)
-                //
-                Text("Temps restant: \(formatTimer(timeInterval)) secondes")
+                Text("Temps Restant")
                     .foregroundStyle(.white)
-                    .font(.title)
-                    .padding()
-               
+                    .font(.title3)
+                    .fontWeight(.heavy)
                 
+                Text("\(formatTimer(timeInterval)) ")
+                    .foregroundStyle(.white)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding()
                 
                 Button {
-                    withAnimation {
-                        hydrationActivationViewModel.atuhorzation()
-                        timerIsReading.toggle()
-                        
-                        if timerIsReading {
-                            startTimer()
-                        }else{
-                            stopTimer()
-                        }
-                    }
-                    
+                    toggleTimer()
                 } label: {
                     ZStack {
+                        
                         Circle()
                             .frame(height: 200)
-                            .foregroundStyle(
-                                timerIsReading && timeInterval != 0 ? .orange:.green
-                            )
-                        Text(timerIsReading && timeInterval != 0 ? "Stopper" : "Commencer")
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.blue)
                         
+                        Text(timerIsReading && timeInterval != 0 ? "STOPPER" : timeInterval < 10 ? "REPRENDRE" :"COMMENCER")
+                            .foregroundStyle(.white)
+                            .font(
+                                .system(size: 20, weight: .bold, design: .serif)
+                            )
                     }
                 }
+                .overlay(content: {
+                    Circle()
+                        .stroke(
+                            style: StrokeStyle(
+                                lineWidth: 4,
+                                lineCap: .round
+                            ))
+                        .foregroundStyle(.gray)
+                       
+                })
                 .buttonStyle(.plain)
                 
-                
-                //                HStack {
-                //                    ActiveTimer(name: "lap")
-                //                    ActiveTimer(name: "Start")
-                //                }
                 Button {
-                    
+                    timeInterval = 10
                 } label: {
-                    Text("click here")
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 20)
+                            .frame(width: 300,height: 50)
+                            .foregroundStyle(Color("BackgroundColor"))
+                            .border(.blue,width: 4)
+                        Text("Reinitialiser")
+                            .foregroundStyle(.blue)
+                            .font(
+                                .system(size: 20, weight: .bold, design: .serif)
+                            )
+                    }
                 }
-                .sheet(isPresented: $showNewView,
-                       onDismiss: didDismiss){
-                    ConfigureTimer()
-                }
+                .padding()
 
-
-                
+               
             }
         }
-        .onAppear{
+        .onAppear {
             if timeInterval == 0 {
                 hydrationActivationViewModel.notification()
             }
-                
-            
-            
             startTimer()
-            
         }
     }
     
-    func didDismiss(){
-        
+    func toggleTimer() {
+        withAnimation {
+            hydrationActivationViewModel.atuhorzation()
+            
+            timerIsReading.toggle()
+            
+            if timerIsReading {
+                startTimer()
+            } else {
+                stopTimer()
+            }
+        }
     }
     
-    func startTimer(){
-        
+    func didDismiss() {
+        // Handle dismissal if necessary
+    }
+    
+    func startTimer() {
         cancellable?.cancel()
         
         cancellable = Timer
@@ -113,20 +119,18 @@ struct hydrationActivation: View {
             .sink { _ in
                 if timeInterval > 0 {
                     timeInterval -= 1
-                }else{
+                } else {
                     timeInterval = 0
                     hydrationActivationViewModel.notification()
                 }
             }
-        
     }
     
-    func stopTimer(){
+    func stopTimer() {
         cancellable?.cancel()
-        timeInterval = 10  
     }
     
-    func formatTimer(_ secondes :Int) -> String {
+    func formatTimer(_ secondes: Int) -> String {
         let hours = secondes / 3600
         let minutes = (secondes % 3600) / 60
         let seconds = (secondes % 3600) % 60
@@ -135,21 +139,20 @@ struct hydrationActivation: View {
 }
 
 #Preview {
-    hydrationActivation()
+    HydrationActivation()
 }
 
 struct ActiveTimer: View {
-    var name : String
+    var name: String
     var body: some View {
         Button {
-            
+            // Action pour le timer actif
         } label: {
             ZStack {
                 Circle()
                     .frame(height: 50)
                 Text(name)
                     .foregroundStyle(.white)
-                
             }
         }
     }
