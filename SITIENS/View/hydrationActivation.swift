@@ -7,7 +7,7 @@ struct HydrationActivation: View {
     @State private var audioPlayer: AVAudioPlayer?
     @StateObject var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var notification: Bool = false
-    @State var timeInterval: Int = 10
+    @State var timeInterval: Int = 7200
     @State var activeToggle: Bool = false
     var timeManager: [TimeManager] = []
     @State var showNewView: Bool = false
@@ -45,7 +45,7 @@ struct HydrationActivation: View {
                             .frame(height: 200)
                             .foregroundStyle(.blue)
                         
-                        Text(timerIsReading && timeInterval != 0 ? "STOPPER" : timeInterval < 10 ? "REPRENDRE" :"COMMENCER")
+                        Text(timerIsReading && timeInterval != 0 ? "STOPPER" : timeInterval < 7200 ? "REPRENDRE" :"COMMENCER")
                             .foregroundStyle(.white)
                             .font(
                                 .system(size: 20, weight: .bold, design: .serif)
@@ -66,6 +66,7 @@ struct HydrationActivation: View {
                 
                 Button {
                     timeInterval = 10
+                    stopTimer()
                 } label: {
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
@@ -92,7 +93,7 @@ struct HydrationActivation: View {
             if timeInterval == 0 {
                 hydrationActivationViewModel.notification()
             }
-            startTimer()
+         
         }
     }
     
