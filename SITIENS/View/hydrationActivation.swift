@@ -17,6 +17,7 @@ struct hydrationActivation: View {
     @State var timeInterval : Int = 10
     @State var activeToggle : Bool = false
     var timeManager : [TimeManager] = []
+    @State var showNewView : Bool = false
     
     @State private var cancellable : Cancellable?
     
@@ -72,6 +73,17 @@ struct hydrationActivation: View {
                 //                    ActiveTimer(name: "lap")
                 //                    ActiveTimer(name: "Start")
                 //                }
+                Button {
+                    
+                } label: {
+                    Text("click here")
+                }
+                .sheet(isPresented: $showNewView,
+                       onDismiss: didDismiss){
+                    ConfigureTimer()
+                }
+
+
                 
             }
         }
@@ -85,6 +97,10 @@ struct hydrationActivation: View {
             startTimer()
             
         }
+    }
+    
+    func didDismiss(){
+        
     }
     
     func startTimer(){
