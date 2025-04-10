@@ -19,7 +19,7 @@ struct SITIENSApp: App {
                     Tab(
                         "Home",
                         systemImage: "house.fill") {
-                            hydrationActivation()
+                            HydrationActivation()
                     }
                 }
                 
@@ -27,7 +27,7 @@ struct SITIENSApp: App {
                 TabView{
                     HomeView(activeNavLink: $useNavLink)
                         
-                    InfosView()
+                    InfosView(activeNavLink: $useNavLink)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
             }

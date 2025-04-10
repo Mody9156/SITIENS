@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct InfosView: View {
+    @Binding  var activeNavLink : Bool
     var body: some View {
         NavigationStack {
             ZStack{
@@ -15,6 +16,19 @@ struct InfosView: View {
                     .ignoresSafeArea()
                 
                 VStack {
+                    HStack {
+                        Spacer()
+                        
+                        Button(action:{
+                            activeNavLink = true
+                        }){
+                            Text("Skip")
+                                .foregroundStyle(.white)
+                                .font(.headline)
+                        }
+                    }
+                    .padding()
+                    
                     
                     Spacer()
                     
@@ -34,7 +48,7 @@ struct InfosView: View {
                         .frame(width: 300)
                     
                     Spacer()
-                   
+                    
                 }
             }
         }
@@ -42,5 +56,6 @@ struct InfosView: View {
 }
 
 #Preview {
-    InfosView()
+    @Previewable @State var activeNavLink: Bool = false
+    InfosView(activeNavLink: $activeNavLink)
 }

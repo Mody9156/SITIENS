@@ -29,9 +29,22 @@
 		4FA205AF2DA40CB1004C8CC4 /* SITIENSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SITIENSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4F0F14432DA8448900293227 /* Exceptions for "SITIENS" folder in "SITIENS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4FA205942DA40CAF004C8CC4 /* SITIENS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4FA205972DA40CAF004C8CC4 /* SITIENS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4F0F14432DA8448900293227 /* Exceptions for "SITIENS" folder in "SITIENS" target */,
+			);
 			path = SITIENS;
 			sourceTree = "<group>";
 		};
