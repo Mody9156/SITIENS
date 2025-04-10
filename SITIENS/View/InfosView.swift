@@ -51,8 +51,9 @@ struct InfosView: View {
             }
         }
     }
-}
+
 
 #Preview {
-    InfosView()
+    @Previewable @State var activeNavLink: Bool = false
+    InfosView(activeNavLink: $activeNavLink)
 }
