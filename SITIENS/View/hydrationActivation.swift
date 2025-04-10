@@ -59,7 +59,7 @@ struct HydrationActivation: View {
                                 lineWidth: 4,
                                 lineCap: .round
                             ))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.white)
                        
                 })
                 .buttonStyle(.plain)
@@ -71,7 +71,11 @@ struct HydrationActivation: View {
                         RoundedRectangle(cornerRadius: 20)
                             .frame(width: 300,height: 50)
                             .foregroundStyle(Color("BackgroundColor"))
-                            .border(.blue,width: 4)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(.blue, lineWidth: 4)
+                            }
+                        
                         Text("Reinitialiser")
                             .foregroundStyle(.blue)
                             .font(

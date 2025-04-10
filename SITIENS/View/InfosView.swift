@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct InfosView: View {
+    @Binding  var activeNavLink : Bool
+    
     var body: some View {
         NavigationStack {
             ZStack{
@@ -16,6 +18,16 @@ struct InfosView: View {
                 
                 VStack {
                     
+                    Button(action:{
+                        activeNavLink = true
+                    }){
+                        Text("Skip")
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                    }
+                }
+                .padding()
+                
                     Spacer()
                     
                     Image(systemName: "drop")
