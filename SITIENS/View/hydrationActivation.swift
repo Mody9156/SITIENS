@@ -6,12 +6,7 @@ import UIKit
 struct HydrationActivation: View {
     @State var timerIsReading = false
     @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
-    @State var notification: Bool = false
     @State var timeInterval: Int = 10
-    @State var activeToggle: Bool = false
-    var timeManager: [TimeManager] = []
-    @State var showNewView: Bool = false
-    @State var scale: CGFloat = 1.0
     @State private var cancellable: Cancellable?
     @State private var soundPlayed = false
  
@@ -37,7 +32,7 @@ struct HydrationActivation: View {
                         .foregroundStyle(.secondary)
                 }
 
-                Text(formatTimer(timeInterval))
+                Text(hydrationActivationViewModel.formatTimer(timeInterval))
                     .font(.system(size: 48, weight: .bold, design: .monospaced))
                     .foregroundStyle(.primary)
 
@@ -134,12 +129,6 @@ struct HydrationActivation: View {
         cancellable?.cancel()
     }
 
-    func formatTimer(_ secondes: Int) -> String {
-        let hours = secondes / 3600
-        let minutes = (secondes % 3600) / 60
-        let seconds = (secondes % 3600) % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
 }
 
 #Preview {

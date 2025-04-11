@@ -12,6 +12,19 @@ import AVFoundation
 @Observable
 class HydrationActivationViewModel {
      var audioPlayer: AVAudioPlayer?
+    
+    init(audioPlayer: AVAudioPlayer? = nil) {
+        self.audioPlayer = audioPlayer
+    }
+    
+    
+    func formatTimer(_ secondes: Int) -> String {
+        let hours = secondes / 3600
+        let minutes = (secondes % 3600) / 60
+        let seconds = (secondes % 3600) % 60
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    
 
     func playSound(sound:String) {
         if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
