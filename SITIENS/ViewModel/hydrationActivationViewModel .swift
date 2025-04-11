@@ -7,9 +7,22 @@
 
 import Foundation
 import UserNotifications
+import AVFoundation
 
 @Observable
 class HydrationActivationViewModel {
+     var audioPlayer: AVAudioPlayer?
+
+    func playSound(sound:String) {
+        if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+                audioPlayer?.play()
+            } catch {
+                print("ERROR")
+            }
+        }
+    }
     
     func atuhorzation(){
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in

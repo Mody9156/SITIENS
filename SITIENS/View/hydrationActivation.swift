@@ -1,12 +1,10 @@
 import SwiftUI
-import AVFoundation
 import Combine
 import WidgetKit
 import UIKit
 
 struct HydrationActivation: View {
     @State var timerIsReading = false
-    @State private var audioPlayer: AVAudioPlayer?
     @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var notification: Bool = false
     @State var timeInterval: Int = 10
@@ -14,9 +12,9 @@ struct HydrationActivation: View {
     var timeManager: [TimeManager] = []
     @State var showNewView: Bool = false
     @State var scale: CGFloat = 1.0
-    
     @State private var cancellable: Cancellable?
-
+    @State private var soundPlayed = false
+ 
     var body: some View {
         ZStack {
             // Background
@@ -46,6 +44,7 @@ struct HydrationActivation: View {
                 // Bouton cercle principal
                 Button {
                     toggleTimer()
+                  
                 } label: {
                     ZStack {
                         Circle()
@@ -63,6 +62,7 @@ struct HydrationActivation: View {
                 }
                 .buttonStyle(.plain)
                 .animation(.spring(), value: timerIsReading)
+                
 
                 // Bouton réinitialiser
                 Button {
@@ -86,6 +86,9 @@ struct HydrationActivation: View {
             if timeInterval == 0 {
                 hydrationActivationViewModel.notification()
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                
+                   
+                
             }
         }
     }
@@ -107,7 +110,9 @@ struct HydrationActivation: View {
             timerIsReading ? startTimer() : stopTimer()
         }
     }
-
+ 
+    
+  
     func startTimer() {
         cancellable?.cancel()
         cancellable = Timer.publish(every: 1, on: .main, in: .common)
@@ -115,9 +120,12 @@ struct HydrationActivation: View {
             .sink { _ in
                 if timeInterval > 0 {
                     timeInterval -= 1
-                } else {
+                }else if timeInterval == 0 && !soundPlayed  {
+                    self.hydrationActivationViewModel.playSound(sound: "asphalt-sizzle")
                     timeInterval = 0
                     hydrationActivationViewModel.notification()
+                   
+                   
                 }
             }
     }
