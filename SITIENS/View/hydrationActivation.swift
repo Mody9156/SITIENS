@@ -82,10 +82,9 @@ struct HydrationActivation: View {
                 hydrationActivationViewModel.notification()
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 
-                   
-                
             }
         }
+       
     }
 
     var buttonLabel: String {
@@ -115,12 +114,11 @@ struct HydrationActivation: View {
             .sink { _ in
                 if timeInterval > 0 {
                     timeInterval -= 1
-                }else if timeInterval == 0 && !soundPlayed  {
-                    self.hydrationActivationViewModel.playSound(sound: "asphalt-sizzle")
+                }else {
                     timeInterval = 0
                     hydrationActivationViewModel.notification()
                    
-                   
+//                    hydrationActivationViewModel.playSound(sound: "fresh-breeze-321612")
                 }
             }
     }
