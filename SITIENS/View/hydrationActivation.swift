@@ -1,140 +1,139 @@
 import SwiftUI
-import AVFoundation
 import Combine
+import WidgetKit
+import UIKit
 
 struct HydrationActivation: View {
     @State var timerIsReading = false
-    @State private var audioPlayer: AVAudioPlayer?
-    @StateObject var hydrationActivationViewModel = HydrationActivationViewModel()
+    @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var notification: Bool = false
-    @State var timeInterval: Int = 7200
+    @State var timeInterval: Int = 10
     @State var activeToggle: Bool = false
     var timeManager: [TimeManager] = []
     @State var showNewView: Bool = false
-    
+    @State var scale: CGFloat = 1.0
     @State private var cancellable: Cancellable?
-    
+    @State private var soundPlayed = false
+ 
     var body: some View {
         ZStack {
-            Color("BackgroundColor")
-                .ignoresSafeArea()
+            // Background
+            LinearGradient(
+                gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
             
-            VStack {
-                Text("Hydradation")
-                    .foregroundStyle(.blue)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                
-                Text("Temps Restant")
-                    .foregroundStyle(.white)
-                    .font(.title3)
-                    .fontWeight(.heavy)
-                
-                Text("\(formatTimer(timeInterval)) ")
-                    .foregroundStyle(.white)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding()
-                
+            VStack(spacing: 32) {
+                VStack(spacing: 4) {
+                    Text("Hydratation")
+                        .font(.system(.largeTitle, design: .rounded))
+                        .fontWeight(.bold)
+                        .foregroundStyle(.primary)
+                    
+                    Text("Temps restant")
+                        .font(.title3)
+                        .foregroundStyle(.secondary)
+                }
+
+                Text(formatTimer(timeInterval))
+                    .font(.system(size: 48, weight: .bold, design: .monospaced))
+                    .foregroundStyle(.primary)
+
+                // Bouton cercle principal
                 Button {
                     toggleTimer()
+                  
                 } label: {
                     ZStack {
-                        
                         Circle()
-                            .frame(height: 200)
-                            .foregroundStyle(.blue)
-                        
-                        Text(timerIsReading && timeInterval != 0 ? "STOPPER" : timeInterval < 7200 ? "REPRENDRE" :"COMMENCER")
+                            .fill(timerIsReading ? Color.red : Color.blue)
+                            .frame(width: 200, height: 200)
+                            .shadow(radius: 10)
+                            .scaleEffect(timerIsReading ? 1.05 : 1)
+                            .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+
+                        Text(buttonLabel)
+                            .font(.title3)
+                            .fontWeight(.bold)
                             .foregroundStyle(.white)
-                            .font(
-                                .system(size: 20, weight: .bold, design: .serif)
-                            )
                     }
                 }
-                .overlay(content: {
-                    Circle()
-                        .stroke(
-                            style: StrokeStyle(
-                                lineWidth: 4,
-                                lineCap: .round
-                            ))
-                        .foregroundStyle(.white)
-                       
-                })
                 .buttonStyle(.plain)
+                .animation(.spring(), value: timerIsReading)
                 
+
+                // Bouton réinitialiser
                 Button {
                     timeInterval = 10
                     stopTimer()
                 } label: {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 20)
-                            .frame(width: 300,height: 50)
-                            .foregroundStyle(Color("BackgroundColor"))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.blue, lineWidth: 4)
-                            }
-                        
-                        Text("Reinitialiser")
-                            .foregroundStyle(.blue)
-                            .font(
-                                .system(size: 20, weight: .bold, design: .serif)
-                            )
-                    }
+                    Text("Réinitialiser")
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(.blue)
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .shadow(radius: 4)
                 }
-                .padding()
-
-               
+                .padding(.horizontal)
             }
+            .padding()
         }
         .onAppear {
             if timeInterval == 0 {
                 hydrationActivationViewModel.notification()
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                
+                   
+                
             }
-         
         }
     }
-    
+
+    var buttonLabel: String {
+        if timerIsReading && timeInterval != 0 {
+            return "STOPPER"
+        } else if timeInterval < 10 {
+            return "REPRENDRE"
+        } else {
+            return "COMMENCER"
+        }
+    }
+
     func toggleTimer() {
         withAnimation {
             hydrationActivationViewModel.atuhorzation()
-            
             timerIsReading.toggle()
-            
-            if timerIsReading {
-                startTimer()
-            } else {
-                stopTimer()
-            }
+            timerIsReading ? startTimer() : stopTimer()
         }
     }
+ 
     
-    func didDismiss() {
-        // Handle dismissal if necessary
-    }
-    
+  
     func startTimer() {
         cancellable?.cancel()
-        
-        cancellable = Timer
-            .publish(every: 1, on: .main, in: .common)
+        cancellable = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
                 if timeInterval > 0 {
                     timeInterval -= 1
-                } else {
+                }else if timeInterval == 0 && !soundPlayed  {
+                    self.hydrationActivationViewModel.playSound(sound: "asphalt-sizzle")
                     timeInterval = 0
                     hydrationActivationViewModel.notification()
+                   
+                   
                 }
             }
     }
-    
+
     func stopTimer() {
         cancellable?.cancel()
     }
-    
+
     func formatTimer(_ secondes: Int) -> String {
         let hours = secondes / 3600
         let minutes = (secondes % 3600) / 60
@@ -145,20 +144,4 @@ struct HydrationActivation: View {
 
 #Preview {
     HydrationActivation()
-}
-
-struct ActiveTimer: View {
-    var name: String
-    var body: some View {
-        Button {
-            // Action pour le timer actif
-        } label: {
-            ZStack {
-                Circle()
-                    .frame(height: 50)
-                Text(name)
-                    .foregroundStyle(.white)
-            }
-        }
-    }
 }
