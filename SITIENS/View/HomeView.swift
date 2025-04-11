@@ -13,6 +13,11 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack{
+                Color
+                    .gray
+                    .opacity(0.3)
+                    .ignoresSafeArea()
+                
                 VStack {
                     HStack {
                         Spacer()

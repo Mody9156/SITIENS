@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-@available(iOS 18.0, *)
 @main
 struct SITIENSApp: App {
     @State var useNavLink : Bool = false 
@@ -30,7 +28,14 @@ struct SITIENSApp: App {
                     InfosView(activeNavLink: $useNavLink)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
+                .background(Color(.gray).opacity(0.3).ignoresSafeArea())
+                .onAppear{
+                    UIPageControl.appearance().pageIndicatorTintColor = .gray
+                    UIPageControl.appearance().currentPageIndicatorTintColor = .black
+                }
+                
             }
         }
+        
     }
 }

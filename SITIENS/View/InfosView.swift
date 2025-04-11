@@ -12,50 +12,57 @@ struct InfosView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    
-                    Button(action: {
-                        withAnimation {
-                            activeNavLink = true
+            ZStack {
+                Color
+                    .gray
+                    .opacity(0.3)
+                    .ignoresSafeArea()
+                
+                VStack {
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            withAnimation {
+                                activeNavLink = true
+                            }
+                            
+                        }) {
+                            Text("Skip")
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
+                                .background(Color.black)
+                                .clipShape(Capsule())
                         }
+                        .accessibilityLabel("Passer l’introduction")
                         
-                    }) {
-                        Text("Skip")
-                            .font(.headline)
-                            .foregroundStyle(.white)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .background(Color.black)
-                            .clipShape(Capsule())
-                    }
-                    .accessibilityLabel("Passer l’introduction")
-                    
-                }
-                .padding()
-                
-                Image("thirstyPicture")
-                    .resizable()
-                
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.leading)
-                            .padding(.bottom, 8)
-                        
-                        Text("""
-                            D’une manière générale, il est fortement déconseillé de boire plus de 5 litres d’eau par jour, \
-                            car une grande quantité d’eau risque de diluer les constantes sanguines. Voyons quelles peuvent \
-                            être les différentes conséquences d’une surconsommation d’eau.
-                            """)
-                        .font(.callout)
-                        .multilineTextAlignment(.leading)
-                        .frame(width: 300, alignment: .leading)
                     }
                     .padding()
+                    
+                    Image("thirstyPicture")
+                        .resizable()
+                    
+                    ScrollView {
+                        VStack(alignment: .leading) {
+                            Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.leading)
+                                .padding(.bottom, 8)
+                            
+                            Text("""
+                                D’une manière générale, il est fortement déconseillé de boire plus de 5 litres d’eau par jour, \
+                                car une grande quantité d’eau risque de diluer les constantes sanguines. Voyons quelles peuvent \
+                                être les différentes conséquences d’une surconsommation d’eau.
+                                """)
+                            .font(.callout)
+                            .multilineTextAlignment(.leading)
+                            .frame(width: 300, alignment: .leading)
+                        }
+                        .padding()
+                    }
                 }
             }
         }
