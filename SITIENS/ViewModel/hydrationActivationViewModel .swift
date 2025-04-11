@@ -8,8 +8,8 @@
 import Foundation
 import UserNotifications
 
-
-class HydrationActivationViewModel : ObservableObject {
+@Observable
+class HydrationActivationViewModel {
     
     func atuhorzation(){
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in

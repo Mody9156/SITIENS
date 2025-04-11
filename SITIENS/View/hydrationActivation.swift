@@ -1,37 +1,38 @@
 import SwiftUI
 import AVFoundation
 import Combine
+import WidgetKit
 
 struct HydrationActivation: View {
     @State var timerIsReading = false
     @State private var audioPlayer: AVAudioPlayer?
-    @StateObject var hydrationActivationViewModel = HydrationActivationViewModel()
+    @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var notification: Bool = false
     @State var timeInterval: Int = 7200
     @State var activeToggle: Bool = false
     var timeManager: [TimeManager] = []
     @State var showNewView: Bool = false
+    @State var scale: CGFloat = 1.0
     
     @State private var cancellable: Cancellable?
     
     var body: some View {
         ZStack {
-            Color("BackgroundColor")
-                .ignoresSafeArea()
             
             VStack {
+                
                 Text("Hydradation")
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.black)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
                 Text("Temps Restant")
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.black)
                     .font(.title3)
                     .fontWeight(.heavy)
                 
                 Text("\(formatTimer(timeInterval)) ")
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.black)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding()
@@ -46,7 +47,7 @@ struct HydrationActivation: View {
                             .foregroundStyle(.blue)
                         
                         Text(timerIsReading && timeInterval != 0 ? "STOPPER" : timeInterval < 7200 ? "REPRENDRE" :"COMMENCER")
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.black)
                             .font(
                                 .system(size: 20, weight: .bold, design: .serif)
                             )
@@ -59,8 +60,8 @@ struct HydrationActivation: View {
                                 lineWidth: 4,
                                 lineCap: .round
                             ))
-                        .foregroundStyle(.white)
-                       
+                        .foregroundStyle(.black)
+                    
                 })
                 .buttonStyle(.plain)
                 
@@ -74,7 +75,7 @@ struct HydrationActivation: View {
                             .foregroundStyle(Color("BackgroundColor"))
                             .overlay {
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.blue, lineWidth: 4)
+                                    .stroke(.black, lineWidth: 4)
                             }
                         
                         Text("Reinitialiser")
@@ -85,17 +86,15 @@ struct HydrationActivation: View {
                     }
                 }
                 .padding()
-
-               
             }
         }
         .onAppear {
             if timeInterval == 0 {
                 hydrationActivationViewModel.notification()
             }
-         
         }
     }
+    
     
     func toggleTimer() {
         withAnimation {
@@ -147,18 +146,3 @@ struct HydrationActivation: View {
     HydrationActivation()
 }
 
-struct ActiveTimer: View {
-    var name: String
-    var body: some View {
-        Button {
-            // Action pour le timer actif
-        } label: {
-            ZStack {
-                Circle()
-                    .frame(height: 50)
-                Text(name)
-                    .foregroundStyle(.white)
-            }
-        }
-    }
-}
