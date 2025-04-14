@@ -22,6 +22,9 @@ class HydrationActivationViewModel {
         self.audioFile = audioFile
     }
     
+    func playingSound(){
+        avAudioEngine.attach(avAudioPlayerNode)
+    }
     
     func formatTimer(_ secondes: Int) -> String {
         let hours = secondes / 3600
