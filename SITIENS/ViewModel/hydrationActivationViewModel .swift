@@ -11,19 +11,50 @@ import AVFoundation
 
 @Observable
 class HydrationActivationViewModel {
-     var audioPlayer: AVAudioPlayer?
+    var audioPlayer: AVAudioPlayer?
     
-    var audioFile : String
     let avAudioEngine = AVAudioEngine()
     let avAudioPlayerNode = AVAudioPlayerNode()
     
-    init(audioPlayer: AVAudioPlayer? = nil, audioFile : String ) {
+    init(audioPlayer: AVAudioPlayer? = nil ) {
         self.audioPlayer = audioPlayer
-        self.audioFile = audioFile
     }
     
-    func playingSound(){
-        avAudioEngine.attach(avAudioPlayerNode)
+    func playingSound(audioFile : String) async throws {
+        
+        guard let url = Bundle.main.url(forResource: audioFile, withExtension: "mp3") else{
+            return  print("Erreur lors du chargement du fichier")
+        }
+        
+        do{
+            let file = try AVAudioFile(forReading: url)
+            avAudioEngine.attach(avAudioPlayerNode)
+            
+            avAudioEngine
+                .connect(
+                    avAudioPlayerNode,
+                    to: avAudioEngine.outputNode,
+                    format: file.processingFormat
+                )
+            
+             await avAudioPlayerNode
+                .scheduleFile(
+                    file,
+                    at: nil,
+                    completionCallbackType: .dataPlayedBack
+                )
+            
+            try avAudioEngine.start()
+            avAudioPlayerNode.play()
+            
+        }catch {
+            print("Erreur pendant la lecture : \(error.localizedDescription)")
+        }
+    }
+    
+    func stopPlaying(){
+        avAudioEngine.stop()
+        avAudioPlayerNode.stop()
     }
     
     func formatTimer(_ secondes: Int) -> String {
@@ -33,7 +64,7 @@ class HydrationActivationViewModel {
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
     
-
+    
     func playSound(sound:String) {
         if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
             do {
@@ -60,13 +91,13 @@ class HydrationActivationViewModel {
         userNotification.title = "Il est temps de boire de l'eau"
         userNotification.sound = UNNotificationSound.default
         userNotification.body = "Boire de l'eau est essentiel à notre bien-être"
-            
-            //Trigger (déclanche quand la notification sera envoyée)
+        
+        //Trigger (déclanche quand la notification sera envoyée)
         let trigger = UNTimeIntervalNotificationTrigger(
             timeInterval: 1,
             repeats: false
         )
-            //Request
+        //Request
         let request = UNNotificationRequest(
             identifier: UUID().uuidString,
             content: userNotification,
@@ -76,7 +107,7 @@ class HydrationActivationViewModel {
         UNUserNotificationCenter
             .current()
             .add(request)
-           
+        
     }
 }
 
