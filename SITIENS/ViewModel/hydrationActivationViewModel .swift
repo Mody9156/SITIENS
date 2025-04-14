@@ -13,8 +13,13 @@ import AVFoundation
 class HydrationActivationViewModel {
      var audioPlayer: AVAudioPlayer?
     
-    init(audioPlayer: AVAudioPlayer? = nil) {
+    var audioFile : String
+    let avAudioEngine = AVAudioEngine()
+    let avAudioPlayerNode = AVAudioPlayerNode()
+    
+    init(audioPlayer: AVAudioPlayer? = nil, audioFile : String ) {
         self.audioPlayer = audioPlayer
+        self.audioFile = audioFile
     }
     
     
@@ -26,14 +31,11 @@ class HydrationActivationViewModel {
     }
     
 
-    func playSound(sound:String, stopPlay: Bool) {
+    func playSound(sound:String) {
         if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
                 audioPlayer?.play()
-                if stopPlay {
-                    audioPlayer?.stop()
-                }
                 
             } catch {
                 print("ERROR")
@@ -55,7 +57,6 @@ class HydrationActivationViewModel {
         userNotification.title = "Il est temps de boire de l'eau"
         userNotification.sound = UNNotificationSound.default
         userNotification.body = "Boire de l'eau est essentiel à notre bien-être"
-      
             
             //Trigger (déclanche quand la notification sera envoyée)
         let trigger = UNTimeIntervalNotificationTrigger(

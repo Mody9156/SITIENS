@@ -63,6 +63,7 @@ struct HydrationActivation: View {
                 Button {
                     timeInterval = 10
                     stopTimer()
+                    
                 } label: {
                     Text("Réinitialiser")
                         .font(.headline)
@@ -81,7 +82,6 @@ struct HydrationActivation: View {
             if timeInterval == 0 {
                 hydrationActivationViewModel.notification()
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                hydrationActivationViewModel.playSound(sound: "fresh-breeze-321612")
                 
             }
         }
@@ -116,8 +116,6 @@ struct HydrationActivation: View {
                 }else {
                     timeInterval = 0
                     hydrationActivationViewModel.notification()
-                   
-//                    hydrationActivationViewModel.playSound(sound: "fresh-breeze-321612")
                 }
             }
     }
