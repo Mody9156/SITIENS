@@ -20,7 +20,7 @@ class HydrationActivationViewModel {
         self.audioPlayer = audioPlayer
     }
     
-    func playingSound(audioFile : String) async throws {
+    func playingSound(audioFile : String) {
         
         guard let url = Bundle.main.url(forResource: audioFile, withExtension: "mp3") else{
             return  print("Erreur lors du chargement du fichier")
@@ -37,7 +37,7 @@ class HydrationActivationViewModel {
                     format: file.processingFormat
                 )
             
-             await avAudioPlayerNode
+              avAudioPlayerNode
                 .scheduleFile(
                     file,
                     at: nil,

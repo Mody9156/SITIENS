@@ -63,7 +63,7 @@ struct HydrationActivation: View {
                 Button {
                     timeInterval = 10
                     stopTimer()
-                    
+                    hydrationActivationViewModel.stopPlaying()
                 } label: {
                     Text("Réinitialiser")
                         .font(.headline)
@@ -116,6 +116,10 @@ struct HydrationActivation: View {
                 }else {
                     timeInterval = 0
                     hydrationActivationViewModel.notification()
+                   
+                        hydrationActivationViewModel
+                            .playingSound(audioFile: "fresh-breeze-321612")
+                   
                 }
             }
     }
