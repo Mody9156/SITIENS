@@ -26,11 +26,15 @@ class HydrationActivationViewModel {
     }
     
 
-    func playSound(sound:String) {
+    func playSound(sound:String, stopPlay: Bool) {
         if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
                 audioPlayer?.play()
+                if stopPlay {
+                    audioPlayer?.stop()
+                }
+                
             } catch {
                 print("ERROR")
             }

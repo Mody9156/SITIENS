@@ -81,6 +81,7 @@ struct HydrationActivation: View {
             if timeInterval == 0 {
                 hydrationActivationViewModel.notification()
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                hydrationActivationViewModel.playSound(sound: "fresh-breeze-321612")
                 
             }
         }
@@ -104,8 +105,6 @@ struct HydrationActivation: View {
             timerIsReading ? startTimer() : stopTimer()
         }
     }
- 
-    
   
     func startTimer() {
         cancellable?.cancel()
