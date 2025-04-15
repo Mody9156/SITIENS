@@ -75,7 +75,7 @@ class HydrationActivationViewModel {
                 print("ERROR")
             }
         }
-    }
+    }//inutilisé
     
     func atuhorzation(){
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
@@ -94,7 +94,7 @@ class HydrationActivationViewModel {
         
         //Trigger (déclanche quand la notification sera envoyée)
         let trigger = UNTimeIntervalNotificationTrigger(
-            timeInterval: 1,
+            timeInterval: 5,
             repeats: false
         )
         //Request
