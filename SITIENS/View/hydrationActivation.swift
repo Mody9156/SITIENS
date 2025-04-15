@@ -39,11 +39,16 @@ struct HydrationActivation: View {
                 // Bouton cercle principal
                 Button {
                     toggleTimer()
+                    if timeInterval == 0 {
+                        timeInterval = 10
+                        stopTimer()
+                        hydrationActivationViewModel.stopPlaying()
+                    }
                   
                 } label: {
                     ZStack {
                         Circle()
-                            .fill(timerIsReading ? Color.red : Color.blue)
+                            .fill(fill)
                             .frame(width: 200, height: 200)
                             .shadow(radius: 10)
                             .scaleEffect(timerIsReading ? 1.05 : 1)
@@ -57,24 +62,7 @@ struct HydrationActivation: View {
                 }
                 .buttonStyle(.plain)
                 .animation(.spring(), value: timerIsReading)
-                
 
-                // Bouton réinitialiser
-                Button {
-                    timeInterval = 10
-                    stopTimer()
-                    hydrationActivationViewModel.stopPlaying()
-                } label: {
-                    Text("Réinitialiser")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                        .shadow(radius: 4)
-                }
-                .padding(.horizontal)
             }
             .padding()
         }
@@ -88,13 +76,30 @@ struct HydrationActivation: View {
        
     }
 
+    var fill : Color {
+        switch buttonLabel{
+        case "Réinitialiser" :
+            return .orange
+        case "REPRENDRE" :
+            return .orange
+        case "COMMENCER" :
+            return .blue
+        default:
+            return .blue
+        }
+    }
     var buttonLabel: String {
-        if timerIsReading && timeInterval != 0 {
-            return "STOPPER"
-        } else if timeInterval < 10 {
-            return "REPRENDRE"
+        if timeInterval == 0 {
+            
+            return "Réinitialiser"
         } else {
-            return "COMMENCER"
+            if timerIsReading && timeInterval != 0 && timeInterval != 10 {
+                return "STOPPER"
+            } else if timeInterval < 10 {
+                return "REPRENDRE"
+            } else {
+                return "COMMENCER"
+            }
         }
     }
 
@@ -114,10 +119,11 @@ struct HydrationActivation: View {
                 if timeInterval > 0 {
                     timeInterval -= 1
                 }else {
+                    stopTimer()
                     timeInterval = 0
                     hydrationActivationViewModel.notification()
                    
-                        hydrationActivationViewModel
+                     hydrationActivationViewModel
                             .playingSound(audioFile: "fresh-breeze-321612")
                    
                 }
