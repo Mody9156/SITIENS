@@ -114,10 +114,11 @@ struct HydrationActivation: View {
                 if timeInterval > 0 {
                     timeInterval -= 1
                 }else {
+                    stopTimer()
                     timeInterval = 0
                     hydrationActivationViewModel.notification()
                    
-                        hydrationActivationViewModel
+                     hydrationActivationViewModel
                             .playingSound(audioFile: "fresh-breeze-321612")
                    
                 }
