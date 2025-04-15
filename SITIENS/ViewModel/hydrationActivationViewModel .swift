@@ -88,9 +88,13 @@ class HydrationActivationViewModel {
     func notification(){
         //Contenu de la notification
         let userNotification = UNMutableNotificationContent()
-        userNotification.title = "Il est temps de boire de l'eau"
+        userNotification.title = NSString
+            .localizedUserNotificationString(forKey: "Il est temps de boire de l'eau", arguments: nil)
+//        "Il est temps de boire de l'eau"
         userNotification.sound = UNNotificationSound.default
-        userNotification.body = "Boire de l'eau est essentiel à notre bien-être"
+        userNotification.body =  NSString
+            .localizedUserNotificationString(forKey:  "Boire de l'eau est essentiel à notre bien-être", arguments: nil)
+//        "Boire de l'eau est essentiel à notre bien-être"
         
         //Trigger (déclanche quand la notification sera envoyée)
         let trigger = UNTimeIntervalNotificationTrigger(
