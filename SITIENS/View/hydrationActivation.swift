@@ -48,7 +48,7 @@ struct HydrationActivation: View {
                 } label: {
                     ZStack {
                         Circle()
-                            .fill(timerIsReading ? Color.red : Color.blue)
+                            .fill(fill)
                             .frame(width: 200, height: 200)
                             .shadow(radius: 10)
                             .scaleEffect(timerIsReading ? 1.05 : 1)
@@ -76,6 +76,18 @@ struct HydrationActivation: View {
        
     }
 
+    var fill : Color {
+        switch buttonLabel{
+        case "Réinitialiser" :
+            return .orange
+        case "REPRENDRE" :
+            return .orange
+        case "COMMENCER" :
+            return .blue
+        default:
+            return .blue
+        }
+    }
     var buttonLabel: String {
         if timeInterval == 0 {
             
