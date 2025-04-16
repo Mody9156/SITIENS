@@ -6,7 +6,7 @@ import UIKit
 struct HydrationActivation: View {
     @State var timerIsReading = false
     @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
-    @State var timeInterval: Int = 10
+    @State var timeInterval: Int = 7200
     @State private var cancellable: Cancellable?
     @State private var soundPlayed = false
     @State var startDate: Date?
@@ -47,7 +47,7 @@ struct HydrationActivation: View {
                     Button {
                         toggleTimer()
                         if timeInterval == 0 {
-                            timeInterval = 10
+                            timeInterval = 7200
                             stopTimer()
                             hydrationActivationViewModel.stopPlaying()
                         }
@@ -131,9 +131,9 @@ struct HydrationActivation: View {
             
             return "Réinitialiser"
         } else {
-            if timerIsReading && timeInterval != 0 && timeInterval != 10 {
+            if timerIsReading && timeInterval != 0 && timeInterval != 7200 {
                 return "STOPPER"
-            } else if timeInterval < 10 {
+            } else if timeInterval < 7200 {
                 return "REPRENDRE"
             } else {
                 return "COMMENCER"
@@ -157,7 +157,7 @@ struct HydrationActivation: View {
             .sink { _ in
                 guard let start = startDate else { return }
                 let elapsedTime = Int(Date().timeIntervalSince(start))
-                let remainingTime = max(10 - elapsedTime, 0)
+                let remainingTime = max(7200 - elapsedTime, 0)
                 timeInterval = remainingTime
                 
                 if timeInterval == 0 {

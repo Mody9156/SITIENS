@@ -19,6 +19,12 @@ struct SITIENSApp: App {
                         systemImage: "stopwatch") {
                             HydrationActivation( )
                     }
+                    
+                    Tab(
+                        "Chronomètre",
+                        systemImage: "stopwatch") {
+                            WaterQuantityView()
+                    }
                 }
                 
             }else {
