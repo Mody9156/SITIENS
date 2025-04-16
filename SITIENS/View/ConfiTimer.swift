@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ConfiTimer: View {
-   
+    @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
+    
     var body: some View {
         VStack{
             Text("Configuration")
@@ -17,8 +18,7 @@ struct ConfiTimer: View {
                 .lineLimit(2)
             
             Spacer()
-            
-            
+          
             
             
             Button {
