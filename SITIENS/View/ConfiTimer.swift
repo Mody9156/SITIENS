@@ -8,40 +8,30 @@
 import SwiftUI
 
 struct ConfiTimer: View {
-    @State var second : Int
-    @State var minute : Int
-    
+   
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Configurer la durée")
+        VStack{
+            Text("Configuration")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-           
+                .lineLimit(2)
             
-            Section("configurer la durée") {
-                TextField("Minute: ", value: $minute, format: .number)
-                    .textFieldStyle(.roundedBorder)
-                    .keyboardType(.numberPad)
-                    .frame(width: 80)
-                
-                TextField("Seconde: ", value: $second, format: .number)
-                    .textFieldStyle(.roundedBorder)
-                    .keyboardType(.numberPad)
-                    .frame(width: 80)
-                    .border(.black,width: 3)
-            }
-            .padding()
+            Spacer()
+            
+            
+            
             
             Button {
                 
             } label: {
                 ZStack {
-                    Rectangle()
-                        .frame(width: 80,height: 20)
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(height: 40)
+                        
                     
                     Text("Valider")
                         .font(.headline)
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(.white)
                 }
                     
             }
@@ -52,7 +42,7 @@ struct ConfiTimer: View {
 }
 
 #Preview {
-    ConfiTimer(second: 70, minute: 60)
+    ConfiTimer()
         .padding()
                   
 }

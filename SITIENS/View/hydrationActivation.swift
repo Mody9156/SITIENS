@@ -95,7 +95,7 @@ struct HydrationActivation: View {
                             .sheet(isPresented: $sheetPresented) {
                                 
                             } content: {
-                                ConfiTimer(second: 0, minute: 0)
+                                ConfiTimer()
                             }
                         }
                     })
