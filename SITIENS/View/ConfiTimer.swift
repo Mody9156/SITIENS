@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
-    
+    @Binding var selectedItems : String
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack{
             Text("Configuration")
@@ -19,15 +20,29 @@ struct ConfiTimer: View {
             
             Spacer()
           
+            VStack{
+                Text("Selectionner l'audio")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                
+                Picker("Selectionner l'audio", selection: $selectedItems) {
+                    ForEach(sound,id: \.self) { sound in
+                        Text(sound)
+                    }
+                }
+                .pickerStyle(.segmented)
+              
+              
+            }
             
+            Spacer()
             
             Button {
-                
+                dismiss()
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(height: 40)
-                        
                     
                     Text("Valider")
                         .font(.headline)
@@ -42,7 +57,8 @@ struct ConfiTimer: View {
 }
 
 #Preview {
-    ConfiTimer()
+    @Previewable @State var selectedItems : String = "asphalt-sizzle"
+    ConfiTimer(selectedItems: $selectedItems)
         .padding()
                   
 }

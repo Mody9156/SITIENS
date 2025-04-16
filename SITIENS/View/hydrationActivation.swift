@@ -13,6 +13,7 @@ struct HydrationActivation: View {
     @State var sheetPresented : Bool = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var rotationInfiny : Bool = false
+    @State var selectedItems : String = "asphalt-sizzle"
     
     var body: some View {
         NavigationStack {
@@ -95,7 +96,7 @@ struct HydrationActivation: View {
                             .sheet(isPresented: $sheetPresented) {
                                 
                             } content: {
-                                ConfiTimer()
+                                ConfiTimer(selectedItems: $selectedItems)
                             }
                         }
                     })
@@ -162,7 +163,7 @@ struct HydrationActivation: View {
                 if timeInterval == 0 {
                     stopTimer()
                     hydrationActivationViewModel.notification()
-                    hydrationActivationViewModel.playingSound(audioFile: "fresh-breeze-321612")
+                    hydrationActivationViewModel.playingSound(audioFile: selectedItems)
                 }
             }
     }
