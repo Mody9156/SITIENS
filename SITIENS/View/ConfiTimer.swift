@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConfigureTimer: View {
+struct ConfiTimer: View {
     @State var second : Int
     @State var minute : Int
     
@@ -52,7 +52,7 @@ struct ConfigureTimer: View {
 }
 
 #Preview {
-    ConfigureTimer(second: 70, minute: 60)
+    ConfiTimer(second: 70, minute: 60)
         .padding()
                   
 }
