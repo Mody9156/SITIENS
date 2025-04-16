@@ -9,7 +9,8 @@ struct HydrationActivation: View {
     @State var timeInterval: Int = 10
     @State private var cancellable: Cancellable?
     @State private var soundPlayed = false
- 
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         ZStack {
             // Background
