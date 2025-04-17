@@ -11,6 +11,8 @@ struct WaterQuantityView: View {
     @State var updateHeight : CGFloat = 0
     @State var title : String = "150ml"
     @State var nameOfCategory : String = "Nourrisson"
+    @State var sheetPresented : Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -61,7 +63,22 @@ struct WaterQuantityView: View {
                 }
                 .padding()
                 
-                
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        withAnimation {
+                            sheetPresented = true
+                        }
+                    } label: {
+                        
+                    }
+                    .sheet(isPresented: $sheetPresented) {
+                        
+                    } content: {
+                        
+                    }
+                }
             }
         }
     }
