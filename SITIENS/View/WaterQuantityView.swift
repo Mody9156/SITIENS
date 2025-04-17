@@ -12,7 +12,8 @@ struct WaterQuantityView: View {
     @State var title : String = "150ml"
     @State var nameOfCategory : String = "Nourrisson"
     @State var sheetPresented : Bool = false
-    
+    @State var rotationInfiny : Bool = false
+
     var body: some View {
         NavigationStack {
             VStack{
@@ -71,12 +72,24 @@ struct WaterQuantityView: View {
                             sheetPresented = true
                         }
                     } label: {
+                        Image(systemName: "gearshape.fill")
+                            .font(.title2)
+                            .foregroundStyle(.primary)
+                            .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
+                            .animation(
+                                .linear(duration: 2.9)
+                                .repeatForever(autoreverses: false),
+                                value: rotationInfiny
+                            )
+                            .onAppear{
+                                rotationInfiny = true
+                            }
                         
                     }
                     .sheet(isPresented: $sheetPresented) {
                         
                     } content: {
-                        
+                        UserSettingsView()
                     }
                 }
             }
