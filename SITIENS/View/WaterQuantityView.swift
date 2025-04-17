@@ -10,6 +10,7 @@ import SwiftUI
 struct WaterQuantityView: View {
     @State var updateHeight : CGFloat = 0
     @State var title : String = "150ml"
+    @State var nameOfCategory : String = "Nourrisson"
     var body: some View {
         VStack{
             
@@ -53,7 +54,7 @@ struct WaterQuantityView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 200,height: 50)
-                    Text("Ajouter de l'eau")
+                    Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
                         .foregroundStyle(.white)
                 }
             }
