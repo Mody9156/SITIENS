@@ -15,13 +15,13 @@ struct SITIENSApp: App {
             if useNavLink {
                 TabView {
                     Tab(
-                        "Hydradation",
+                        "Chronomètre",
                         systemImage: "stopwatch") {
                             HydrationActivation( )
                     }
                     
                     Tab(
-                        "Chronomètre",
+                        "Hydradation",
                         systemImage: "drop.fill") {
                             WaterQuantityView()
                     }
