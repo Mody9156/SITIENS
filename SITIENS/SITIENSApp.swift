@@ -21,7 +21,7 @@ struct SITIENSApp: App {
                     }
                     
                     Tab(
-                        "Chronomètre",
+                        "Hydradation",
                         systemImage: "drop.fill") {
                             WaterQuantityView()
                     }
