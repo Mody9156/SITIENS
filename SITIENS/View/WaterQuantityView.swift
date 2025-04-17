@@ -9,29 +9,45 @@ import SwiftUI
 
 struct WaterQuantityView: View {
     @State var updateHeight : CGFloat = 0
+    @State var title : String = "150ml"
     var body: some View {
         VStack{
-            Text("Quantité d'eau")
+            
+            Text("\(Int((updateHeight / 2) * 200 / 300)) %")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.blue)
+                .padding()
+            
+            
+            Text("\(Int(updateHeight / 2))ml / \(title)")
+                .foregroundStyle(.gray)
+            
             ZStack (alignment: .bottom){
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: 6)
                     .frame(width: 200,height: 300)
                     .foregroundStyle(.white)
                     .overlay {
-                        RoundedRectangle(cornerRadius: 20)
+                        RoundedRectangle(cornerRadius: 6)
                             .stroke(Color.blue, lineWidth: 2)
                     }
                 
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: 6)
                     .frame(width: 200,height: updateHeight)
                     .foregroundStyle(.blue)
                     .overlay {
-                        RoundedRectangle(cornerRadius: 20)
-                            .foregroundStyle(.blue)
+                        RoundedRectangle(cornerRadius: 6)
+                            .foregroundStyle(Color.blue)
                     }
             }
             .padding()
             
             Button {
+                withAnimation {
+                    if updateHeight != 300 {
+                        updateHeight += 12.5
+                    }
+                }
                 
             } label: {
                 ZStack {
@@ -42,8 +58,8 @@ struct WaterQuantityView: View {
                 }
             }
             .padding()
-
-                
+            
+            
         }
     }
 }
