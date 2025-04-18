@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct UserSettingsView: View {
+    @State var profileType : [String] = ["nourrissons","femmes enceintes", "personnes âgées","sportifs"]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Profil")
+            
+        }
     }
 }
 
