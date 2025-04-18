@@ -26,8 +26,10 @@ struct UserSettingsView: View {
             
             Button {
                 withAnimation {
-                    dismiss()
-                } 
+                    if !profil.isEmpty {
+                        dismiss()
+                    }
+                }
                 
             } label: {
                 ZStack {
