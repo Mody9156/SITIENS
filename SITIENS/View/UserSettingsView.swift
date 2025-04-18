@@ -10,24 +10,40 @@ import SwiftUI
 struct UserSettingsView: View {
     @State var profileType : [String] = ["nourrissons","femmes enceintes", "personnes âgées","sportifs"]
     @State var selectedProfileType : String = "nourrissons"
+    @Binding var profil : String
+    
     
     var body: some View {
-        VStack {
-            List {
-                Picker("Profile", selection: $selectedProfileType) {
-                    ForEach(profileType,id: \.self) { profile in
-                        Text(profile)
+            VStack {
+                List {
+                    Picker("Profile", selection: $profil) {
+                        ForEach(profileType,id: \.self) { profile in
+                            Text(profile)
+                        }
                     }
+                    .pickerStyle(.inline)
                 }
-                .pickerStyle(.inline)
+                
+                Button {
+                    
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(height: 50)
+                        Text("Valider")
+                            .foregroundStyle(.white)
+                    }
+                        
+                        
+                }
+                .padding()
+                
+                
             }
-            
-            Text("Profil")
-            
-        }
     }
 }
 
 #Preview {
-    UserSettingsView()
+    @Previewable @State var profilType : String = ""
+    UserSettingsView(profil: $profilType)
 }

@@ -13,7 +13,8 @@ struct WaterQuantityView: View {
     @State var nameOfCategory : String = "Nourrisson"
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
-
+    @State var profilType : String = ""
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -89,7 +90,7 @@ struct WaterQuantityView: View {
                     .sheet(isPresented: $sheetPresented) {
                         
                     } content: {
-                        UserSettingsView()
+                        UserSettingsView(profil:$profilType)
                     }
                 }
             }
