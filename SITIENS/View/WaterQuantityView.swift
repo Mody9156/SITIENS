@@ -13,7 +13,11 @@ struct WaterQuantityView: View {
     @State var nameOfCategory : String = "Nourrisson"
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
-
+    @State var profilType : String = ""
+    @State var mesure = Measurement<UnitLength>(value: 10, unit: .centimeters)
+    @State var number = 2.3332/1000
+    @Bindable var userSettingsViewModel = UserSettingsViewModel()
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -25,7 +29,7 @@ struct WaterQuantityView: View {
                     .padding()
                 
                 
-                Text("\(Int(updateHeight / 2))ml / \(title)")
+                Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
                     .foregroundStyle(.gray)
                 
                 ZStack (alignment: .bottom){
@@ -49,8 +53,8 @@ struct WaterQuantityView: View {
                 
                 Button {
                     withAnimation {
-                        if updateHeight != 300 {
-                            updateHeight += 12.5
+                        if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0{
+                            updateHeight += 50
                         }
                     }
                     
@@ -84,12 +88,11 @@ struct WaterQuantityView: View {
                             .onAppear{
                                 rotationInfiny = true
                             }
-                        
                     }
                     .sheet(isPresented: $sheetPresented) {
                         
                     } content: {
-                        UserSettingsView()
+                        UserSettingsView(profil:$profilType)
                     }
                 }
             }

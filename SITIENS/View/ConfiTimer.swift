@@ -25,12 +25,14 @@ struct ConfiTimer: View {
                     .font(.headline)
                     .fontWeight(.bold)
                 
-                Picker("Selectionner l'audio", selection: $selectedItems) {
-                    ForEach(sound,id: \.self) { sound in
-                        Text(sound)
+                VStack {
+                    Picker("Selectionner l'audio", selection: $selectedItems) {
+                        ForEach(sound,id: \.self) { sound in
+                            Text(sound)
+                        }
                     }
+                    .pickerStyle(.segmented)
                 }
-                .pickerStyle(.segmented)
               
               
             }

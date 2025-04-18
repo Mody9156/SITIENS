@@ -8,11 +8,43 @@
 import SwiftUI
 
 struct UserSettingsView: View {
+    @State var profileType : [String] = ["nourrissons","femmes enceintes", "personnes âgées","sportifs"]
+    @State var selectedProfileType : String = "nourrissons"
+    @Binding var profil : String
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            List {
+                Picker("Profile", selection: $profil) {
+                    ForEach(profileType,id: \.self) { profile in
+                        Text(profile)
+                    }
+                }
+                .pickerStyle(.inline)
+            }
+            
+            Button {
+                withAnimation {
+                    if !profil.isEmpty {
+                        dismiss()
+                    }
+                }
+                
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(height: 50)
+                    Text("Valider")
+                        .foregroundStyle(.white)
+                }
+            }
+            .padding()
+        }
     }
 }
 
 #Preview {
-    UserSettingsView()
+    @Previewable @State var profilType : String = ""
+    UserSettingsView(profil: $profilType)
 }
