@@ -16,6 +16,7 @@ struct WaterQuantityView: View {
     @State var profilType : String = ""
     @State var mesure = Measurement<UnitLength>(value: 10, unit: .centimeters)
     @State var number = 2.3332/1000
+    @Bindable var userSettingsViewModel = UserSettingsViewModel()
     
     var body: some View {
         NavigationStack {
@@ -28,7 +29,7 @@ struct WaterQuantityView: View {
                     .padding()
                 
                 
-                Text("\(updateHeight * updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
+                Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
                     .foregroundStyle(.gray)
                 
                 ZStack (alignment: .bottom){
@@ -52,7 +53,7 @@ struct WaterQuantityView: View {
                 
                 Button {
                     withAnimation {
-                        if updateHeight != 300 && updateWater(type:profilType) != 0{
+                        if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0{
                             updateHeight += 50
                         }
                     }
@@ -87,7 +88,6 @@ struct WaterQuantityView: View {
                             .onAppear{
                                 rotationInfiny = true
                             }
-                        
                     }
                     .sheet(isPresented: $sheetPresented) {
                         
@@ -98,40 +98,6 @@ struct WaterQuantityView: View {
             }
         }
     }
-    
-    func updateWater(type name:String) -> CGFloat{
-        switch name  {
-        case "nourrissons":
-            return 0.7
-        case "femmes enceintes":
-            return 2.5
-        case "personnes âgées":
-            return 2
-        case "sportifs":
-            return 3
-        default:
-            return 0
-        }
-    }
-    
-    func updateType(name type: String) -> Double{
-        switch type  {
-        case "nourrissons":
-            return 2.3332/1000
-        case "femmes enceintes":
-            return 8.36/1000
-        case "personnes âgées":
-            return 6.66/1000
-        case "sportifs":
-            return 1/100
-        default:
-            return 0.0
-        }
-        
-    }
-    
-    
-    
 }
 
 #Preview {
