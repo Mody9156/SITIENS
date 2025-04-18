@@ -15,8 +15,8 @@ struct WaterQuantityView: View {
     @State var rotationInfiny : Bool = false
     @State var profilType : String = ""
     @State var mesure = Measurement<UnitLength>(value: 10, unit: .centimeters)
-    
     @State var number = 2.3332/1000
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -28,7 +28,7 @@ struct WaterQuantityView: View {
                     .padding()
                 
                 
-                Text("\(updateHeight * number,format: .number.precision(.fractionLength(1)))L / \(updateWater(),format: .number.precision(.fractionLength(1)))L")
+                Text("\(updateHeight * updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
                     .foregroundStyle(.gray)
                 
                 ZStack (alignment: .bottom){
@@ -52,7 +52,7 @@ struct WaterQuantityView: View {
                 
                 Button {
                     withAnimation {
-                        if updateHeight != 300 && updateWater() != 0{
+                        if updateHeight != 300 && updateWater(type:profilType) != 0{
                             updateHeight += 50
                         }
                     }
@@ -99,8 +99,8 @@ struct WaterQuantityView: View {
         }
     }
     
-    func updateWater() -> CGFloat{
-        switch profilType  {
+    func updateWater(type name:String) -> CGFloat{
+        switch name  {
         case "nourrissons":
             return 0.7
         case "femmes enceintes":
@@ -113,7 +113,25 @@ struct WaterQuantityView: View {
             return 0
         }
     }
-
+    
+    func updateType(name type: String) -> Double{
+        switch type  {
+        case "nourrissons":
+            return 2.3332/1000
+        case "femmes enceintes":
+            return 8.36/1000
+        case "personnes âgées":
+            return 6.66/1000
+        case "sportifs":
+            return 1/100
+        default:
+            return 0.0
+        }
+        
+    }
+    
+    
+    
 }
 
 #Preview {
