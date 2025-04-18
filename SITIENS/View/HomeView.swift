@@ -41,7 +41,7 @@ struct HomeView: View {
                     
                     Image("Water")
                         .resizable()
-                        .foregroundStyle(.red)
+                        
                     
                     ScrollView {
                         VStack(alignment: .leading){

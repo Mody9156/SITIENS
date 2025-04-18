@@ -43,6 +43,7 @@ struct InfosView: View {
                     
                     Image("thirstyPicture")
                         .resizable()
+                        .frame(height: 480)
                     
                     ScrollView {
                         VStack(alignment: .leading) {
