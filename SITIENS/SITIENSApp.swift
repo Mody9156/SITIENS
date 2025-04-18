@@ -34,7 +34,12 @@ struct SITIENSApp: App {
                     InfosView(activeNavLink: $useNavLink)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
-                .background(Color(.gray).opacity(0.3).ignoresSafeArea())
+                .background(  LinearGradient(
+                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                    .ignoresSafeArea())
                 .onAppear{
                     UIPageControl.appearance().pageIndicatorTintColor = .gray
                     UIPageControl.appearance().currentPageIndicatorTintColor = .black
