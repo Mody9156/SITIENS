@@ -25,13 +25,13 @@ struct ConfiTimer: View {
                     .font(.headline)
                     .fontWeight(.bold)
                 
-                List {
+                VStack {
                     Picker("Selectionner l'audio", selection: $selectedItems) {
                         ForEach(sound,id: \.self) { sound in
                             Text(sound)
                         }
                     }
-                    .pickerStyle(.inline)
+                    .pickerStyle(.segmented)
                 }
               
               
@@ -44,7 +44,7 @@ struct ConfiTimer: View {
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
-                        .frame(height: 50)
+                        .frame(height: 40)
                     
                     Text("Valider")
                         .font(.headline)

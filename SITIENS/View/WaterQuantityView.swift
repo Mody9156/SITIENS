@@ -14,7 +14,9 @@ struct WaterQuantityView: View {
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
     @State var profilType : String = ""
+    @State var mesure = Measurement<UnitLength>(value: 10, unit: .centimeters)
     
+    @State var number = 2.3332/1000
     var body: some View {
         NavigationStack {
             VStack{
@@ -26,7 +28,7 @@ struct WaterQuantityView: View {
                     .padding()
                 
                 
-                Text("\(Int(updateHeight / 2))ml / \(title)")
+                Text("\(updateHeight * number,format: .number.precision(.fractionLength(1)))L / \(updateWater(),format: .number.precision(.fractionLength(1)))L")
                     .foregroundStyle(.gray)
                 
                 ZStack (alignment: .bottom){
@@ -50,8 +52,8 @@ struct WaterQuantityView: View {
                 
                 Button {
                     withAnimation {
-                        if updateHeight != 300 {
-                            updateHeight += 12.5
+                        if updateHeight != 300 && updateWater() != 0{
+                            updateHeight += 50
                         }
                     }
                     
@@ -96,6 +98,22 @@ struct WaterQuantityView: View {
             }
         }
     }
+    
+    func updateWater() -> CGFloat{
+        switch profilType  {
+        case "nourrissons":
+            return 0.7
+        case "femmes enceintes":
+            return 2.5
+        case "personnes âgées":
+            return 2
+        case "sportifs":
+            return 3
+        default:
+            return 0
+        }
+    }
+
 }
 
 #Preview {
