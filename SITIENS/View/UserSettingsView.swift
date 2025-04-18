@@ -11,35 +11,34 @@ struct UserSettingsView: View {
     @State var profileType : [String] = ["nourrissons","femmes enceintes", "personnes âgées","sportifs"]
     @State var selectedProfileType : String = "nourrissons"
     @Binding var profil : String
-    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-            VStack {
-                List {
-                    Picker("Profile", selection: $profil) {
-                        ForEach(profileType,id: \.self) { profile in
-                            Text(profile)
-                        }
+        VStack {
+            List {
+                Picker("Profile", selection: $profil) {
+                    ForEach(profileType,id: \.self) { profile in
+                        Text(profile)
                     }
-                    .pickerStyle(.inline)
                 }
-                
-                Button {
-                    
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(height: 50)
-                        Text("Valider")
-                            .foregroundStyle(.white)
-                    }
-                        
-                        
-                }
-                .padding()
-                
-                
+                .pickerStyle(.inline)
             }
+            
+            Button {
+                withAnimation {
+                    dismiss()
+                } 
+                
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(height: 50)
+                    Text("Valider")
+                        .foregroundStyle(.white)
+                }
+            }
+            .padding()
+        }
     }
 }
 
