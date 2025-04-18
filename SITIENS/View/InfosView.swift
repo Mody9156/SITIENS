@@ -13,10 +13,13 @@ struct InfosView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color
-                    .gray
-                    .opacity(0.3)
-                    .ignoresSafeArea()
+                // Background
+                LinearGradient(
+                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
                 
                 VStack {
                     HStack {
