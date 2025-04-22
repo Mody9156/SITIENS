@@ -24,6 +24,12 @@ struct WaterQuantityView: View {
         NavigationStack {
             VStack{
                 
+                Text("Profil: \(profilType.isEmpty ?  "Selectionnez un profil" : profilType)")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.blue)
+                    .padding()
+                
                 Text("\(Int((updateHeight / 2) * 200 / 300)) %")
                     .font(.largeTitle)
                     .fontWeight(.bold)
