@@ -69,8 +69,12 @@ struct WaterQuantityView: View {
                 .padding()
                 
                 if updateHeight == 300 {
+                    
                     Button {
-                        updateHeight = 0
+                        withAnimation {
+                            updateHeight = 0
+                        }
+                        
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
