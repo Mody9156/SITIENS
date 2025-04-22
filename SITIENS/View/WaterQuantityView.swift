@@ -68,6 +68,19 @@ struct WaterQuantityView: View {
                 }
                 .padding()
                 
+                if updateHeight == 300 {
+                    Button {
+                        updateHeight = 0
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(width: 200,height: 50)
+                            Text("Reinitialiser")
+                                .foregroundStyle(.white)
+                        }
+                    }
+                }
+
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
