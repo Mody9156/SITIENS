@@ -80,6 +80,7 @@ struct WaterQuantityView: View {
                         }
                     }
                 }
+                .padding()
 
             }
             .toolbar {
