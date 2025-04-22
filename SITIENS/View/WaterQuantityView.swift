@@ -17,6 +17,8 @@ struct WaterQuantityView: View {
     @State var mesure = Measurement<UnitLength>(value: 10, unit: .centimeters)
     @State var number = 2.3332/1000
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
+    @State var throwError : Bool = false
+    @State var showMessage : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -52,6 +54,22 @@ struct WaterQuantityView: View {
                 
                 Button {
                     withAnimation {
+                        throwError = true
+                        showMessage = false
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                            withAnimation {
+                                showMessage = true
+                            }
+                        })
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                            withAnimation {
+                                showMessage = false
+                                throwError = false
+                            }
+                        })
+                        
                         if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0{
                             updateHeight += 50
                         }
@@ -67,10 +85,20 @@ struct WaterQuantityView: View {
                 }
                 .padding()
                 
-                if updateHeight == 300 && userSettingsViewModel.updateWater(type:profilType) == 0 {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(Color.orange)
+                if throwError && profilType.isEmpty {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(Color.orange)
+                        Text("Veuillez bien selectionner un profil")
+                    }
+                    .opacity(showMessage ? 1 : 0)
+                    .animation(
+                        .easeOut(duration: 1.0),value: showMessage
+                    )
+                   
+                    
                 }
+                
                 
                 if updateHeight == 300 {
                     
