@@ -28,7 +28,6 @@ struct WaterQuantityView: View {
                     .foregroundStyle(Color.blue)
                     .padding()
                 
-                
                 Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
                     .foregroundStyle(.gray)
                 
@@ -68,6 +67,11 @@ struct WaterQuantityView: View {
                 }
                 .padding()
                 
+                if updateHeight == 300 && userSettingsViewModel.updateWater(type:profilType) == 0 {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(Color.orange)
+                }
+                
                 if updateHeight == 300 {
                     
                     Button {
@@ -79,12 +83,15 @@ struct WaterQuantityView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
                                 .frame(width: 200,height: 50)
+                                .foregroundStyle(.orange)
+                            
                             Text("Reinitialiser")
                                 .foregroundStyle(.white)
                         }
                     }
+                    .padding()
                 }
-                .padding()
+              
 
             }
             .toolbar {
