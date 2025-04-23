@@ -10,6 +10,7 @@ import UIKit
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
+    @State var hour : [Int] = [3600,7200,10800]
     @Binding var selectedItems : String
     @Environment(\.dismiss) var dismiss
     var body: some View {
@@ -18,21 +19,27 @@ struct ConfiTimer: View {
                 Text("Configuration")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .foregroundStyle(.blue)
                     .lineLimit(2)
+                
+                
                 
                 Spacer()
                 
-                VStack {
+                Text("Sélectionner Un temps d'hydratation")
+                    .font(.headline)
+                    .padding()
+                
                     Text("Sélectionner l'audio")
                         .font(.headline)
+                
                     Picker("", selection: $selectedItems) {
                         ForEach(sound,id: \.self) {
                             Text($0)
                         }
                     }
                     .pickerStyle(.wheel)
-                }
-                .padding()
+                
                 
                 Spacer()
                 
