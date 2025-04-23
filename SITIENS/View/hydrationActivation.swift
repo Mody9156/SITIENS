@@ -6,7 +6,8 @@ import UIKit
 struct HydrationActivation: View {
     @State var timerIsReading = false
     @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
-    @State var timeInterval: Int = 7200
+    @State var timeInterval: Int = 20
+    @State var timeHour: Int = 0
     @State private var cancellable: Cancellable?
     @State private var soundPlayed = false
     @State var startDate: Date?
@@ -14,6 +15,10 @@ struct HydrationActivation: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = "asphalt-sizzle"
+    
+    func updateTimerWithNewValue(timer time : Int){
+        timeInterval = time
+    }
     
     var body: some View {
         NavigationStack {
@@ -47,7 +52,8 @@ struct HydrationActivation: View {
                     Button {
                         toggleTimer()
                         if timeInterval == 0 {
-                            timeInterval = 7200
+                            updateTimerWithNewValue(timer: timeHour)
+//                            timeInterval = 7200
                             stopTimer()
                             hydrationActivationViewModel.stopPlaying()
                         }
@@ -96,7 +102,10 @@ struct HydrationActivation: View {
                             .sheet(isPresented: $sheetPresented) {
                                 
                             } content: {
-                                ConfiTimer(selectedItems: $selectedItems)
+                                ConfiTimer(
+                                    selectedItems: $selectedItems,
+                                    selectedHour: $timeInterval
+                                )
                             }
                         }
                     })
