@@ -6,55 +6,55 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
     @Binding var selectedItems : String
     @Environment(\.dismiss) var dismiss
     var body: some View {
-        VStack{
-            Text("Configuration")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .lineLimit(2)
-            
-            Spacer()
-          
+        NavigationStack {
             VStack{
-                Text("Selectionner l'audio")
-                    .font(.headline)
+                Text("Configuration")
+                    .font(.largeTitle)
                     .fontWeight(.bold)
+                    .lineLimit(2)
+                
+                Spacer()
                 
                 VStack {
-                    Picker("Selectionner l'audio", selection: $selectedItems) {
-                        ForEach(sound,id: \.self) { sound in
-                            Text(sound)
+                    Text("Sélectionner l'audio")
+                        .font(.headline)
+                    Picker("", selection: $selectedItems) {
+                        ForEach(sound,id: \.self) {
+                            Text($0)
                         }
                     }
-                    .pickerStyle(.segmented)
+                    .pickerStyle(.wheel)
                 }
-              
-              
-            }
-            
-            Spacer()
-            
-            Button {
-                dismiss()
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .frame(height: 40)
-                    
+                .padding()
+                
+                Spacer()
+                
+                Button {
+                    let generator = UIImpactFeedbackGenerator(style: .medium)
+                    generator.impactOccurred()
+                    dismiss()
+                } label: {
                     Text("Valider")
                         .font(.headline)
-                        .foregroundStyle(.white)
-                }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.accentColor)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .shadow(radius: 2)
                     
+                }
             }
+            
+            .padding()
         }
-        
-        .padding()
     }
 }
 
@@ -62,5 +62,5 @@ struct ConfiTimer: View {
     @Previewable @State var selectedItems : String = "asphalt-sizzle"
     ConfiTimer(selectedItems: $selectedItems)
         .padding()
-                  
+    
 }
