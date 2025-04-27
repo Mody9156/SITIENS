@@ -6,8 +6,29 @@
 //
 
 import Foundation
-
+import CoreData
 
 struct PersistenceController{
+    
+    // MARK: - Properties
+    @MainActor static let shared = PersistenceController()
+    var container : NSPersistentContainer
+    let backgroundContext : NSManagedObjectContext
+    
+    // MARK: - Init
+     init(inMemory: Bool = false ){
+        container = NSPersistentContainer(name: "SITIENS")
+        backgroundContext = container.newBackgroundContext()
+        
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        self.backgroundContext.automaticallyMergesChangesFromParent = true
+    }
+    
+    
+    
     
 }
