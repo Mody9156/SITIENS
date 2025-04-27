@@ -64,7 +64,7 @@ class HydrationActivationViewModel {
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
     
-    
+  
     func playSound(sound:String) {
         if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
             do {
