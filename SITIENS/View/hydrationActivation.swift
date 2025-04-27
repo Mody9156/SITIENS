@@ -47,7 +47,6 @@ struct HydrationActivation: View {
                         .font(.system(size: 48, weight: .bold, design: .monospaced))
                         .foregroundStyle(.primary)
                     
-                    
                     // Bouton cercle principal
                     Button {
                         toggleTimer()
