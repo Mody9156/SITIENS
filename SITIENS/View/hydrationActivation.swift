@@ -104,7 +104,7 @@ struct HydrationActivation: View {
                             } content: {
                                 ConfiTimer(
                                     selectedItems: $selectedItems,
-                                    selectedHour: $timeInterval
+                                    selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
                                 )
                             }
                         }
@@ -166,7 +166,7 @@ struct HydrationActivation: View {
             .sink { _ in
                 guard let start = startDate else { return }
                 let elapsedTime = Int(Date().timeIntervalSince(start))
-                let remainingTime = max(7200 - elapsedTime, 0)
+                let remainingTime = max(timeInterval - elapsedTime, 0)
                 timeInterval = remainingTime
                 
                 if timeInterval == 0 {

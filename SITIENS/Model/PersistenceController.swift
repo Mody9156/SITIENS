@@ -27,8 +27,4 @@ struct PersistenceController{
         }
         self.backgroundContext.automaticallyMergesChangesFromParent = true
     }
-    
-    
-    
-    
 }

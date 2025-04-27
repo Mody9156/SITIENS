@@ -14,6 +14,8 @@ struct ConfiTimer: View {
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -33,7 +35,7 @@ struct ConfiTimer: View {
                 
                 Picker("", selection: $selectedHour) {
                     ForEach(hour,id: \.self) {
-                        Text("\($0)")
+                        Text("\(hydrationActivationViewModel.formatTimer($0))")
                     }
                 }
                 .pickerStyle(.wheel)
@@ -76,7 +78,11 @@ struct ConfiTimer: View {
 #Preview {
     @Previewable @State var selectedItems : String = "asphalt-sizzle"
     @Previewable @State var selectedHour : Int = 7200
-    ConfiTimer(selectedItems: $selectedItems, selectedHour: $selectedHour)
+    ConfiTimer(
+        selectedItems: $selectedItems,
+        selectedHour: $selectedHour,
+        hydrationActivationViewModel: HydrationActivationViewModel()
+    )
         .padding()
     
 }
