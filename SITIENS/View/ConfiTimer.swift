@@ -10,12 +10,13 @@ import UIKit
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
-    @State var hour : [Int] = [3600,7200,10800]
+    @State var hour : [Int] = [3600,7200,10800,20,60]
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
-    
+    @AppStorage("hour",store: .standard) var timerhour : Int = 0
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -71,9 +72,12 @@ struct ConfiTimer: View {
             Spacer()
             
             Button {
+                
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                    timerhour = selectedHour
+                    print("\(timerhour)")
                     dismiss()
                 }
             } label: {
