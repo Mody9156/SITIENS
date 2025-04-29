@@ -162,7 +162,7 @@ struct HydrationActivation: View {
             .sink { _ in
                 guard let start = startDate else { return }
                 let elapsedTime = Int(Date().timeIntervalSince(start))
-                let remainingTime = max(timeInterval - elapsedTime, 0)
+                let remainingTime = max(timerhour - elapsedTime, 0)
                 timeInterval = remainingTime
                 
                 if timeInterval == 0 {
