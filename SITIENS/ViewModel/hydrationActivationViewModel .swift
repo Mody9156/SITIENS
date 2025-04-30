@@ -66,7 +66,8 @@ class HydrationActivationViewModel {
     
     func formatHour(_ secondes : Int) -> String{
         let hours = secondes / 3600
-        return String(format: "%02d", hours)
+        print("\(hours): hours")
+        return String(format: "%2d", hours)
     }
   
     func playSound(sound:String) {

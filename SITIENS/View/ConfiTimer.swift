@@ -35,6 +35,7 @@ struct ConfiTimer: View {
                         
                         Picker("", selection: $selectedHour) {
                             ForEach(hour,id: \.self) {
+                               
                                 Text("\(hydrationActivationViewModel.formatHour($0)) Hour\($0 == 3600 ? "" : "s")")
                             }
                         }
