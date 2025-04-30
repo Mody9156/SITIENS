@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+import AVFAudio
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
@@ -16,6 +17,8 @@ struct ConfiTimer: View {
     @Environment(\.dismiss) var dismiss
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
+    @State private var audio : AVAudioPlayer?
+    @State private var isPlaying : Bool = false
 
     var body: some View {
         NavigationStack {
@@ -66,6 +69,22 @@ struct ConfiTimer: View {
                     .background(.ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
+                    
+                   Text("Jouer l'audio")
+                    
+                    Button {
+                        withAnimation {
+                            if isPlaying {
+                                hydrationActivationViewModel.playSound(sound: selectedItems)
+                            }
+                        }
+
+                    } label: {
+                        Text("Clic ici")
+                    }
+                    .onAppear{
+                    }
+
                 }
                 .padding()
             }

@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 import AVFoundation
+import AVKit
 
 @Observable
 class HydrationActivationViewModel {
