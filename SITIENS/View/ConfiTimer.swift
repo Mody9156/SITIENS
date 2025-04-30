@@ -7,15 +7,18 @@
 
 import SwiftUI
 import UIKit
+import AVFAudio
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
-    @State var hour : [Int] = [3600,7200,10800,20,60]
+    @State var hour : [Int] = [3600,7200]
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
+    @State private var audio : AVAudioPlayer?
+    @State private var isPlaying : Bool = false
 
     var body: some View {
         NavigationStack {
@@ -35,7 +38,8 @@ struct ConfiTimer: View {
                         
                         Picker("", selection: $selectedHour) {
                             ForEach(hour,id: \.self) {
-                                Text("\(hydrationActivationViewModel.formatTimer($0))")
+                               
+                                Text("\(hydrationActivationViewModel.formatHour($0)) Hour\($0 == 3600 ? "" : "s")")
                             }
                         }
                         .pickerStyle(.palette)
@@ -65,6 +69,22 @@ struct ConfiTimer: View {
                     .background(.ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
+                    
+                   Text("Jouer l'audio")
+                    
+                    Button {
+                        withAnimation {
+                            if isPlaying {
+                                hydrationActivationViewModel.playSound(sound: selectedItems)
+                            }
+                        }
+
+                    } label: {
+                        Text("Clic ici")
+                    }
+                    .onAppear{
+                    }
+
                 }
                 .padding()
             }

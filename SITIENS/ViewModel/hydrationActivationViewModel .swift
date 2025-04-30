@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 import AVFoundation
+import AVKit
 
 @Observable
 class HydrationActivationViewModel {
@@ -64,6 +65,11 @@ class HydrationActivationViewModel {
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
     
+    func formatHour(_ secondes : Int) -> String{
+        let hours = secondes / 3600
+        print("\(hours): hours")
+        return String(format: "%2d", hours)
+    }
   
     func playSound(sound:String) {
         if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
