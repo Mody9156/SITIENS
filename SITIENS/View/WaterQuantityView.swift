@@ -158,12 +158,14 @@ struct WaterQuantityView: View {
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
-                    NavigationLink(<#T##LocalizedStringKey#>) {
+                    
+                    NavigationLink {
                         ShowHistory()
+                    } label: {
+                        Image(systemName: "clock.arrow.circlepath")
+                            .font(.title2)
+                            .foregroundStyle(.blue)
                     }
-                    Image(systemName: "clock.arrow.circlepath")
-                        .font(.title2)
-                        .foregroundStyle(.blue)
                 }
             }
         }
