@@ -8,10 +8,11 @@
 import SwiftUI
 import UIKit
 import AVFAudio
+import Combine
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
-    @State var hour : [Int] = [3600,7200]
+    @State var hour : [Int] = [3600,7200,10]
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
@@ -19,6 +20,7 @@ struct ConfiTimer: View {
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @State private var audio : AVAudioPlayer?
     @State private var isPlaying : Bool = false
+    @State private var cancellable: Cancellable?
 
     var body: some View {
         NavigationStack {
@@ -71,18 +73,30 @@ struct ConfiTimer: View {
                     .shadow(radius: 5)
                     
                    Text("Jouer l'audio")
+                        .font(.headline)
+                        .fontWeight(.bold)
                     
                     Button {
                         withAnimation {
+                            isPlaying.toggle()
+                            
                             if isPlaying {
                                 hydrationActivationViewModel.playSound(sound: selectedItems)
+                            }else{
+                                hydrationActivationViewModel.audioPlayer = nil
                             }
                         }
 
                     } label: {
-                        Text("Clic ici")
+                        Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                            .resizable()
+                            .frame(width: 80,height: 80)
+                            .padding()
+                            .scaleEffect(isPlaying ? 1.1 : 1.0)
+                        
                     }
                     .onAppear{
+                        isPlaying = false
                     }
 
                 }
@@ -97,7 +111,7 @@ struct ConfiTimer: View {
                 generator.impactOccurred()
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                     timerhour = selectedHour
-                    print("\(timerhour)")
+                    hydrationActivationViewModel.stopPlaying()
                     dismiss()
                 }
             } label: {

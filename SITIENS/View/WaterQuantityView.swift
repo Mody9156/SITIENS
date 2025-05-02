@@ -126,6 +126,8 @@ struct WaterQuantityView: View {
                     .padding()
                 }
               
+                
+                
 
             }
             .toolbar {
@@ -152,6 +154,17 @@ struct WaterQuantityView: View {
                         
                     } content: {
                         UserSettingsView(profil:$profilType)
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    
+                    NavigationLink {
+                        ShowHistory()
+                    } label: {
+                        Image(systemName: "clock.arrow.circlepath")
+                            .font(.title2)
+                            .foregroundStyle(.blue)
                     }
                 }
             }

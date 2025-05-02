@@ -16,7 +16,7 @@ struct HydrationActivation: View {
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = "asphalt-sizzle"
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
-
+    @State var showMessage : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -48,10 +48,22 @@ struct HydrationActivation: View {
                     // Bouton cercle principal
                     Button {
                         toggleTimer()
-                        if timeInterval == 0 {
+                        showMessage = false
+                        
+                        if timeInterval == 0{
                             timeInterval = timerhour
+                            
                             stopTimer()
                             hydrationActivationViewModel.stopPlaying()
+                        }
+                        
+                        if timerhour == 0 && timeInterval == 0{
+                            DispatchQueue.main
+                                .asyncAfter(deadline: .now() + 0.2, execute: {
+                                withAnimation {
+                                    showMessage = true
+                                }
+                            })
                         }
                         
                     } label: {
@@ -71,6 +83,21 @@ struct HydrationActivation: View {
                     }
                     .buttonStyle(.plain)
                     .animation(.spring(), value: timerIsReading)
+                    
+                    if showMessage{
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(Color.orange)
+                            Text("Veuillez bien selectionner l'horraire")
+                        }
+                        .opacity(showMessage ? 1 : 0)
+                        .animation(
+                            .easeOut(duration: 1.0),value: showMessage
+                        )
+                        .padding()
+                       
+                        
+                    }
                     
                 }
                 .toolbar(
@@ -110,9 +137,10 @@ struct HydrationActivation: View {
             .onAppear {
                 if timeInterval == 0 {
                     hydrationActivationViewModel.notification()
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+//                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     
                 }
+                showMessage = false
                 
             }
         }
@@ -135,7 +163,8 @@ struct HydrationActivation: View {
         if timeInterval == 0 {
             
             return "Réinitialiser"
-        } else {
+        }
+        else {
             if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
                 return "STOPPER"
             } else if timeInterval < timerhour {

@@ -58,6 +58,7 @@ class HydrationActivationViewModel {
         avAudioPlayerNode.stop()
     }
     
+    
     func formatTimer(_ secondes: Int) -> String {
         let hours = secondes / 3600
         let minutes = (secondes % 3600) / 60
