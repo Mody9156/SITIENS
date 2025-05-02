@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ShowHistory: View {
     var body: some View {
-        VStack {
-            Text("Recent")
-                .foregroundStyle(.blue)
-                .font(.headline)
+        ScrollView {
+            VStack {
+                Text("Recent")
+                    .foregroundStyle(.blue)
+                    .font(.headline)
+            }
         }
     }
 }
