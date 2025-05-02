@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+
+struct HistoryManager : Identifiable{
+    let id = UUID()
+    var name: String
+    var quantity : Double
+}
