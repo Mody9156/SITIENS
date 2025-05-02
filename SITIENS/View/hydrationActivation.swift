@@ -16,7 +16,7 @@ struct HydrationActivation: View {
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = "asphalt-sizzle"
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
-
+    
     
     var body: some View {
         NavigationStack {
@@ -49,7 +49,7 @@ struct HydrationActivation: View {
                     Button {
                         toggleTimer()
                         if timeInterval == 0 {
-                            timeInterval = timerhour
+//                            timeInterval = timerhour
                             stopTimer()
                             hydrationActivationViewModel.stopPlaying()
                         }
@@ -132,13 +132,14 @@ struct HydrationActivation: View {
         }
     }
     var buttonLabel: String {
-        if timeInterval == 0 {
+        if timeInterval == 0 && timerhour == 0{
             
             return "Réinitialiser"
-        } else {
+        }
+        else {
             if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
                 return "STOPPER"
-            } else if timeInterval < timerhour {
+            } else if timeInterval < timerhour && timerhour == 0{
                 return "REPRENDRE"
             } else {
                 return "COMMENCER"
