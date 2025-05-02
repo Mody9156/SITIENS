@@ -56,6 +56,7 @@ class HydrationActivationViewModel {
     func stopPlaying(){
         avAudioEngine.stop()
         avAudioPlayerNode.stop()
+        audioPlayer = nil
     }
     
     func formatTimer(_ secondes: Int) -> String {
