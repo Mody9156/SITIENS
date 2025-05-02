@@ -111,7 +111,7 @@ struct ConfiTimer: View {
                 generator.impactOccurred()
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                     timerhour = selectedHour
-                    print("\(timerhour)")
+                    hydrationActivationViewModel.stopPlaying()
                     dismiss()
                 }
             } label: {
