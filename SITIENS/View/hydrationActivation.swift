@@ -16,7 +16,7 @@ struct HydrationActivation: View {
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = "asphalt-sizzle"
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
-    
+    @State var showMessage : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -48,8 +48,8 @@ struct HydrationActivation: View {
                     // Bouton cercle principal
                     Button {
                         toggleTimer()
-                        if timeInterval == 0 {
-//                            timeInterval = timerhour
+                        if timeInterval == 0  {
+                            timeInterval = timerhour
                             stopTimer()
                             hydrationActivationViewModel.stopPlaying()
                         }
@@ -71,6 +71,20 @@ struct HydrationActivation: View {
                     }
                     .buttonStyle(.plain)
                     .animation(.spring(), value: timerIsReading)
+                    
+                    if timerhour == 0 {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(Color.orange)
+                            Text("Veuillez bien selectionner un profil")
+                        }
+                        .opacity(timerhour == 0 ? 1 : 0)
+                        .animation(
+                            .easeOut(duration: 1.0),value: showMessage
+                        )
+                       
+                        
+                    }
                     
                 }
                 .toolbar(
@@ -132,7 +146,7 @@ struct HydrationActivation: View {
         }
     }
     var buttonLabel: String {
-        if timeInterval == 0 && timerhour == 0{
+        if timeInterval == 0 {
             
             return "Réinitialiser"
         }
