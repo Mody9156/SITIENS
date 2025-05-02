@@ -137,7 +137,7 @@ struct HydrationActivation: View {
             .onAppear {
                 if timeInterval == 0 {
                     hydrationActivationViewModel.notification()
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+//                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     
                 }
                 showMessage = false
