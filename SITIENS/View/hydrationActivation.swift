@@ -48,10 +48,22 @@ struct HydrationActivation: View {
                     // Bouton cercle principal
                     Button {
                         toggleTimer()
-                        if timeInterval == 0  {
+                        showMessage = false
+                        
+                        if timeInterval == 0{
                             timeInterval = timerhour
+                            
                             stopTimer()
                             hydrationActivationViewModel.stopPlaying()
+                        }
+                        
+                        if timerhour == 0 && timeInterval == 0{
+                            DispatchQueue.main
+                                .asyncAfter(deadline: .now() + 0.2, execute: {
+                                withAnimation {
+                                    showMessage = true
+                                }
+                            })
                         }
                         
                     } label: {
@@ -72,16 +84,17 @@ struct HydrationActivation: View {
                     .buttonStyle(.plain)
                     .animation(.spring(), value: timerIsReading)
                     
-                    if timerhour == 0 {
+                    if showMessage{
                         HStack {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .foregroundStyle(Color.orange)
-                            Text("Veuillez bien selectionner un profil")
+                            Text("Veuillez bien selectionner l'horraire")
                         }
-                        .opacity(timerhour == 0 ? 1 : 0)
+                        .opacity(showMessage ? 1 : 0)
                         .animation(
                             .easeOut(duration: 1.0),value: showMessage
                         )
+                        .padding()
                        
                         
                     }
@@ -127,6 +140,7 @@ struct HydrationActivation: View {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     
                 }
+                showMessage = false
                 
             }
         }
@@ -153,7 +167,7 @@ struct HydrationActivation: View {
         else {
             if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
                 return "STOPPER"
-            } else if timeInterval < timerhour && timerhour == 0{
+            } else if timeInterval < timerhour {
                 return "REPRENDRE"
             } else {
                 return "COMMENCER"

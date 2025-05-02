@@ -83,7 +83,7 @@ struct ConfiTimer: View {
                             if isPlaying {
                                 hydrationActivationViewModel.playSound(sound: selectedItems)
                             }else{
-                                hydrationActivationViewModel.stopPlaying()
+                                hydrationActivationViewModel.audioPlayer = nil
                             }
                         }
 
