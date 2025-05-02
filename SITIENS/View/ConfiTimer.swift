@@ -73,21 +73,26 @@ struct ConfiTimer: View {
                     .shadow(radius: 5)
                     
                    Text("Jouer l'audio")
+                        .font(.headline)
+                        .fontWeight(.bold)
                     
                     Button {
                         withAnimation {
                             isPlaying.toggle()
+                            
                             if isPlaying {
-                                print("clic here")
                                 hydrationActivationViewModel.playSound(sound: selectedItems)
                             }else{
                                 hydrationActivationViewModel.stopPlaying()
                             }
-                            print("\(isPlaying)")
                         }
 
                     } label: {
-                        Image(systemName:isPlaying ? "pause" :  "play.fill")
+                        Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                            .resizable()
+                            .frame(width: 80,height: 80)
+                            .padding()
+                            .scaleEffect(isPlaying ? 1.1 : 1.0)
                         
                     }
                     .onAppear{
