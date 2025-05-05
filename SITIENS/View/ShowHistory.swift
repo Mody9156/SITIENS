@@ -8,21 +8,36 @@
 import SwiftUI
 
 struct ShowHistory: View {
-    @Binding var historyManager : [HistoryManager] 
+    @Binding var historyManager : [HistoryManager]
     
     var body: some View {
-        VStack(alignment: .leading) {
-                ForEach(historyManager,id:\.name) { historyManager in
-                    Text(historyManager.name)
-                        .foregroundStyle(.blue)
-                    HStack{
-                        Text("\(historyManager.quantity)ml")
+        VStack(alignment: .leading, spacing: 8) {
+            
+            ForEach(historyManager) { historyManager in
+                if historyManager.name.isEmpty{
+                    Text("Vide")
+                        .font(.caption)
+                }else{
+                    HStack(spacing: 12){
+                        Text(historyManager.name)
                             .foregroundStyle(.blue)
+                            .font(.callout)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(width: 80, height: 30)
+                                .foregroundStyle(.blue)
+                            Text("\(historyManager.quantity)ml")
+                                .foregroundStyle(.white)
+                        }
                         Image(systemName: "drop.degreesign.fill")
                             .foregroundStyle(.blue)
                     }
                 }
+                
+                
+            }
         }
+        .padding()
     }
 }
 
