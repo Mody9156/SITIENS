@@ -19,7 +19,7 @@ struct WaterQuantityView: View {
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
-    let historyManager : [HistoryManager] = []
+    @State  var historyManager : [HistoryManager] = []
    
     
     var body: some View {
@@ -64,6 +64,25 @@ struct WaterQuantityView: View {
                     withAnimation {
                         throwError = true
                         showMessage = false
+                        
+                        if updateHeight == 300 {
+                            if var firstItem = historyManager.first {
+                                firstItem.name += profilType
+                                let value = userSettingsViewModel.updateWater(type: profilType)
+                                let formatted = String(format: "%.1fL", value)
+                                firstItem.quantity += formatted
+                                historyManager[0] = firstItem
+                                print(firstItem.name)
+                                print(firstItem.quantity)
+                            } else {
+                                // Ajoute une nouvelle entrée si l’historique est vide
+                                let value = userSettingsViewModel.updateWater(type: profilType)
+                                let formatted = String(format: "%.1fL", value)
+                                let newItem = HistoryManager(name: profilType, quantity: formatted)
+                                historyManager.append(newItem)
+                            }
+                        }
+
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                             withAnimation {
@@ -110,16 +129,7 @@ struct WaterQuantityView: View {
 
                     Button {
                         withAnimation {
-                            
                             updateHeight = 0
-
-                            if var firstItem = historyManager.first {
-                                firstItem.name += profilType
-                            let value = userSettingsViewModel.updateWater(type:profilType)
-                            let formatted =  String(format: "%.1fL", value)
-                            firstItem.quantity += formatted
-//                                historyManager[0] = firstItem
-                            }
                         }
 
                         
@@ -166,7 +176,7 @@ struct WaterQuantityView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     
                     NavigationLink {
-                        ShowHistory()
+                        ShowHistory(historyManager:$historyManager)
                     } label: {
                         Image(systemName: "clock.arrow.circlepath")
                             .font(.title2)

@@ -8,23 +8,24 @@
 import SwiftUI
 
 struct ShowHistory: View {
-    let historyManager : [HistoryManager] = []
+    @Binding var historyManager : [HistoryManager] 
     
     var body: some View {
-        ScrollView {
             VStack {
-                List(historyManager) { historyManager in
+                List(historyManager,id:\.name) { historyManager in
                     Text(historyManager.name)
+                        .foregroundStyle(.blue)
                     Text(historyManager.quantity)
+                        .foregroundStyle(.blue)
                 }
                 Text("Recent")
                     .foregroundStyle(.blue)
                     .font(.headline)
-            }
         }
     }
 }
 
 #Preview {
-    ShowHistory()
+    @Previewable @State var historyManager : [HistoryManager] = [HistoryManager(name: "alone", quantity: "11.00")]
+    ShowHistory(historyManager:$historyManager )
 }
