@@ -8,17 +8,40 @@
 import SwiftUI
 
 struct ShowHistory: View {
+    @Binding var historyManager : [HistoryManager]
+    
     var body: some View {
-        ScrollView {
-            VStack {
-                Text("Recent")
-                    .foregroundStyle(.blue)
-                    .font(.headline)
+        VStack(alignment: .leading, spacing: 8) {
+            
+            ForEach(historyManager) { historyManager in
+                if historyManager.name.isEmpty{
+                    Text("Vide")
+                        .font(.caption)
+                }else{
+                    HStack(spacing: 12){
+                        Text(historyManager.name)
+                            .foregroundStyle(.blue)
+                            .font(.callout)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(width: 80, height: 30)
+                                .foregroundStyle(.blue)
+                            Text("\(historyManager.quantity)ml")
+                                .foregroundStyle(.white)
+                        }
+                        Image(systemName: "drop.degreesign.fill")
+                            .foregroundStyle(.blue)
+                    }
+                }
+                
+                
             }
         }
+        .padding()
     }
 }
 
 #Preview {
-    ShowHistory()
+    @Previewable @State var historyManager : [HistoryManager] = [HistoryManager(name: "Sportif", quantity: "11.00")]
+    ShowHistory(historyManager:$historyManager )
 }
