@@ -19,7 +19,8 @@ struct WaterQuantityView: View {
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
-    
+    let historyManager : [HistoryManager] = []
+
     var body: some View {
         NavigationStack {
             VStack{
