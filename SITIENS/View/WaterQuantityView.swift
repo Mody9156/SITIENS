@@ -20,7 +20,8 @@ struct WaterQuantityView: View {
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
     let historyManager : [HistoryManager] = []
-
+   
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -102,17 +103,25 @@ struct WaterQuantityView: View {
                     .animation(
                         .easeOut(duration: 1.0),value: showMessage
                     )
-                   
-                    
                 }
-                
                 
                 if updateHeight == 300 {
                     
+
                     Button {
                         withAnimation {
+                            
                             updateHeight = 0
+
+                            if var firstItem = historyManager.first {
+                                firstItem.name += profilType
+                            let value = userSettingsViewModel.updateWater(type:profilType)
+                            let formatted =  String(format: "%.1fL", value)
+                            firstItem.quantity += formatted
+//                                historyManager[0] = firstItem
+                            }
                         }
+
                         
                     } label: {
                         ZStack {
@@ -126,10 +135,6 @@ struct WaterQuantityView: View {
                     }
                     .padding()
                 }
-              
-                
-                
-
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
