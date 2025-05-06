@@ -9,6 +9,15 @@ import Foundation
 
 @Observable
 class UserSettingsViewModel{
+
+    func sendHistory(name:String,quantity:String)  -> [HistoryManager]{
+            let value = updateWater(type: quantity)
+            let formatted = String(format: "%.1fL", value)
+            let array = HistoryManager(name: name, quantity: formatted)
+            return  [array]
+             
+    }
+    
     func updateWater(type name:String) -> CGFloat{
         switch name  {
         case "nourrissons":
