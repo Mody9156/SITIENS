@@ -42,6 +42,6 @@ struct ShowHistory: View {
 }
 
 #Preview {
-    @Previewable @State var historyManager : [HistoryManager] = [HistoryManager(name: "Sportif", quantity: "11.00")]
+    @Previewable @State var historyManager : [HistoryManager] = [HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "11.00")]
     ShowHistory(historyManager:$historyManager )
 }
