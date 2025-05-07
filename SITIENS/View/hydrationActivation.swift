@@ -137,7 +137,7 @@ struct HydrationActivation: View {
             .onAppear {
                 if timeInterval == 0 {
                     hydrationActivationViewModel.notification()
-//                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     
                 }
                 showMessage = false
@@ -152,11 +152,11 @@ struct HydrationActivation: View {
         case "Réinitialiser" :
             return .orange
         case "REPRENDRE" :
-            return .orange
+            return .red
         case "COMMENCER" :
             return .blue
         default:
-            return .blue
+            return .gray
         }
     }
     var buttonLabel: String {
