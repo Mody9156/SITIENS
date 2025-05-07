@@ -66,10 +66,10 @@ struct WaterQuantityView: View {
                         showMessage = false
                         
                         
-                        if updateHeight == 300 {
-                            
-                            historyManager +=  userSettingsViewModel.sendHistory(name: profilType, quantity: profilType)
-                        }
+//                        if updateHeight == 300 {
+//                            
+//                            historyManager +=  userSettingsViewModel.sendHistory(name: profilType, quantity: profilType)
+//                        }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                             withAnimation {
@@ -170,6 +170,13 @@ struct WaterQuantityView: View {
                             .foregroundStyle(.blue)
                     }
                 }
+            }
+            .onChange(of: updateHeight) { 
+                if updateHeight == 300 {
+                    
+                    historyManager +=  userSettingsViewModel.sendHistory(name: profilType, quantity: profilType)
+                }
+
             }
         }
     }
