@@ -12,6 +12,7 @@ import CoreData
      var history = [History]()
      var name: String = ""
      var quantity: String = ""
+    var errorMessage = ""
     
     var viewContext: NSManagedObjectContext?
     private var historyRepository : DataProtocol
@@ -27,7 +28,17 @@ import CoreData
         case fetchFailed
     }
     
+    
+    func showMessageError()  -> String {
+        if name.isEmpty || quantity.isEmpty   {
+            return "Veuillez remplire tout les champs"
+        }
+        return ""
+    }
+    
     func addHistory() throws {
+        quantity = showMessageError()
+        
         do {
            try historyRepository.addtHisoData(name: name, quantity: quantity)
         } catch {

@@ -181,10 +181,22 @@ struct WaterQuantityView: View {
             }
             .onChange(of: updateHeight) { 
                 if updateHeight == 300 {
+                    Task{
+                        try? historyViewModel.addHistory()
+                    }
                     
                     historyManager +=  userSettingsViewModel.sendHistory(name: profilType, quantity: profilType)
+                    
+                    let formattedQuantity = String(format: "%.1fL /", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
+                    historyViewModel.quantity = formattedQuantity
+                  
                 }
+               
+              
 
+            }
+            .onChange(of: profilType) {
+                historyViewModel.name = profilType
             }
         }
     }
