@@ -8,5 +8,6 @@
 import Foundation
 
 protocol DataProtocol {
-    func getHisoData() -> [HistoryManager]
+    func getHisoData() throws -> [History]
+    func addtHisoData(name: String,quantity : String) throws
 }

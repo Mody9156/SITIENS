@@ -6,8 +6,35 @@
 //
 
 import Foundation
+import CoreData
 
 @Observable class HistoryViewModel {
+    @Published var history = [History]()
     
+    var viewContext: NSManagedObjectContext
+    private var historyRepository : DataProtocol
     
+    init(viewContext: NSManagedObjectContext, historyRepository: DataProtocol = HistoryRepository() ) {
+        self.viewContext = viewContext
+        self.historyRepository = historyRepository
+        
+        try? fetchHistory()
+    }
+    
+    enum FetchError: Error {
+        case fetchFailed
+    }
+    
+    func fetchHistory() throws {
+        do {
+            history = try historyRepository.getHisoData()
+        } catch {
+            print("Fetching history failed: \(error)")
+            throw FetchError.fetchFailed
+        }
+    }
+    
+    func reload()  {
+        try? fetchHistory()
+    }
 }
