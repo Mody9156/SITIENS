@@ -10,6 +10,8 @@ import CoreData
 
 @Observable class HistoryViewModel {
      var history = [History]()
+     var name: String = ""
+     var quantity: String = ""
     
     var viewContext: NSManagedObjectContext?
     private var historyRepository : DataProtocol
@@ -25,14 +27,25 @@ import CoreData
         case fetchFailed
     }
     
-    func fetchHistory() throws {
+    func addHistory() throws {
         do {
-            history = try historyRepository.getHisoData()
+           try historyRepository.addtHisoData(name: name, quantity: quantity)
         } catch {
             print("Fetching history failed: \(error)")
             throw FetchError.fetchFailed
         }
     }
+    
+    func fetchHistory() throws {
+        do {
+            history =  try historyRepository.getHisoData()
+        } catch {
+            print("Fetching history failed: \(error)")
+            throw FetchError.fetchFailed
+        }
+    }
+    
+    
     
     func reload()  {
         try? fetchHistory()

@@ -22,6 +22,8 @@ struct WaterQuantityView: View {
     @State var showMessage : Bool = false
     @State  var historyManager : [HistoryManager] = []
     @Bindable var historyViewModel : HistoryViewModel
+    @State var name : String = ""
+    @State var quantity : String = ""
     
     var body: some View {
         NavigationStack {
