@@ -29,5 +29,14 @@ struct HistoryRepository: DataProtocol {
         return result
     }
     
+    func addtHisoData(name: String,quantity : String) throws {
+       try? viewContext.performAndWait {
+            let newHistorySession = History(context: viewContext)
+            newHistorySession.name = name
+            newHistorySession.quantity = quantity
+            
+           try viewContext.save()
+        }
+    }
     
 }
