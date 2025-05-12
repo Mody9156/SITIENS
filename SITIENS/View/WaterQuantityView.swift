@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct WaterQuantityView: View {
     @State var updateHeight : CGFloat = 0
@@ -20,7 +21,7 @@ struct WaterQuantityView: View {
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
     @State  var historyManager : [HistoryManager] = []
-    
+    @Bindable var historyViewModel : HistoryViewModel
     
     var body: some View {
         NavigationStack {
@@ -64,7 +65,6 @@ struct WaterQuantityView: View {
                     withAnimation {
                         throwError = true
                         showMessage = false
-                        
                         
 //                        if updateHeight == 300 {
 //                            
@@ -112,7 +112,6 @@ struct WaterQuantityView: View {
                 }
                 
                 if updateHeight == 300 {
-                    
                     
                     Button {
                         withAnimation {
@@ -163,7 +162,14 @@ struct WaterQuantityView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     
                     NavigationLink {
-                        ShowHistory(historyManager:$historyManager)
+                        ShowHistory(
+                            historyManager:$historyManager,
+                            historyViewModel:HistoryViewModel(
+                                viewContext: historyViewModel.viewContext)
+                        )
+                        .onAppear{
+                            historyViewModel.reload()
+                        }
                     } label: {
                         Image(systemName: "clock.arrow.circlepath")
                             .font(.title2)
@@ -183,5 +189,5 @@ struct WaterQuantityView: View {
 }
 
 #Preview {
-    WaterQuantityView()
+    WaterQuantityView(historyViewModel: HistoryViewModel())
 }

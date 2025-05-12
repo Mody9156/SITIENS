@@ -9,12 +9,12 @@ import Foundation
 import CoreData
 
 @Observable class HistoryViewModel {
-    @Published var history = [History]()
+     var history = [History]()
     
-    var viewContext: NSManagedObjectContext
+    var viewContext: NSManagedObjectContext?
     private var historyRepository : DataProtocol
     
-    init(viewContext: NSManagedObjectContext, historyRepository: DataProtocol = HistoryRepository() ) {
+    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ) {
         self.viewContext = viewContext
         self.historyRepository = historyRepository
         

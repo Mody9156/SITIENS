@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ShowHistory: View {
     @Binding var historyManager : [HistoryManager]
+    @Bindable var historyViewModel : HistoryViewModel
+    
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
     var body: some View {
         ScrollView {
@@ -17,6 +20,12 @@ struct ShowHistory: View {
                     .font(.system(size: 40, weight: .light, design: .serif))
                     .foregroundStyle(.gray)
                     .padding()
+                
+                ForEach(historyViewModel.history) { historyManager in
+                    if let name = historyManager.name {
+                        Text("nom :\(name)")
+                    }
+                }
                 
                 ForEach(historyManager) { historyManager in
                     if historyManager.name.isEmpty{
@@ -69,5 +78,9 @@ struct ShowHistory: View {
 
 #Preview {
     @Previewable @State var historyManager : [HistoryManager] = [HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Jeune", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "4.00"),HistoryManager(name: "Sportif", quantity: "1.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Agée", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "3.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Enfant", quantity: "1.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Femme", quantity: "2.00"),HistoryManager(name: "Sportif", quantity: "0.70"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Homme", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "3.00"),HistoryManager(name: "Sportif", quantity: "11.00"),HistoryManager(name: "Sportif", quantity: "11.00")]
-    ShowHistory(historyManager:$historyManager )
+
+    ShowHistory(
+        historyManager:$historyManager,
+        historyViewModel: HistoryViewModel()
+    )
 }

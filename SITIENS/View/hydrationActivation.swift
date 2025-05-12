@@ -2,6 +2,7 @@ import SwiftUI
 import Combine
 import WidgetKit
 import UIKit
+import CoreData
 
 struct HydrationActivation: View {
     @State var timerIsReading = false
