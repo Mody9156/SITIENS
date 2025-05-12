@@ -17,13 +17,13 @@ struct SITIENSApp: App {
                     Tab(
                         "Chronomètre",
                         systemImage: "stopwatch") {
-                            HydrationActivation( )
+                            HydrationActivation()
                     }
                     
                     Tab(
                         "Hydradation",
                         systemImage: "drop.fill") {
-                            WaterQuantityView()
+                            WaterQuantityView(historyViewModel: HistoryViewModel())
                     }
                 }
                 

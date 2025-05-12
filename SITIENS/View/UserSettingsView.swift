@@ -24,6 +24,7 @@ struct UserSettingsView: View {
                 .pickerStyle(.inline)
             }
             
+            
             Button {
                 withAnimation {
                     if !profil.isEmpty {

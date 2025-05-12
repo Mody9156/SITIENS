@@ -18,8 +18,8 @@ struct HistoryRepository: DataProtocol {
                 self.viewContext = viewContext
             }
     
-    func getHisoData() -> [HistoryManager] {
-        let result : [HistoryManager] = []
+    func getHisoData() throws -> [History] {
+        let result : [History] = []
         
          viewContext.performAndWait {
              let request : NSFetchRequest<History> = History.fetchRequest()
@@ -29,5 +29,14 @@ struct HistoryRepository: DataProtocol {
         return result
     }
     
+    func addtHisoData(name: String,quantity : String) throws {
+       try? viewContext.performAndWait {
+            let newHistorySession = History(context: viewContext)
+            newHistorySession.name = name
+            newHistorySession.quantity = quantity
+            
+           try viewContext.save()
+        }
+    }
     
 }
