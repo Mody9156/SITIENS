@@ -43,6 +43,7 @@ import CoreData
         }
 
         do {
+            
            try historyRepository.addtHisoData(name: name, quantity: quantity)
             print("result : \(name) \(quantity)")
         } catch {

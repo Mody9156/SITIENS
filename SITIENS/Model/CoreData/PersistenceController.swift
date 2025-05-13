@@ -17,7 +17,7 @@ struct PersistenceController{
     
     // MARK: - Init
      init(inMemory: Bool = false ){
-        container = NSPersistentContainer(name: "SITIENS")
+        container = NSPersistentContainer(name: "SitiensModel")
         backgroundContext = container.newBackgroundContext()
         
         container.loadPersistentStores { storeDescription, error in

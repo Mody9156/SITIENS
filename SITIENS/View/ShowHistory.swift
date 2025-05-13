@@ -73,6 +73,12 @@ struct ShowHistory: View {
             }
             .padding()
         }
+        .onAppear{
+            Task{
+                try historyViewModel.fetchHistory()
+            }
+           
+        }
     }
 }
 

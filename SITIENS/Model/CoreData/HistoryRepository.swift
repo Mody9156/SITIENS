@@ -8,53 +8,52 @@
 import Foundation
 import CoreData
 
-struct HistoryRepository: @preconcurrency DataProtocol {
+struct HistoryRepository: DataProtocol {
     
-    var viewContext : NSManagedObjectContext?
+    var viewContext : NSManagedObjectContext
     
     init(
-        viewContext: NSManagedObjectContext? = PersistenceController.shared.container
+        viewContext: NSManagedObjectContext = PersistenceController.shared.container
             .viewContext) {
                 self.viewContext = viewContext
             }
     
     func getHisoData() throws -> [History] {
-        let result : [History] = []
+//       try getContext()
         
-        guard let context = viewContext else {
-            throw NSError(
-                domain: "DataError",
-                code: 1001,
-                userInfo: [NSLocalizedDescriptionKey: "Le contexte est nul."]
-            )
-        }
+        var result : [History] = []
         
-        context.performAndWait {
+        try viewContext.performAndWait {
              let request : NSFetchRequest<History> = History.fetchRequest()
-             request.sortDescriptors = [NSSortDescriptor(SortDescriptor<History>(\.name,order: .reverse))]
+            request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
+            result = try viewContext.fetch(request)
         }
         
         return result
     }
-    
-    @MainActor
+
     func addtHisoData(name: String,quantity : String) throws {
-        
-        guard let context = viewContext else {
-            throw NSError(
-                domain: "DataError",
-                code: 1001,
-                userInfo: [NSLocalizedDescriptionKey: "Le contexte est nul."]
-            )
+//        try  getContext()
+        guard let context = viewContext.persistentStoreCoordinator else {
+            throw NSError(domain: "DataError", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Le contexte n'est pas configuré correctement."])
         }
-        
-       try context.performAndWait {
-            let newHistorySession = History(context: context)
+       try viewContext.performAndWait {
+            let newHistorySession = History(context: viewContext)
             newHistorySession.name = name
             newHistorySession.quantity = quantity
             
-           try context.save()
+           try viewContext.save()
         }
     }
     
+//    private func getContext() throws -> NSManagedObjectContext {
+//        if  viewContext == nil  {
+//            throw NSError(
+//                domain: "DataError",
+//                code: 1001,
+//                userInfo: [NSLocalizedDescriptionKey: "Le contexte est nul."]
+//            )
+//        }
+//        return viewContext
+//    }
 }
