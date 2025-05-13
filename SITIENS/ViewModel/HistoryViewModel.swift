@@ -17,11 +17,11 @@ import CoreData
     var viewContext: NSManagedObjectContext?
     private var historyRepository : DataProtocol
     
-    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ) {
+    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ) async {
         self.viewContext = viewContext
         self.historyRepository = historyRepository
         
-        try? fetchHistory()
+        try?  fetchHistory()
     }
     
     enum FetchError: Error {
@@ -52,7 +52,7 @@ import CoreData
         }
     }
     
-    func fetchHistory() throws {
+    func fetchHistory()  throws {
         do {
             history =  try historyRepository.getHisoData()
         } catch {
@@ -63,9 +63,9 @@ import CoreData
     
     
     
-    func reload()  {
+    func reload() async  {
         do{
-            try fetchHistory()
+            try  fetchHistory()
         }catch {
             errorMessage = "Échec du rechargement des données : \(error.localizedDescription)"
         }

@@ -8,20 +8,21 @@
 import Foundation
 import CoreData
 
-struct PersistenceController{
+final class PersistenceController {
     
     // MARK: - Properties
-    static let shared = PersistenceController()
+    nonisolated(unsafe) static let shared = PersistenceController()
     
-    var container : NSPersistentContainer
-    private(set) var backgroundContext : NSManagedObjectContext
-    
+    let container: NSPersistentContainer
+    private(set) var backgroundContext: NSManagedObjectContext?
+
     // MARK: - Init
-    private init(inMemory: Bool = false ){
+    private init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "SitiensModel")
-         if inMemory {
-             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
-         }
+        
+        if inMemory {
+            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+        }
         
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
@@ -30,19 +31,20 @@ struct PersistenceController{
             
             print("Store loaded successfully at \(storeDescription.url?.absoluteString ?? "No URL")")
             
-            self.backgroundContext = container.newBackgroundContext()
-            self.backgroundContext.automaticallyMergesChangesFromParent = true
-            self.container.viewContext.automaticallyMergesChangesFromParent = true
-            
-            
+            // Initialiser le contexte de fond ici, après le chargement des stores
+            self.backgroundContext = self.container.newBackgroundContext()
+            self.backgroundContext?.automaticallyMergesChangesFromParent = true
         }
-    }
-    
-    var viewContext : NSManagedObjectContext {
-        container.viewContext
         
+        container.viewContext.automaticallyMergesChangesFromParent = true
     }
-    
+
+    /// Contexte principal - toujours sur le main thread
+    var viewContext: NSManagedObjectContext {
+        container.viewContext
+    }
+
+    /// Créer un nouveau contexte de fond
     func newBackgroundContext() -> NSManagedObjectContext {
         let context = container.newBackgroundContext()
         context.automaticallyMergesChangesFromParent = true
