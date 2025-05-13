@@ -12,6 +12,7 @@ struct ShowHistory: View {
     @Bindable var historyViewModel : HistoryViewModel
     
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 8) {

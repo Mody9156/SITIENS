@@ -70,4 +70,11 @@ import CoreData
             errorMessage = "Échec du rechargement des données : \(error.localizedDescription)"
         }
     }
+    
+    func dateFormatted(){
+        let dateFormatted = DateFormatter()
+        dateFormatted.dateFormat = "dd/MM/yyyy"
+        dateFormatted.dateStyle = .medium
+        
+    }
 }
