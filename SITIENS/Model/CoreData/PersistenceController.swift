@@ -17,7 +17,7 @@ struct PersistenceController{
     private(set) var backgroundContext : NSManagedObjectContext
     
     // MARK: - Init
-     init(inMemory: Bool = false ){
+    private init(inMemory: Bool = false ){
         container = NSPersistentContainer(name: "SitiensModel")
          if inMemory {
              container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
