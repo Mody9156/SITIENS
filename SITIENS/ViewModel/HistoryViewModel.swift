@@ -21,7 +21,7 @@ import CoreData
         self.viewContext = viewContext
         self.historyRepository = historyRepository
         
-        try? fetchHistory()
+        try?  fetchHistory()
     }
     
     enum FetchError: Error {
@@ -29,25 +29,30 @@ import CoreData
     }
     
     
-    func showMessageError()  -> String {
+    func showMessageError()  -> String? {
         if name.isEmpty || quantity.isEmpty   {
-            return "Veuillez remplire tout les champs"
+            return "Veuillez remplir tous les champs."
         }
-        return ""
+        return nil
     }
     
     func addHistory() throws {
-        quantity = showMessageError()
-        
+        if let erreor =  showMessageError(){
+             errorMessage = erreor
+             
+        }
+
         do {
+            
            try historyRepository.addtHisoData(name: name, quantity: quantity)
+            print("result : \(name) \(quantity)")
         } catch {
             print("Fetching history failed: \(error)")
             throw FetchError.fetchFailed
         }
     }
     
-    func fetchHistory() throws {
+    func fetchHistory()  throws {
         do {
             history =  try historyRepository.getHisoData()
         } catch {
@@ -58,7 +63,18 @@ import CoreData
     
     
     
-    func reload()  {
-        try? fetchHistory()
+    func reload()   {
+        do{
+            try  fetchHistory()
+        }catch {
+            errorMessage = "Échec du rechargement des données : \(error.localizedDescription)"
+        }
+    }
+    
+    func dateFormatted(){
+        let dateFormatted = DateFormatter()
+        dateFormatted.dateFormat = "dd/MM/yyyy"
+        dateFormatted.dateStyle = .medium
+        
     }
 }

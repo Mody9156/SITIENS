@@ -20,7 +20,6 @@ struct WaterQuantityView: View {
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
-    @State  var historyManager : [HistoryManager] = []
     @Bindable var historyViewModel : HistoryViewModel
     @State var name : String = ""
     @State var quantity : String = ""
@@ -70,7 +69,7 @@ struct WaterQuantityView: View {
                         
 //                        if updateHeight == 300 {
 //                            
-//                            historyManager +=  userSettingsViewModel.sendHistory(name: profilType, quantity: profilType)
+//
 //                        }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
@@ -165,7 +164,6 @@ struct WaterQuantityView: View {
                     
                     NavigationLink {
                         ShowHistory(
-                            historyManager:$historyManager,
                             historyViewModel:HistoryViewModel(
                                 viewContext: historyViewModel.viewContext)
                         )
@@ -179,25 +177,29 @@ struct WaterQuantityView: View {
                     }
                 }
             }
-            .onChange(of: updateHeight) { 
+            .onChange(of: updateHeight) {
                 if updateHeight == 300 {
-                    Task{
-                        try? historyViewModel.addHistory()
-                    }
-                    
-                    historyManager +=  userSettingsViewModel.sendHistory(name: profilType, quantity: profilType)
-                    
-                    let formattedQuantity = String(format: "%.1fL /", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
-                    historyViewModel.quantity = formattedQuantity
+                   
+                    historyViewModel.name = profilType
                   
+                    let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
+                    historyViewModel.quantity = formattedQuantity
+                    
+                    Task{
+                        do{
+                            try historyViewModel.addHistory()
+                        }catch{
+                            print("Erreur lors du test de l'ajout de l'historique : \(error)")
+                        }
+                    }
+                        
+                    
                 }
                
               
 
             }
-            .onChange(of: profilType) {
-                historyViewModel.name = profilType
-            }
+           
         }
     }
 }
