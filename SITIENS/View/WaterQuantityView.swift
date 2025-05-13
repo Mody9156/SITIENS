@@ -20,7 +20,6 @@ struct WaterQuantityView: View {
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
-    @State  var historyManager : [HistoryManager] = []
     @Bindable var historyViewModel : HistoryViewModel
     @State var name : String = ""
     @State var quantity : String = ""
@@ -165,7 +164,6 @@ struct WaterQuantityView: View {
                     
                     NavigationLink {
                         ShowHistory(
-                            historyManager:$historyManager,
                             historyViewModel:HistoryViewModel(
                                 viewContext: historyViewModel.viewContext)
                         )
