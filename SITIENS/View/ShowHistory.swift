@@ -20,13 +20,7 @@ struct ShowHistory: View {
                     .font(.system(size: 40, weight: .light, design: .serif))
                     .foregroundStyle(.gray)
                     .padding()
-                
-                ForEach(historyViewModel.history) { historyManager in
-                    if let name = historyManager.name {
-                        Text("nom :\(name)")
-                    }
-                }
-                
+               
                 ForEach(historyViewModel.history) { historyManager in
                     
                     //
