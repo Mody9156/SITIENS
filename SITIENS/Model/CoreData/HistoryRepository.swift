@@ -8,12 +8,12 @@
 import Foundation
 import CoreData
 
-struct HistoryRepository: DataProtocol {
+struct HistoryRepository: @preconcurrency DataProtocol {
     
-    let viewContext : NSManagedObjectContext
+    var viewContext : NSManagedObjectContext?
     
     init(
-        viewContext: NSManagedObjectContext = PersistenceController.shared.container
+        viewContext: NSManagedObjectContext? = PersistenceController.shared.container
             .viewContext) {
                 self.viewContext = viewContext
             }
@@ -21,7 +21,15 @@ struct HistoryRepository: DataProtocol {
     func getHisoData() throws -> [History] {
         let result : [History] = []
         
-         viewContext.performAndWait {
+        guard let context = viewContext else {
+            throw NSError(
+                domain: "DataError",
+                code: 1001,
+                userInfo: [NSLocalizedDescriptionKey: "Le contexte est nul."]
+            )
+        }
+        
+        context.performAndWait {
              let request : NSFetchRequest<History> = History.fetchRequest()
              request.sortDescriptors = [NSSortDescriptor(SortDescriptor<History>(\.name,order: .reverse))]
         }
@@ -29,13 +37,23 @@ struct HistoryRepository: DataProtocol {
         return result
     }
     
+    @MainActor
     func addtHisoData(name: String,quantity : String) throws {
-       try? viewContext.performAndWait {
-            let newHistorySession = History(context: viewContext)
+        
+        guard let context = viewContext else {
+            throw NSError(
+                domain: "DataError",
+                code: 1001,
+                userInfo: [NSLocalizedDescriptionKey: "Le contexte est nul."]
+            )
+        }
+        
+       try context.performAndWait {
+            let newHistorySession = History(context: context)
             newHistorySession.name = name
             newHistorySession.quantity = quantity
             
-           try viewContext.save()
+           try context.save()
         }
     }
     
