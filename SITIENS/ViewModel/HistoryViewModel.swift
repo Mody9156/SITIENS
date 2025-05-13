@@ -17,7 +17,7 @@ import CoreData
     var viewContext: NSManagedObjectContext?
     private var historyRepository : DataProtocol
     
-    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ) async {
+    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ) {
         self.viewContext = viewContext
         self.historyRepository = historyRepository
         
@@ -63,7 +63,7 @@ import CoreData
     
     
     
-    func reload() async  {
+    func reload()   {
         do{
             try  fetchHistory()
         }catch {
