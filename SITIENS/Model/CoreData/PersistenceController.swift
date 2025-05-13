@@ -11,20 +11,41 @@ import CoreData
 struct PersistenceController{
     
     // MARK: - Properties
-    nonisolated(unsafe) static let shared = PersistenceController()
+    static let shared = PersistenceController()
+    
     var container : NSPersistentContainer
-    let backgroundContext : NSManagedObjectContext
+    private(set) var backgroundContext : NSManagedObjectContext
     
     // MARK: - Init
      init(inMemory: Bool = false ){
         container = NSPersistentContainer(name: "SitiensModel")
-        backgroundContext = container.newBackgroundContext()
+         if inMemory {
+             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+         }
         
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
+            
+            print("Store loaded successfully at \(storeDescription.url?.absoluteString ?? "No URL")")
+            
+            self.backgroundContext = container.newBackgroundContext()
+            self.backgroundContext.automaticallyMergesChangesFromParent = true
+            self.container.viewContext.automaticallyMergesChangesFromParent = true
+            
+            
         }
-        self.backgroundContext.automaticallyMergesChangesFromParent = true
+    }
+    
+    var viewContext : NSManagedObjectContext {
+        container.viewContext
+        
+    }
+    
+    func newBackgroundContext() -> NSManagedObjectContext {
+        let context = container.newBackgroundContext()
+        context.automaticallyMergesChangesFromParent = true
+        return context
     }
 }

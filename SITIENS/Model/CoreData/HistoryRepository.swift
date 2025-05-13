@@ -33,10 +33,7 @@ struct HistoryRepository: DataProtocol {
     }
 
     func addtHisoData(name: String,quantity : String) throws {
-//        try  getContext()
-        guard let context = viewContext.persistentStoreCoordinator else {
-            throw NSError(domain: "DataError", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Le contexte n'est pas configuré correctement."])
-        }
+
        try viewContext.performAndWait {
             let newHistorySession = History(context: viewContext)
             newHistorySession.name = name
