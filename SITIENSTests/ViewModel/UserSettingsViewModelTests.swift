@@ -111,4 +111,5 @@ struct UserSettingsViewModelTests {
         //Then
         #expect(user == 0)
     }
+ 
 }
