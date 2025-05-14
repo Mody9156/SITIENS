@@ -6,13 +6,60 @@
 //
 
 import Testing
+import XCTest
+@testable import SITIENS
 
 struct UserSettingsViewModelTests {
 
-    @Test func updateTypeWithNewName() async throws {
-        
-        
+    @Test func updateTypeWithNewNameIsEgaltoNourrissons() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "nourrissons"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 2.3332/1000)
        
     }
+    
+    @Test func updateTypeWithNewNameIsEgaltoWomen() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "femmes enceintes"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 8.36/1000)
+    }
+    
+    @Test func updateTypeWithNewNameIsEgaltoGrandFatherOrMother() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "personnes âgées"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 6.66/1000)
+    }
+    
+    @Test func updateTypeWithNewNameIsEgaltosportifs() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "sportifs"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 1/100)
+    }
 
+    @Test func updateTypeWithNewName() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "FakeName"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 0.0)
+    }
+    
 }
