@@ -27,13 +27,7 @@ struct WaterQuantityView: View {
     var body: some View {
         NavigationStack {
             VStack{
-                
-                Text(profilType.isEmpty ? "Veuillez Selectionnez un porfil" : profilType)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.blue)
-                    .padding()
-                
+            
                 Text("\(Int((updateHeight / 2) * 200 / 300)) %")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -42,6 +36,7 @@ struct WaterQuantityView: View {
                 
                 Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
                     .foregroundStyle(.gray)
+                    .font(.title2)
                 
                 ZStack (alignment: .bottom){
                     RoundedRectangle(cornerRadius: 6)
@@ -66,11 +61,6 @@ struct WaterQuantityView: View {
                     withAnimation {
                         throwError = true
                         showMessage = false
-                        
-//                        if updateHeight == 300 {
-//                            
-//
-//                        }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                             withAnimation {
