@@ -49,7 +49,7 @@ struct UserSettingsViewModelTests {
         //When
         let user = userSettingsViewModel.updateType(name: name)
         //Then
-        #expect(user == 1/100)
+        #expect(user == 0.01)
     }
 
     @Test func updateTypeWithNewName() async throws {
@@ -62,4 +62,53 @@ struct UserSettingsViewModelTests {
         #expect(user == 0.0)
     }
     
+    @Test func updateWaterWhenResultIsEgalToNourrissons() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "nourrissons"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 0.7)
+    }
+    
+    @Test func updateWaterWhenResultIsEgalToWomen() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "femmes enceintes"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 2.5)
+    }
+    @Test func updateWaterWhenResultIsEgalToGrandFatherOrMother() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "personnes âgées"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 2)
+    }
+    
+    @Test func updateWaterWhenResultIsEgalToSportifs() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "sportifs"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 3)
+    }
+    
+    
+    @Test func updateWater() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "FakeName"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 0)
+    }
 }
