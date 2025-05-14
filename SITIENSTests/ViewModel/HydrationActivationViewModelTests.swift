@@ -11,8 +11,25 @@ import XCTest
 struct HydrationActivationViewModelTests {
 
     @Test func formatTimerWhenAddNewElement() async throws {
+        //Gieven
         let hydrationActivationViewModel = HydrationActivationViewModel()
+        let secondes = 10
+        //When
+        let fomatTimer = hydrationActivationViewModel.formatTimer(secondes)
         
+        //Then
+        #expect(fomatTimer == "00:00:10")
+    }
+    
+    @Test func formatTimerWhenAddNewHour() async throws {
+        //Gieven
+        let hydrationActivationViewModel = HydrationActivationViewModel()
+        let hours = 7200
+        //When
+        let fomatTimer = hydrationActivationViewModel.formatHour(hours)
+        
+        //Then
+        #expect(fomatTimer == " 2")
     }
 
 }
