@@ -23,7 +23,7 @@ struct ShowHistory: View {
                
                 ForEach(historyViewModel.history) { historyManager in
                     
-                      if let name =  historyManager.name, let quantity =  historyManager.quantity {
+                    if let name =  historyManager.name, let quantity =  historyManager.quantity, let date =  historyManager.date{
                     
                     if name.isEmpty{
                         Text("Vide")
@@ -39,7 +39,7 @@ struct ShowHistory: View {
                                 .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                             
                             VStack(alignment: .leading, spacing: 8) {
-                                Text(dateformatted)
+                                Text(date)
                                     .font(.caption)
                                     .foregroundColor(.gray)
                                 

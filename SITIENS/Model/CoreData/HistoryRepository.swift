@@ -29,10 +29,13 @@ struct HistoryRepository: DataProtocol {
     }
 
     func addtHisoData(name: String, quantity: String) throws {
+        let dateFormatted = Date.now.formatted(date: .numeric, time: .shortened)
+        
         try context.performAndWait {
             let newHistory = History(context: context)
             newHistory.name = name
             newHistory.quantity = quantity
+            newHistory.date = dateFormatted
             try context.save()
         }
     }
