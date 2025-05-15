@@ -191,7 +191,7 @@ struct WaterQuantityView: View {
             }
            
         }
-        .navigationTitle("Hydradation")
+       
     }
 }
 
