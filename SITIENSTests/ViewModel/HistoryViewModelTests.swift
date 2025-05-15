@@ -20,5 +20,26 @@ struct HistoryViewModelTests {
         //Then
         #expect(history?.isEmpty == nil, "There are not error")
     }
+    
+    @Test func showMessageErrorWhenThere_areNotName() async throws {
+        //Given
+        let historyViewModel = HistoryViewModel()
+        historyViewModel.name = ""
+        historyViewModel.quantity = "1"
+        //When
+        let history = historyViewModel.showMessageError()
+        //Then
+        #expect(history == "Veuillez remplir tous les champs.")
+    }
+    @Test func showMessageErrorWhenThere_areNotQuantity() async throws {
+        //Given
+        let historyViewModel = HistoryViewModel()
+        historyViewModel.name = "fakeName"
+        historyViewModel.quantity = ""
+        //When
+        let history = historyViewModel.showMessageError()
+        //Then
+        #expect(history == "Veuillez remplir tous les champs.")
+    }
 
 }

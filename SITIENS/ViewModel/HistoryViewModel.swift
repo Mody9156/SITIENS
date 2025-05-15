@@ -73,10 +73,5 @@ import CoreData
         }
     }
     
-    func dateFormatted(){
-        let dateFormatted = DateFormatter()
-        dateFormatted.dateFormat = "dd/MM/yyyy"
-        dateFormatted.dateStyle = .medium
-        
-    }
+
 }
