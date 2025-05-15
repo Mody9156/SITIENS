@@ -34,14 +34,110 @@ class HydrationActivationViewModelTests {
     
     @Test func whenPlayingSound() async throws {
         //Gieven
-        let hydrationActivationViewModel = HydrationActivationViewModel()
         let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
         let sound = "fake"
         //When
-        mock.playingSound(audioFile: sound)
+        hydrationActivationViewModel.playingSound(audioFile: sound)
         
         //Then
+        #expect(mock.messageError.isEmpty == true)
+        #expect(mock.isPlaying == true)
+        #expect(mock.sound == sound)
+    }
+    
+    @Test func whenPlayingSoundIsEmpty() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        let sound = ""
+        //When
+        hydrationActivationViewModel.playingSound(audioFile: sound)
         
+        //Then
+        #expect(mock.messageError.isEmpty == false)
+        #expect(mock.messageError == "audioFile is empty")
+        #expect(mock.isPlaying == false)
+    }
+    
+    @Test func whenPlayingSoundThrowError() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        mock.throwError = true
+        let sound = "fake"
+        //When
+        hydrationActivationViewModel.playingSound(audioFile: sound)
+        
+        //Then
+        #expect(mock.isPlaying == false)
+        #expect(mock.messageError == "There are some errors")
+
+    }
+    
+    @Test func stopPlayingSound() async throws {
+            //Gieven
+            let mock = MocksHydradationActivation()
+            let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+            //When
+            hydrationActivationViewModel.stopPlaying()
+            
+            //Then
+            #expect(mock.isPlaying == true)
+    }
+    
+    @Test func sopPlaingSoundThrowError() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        mock.throwError = true
+        //When
+        hydrationActivationViewModel.stopPlaying()
+        
+        //Then
+        #expect(mock.isPlaying == false)
+        #expect(mock.messageError == "impossible to stop playing to song")
+    }
+    
+    @Test func playSound() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        let sound = "fakeSound"
+        //When
+        hydrationActivationViewModel.playSound(sound: sound)
+        
+        //Then
+        #expect(mock.sound == sound)
+        #expect(mock.messageError == "")
+        #expect(mock.isPlaying == true)
+    }
+    
+    @Test func playSoundWithError() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        let sound = "fakeSound"
+        mock.throwError = true
+        //When
+        hydrationActivationViewModel.playSound(sound: sound)
+        
+        //Then
+        #expect(mock.messageError == "There are some errors")
+        #expect(mock.isPlaying == false)
+    }
+    
+    @Test func playSoundWhen_nameSoungIsNil() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        let sound = ""
+        //When
+        hydrationActivationViewModel.playSound(sound: sound)
+        
+        //Then
+        #expect(mock.messageError == "audioFile is empty")
+        #expect(mock.isPlaying == false)
     }
 
 }

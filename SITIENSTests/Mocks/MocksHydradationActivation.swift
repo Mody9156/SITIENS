@@ -12,6 +12,8 @@ import AVFoundation
 import AVKit
 
 class MocksHydradationActivation : HydrationProtocol{
+    
+
     let avAudioEngine = AVAudioEngine()
     let avAudioPlayerNode = AVAudioPlayerNode()
     
@@ -36,5 +38,47 @@ class MocksHydradationActivation : HydrationProtocol{
             isPlaying = true
         }
     }
+    
+    func stopPlaying() {
+        if throwError {
+            isPlaying = false
+            messageError = "impossible to stop playing to song"
+        }else{
+            isPlaying = true
+        }
+    }
 
+    func playSound(sound: String) {
+        guard  !sound.isEmpty else {
+            messageError = "audioFile is empty"
+            isPlaying = false
+            return
+        }
+        
+        if throwError {
+            messageError = "There are some errors"
+            isPlaying = false
+        }else {
+            self.sound = sound
+            messageError = ""
+            isPlaying = true
+        }
+    }
+
+    func atuhorzation() {
+        if throwError {
+            messageError = "Your don't have authorization"
+        }else {
+            messageError = ""
+        }
+    }
+
+    func notification() {
+        if throwError {
+            messageError = "Impossible for send notification"
+        }else {
+            messageError = ""
+        }
+    }
+    
 }
