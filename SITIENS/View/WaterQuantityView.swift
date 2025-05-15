@@ -28,6 +28,14 @@ struct WaterQuantityView: View {
     var body: some View {
         NavigationStack {
             VStack{
+                
+                Text("Hydradation")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.blue)
+                    .shadow(radius: 12)
+                    .padding()
+                
             
                 Text("\(Int((updateHeight / 2) * 200 / 300)) %")
                     .font(.largeTitle)
@@ -41,7 +49,7 @@ struct WaterQuantityView: View {
                 
                 ZStack (alignment: .bottom){
                     RoundedRectangle(cornerRadius: 6)
-                        .frame(width: 200,height: 300)
+                        .frame(width: 100,height: 300)
                         .foregroundStyle(.white)
                         .overlay {
                             RoundedRectangle(cornerRadius: 6)
@@ -49,7 +57,7 @@ struct WaterQuantityView: View {
                         }
                     
                     RoundedRectangle(cornerRadius: 6)
-                        .frame(width: 200,height: updateHeight)
+                        .frame(width: 100,height: updateHeight)
                         .foregroundStyle(.blue)
                         .overlay {
                             RoundedRectangle(cornerRadius: 6)
