@@ -24,6 +24,7 @@ struct WaterQuantityView: View {
     @State var name : String = ""
     @State var quantity : String = ""
     
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -164,9 +165,13 @@ struct WaterQuantityView: View {
                         Image(systemName: "clock.arrow.circlepath")
                             .font(.title2)
                             .foregroundStyle(.blue)
+                            
+                            
                     }
+                    
+                                            
                 }
-                .navigationTitle("Hydradation")
+                
             }
             .onChange(of: updateHeight) {
                 if updateHeight == 300 {
@@ -192,6 +197,7 @@ struct WaterQuantityView: View {
             }
            
         }
+        
        
     }
 }

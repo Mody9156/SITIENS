@@ -10,7 +10,7 @@ import CoreData
 
 struct ShowHistory: View {
     @Bindable var historyViewModel : HistoryViewModel
-    
+    @Environment(\.dismiss) var dismiss
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
     
     var body: some View {
@@ -69,6 +69,17 @@ struct ShowHistory: View {
                 }
                 }
             }
+            .navigationBarBackButtonHidden(true)
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Back", systemImage: "arrow.left.circle")
+                    }
+
+                }
+            })
             .padding()
         }
        
