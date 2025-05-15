@@ -139,5 +139,49 @@ class HydrationActivationViewModelTests {
         #expect(mock.messageError == "audioFile is empty")
         #expect(mock.isPlaying == false)
     }
+    
+    @Test func WhenAuthorizationStatusIsNotDetermined() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        mock.throwError = true
+        //When
+        hydrationActivationViewModel.atuhorzation()
+        //Then
+        #expect(mock.messageError == "Your don't have authorization")
+        
+    }
 
+    
+    @Test func WhenAuthorizationStatusIsValid() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        //When
+        hydrationActivationViewModel.atuhorzation()
+        //Then
+        #expect(mock.messageError.isEmpty == true)
+        
+    }
+    
+    @Test func WhenNotificationIsOn() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        //When
+        hydrationActivationViewModel.notification()
+        //Then
+        #expect(mock.messageError.isEmpty == true)
+    }
+    
+    @Test func WhenNotificationThrowError() async throws {
+        //Gieven
+        let mock = MocksHydradationActivation()
+        let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
+        mock.throwError = true
+        //When
+        hydrationActivationViewModel.notification()
+        //Then
+        #expect(mock.messageError == "Impossible for send notification")
+    }
 }
