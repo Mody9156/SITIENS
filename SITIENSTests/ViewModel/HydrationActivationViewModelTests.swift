@@ -31,5 +31,16 @@ struct HydrationActivationViewModelTests {
         //Then
         #expect(fomatTimer == " 2")
     }
+    
+    @Test func whenPlayingSound() async throws {
+        //Gieven
+        let hydrationActivationViewModel = HydrationActivationViewModel()
+        let sound = "asphalt-sizzle"
+        //When
+        let fomatTimer : () = hydrationActivationViewModel.playingSound(audioFile: sound)
+        
+        //Then
+        
+    }
 
 }

@@ -11,7 +11,7 @@ import AVFoundation
 import AVKit
 
 @Observable
-class HydrationActivationViewModel {
+class HydrationActivationViewModel : HydrationProtocol {
     var audioPlayer: AVAudioPlayer?
     
     let avAudioEngine = AVAudioEngine()
