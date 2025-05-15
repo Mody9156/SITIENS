@@ -1,8 +1,8 @@
 //
-//  hydrationActivationViewModel .swift
+//  DataHistoryHub.swift
 //  SITIENS
 //
-//  Created by Modibo on 09/04/2025.
+//  Created by Modibo on 15/05/2025.
 //
 
 import Foundation
@@ -10,19 +10,13 @@ import UserNotifications
 import AVFoundation
 import AVKit
 
-@Observable
-class HydrationActivationViewModel {
+class DataHistoryHub : HydrationProtocol {
     var audioPlayer: AVAudioPlayer?
     
     let avAudioEngine = AVAudioEngine()
     let avAudioPlayerNode = AVAudioPlayerNode()
     
-    init(audioPlayer: AVAudioPlayer? = nil ) {
-        self.audioPlayer = audioPlayer
-    }
-    
-    func playingSound(audioFile : String) {
-        
+    func playingSound(audioFile: String) {
         guard let url = Bundle.main.url(forResource: audioFile, withExtension: "mp3") else{
             return  print("Erreur lors du chargement du fichier")
         }
@@ -52,25 +46,7 @@ class HydrationActivationViewModel {
             print("Erreur pendant la lecture : \(error.localizedDescription)")
         }
     }
-    
-    func stopPlaying(){
-        avAudioEngine.stop()
-        avAudioPlayerNode.stop()
-    }
-    
-    
-    func formatTimer(_ secondes: Int) -> String {
-        let hours = secondes / 3600
-        let minutes = (secondes % 3600) / 60
-        let seconds = (secondes % 3600) % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
-    
-    func formatHour(_ secondes : Int) -> String{
-        let hours = secondes / 3600
-        return String(format: "%2d", hours)
-    }
-  
+
     func playSound(sound:String) {
         if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
             do {
@@ -81,14 +57,19 @@ class HydrationActivationViewModel {
                 print("ERROR")
             }
         }
-    }//inutilisé
+    }
     
-    func atuhorzation(){
+    func authorization(){
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
             if let error = error {
                 print("Error requesting authorization: \(error)")
             }
         }
+    }
+    
+    func stopPlaying(){
+        avAudioEngine.stop()
+        avAudioPlayerNode.stop()
     }
     
     func notification(){
@@ -118,4 +99,3 @@ class HydrationActivationViewModel {
         
     }
 }
-

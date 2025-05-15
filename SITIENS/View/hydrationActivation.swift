@@ -178,7 +178,7 @@ struct HydrationActivation: View {
     
     func toggleTimer() {
         withAnimation {
-            hydrationActivationViewModel.atuhorzation()
+            hydrationActivationViewModel.authorization()
             timerIsReading.toggle()
             timerIsReading ? startTimer() : stopTimer()
         }

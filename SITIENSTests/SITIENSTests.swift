@@ -8,7 +8,7 @@
 import Testing
 @testable import SITIENS
 
-struct SITIENSTests {
+class SITIENSTests {
 
     @Test func example() async throws {
         

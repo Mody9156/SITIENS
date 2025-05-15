@@ -10,16 +10,18 @@ import CoreData
 
 @Observable class HistoryViewModel {
      var history = [History]()
-     var name: String = ""
-     var quantity: String = ""
+     var name: String
+     var quantity: String
     var errorMessage = ""
     
     var viewContext: NSManagedObjectContext?
-    private var historyRepository : DataProtocol
+    private var historyRepository : HistoryProtocol
     
-    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ) {
+    init(viewContext: NSManagedObjectContext? = nil, historyRepository: HistoryProtocol = HistoryRepository() ,name: String = "", quantity: String = "") {
         self.viewContext = viewContext
         self.historyRepository = historyRepository
+        self.name = name
+        self.quantity = quantity
         
         try?  fetchHistory()
     }
@@ -63,7 +65,7 @@ import CoreData
     
     
     
-    func reload()   {
+    func reload() {
         do{
             try  fetchHistory()
         }catch {
@@ -71,10 +73,5 @@ import CoreData
         }
     }
     
-    func dateFormatted(){
-        let dateFormatted = DateFormatter()
-        dateFormatted.dateFormat = "dd/MM/yyyy"
-        dateFormatted.dateStyle = .medium
-        
-    }
+
 }

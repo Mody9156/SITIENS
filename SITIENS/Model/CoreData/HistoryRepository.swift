@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-struct HistoryRepository: DataProtocol {
+struct HistoryRepository: HistoryProtocol {
     
     private var context: NSManagedObjectContext
     

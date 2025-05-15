@@ -10,7 +10,7 @@ import CoreData
 
 struct ShowHistory: View {
     @Bindable var historyViewModel : HistoryViewModel
-    
+    @Environment(\.dismiss) var dismiss
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
     
     var body: some View {
@@ -69,8 +69,25 @@ struct ShowHistory: View {
                 }
                 }
             }
+            .navigationBarBackButtonHidden(true)
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        withAnimation {
+                            dismiss()
+                        }
+                    } label: {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Hydradation")
+                        }
+                    }
+
+                }
+            })
             .padding()
         }
+       
         .onAppear{
             Task{
                 try historyViewModel.fetchHistory()
