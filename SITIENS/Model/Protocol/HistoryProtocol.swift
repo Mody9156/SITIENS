@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol DataProtocol {
+protocol HistoryProtocol {
     func getHisoData()  throws -> [History]
     func addtHisoData(name: String,quantity : String) throws
 }

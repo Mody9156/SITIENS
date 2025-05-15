@@ -15,9 +15,9 @@ import CoreData
     var errorMessage = ""
     
     var viewContext: NSManagedObjectContext?
-    private var historyRepository : DataProtocol
+    private var historyRepository : HistoryProtocol
     
-    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ,name: String = "", quantity: String = "") {
+    init(viewContext: NSManagedObjectContext? = nil, historyRepository: HistoryProtocol = HistoryRepository() ,name: String = "", quantity: String = "") {
         self.viewContext = viewContext
         self.historyRepository = historyRepository
         self.name = name
@@ -65,7 +65,7 @@ import CoreData
     
     
     
-    func reload()   {
+    func reload() {
         do{
             try  fetchHistory()
         }catch {
