@@ -71,7 +71,7 @@ struct ShowHistory: View {
             }
             .padding()
         }
-        .navigationTitle("Hydradation")
+       
         .onAppear{
             Task{
                 try historyViewModel.fetchHistory()

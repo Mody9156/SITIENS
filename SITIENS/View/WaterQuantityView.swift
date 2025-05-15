@@ -166,6 +166,7 @@ struct WaterQuantityView: View {
                             .foregroundStyle(.blue)
                     }
                 }
+                .navigationTitle("Hydradation")
             }
             .onChange(of: updateHeight) {
                 if updateHeight == 300 {
