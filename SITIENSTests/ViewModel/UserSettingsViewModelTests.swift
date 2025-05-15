@@ -9,7 +9,7 @@ import Testing
 import XCTest
 @testable import SITIENS
 
-class UserSettingsViewModelTests {
+struct UserSettingsViewModelTests {
 
     @Test func updateTypeWithNewNameIsEgaltoNourrissons() async throws {
         //Given
