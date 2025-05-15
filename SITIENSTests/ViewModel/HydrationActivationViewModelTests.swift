@@ -146,7 +146,7 @@ class HydrationActivationViewModelTests {
         let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
         mock.throwError = true
         //When
-        hydrationActivationViewModel.atuhorzation()
+        hydrationActivationViewModel.authorization()
         //Then
         #expect(mock.messageError == "Your don't have authorization")
         
@@ -158,7 +158,7 @@ class HydrationActivationViewModelTests {
         let mock = MocksHydradationActivation()
         let hydrationActivationViewModel = HydrationActivationViewModel(hydrationProtocol: mock)
         //When
-        hydrationActivationViewModel.atuhorzation()
+        hydrationActivationViewModel.authorization()
         //Then
         #expect(mock.messageError.isEmpty == true)
         

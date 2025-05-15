@@ -59,7 +59,7 @@ class DataHistoryHub : HydrationProtocol {
         }
     }
     
-    func atuhorzation(){
+    func authorization(){
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
             if let error = error {
                 print("Error requesting authorization: \(error)")

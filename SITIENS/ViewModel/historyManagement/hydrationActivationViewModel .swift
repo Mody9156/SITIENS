@@ -48,8 +48,8 @@ class HydrationActivationViewModel  {
         hydrationProtocol.playSound(sound: sound)
     }
     
-    func atuhorzation(){
-        hydrationProtocol.atuhorzation()
+    func authorization(){
+        hydrationProtocol.authorization()
     }
     
     func notification(){

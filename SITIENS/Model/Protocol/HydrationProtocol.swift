@@ -11,6 +11,6 @@ protocol HydrationProtocol {
     func playingSound(audioFile : String)
     func stopPlaying()
     func playSound(sound:String)
-    func atuhorzation()
+    func authorization()
     func notification()
 }

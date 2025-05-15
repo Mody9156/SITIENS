@@ -65,7 +65,7 @@ class MocksHydradationActivation : HydrationProtocol{
         }
     }
 
-    func atuhorzation() {
+    func authorization() {
         if throwError {
             messageError = "Your don't have authorization"
         }else {
