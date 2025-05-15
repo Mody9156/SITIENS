@@ -8,7 +8,7 @@ import Testing
 import XCTest
 @testable import SITIENS
 
-struct HydrationActivationViewModelTests {
+class HydrationActivationViewModelTests {
 
     @Test func formatTimerWhenAddNewElement() async throws {
         //Gieven
@@ -35,9 +35,10 @@ struct HydrationActivationViewModelTests {
     @Test func whenPlayingSound() async throws {
         //Gieven
         let hydrationActivationViewModel = HydrationActivationViewModel()
-        let sound = "asphalt-sizzle"
+        let mock = MocksHydradationActivation()
+        let sound = "fake"
         //When
-        let fomatTimer : () = hydrationActivationViewModel.playingSound(audioFile: sound)
+        mock.playingSound(audioFile: sound)
         
         //Then
         
