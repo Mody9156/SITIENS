@@ -10,16 +10,18 @@ import CoreData
 
 @Observable class HistoryViewModel {
      var history = [History]()
-     var name: String = ""
-     var quantity: String = ""
+     var name: String
+     var quantity: String
     var errorMessage = ""
     
     var viewContext: NSManagedObjectContext?
     private var historyRepository : DataProtocol
     
-    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ) {
+    init(viewContext: NSManagedObjectContext? = nil, historyRepository: DataProtocol = HistoryRepository() ,name: String = "", quantity: String = "") {
         self.viewContext = viewContext
         self.historyRepository = historyRepository
+        self.name = name
+        self.quantity = quantity
         
         try?  fetchHistory()
     }
