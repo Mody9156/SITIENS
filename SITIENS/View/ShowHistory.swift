@@ -73,9 +73,14 @@ struct ShowHistory: View {
             .toolbar(content: {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        dismiss()
+                        withAnimation {
+                            dismiss()
+                        }
                     } label: {
-                        Label("Back", systemImage: "arrow.left.circle")
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Hydradation")
+                        }
                     }
 
                 }
