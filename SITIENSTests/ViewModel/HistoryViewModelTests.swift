@@ -76,7 +76,8 @@ struct HistoryViewModelTests {
         mocksDataProtocol.messageError = "error"
         let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
         mocksDataProtocol.throwError = true
-        
+        historyViewModel.name = "fakeName"
+        historyViewModel.quantity = "44"
         //When
         try historyViewModel.addHistory()
         

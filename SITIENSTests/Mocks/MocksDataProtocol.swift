@@ -25,33 +25,47 @@ class MocksDataProtocol : HistoryProtocol {
     var messageError : String = ""
     var name : String = ""
     var quantity : String = ""
-//
-//    func createInMemoryManagedObjectContext () -> NSManagedObjectContext {
-//        let persistentContainer = NSPersistentContainer(name: "SITIENS")
-//        let description = NSPersistentStoreDescription()
-//        description.type = NSInMemoryStoreType
-//        persistentContainer.persistentStoreDescriptions = [description]
-//        persistentContainer.loadPersistentStores { (storeDescription, error) in
-//            if let error = error {
-//                       fatalError("Erreur lors de la création du store in-memory : \(error)")
-//                   }
-//        }
-//        return persistentContainer.viewContext
-//    }
-//    
-//    
-//    func createHistors(context:NSManagedObjectContext,name:String,quantity:String,date:String) -> History {
-//        let historyManager = History(context: context)
-//        historyManager.name = "FakeName"
-//        historyManager.quantity = "55"
-//        historyManager.date = "2 March 2025"
-//        
-//        return historyManager
-//    }
-//    description.type = NSInMemoryStoreType // Detruit la sauegarde en memeoire
-    func getHisoData() throws -> [SITIENS.History] {
-   
+    var date : String = ""
+
+    func createInMemoryManagedObjectContext () -> NSManagedObjectContext {
+        let persistentContainer = NSPersistentContainer(name: "SITIENS")
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType
+        persistentContainer.persistentStoreDescriptions = [description]
+        persistentContainer.loadPersistentStores { (storeDescription, error) in
+            if let error = error {
+                       fatalError("Erreur lors de la création du store in-memory : \(error)")
+                   }
+        }
+        return persistentContainer.viewContext
+    }
+    
+    
+    func createHistors(context:NSManagedObjectContext,name:String,quantity:String,date:String) -> History {
+        let historyManager = History(context: context)
+        historyManager.name = name
+        historyManager.quantity = quantity
+        historyManager.date = date
+        
         return historyManager
+    }
+//    description.type = NSInMemoryStoreType // Detruit la sauegarde en memeoire
+    
+    func getHisoData() throws -> [SITIENS.History] {
+        var  history: [History] = []
+        guard  name.isEmpty || quantity.isEmpty || date.isEmpty else {
+             messageError = "There are not data"
+            return history
+        }
+        
+        guard !throwError else {
+             messageError = "There are some errors"
+            return history
+        }
+        
+        let data = createHistors(context: createInMemoryManagedObjectContext(), name: name, quantity: quantity, date: date)
+        
+        return [data]
     }
 
     func addtHisoData(name: String, quantity: String) throws {
