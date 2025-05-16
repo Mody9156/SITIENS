@@ -60,8 +60,8 @@ struct HistoryViewModelTests {
         let mocksDataProtocol = MocksDataProtocol()
         mocksDataProtocol.messageError = "error"
         let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
-        historyViewModel.name = ""
-        historyViewModel.quantity = ""
+        mocksDataProtocol.name = ""
+        mocksDataProtocol.quantity = ""
         
         //When//Then
         #expect(throws: HistoryViewModel.FetchError.fetchFailed, performing: {
@@ -84,5 +84,38 @@ struct HistoryViewModelTests {
         //Then
         #expect(mocksDataProtocol.messageError == "There are some errors")
     }
+    
+    @Test func whenISfetchHistoryShowData() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        mocksDataProtocol.messageError = "error"
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        mocksDataProtocol.name = "fakeName"
+        mocksDataProtocol.quantity = "44"
+        mocksDataProtocol.date = "1 March 2025"
+        
+        //When
+         try historyViewModel.fetchHistory()
+        
+        //Then
+        #expect(mocksDataProtocol.messageError.isEmpty == true)
+        
+    }
 
+    @Test func whenISfetchHistoryShowDataThrowErrors() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        mocksDataProtocol.messageError = "error"
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        mocksDataProtocol.name = "fakeName"
+        mocksDataProtocol.quantity = "44"
+        mocksDataProtocol.date = "1 March 2025"
+        
+        //When
+        let history =  try historyViewModel.fetchHistory()
+        
+        //Then
+        #expect(mocksDataProtocol.messageError.isEmpty == true)
+        
+    }
 }

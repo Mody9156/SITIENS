@@ -58,7 +58,6 @@ import CoreData
         do {
             history =  try historyRepository.getHisoData()
         } catch {
-            print("Fetching history failed: \(error)")
             throw FetchError.fetchFailed
         }
     }

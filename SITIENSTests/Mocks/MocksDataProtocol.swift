@@ -9,14 +9,15 @@ import Testing
 @testable import SITIENS
 import CoreData
 
-struct MockHistory {
-    var name : String
-    var quantity : String
-    var date : String
+@objc(History)
+public class MockHistory: NSObject {
+    @NSManaged public var name : String
+    @NSManaged public var quantity : String
+    @NSManaged public var date : String
 }
 
 enum HistoryError: Error {
-    case emptyData
+    case emptyData, customError(String)
 }
 
 class MocksDataProtocol : HistoryProtocol {
@@ -28,10 +29,12 @@ class MocksDataProtocol : HistoryProtocol {
     var date : String = ""
 
     func createInMemoryManagedObjectContext () -> NSManagedObjectContext {
-        let persistentContainer = NSPersistentContainer(name: "SITIENS")
+        let persistentContainer = NSPersistentContainer(name: "SitiensModel")
+        
         let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType
+        description.type = NSInMemoryStoreType //description.type = NSInMemoryStoreType // Detruit la sauegarde en memeoire
         persistentContainer.persistentStoreDescriptions = [description]
+        
         persistentContainer.loadPersistentStores { (storeDescription, error) in
             if let error = error {
                        fatalError("Erreur lors de la création du store in-memory : \(error)")
@@ -41,29 +44,26 @@ class MocksDataProtocol : HistoryProtocol {
     }
     
     
-    func createHistors(context:NSManagedObjectContext,name:String,quantity:String,date:String) -> History {
-        let historyManager = History(context: context)
+    func createHistors(context:NSManagedObjectContext, name:String,quantity:String) -> SITIENS.History {
+        let historyManager = SITIENS.History(context: context)
         historyManager.name = name
         historyManager.quantity = quantity
-        historyManager.date = date
         
         return historyManager
     }
-//    description.type = NSInMemoryStoreType // Detruit la sauegarde en memeoire
     
     func getHisoData() throws -> [SITIENS.History] {
-        var  history: [History] = []
-        guard  name.isEmpty || quantity.isEmpty || date.isEmpty else {
+        guard  name.isEmpty || quantity.isEmpty else {
              messageError = "There are not data"
-            return history
+            throw  HistoryError.emptyData
         }
         
         guard !throwError else {
              messageError = "There are some errors"
-            return history
+            throw HistoryError.customError("There are some errors")
         }
         
-        let data = createHistors(context: createInMemoryManagedObjectContext(), name: name, quantity: quantity, date: date)
+        let data = createHistors(context: createInMemoryManagedObjectContext(), name: name, quantity: quantity)
         
         return [data]
     }
