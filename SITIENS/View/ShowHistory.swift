@@ -20,79 +20,79 @@ struct ShowHistory: View {
                     .font(.system(size: 40, weight: .light, design: .serif))
                     .foregroundStyle(.gray)
                     .padding()
-               
-                ForEach(historyViewModel.history) { historyManager in
                 
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(.ultraThinMaterial)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .fill(Color.blue.opacity(0.1))
-                                )
-                                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
-                            
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(date)
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                                
-                                HStack(spacing: 10) {
-                                    Text("\(name) :")
-                                        .font(.headline)
-                                        .foregroundColor(.blue)
-                                    
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color.blue)
-                                            .frame(width: 80, height: 32)
-                                        Text("\(quantity)")
-                                            .foregroundColor(.white)
-                                            .font(.subheadline)
-                                    }
-                                    
-                                    Image(systemName: "drop.fill")
-                                        .foregroundColor(.blue)
-                                }
-                            }
-                            .padding()
-                        }
-                        .padding(.horizontal)
+                ForEach(historyViewModel.history) { historyManager in
+                    
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(.ultraThinMaterial)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.blue.opacity(0.1))
+                            )
+                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                         
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(date)
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                            
+                            HStack(spacing: 10) {
+                                Text("\(name) :")
+                                    .font(.headline)
+                                    .foregroundColor(.blue)
+                                
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.blue)
+                                        .frame(width: 80, height: 32)
+                                    Text("\(quantity)")
+                                        .foregroundColor(.white)
+                                        .font(.subheadline)
+                                }
+                                
+                                Image(systemName: "drop.fill")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                        .padding()
+                    }
+                    .padding(.horizontal)
+                    
                     
                 }
-                }
             }
-            .navigationBarBackButtonHidden(true)
-            .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        withAnimation {
-                            dismiss()
-                        }
-                    } label: {
-                        HStack {
-                            Image(systemName: "chevron.left")
-                            Text("Hydradation")
-                        }
-                    }
-
-                }
-            })
-            .padding()
         }
-       
+        .navigationBarBackButtonHidden(true)
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    withAnimation {
+                        dismiss()
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Hydradation")
+                    }
+                }
+                
+            }
+        })
+        .padding()
+    }
+    
         .onAppear{
             Task{
                 try historyViewModel.fetchHistory()
             }
-           
+            
         }
-    }
+}
 }
 
 #Preview {
-
+    
     ShowHistory(
         historyViewModel: HistoryViewModel()
     )
