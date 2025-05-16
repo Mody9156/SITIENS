@@ -22,7 +22,7 @@ struct ShowHistory: View {
                     .padding()
                 
                 ForEach(historyViewModel.history) { historyManager in
-                    
+                    if let name =  historyManager.name, let quantity =  historyManager.quantity, let date =  historyManager.date{
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
                             .fill(.ultraThinMaterial)
