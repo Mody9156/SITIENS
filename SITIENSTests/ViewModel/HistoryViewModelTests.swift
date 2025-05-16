@@ -88,11 +88,10 @@ struct HistoryViewModelTests {
     @Test func whenISfetchHistoryShowData() async throws {
         //Given
         let mocksDataProtocol = MocksDataProtocol()
-        mocksDataProtocol.messageError = "error"
         let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
-        mocksDataProtocol.name = "fakeName"
-        mocksDataProtocol.quantity = "44"
-        mocksDataProtocol.date = "1 March 2025"
+
+        historyViewModel.name = "fakeName"
+        historyViewModel.quantity = "44"
         
         //When
          try historyViewModel.fetchHistory()
@@ -102,20 +101,31 @@ struct HistoryViewModelTests {
         
     }
 
+    @Test func whenISfetchHistoryShowDataThrowErrorsWhenNameOrQuantityIsEMpty() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        mocksDataProtocol.throwError = true
+        //When//Then
+        #expect(throws: HistoryViewModel.FetchError.fetchFailed, performing: {
+            try historyViewModel.fetchHistory()
+            #expect(mocksDataProtocol.messageError == "There are not data")
+        })
+        
+    }
+    
     @Test func whenISfetchHistoryShowDataThrowErrors() async throws {
         //Given
         let mocksDataProtocol = MocksDataProtocol()
-        mocksDataProtocol.messageError = "error"
         let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
-        mocksDataProtocol.name = "fakeName"
-        mocksDataProtocol.quantity = "44"
-        mocksDataProtocol.date = "1 March 2025"
-        
-        //When
-        let history =  try historyViewModel.fetchHistory()
-        
-        //Then
-        #expect(mocksDataProtocol.messageError.isEmpty == true)
+        mocksDataProtocol.throwError = true
+        historyViewModel.name = "fakeName"
+        historyViewModel.quantity = "44"
+        //When//Then
+        #expect(throws: HistoryViewModel.FetchError.fetchFailed, performing: {
+            try historyViewModel.fetchHistory()
+            #expect(mocksDataProtocol.messageError == "There are some errors")
+        })
         
     }
 }
