@@ -44,12 +44,30 @@ struct HistoryViewModelTests {
     
     @Test func whenAddNewHistory() async throws {
         //Given
-        let historyViewModel = HistoryViewModel()
-        
+        let mocksDataProtocol = MocksDataProtocol()
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        historyViewModel.name = "fakeName"
+        historyViewModel.quantity = "44"
         //When
+        try historyViewModel.addHistory()
         
         //Then
+        #expect(mocksDataProtocol.messageError.isEmpty == true)
+    }
+    
+    @Test func whenAddNewHistoryWithError() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        mocksDataProtocol.messageError = "error"
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        historyViewModel.name = ""
+        historyViewModel.quantity = ""
         
+        //When//Then
+        #expect(throws: HistoryViewModel.FetchError.fetchFailed, performing: {
+            try historyViewModel.addHistory()
+            #expect(mocksDataProtocol.messageError == "There is no data")
+        })
     }
 
 }

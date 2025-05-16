@@ -9,40 +9,65 @@ import Testing
 @testable import SITIENS
 import CoreData
 
+struct MockHistory {
+    var name : String
+    var quantity : String
+    var date : String
+}
+
+enum HistoryError: Error {
+    case emptyData
+}
+
 class MocksDataProtocol : HistoryProtocol {
-    let historyManager : [History] = []
+    var historyManager : [History] = []
     var throwError : Bool = false
-    
-    
-    func createInMemoryManagedObjectContext () -> NSManagedObjectContext {
-        let persistentContainer = NSPersistentContainer(name: "SITIENS")
-        let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType
-        persistentContainer.persistentStoreDescriptions = [description]
-        persistentContainer.loadPersistentStores { (storeDescription, error) in
-            if let error = error {
-                       fatalError("Erreur lors de la création du store in-memory : \(error)")
-                   }
-        }
-        return persistentContainer.viewContext
-    }
-    
-    
-    func createHistors(context:NSManagedObjectContext,name:String,quantity:String,date:String) -> History {
-        let historyManager = History(context: context)
-        historyManager.name = "FakeName"
-        historyManager.quantity = "55"
-        historyManager.date = "2 March 2025"
-        
-        return historyManager
-    }
-    
+    var messageError : String = ""
+    var name : String = ""
+    var quantity : String = ""
+//
+//    func createInMemoryManagedObjectContext () -> NSManagedObjectContext {
+//        let persistentContainer = NSPersistentContainer(name: "SITIENS")
+//        let description = NSPersistentStoreDescription()
+//        description.type = NSInMemoryStoreType
+//        persistentContainer.persistentStoreDescriptions = [description]
+//        persistentContainer.loadPersistentStores { (storeDescription, error) in
+//            if let error = error {
+//                       fatalError("Erreur lors de la création du store in-memory : \(error)")
+//                   }
+//        }
+//        return persistentContainer.viewContext
+//    }
+//    
+//    
+//    func createHistors(context:NSManagedObjectContext,name:String,quantity:String,date:String) -> History {
+//        let historyManager = History(context: context)
+//        historyManager.name = "FakeName"
+//        historyManager.quantity = "55"
+//        historyManager.date = "2 March 2025"
+//        
+//        return historyManager
+//    }
+//    description.type = NSInMemoryStoreType // Detruit la sauegarde en memeoire
     func getHisoData() throws -> [SITIENS.History] {
-        
+   
         return historyManager
     }
 
     func addtHisoData(name: String, quantity: String) throws {
+        self.name = name
+        self.quantity = quantity
+        
+        guard  !name.isEmpty || !quantity.isEmpty  else {
+            messageError = "There is no data"
+            throw HistoryViewModel.FetchError.fetchFailed
+            
+        }
+        if throwError {
+            messageError = "There are some errors"
+        }else{
+            messageError = ""
+        }
         
     }
 

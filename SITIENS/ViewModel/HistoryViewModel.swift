@@ -15,7 +15,7 @@ import CoreData
     var errorMessage = ""
     
     var viewContext: NSManagedObjectContext?
-    private var historyRepository : HistoryProtocol
+     var historyRepository : HistoryProtocol
     
     init(viewContext: NSManagedObjectContext? = nil, historyRepository: HistoryProtocol = HistoryRepository() ,name: String = "", quantity: String = "") {
         self.viewContext = viewContext
