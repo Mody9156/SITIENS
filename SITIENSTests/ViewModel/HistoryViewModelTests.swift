@@ -81,7 +81,7 @@ struct HistoryViewModelTests {
         try historyViewModel.addHistory()
         
         //Then
-        #expect(mocksDataProtocol.messageError = "There are some errors")
+        #expect(mocksDataProtocol.messageError == "There are some errors")
     }
 
 }
