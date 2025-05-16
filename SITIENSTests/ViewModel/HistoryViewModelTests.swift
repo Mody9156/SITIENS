@@ -41,5 +41,15 @@ struct HistoryViewModelTests {
         //Then
         #expect(history == "Veuillez remplir tous les champs.")
     }
+    
+    @Test func whenAddNewHistory() async throws {
+        //Given
+        let historyViewModel = HistoryViewModel()
+        
+        //When
+        
+        //Then
+        
+    }
 
 }
