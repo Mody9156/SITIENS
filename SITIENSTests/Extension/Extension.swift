@@ -10,11 +10,11 @@ import Testing
 import Foundation
 import CoreData
 
-extension SITIENS.History  {
-    
-    
-    static func emptyHistory() -> [History] {
-        return [historyManager]
-        }
-    }
+//extension SITIENS.History  {
+//    
+//    
+//    static func emptyHistory() -> [History] {
+//        return [historyManager]
+//        }
+//    }
 
