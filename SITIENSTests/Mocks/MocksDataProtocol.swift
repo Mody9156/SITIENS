@@ -68,9 +68,6 @@ class MocksDataProtocol : HistoryProtocol {
         }else{
             messageError = ""
         }
-        
     }
-
-
 
 }

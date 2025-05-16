@@ -69,5 +69,19 @@ struct HistoryViewModelTests {
             #expect(mocksDataProtocol.messageError == "There is no data")
         })
     }
+    
+    @Test func whenAddNewHistoryThrowError() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        mocksDataProtocol.messageError = "error"
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        mocksDataProtocol.throwError = true
+        
+        //When
+        try historyViewModel.addHistory()
+        
+        //Then
+        #expect(mocksDataProtocol.messageError = "There are some errors")
+    }
 
 }
