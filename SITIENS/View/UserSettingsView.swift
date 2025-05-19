@@ -40,6 +40,7 @@ struct UserSettingsView: View {
                         .foregroundStyle(.white)
                 }
             }
+            .disabled(profil.isEmpty)
             .padding()
         }
     }
