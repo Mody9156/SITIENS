@@ -23,42 +23,44 @@ struct ShowHistory: View {
                 
                 ForEach(historyViewModel.history) { historyManager in
                     if let name =  historyManager.name, let quantity =  historyManager.quantity, let date =  historyManager.date{
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(.ultraThinMaterial)
-                            .background(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(Color.blue.opacity(0.1))
-                            )
-                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                         
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(date)
-                                .font(.caption)
-                                .foregroundColor(.gray)
+                        if !name.isEmpty && !quantity.isEmpty && !date.isEmpty{
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(.ultraThinMaterial)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color.blue.opacity(0.1))
+                                )
+                                .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
                             
-                            HStack(spacing: 10) {
-                                Text("\(name) :")
-                                    .font(.headline)
-                                    .foregroundColor(.blue)
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(date)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
                                 
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color.blue)
-                                        .frame(width: 80, height: 32)
-                                    Text("\(quantity)")
-                                        .foregroundColor(.white)
-                                        .font(.subheadline)
+                                HStack(spacing: 10) {
+                                    Text("\(name) :")
+                                        .font(.headline)
+                                        .foregroundColor(.blue)
+                                    
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.blue)
+                                            .frame(width: 80, height: 32)
+                                        Text("\(quantity)")
+                                            .foregroundColor(.white)
+                                            .font(.subheadline)
+                                    }
+                                    
+                                    Image(systemName: "drop.fill")
+                                        .foregroundColor(.blue)
                                 }
-                                
-                                Image(systemName: "drop.fill")
-                                    .foregroundColor(.blue)
                             }
+                            .padding()
                         }
-                        .padding()
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
-                    
                     
                 }
             }

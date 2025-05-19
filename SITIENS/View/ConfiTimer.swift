@@ -112,7 +112,7 @@ struct ConfiTimer: View {
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                     timerhour = selectedHour
                     hydrationActivationViewModel.stopPlaying()
-                    if timerhour != 0 {
+                    if selectedHour != 0  {
                         dismiss()
                     }
                     
@@ -122,13 +122,11 @@ struct ConfiTimer: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .padding()
+                    .foregroundStyle(.white)
                     .background(.blue)
-                    .foregroundColor(.white)
                     .cornerRadius(16)
-                    .shadow(radius: 8)
                 
             }
-            .disabled(timerhour == 0)
             .padding()
         }
     }
