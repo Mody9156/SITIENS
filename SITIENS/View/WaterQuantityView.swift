@@ -23,7 +23,7 @@ struct WaterQuantityView: View {
     @Bindable var historyViewModel : HistoryViewModel
     @State var name : String = ""
     @State var quantity : String = ""
-    
+    @State private var level: CGFloat = 50
     
     var body: some View {
         NavigationStack {
@@ -36,7 +36,6 @@ struct WaterQuantityView: View {
                     .shadow(radius: 12)
                     .padding()
                 
-            
                 Text("\(Int((updateHeight / 2) * 200 / 300)) %")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -48,23 +47,34 @@ struct WaterQuantityView: View {
                     .font(.title2)
                 
                 ZStack (alignment: .bottom){
-                    RoundedRectangle(cornerRadius: 6)
-                        .frame(width: 100,height: 300)
-                        .foregroundStyle(.white)
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 300,height: 30)
+                        .foregroundStyle(Color("BackgroundColor"))
                         .overlay {
-                            RoundedRectangle(cornerRadius: 6)
-                                .stroke(Color.blue, lineWidth: 2)
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundStyle(Color("BackgroundColor"))
                         }
                     
-                    RoundedRectangle(cornerRadius: 6)
-                        .frame(width: 100,height: updateHeight)
-                        .foregroundStyle(.blue)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 6)
-                                .foregroundStyle(Color.blue)
-                        }
+                    ZStack (alignment: .bottom){
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 180,height: 300)
+                            .foregroundColor(.gray.opacity(0.3))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.blue, lineWidth: 2)
+                            }
+                        
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 180,height: updateHeight)
+                            .foregroundStyle(.blue)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .foregroundStyle(Color.blue)
+                            }
+                    }
+                    .padding()
+                    
                 }
-                .padding()
                 
                 Button {
                     withAnimation {
@@ -117,7 +127,6 @@ struct WaterQuantityView: View {
                         withAnimation {
                             updateHeight = 0
                         }
-                        
                         
                     } label: {
                         ZStack {
@@ -173,19 +182,15 @@ struct WaterQuantityView: View {
                         Image(systemName: "clock.arrow.circlepath")
                             .font(.title2)
                             .foregroundStyle(.blue)
-                            
-                            
                     }
-                    
-                                            
                 }
                 
             }
             .onChange(of: updateHeight) {
                 if updateHeight == 300 {
-                   
+                    
                     historyViewModel.name = profilType
-                  
+                    
                     let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
                     historyViewModel.quantity = formattedQuantity
                     
@@ -196,17 +201,9 @@ struct WaterQuantityView: View {
                             print("Erreur lors du test de l'ajout de l'historique : \(error)")
                         }
                     }
-                        
-                    
                 }
-               
-              
-
             }
-           
         }
-        
-       
     }
 }
 

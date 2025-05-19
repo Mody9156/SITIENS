@@ -10,6 +10,7 @@ import UserNotifications
 import AVFoundation
 import AVKit
 
+@Observable
 class DataHistoryHub : HydrationProtocol {
     var audioPlayer: AVAudioPlayer?
     
@@ -70,16 +71,16 @@ class DataHistoryHub : HydrationProtocol {
     func stopPlaying(){
         avAudioEngine.stop()
         avAudioPlayerNode.stop()
+        audioPlayer = nil
     }
     
     func notification(){
         //Contenu de la notification
         let userNotification = UNMutableNotificationContent()
         userNotification.title = "Il est temps de boire de l'eau"
-//        "Il est temps de boire de l'eau"
+
         userNotification.sound = UNNotificationSound.default
         userNotification.body =  "Boire de l'eau est essentiel à notre bien-être"
-//        "Boire de l'eau est essentiel à notre bien-être"
         
         //Trigger (déclanche quand la notification sera envoyée)
         let trigger = UNTimeIntervalNotificationTrigger(

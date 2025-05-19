@@ -19,9 +19,9 @@ struct ConfiTimer: View {
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @State private var audio : AVAudioPlayer?
-    @State private var isPlaying : Bool = false
+    @State  var isPlaying : Bool = false
     @State private var cancellable: Cancellable?
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -40,7 +40,7 @@ struct ConfiTimer: View {
                         
                         Picker("", selection: $selectedHour) {
                             ForEach(hour,id: \.self) {
-                               
+                                
                                 Text("\(hydrationActivationViewModel.formatHour($0)) Hour\($0 == 3600 ? "" : "s")")
                             }
                         }
@@ -72,60 +72,25 @@ struct ConfiTimer: View {
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
-                   Text("Jouer l'audio")
+                    Text("Jouer l'audio")
                         .font(.headline)
                         .fontWeight(.bold)
                     
-                    Button {
-                        withAnimation {
-                            isPlaying.toggle()
-                            
-                            if isPlaying {
-                                hydrationActivationViewModel.playSound(sound: selectedItems)
-                            }else{
-                                hydrationActivationViewModel.audioPlayer = nil
-                            }
-                        }
-
-                    } label: {
-                        Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                            .resizable()
-                            .frame(width: 80,height: 80)
-                            .padding()
-                            .scaleEffect(isPlaying ? 1.1 : 1.0)
-                        
-                    }
-                    .onAppear{
-                        isPlaying = false
-                    }
-
+                    CustomButton(
+                        isPlaying: $isPlaying,
+                        hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
+                    )
+                    
                 }
                 .padding()
             }
             
             Spacer()
             
-            Button {
-                
-                let generator = UIImpactFeedbackGenerator(style: .medium)
-                generator.impactOccurred()
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                    timerhour = selectedHour
-                    hydrationActivationViewModel.stopPlaying()
-                    dismiss()
-                }
-            } label: {
-                Text("Valider")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(16)
-                    .shadow(radius: 8)
-                
-            }
-            .padding()
+            CustomButton(
+                isPlaying: $isPlaying,
+                hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "Validate", selectedHour: $selectedHour
+            )
         }
     }
 }
@@ -138,4 +103,62 @@ struct ConfiTimer: View {
         selectedHour: $selectedHour,
         hydrationActivationViewModel: HydrationActivationViewModel()
     )
+}
+
+struct CustomButton: View {
+    @Binding var isPlaying : Bool
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
+    @Binding var selectedItems : String
+    var type : String
+    @AppStorage("hour",store: .standard) var timerhour : Int = 0
+    @Binding var selectedHour : Int
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        if type == "LoadingSong" {
+            Button {
+                withAnimation {
+                    isPlaying.toggle()
+                    
+                    if isPlaying {
+                        hydrationActivationViewModel.playSound(sound: selectedItems)
+                    }else{
+                        hydrationActivationViewModel.stopPlaying()
+                    }
+                }
+                
+            } label: {
+                Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                    .resizable()
+                    .frame(width: 80,height: 80)
+                    .padding()
+                    .scaleEffect(isPlaying ? 1.1 : 1.0)
+                
+            }
+            .onAppear{
+                isPlaying = false
+            }
+        }else{
+            Button {
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                    timerhour = selectedHour
+                    hydrationActivationViewModel.stopPlaying()
+                    if selectedHour != 0  {
+                        dismiss()
+                    }
+                }
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(height: 50)
+                    Text("Valider")
+                        .foregroundStyle(.white)
+                }
+            }
+            .disabled(selectedHour == 0)
+            .padding()
+        }
+    }
 }
