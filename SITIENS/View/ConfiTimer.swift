@@ -19,7 +19,7 @@ struct ConfiTimer: View {
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @State private var audio : AVAudioPlayer?
-    @State private var isPlaying : Bool = false
+    @State  var isPlaying : Bool = false
     @State private var cancellable: Cancellable?
     
     var body: some View {
@@ -76,28 +76,10 @@ struct ConfiTimer: View {
                         .font(.headline)
                         .fontWeight(.bold)
                     
-                    Button {
-                        withAnimation {
-                            isPlaying.toggle()
-                            
-                            if isPlaying {
-                                hydrationActivationViewModel.playSound(sound: selectedItems)
-                            }else{
-                                hydrationActivationViewModel.stopPlaying()
-                            }
-                        }
-                        
-                    } label: {
-                        Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                            .resizable()
-                            .frame(width: 80,height: 80)
-                            .padding()
-                            .scaleEffect(isPlaying ? 1.1 : 1.0)
-                        
-                    }
-                    .onAppear{
-                        isPlaying = false
-                    }
+                    CustomButton(
+                        isPlaying: $isPlaying,
+                        hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems
+                    )
                     
                 }
                 .padding()
@@ -138,4 +120,35 @@ struct ConfiTimer: View {
         selectedHour: $selectedHour,
         hydrationActivationViewModel: HydrationActivationViewModel()
     )
+}
+
+struct CustomButton: View {
+    @Binding var isPlaying : Bool
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
+    @Binding var selectedItems : String
+    
+    var body: some View {
+        Button {
+            withAnimation {
+                isPlaying.toggle()
+                
+                if isPlaying {
+                    hydrationActivationViewModel.playSound(sound: selectedItems)
+                }else{
+                    hydrationActivationViewModel.stopPlaying()
+                }
+            }
+            
+        } label: {
+            Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                .resizable()
+                .frame(width: 80,height: 80)
+                .padding()
+                .scaleEffect(isPlaying ? 1.1 : 1.0)
+            
+        }
+        .onAppear{
+            isPlaying = false
+        }
+    }
 }
