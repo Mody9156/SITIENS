@@ -112,7 +112,10 @@ struct ConfiTimer: View {
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                     timerhour = selectedHour
                     hydrationActivationViewModel.stopPlaying()
-                    dismiss()
+                    if timerhour != 0 {
+                        dismiss()
+                    }
+                    
                 }
             } label: {
                 Text("Valider")
