@@ -30,7 +30,7 @@ class UserSettingsViewModel{
             return 3
         case "Voyageurs ou personnes en altitude":
             return 3
-        case " Personnes sous traitement médicamenteux":
+        case "Personnes sous traitement médicamenteux":
             return 2
         default:
             return 0
@@ -57,7 +57,7 @@ class UserSettingsViewModel{
             return 1/100
         case "Voyageurs ou personnes en altitude":
             return 1/100
-        case " Personnes sous traitement médicamenteux":
+        case "Personnes sous traitement médicamenteux":
             return 6.66/1000
         default:
             return 0.0
