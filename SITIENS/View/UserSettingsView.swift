@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserSettingsView: View {
-    @State var profileType : [String] = ["nourrissons","femmes enceintes", "personnes âgées","sportifs"]
+    @State var profileType : [String] = ["nourrissons","femmes enceintes", "personnes âgées","sportifs","Enfants et adolescents","Travailleurs en environnement chaud","Personnes souffrant de maladies chroniques","Personnes en surpoids ou obèses","Voyageurs ou personnes en altitude","Personnes sous traitement médicamenteux"]
     @State var selectedProfileType : String = "nourrissons"
     @Binding var profil : String
     @Environment(\.dismiss) var dismiss

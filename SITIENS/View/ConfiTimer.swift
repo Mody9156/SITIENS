@@ -21,7 +21,7 @@ struct ConfiTimer: View {
     @State private var audio : AVAudioPlayer?
     @State private var isPlaying : Bool = false
     @State private var cancellable: Cancellable?
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -40,7 +40,7 @@ struct ConfiTimer: View {
                         
                         Picker("", selection: $selectedHour) {
                             ForEach(hour,id: \.self) {
-                               
+                                
                                 Text("\(hydrationActivationViewModel.formatHour($0)) Hour\($0 == 3600 ? "" : "s")")
                             }
                         }
@@ -72,7 +72,7 @@ struct ConfiTimer: View {
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
-                   Text("Jouer l'audio")
+                    Text("Jouer l'audio")
                         .font(.headline)
                         .fontWeight(.bold)
                     
@@ -86,7 +86,7 @@ struct ConfiTimer: View {
                                 hydrationActivationViewModel.stopPlaying()
                             }
                         }
-
+                        
                     } label: {
                         Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
                             .resizable()
@@ -98,7 +98,7 @@ struct ConfiTimer: View {
                     .onAppear{
                         isPlaying = false
                     }
-
+                    
                 }
                 .padding()
             }
@@ -115,7 +115,6 @@ struct ConfiTimer: View {
                     if selectedHour != 0  {
                         dismiss()
                     }
-                    
                 }
             } label: {
                 ZStack {
