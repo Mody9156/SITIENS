@@ -48,23 +48,36 @@ struct WaterQuantityView: View {
                     .font(.title2)
                 
                 ZStack (alignment: .bottom){
-                    RoundedRectangle(cornerRadius: 6)
-                        .frame(width: 100,height: 300)
-                        .foregroundStyle(.white)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 6)
-                                .stroke(Color.blue, lineWidth: 2)
-                        }
-                    
-                    RoundedRectangle(cornerRadius: 6)
-                        .frame(width: 100,height: updateHeight)
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 300,height: 30)
                         .foregroundStyle(.blue)
                         .overlay {
                             RoundedRectangle(cornerRadius: 6)
-                                .foregroundStyle(Color.blue)
+                                .foregroundStyle(Color.orange)
                         }
+                    
+                    ZStack (alignment: .bottom){
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 180,height: 300)
+                            .foregroundStyle(.white)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.blue, lineWidth: 2)
+                                
+                            }
+                        
+                        
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 180,height: updateHeight)
+                            .foregroundStyle(.blue)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .foregroundStyle(Color.blue)
+                            }
+                    }
+                    .padding()
+                    
                 }
-                .padding()
                 
                 Button {
                     withAnimation {
