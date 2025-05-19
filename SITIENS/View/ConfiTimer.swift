@@ -118,13 +118,6 @@ struct ConfiTimer: View {
                     
                 }
             } label: {
-//                Text("Valider")
-//                    .font(.headline)
-//                    .frame(maxWidth: .infinity)
-//                    .padding()
-//                    .foregroundStyle(.white)
-//                    .background(.blue)
-//                    .cornerRadius(16)
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(height: 50)
