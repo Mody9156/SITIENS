@@ -78,7 +78,7 @@ struct ConfiTimer: View {
                     
                     CustomButton(
                         isPlaying: $isPlaying,
-                        hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems
+                        hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
                     )
                     
                 }
@@ -87,8 +87,59 @@ struct ConfiTimer: View {
             
             Spacer()
             
+            CustomButton(
+                isPlaying: $isPlaying,
+                hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "Validate", selectedHour: $selectedHour
+            )
+        }
+    }
+}
+
+#Preview {
+    @Previewable @State var selectedItems : String = "asphalt-sizzle"
+    @Previewable @State var selectedHour : Int = 7200
+    ConfiTimer(
+        selectedItems: $selectedItems,
+        selectedHour: $selectedHour,
+        hydrationActivationViewModel: HydrationActivationViewModel()
+    )
+}
+
+struct CustomButton: View {
+    @Binding var isPlaying : Bool
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
+    @Binding var selectedItems : String
+    var type : String
+    @AppStorage("hour",store: .standard) var timerhour : Int = 0
+    @Binding var selectedHour : Int
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        if type == "LoadingSong" {
             Button {
+                withAnimation {
+                    isPlaying.toggle()
+                    
+                    if isPlaying {
+                        hydrationActivationViewModel.playSound(sound: selectedItems)
+                    }else{
+                        hydrationActivationViewModel.stopPlaying()
+                    }
+                }
                 
+            } label: {
+                Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                    .resizable()
+                    .frame(width: 80,height: 80)
+                    .padding()
+                    .scaleEffect(isPlaying ? 1.1 : 1.0)
+                
+            }
+            .onAppear{
+                isPlaying = false
+            }
+        }else{
+            Button {
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
@@ -108,47 +159,6 @@ struct ConfiTimer: View {
             }
             .disabled(selectedHour == 0)
             .padding()
-        }
-    }
-}
-
-#Preview {
-    @Previewable @State var selectedItems : String = "asphalt-sizzle"
-    @Previewable @State var selectedHour : Int = 7200
-    ConfiTimer(
-        selectedItems: $selectedItems,
-        selectedHour: $selectedHour,
-        hydrationActivationViewModel: HydrationActivationViewModel()
-    )
-}
-
-struct CustomButton: View {
-    @Binding var isPlaying : Bool
-    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
-    @Binding var selectedItems : String
-    
-    var body: some View {
-        Button {
-            withAnimation {
-                isPlaying.toggle()
-                
-                if isPlaying {
-                    hydrationActivationViewModel.playSound(sound: selectedItems)
-                }else{
-                    hydrationActivationViewModel.stopPlaying()
-                }
-            }
-            
-        } label: {
-            Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                .resizable()
-                .frame(width: 80,height: 80)
-                .padding()
-                .scaleEffect(isPlaying ? 1.1 : 1.0)
-            
-        }
-        .onAppear{
-            isPlaying = false
         }
     }
 }
