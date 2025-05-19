@@ -125,6 +125,7 @@ struct ConfiTimer: View {
                     .shadow(radius: 8)
                 
             }
+            .disabled(timerhour == 0)
             .padding()
         }
     }
