@@ -21,17 +21,17 @@ class UserSettingsViewModel{
         case "sportifs":
             return 3
         case "Enfants et adolescents":
-            return 2
+            return 2.5
         case "Travailleurs en environnement chaud":
-            return 2
-        case "Personnes souffrant de maladies chroniques":
             return 3
+        case "Personnes souffrant de maladies chroniques":
+            return 2
         case "Personnes en surpoids ou obèses":
-            return 1
+            return 3
         case "Voyageurs ou personnes en altitude":
             return 3
         case " Personnes sous traitement médicamenteux":
-            return 1
+            return 2
         default:
             return 0
         }
@@ -48,17 +48,17 @@ class UserSettingsViewModel{
         case "sportifs":
             return 1/100
         case "Enfants et adolescents":
-            return 2
+            return 8.36/1000
         case "Travailleurs en environnement chaud":
-            return 2
+            return 1/100
         case "Personnes souffrant de maladies chroniques":
-            return 3
+            return 6.66/1000
         case "Personnes en surpoids ou obèses":
-            return 1
+            return 1/100
         case "Voyageurs ou personnes en altitude":
-            return 3
+            return 1/100
         case " Personnes sous traitement médicamenteux":
-            return 1
+            return 6.66/1000
         default:
             return 0.0
         }
