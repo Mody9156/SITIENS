@@ -46,7 +46,7 @@ struct HydrationActivation: View {
                         .font(.system(size: 48, weight: .bold, design: .monospaced))
                         .foregroundStyle(.primary)
                     
-                    // Bouton cercle principal
+                    // Bouton du cercle principal
                     Button {
                         toggleTimer()
                         showMessage = false
@@ -141,6 +141,7 @@ struct HydrationActivation: View {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     
                 }
+               
                 showMessage = false
                 
             }

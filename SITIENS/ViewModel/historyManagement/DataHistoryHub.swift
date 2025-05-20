@@ -71,7 +71,7 @@ class DataHistoryHub : HydrationProtocol {
     func stopPlaying(){
         avAudioEngine.stop()
         avAudioPlayerNode.stop()
-        audioPlayer = nil
+//        audioPlayer = nil
     }
     
     func notification(){

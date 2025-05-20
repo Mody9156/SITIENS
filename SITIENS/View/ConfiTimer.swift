@@ -12,7 +12,7 @@ import Combine
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
-    @State var hour : [Int] = [3600,7200]
+    @State var hour : [Int] = [3600,7200,10]
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
@@ -31,7 +31,6 @@ struct ConfiTimer: View {
                         .foregroundStyle(.blue)
                         .multilineTextAlignment(.center)
                         .padding(.top)
-                    
                     
                     VStack {
                         Text("Sélectionner Un temps d'hydratation")
