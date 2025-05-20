@@ -29,6 +29,8 @@ class HydrationActivationViewModel  {
     
     func stopPlaying(){
         hydrationProtocol.stopPlaying()
+        avAudioEngine.stop()
+        avAudioPlayerNode.stop()
     }
     
     

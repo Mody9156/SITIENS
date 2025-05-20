@@ -8,7 +8,6 @@ struct HydrationActivation: View {
     @State var timerIsReading = false
     @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
-    @State var timeHour: Int = 0
     @State private var cancellable: Cancellable?
     @State private var soundPlayed = false
     @State var startDate: Date?
@@ -18,7 +17,7 @@ struct HydrationActivation: View {
     @State var selectedItems : String = "asphalt-sizzle"
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
     @State var showMessage : Bool = false
-    
+    @State var elapseBeforPause : Int = 0
     var body: some View {
         NavigationStack {
             ZStack {
@@ -53,12 +52,11 @@ struct HydrationActivation: View {
                         
                         if timeInterval == 0{
                             timeInterval = timerhour
-                            
                             stopTimer()
                             hydrationActivationViewModel.stopPlaying()
                         }
                         
-                        if timerhour == 0 && timeInterval == 0{
+                        if timerhour == 0 && timeInterval == 0 {
                             DispatchQueue.main
                                 .asyncAfter(deadline: .now() + 0.2, execute: {
                                 withAnimation {
@@ -96,8 +94,6 @@ struct HydrationActivation: View {
                             .easeOut(duration: 1.0),value: showMessage
                         )
                         .padding()
-                       
-                        
                     }
                     
                 }
@@ -133,20 +129,17 @@ struct HydrationActivation: View {
                             }
                         }
                     })
-                
             }
             .onAppear {
                 if timeInterval == 0 {
                     hydrationActivationViewModel.notification()
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    
                 }
                
                 showMessage = false
                 
             }
         }
-        
     }
     
     var fill : Color {
@@ -163,7 +156,6 @@ struct HydrationActivation: View {
     }
     var buttonLabel: String {
         if timeInterval == 0 {
-            
             return "Réinitialiser"
         }
         else {
@@ -191,10 +183,11 @@ struct HydrationActivation: View {
         cancellable = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
+                
                 guard let start = startDate else { return }
                 let elapsedTime = Int(Date().timeIntervalSince(start))
                 let remainingTime = max(timerhour - elapsedTime, 0)
-                timeInterval = remainingTime
+                timeInterval = max(timerhour - (elapsedTime ),0)
                 
                 if timeInterval == 0 {
                     stopTimer()
