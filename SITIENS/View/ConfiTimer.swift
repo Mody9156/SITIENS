@@ -12,7 +12,7 @@ import Combine
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
-    @State var hour : [Int] = [3600,7200]
+    @State var hour : [Int] = [3600,7200,5400,1800]
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
@@ -21,51 +21,81 @@ struct ConfiTimer: View {
     @State private var audio : AVAudioPlayer?
     @State  var isPlaying : Bool = false
     @State private var cancellable: Cancellable?
+    @State private var navigationTitle : String = "Configuration"
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack (spacing: 30){
-                    Text("Configuration")
-                        .font(.largeTitle.bold())
-                        .foregroundStyle(.blue)
-                        .multilineTextAlignment(.center)
-                        .padding(.top)
                     
-                    
-                    VStack {
-                        Text("Sélectionner Un temps d'hydratation")
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Sélectionner le temps")
                             .font(.headline)
-                            .fontWeight(.bold)
-                        
-                        Picker("", selection: $selectedHour) {
-                            ForEach(hour,id: \.self) {
-                                
-                                Text("\(hydrationActivationViewModel.formatHour($0)) Hour\($0 == 3600 ? "" : "s")")
+                            .padding(.horizontal, 4)
+
+                        Picker(
+                            selection: $selectedHour,
+                            label: HStack {
+                                Text(
+                                    selectedHour == 0
+                                    ? "Sélectionner"
+                                    : hydrationActivationViewModel.formatHour(selectedHour)
+                                )
+                                .foregroundColor(selectedHour == 0 ? .gray : .primary)
+                                .lineLimit(1)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
+                        ) {
+                            ForEach(hour, id: \.self) { value in
+                                Text(hydrationActivationViewModel.formatHour(value))
+                                    .lineLimit(1)
                             }
                         }
-                        .pickerStyle(.palette)
+                        .pickerStyle(.navigationLink)
                         .padding()
-                        .background(Color(.systemGray6))
+                        .background(Color(uiColor: .secondarySystemBackground))
                         .cornerRadius(12)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                        )
+                        .accessibilityLabel("Sélection du temps")
+                        .accessibilityHint("Appuyez pour choisir une durée")
                     }
                     .padding()
                     .background(.ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
+
                     
-                    VStack {
+                    VStack(alignment: .leading, spacing: 12) {
                         Text("Sélectionner l'audio")
                             .font(.headline)
-                        Picker("", selection: $selectedItems) {
-                            ForEach(sound,id: \.self) {
-                                Text($0)
+                            .padding(.horizontal, 4)
+
+                        Picker(selection: $selectedItems, label: HStack {
+                            Text(selectedItems.isEmpty ? "Sélectionner" : selectedItems)
+                                .foregroundColor(selectedItems.isEmpty ? .gray : .primary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray)
+                        }) {
+                            ForEach(sound, id: \.self) { item in
+                                Text(item)
                             }
                         }
-                        .pickerStyle(.palette)
+                        .pickerStyle(.navigationLink)
                         .padding()
-                        .background(Color(.systemGray6))
+                        .background(Color(uiColor: .secondarySystemBackground))
                         .cornerRadius(12)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                        )
+                        .accessibilityLabel("Sélectionner un son")
+                        .accessibilityHint("Double-cliquez pour choisir un audio")
                     }
                     .padding()
                     .background(.ultraThinMaterial)
@@ -80,7 +110,6 @@ struct ConfiTimer: View {
                         isPlaying: $isPlaying,
                         hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
                     )
-                    
                 }
                 .padding()
             }
@@ -96,8 +125,8 @@ struct ConfiTimer: View {
 }
 
 #Preview {
-    @Previewable @State var selectedItems : String = "asphalt-sizzle"
-    @Previewable @State var selectedHour : Int = 7200
+    @Previewable @State var selectedItems : String = ""
+    @Previewable @State var selectedHour : Int = 0
     ConfiTimer(
         selectedItems: $selectedItems,
         selectedHour: $selectedHour,
@@ -133,7 +162,6 @@ struct CustomButton: View {
                     .frame(width: 80,height: 80)
                     .padding()
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
-                
             }
             .onAppear{
                 isPlaying = false
