@@ -44,17 +44,15 @@ class HydrationActivationViewModel  {
     func formatHour(_ secondes : Int) -> String{
         let hours = secondes / 3600
         let minutes = (secondes % 3600) / 60
-        
+        print("\(hours): \(minutes)")
         if hours == 0 {
-            return "\(minutes) minutes"
-        }else if hours != 0 && minutes > 0{
-            return "\(hours) heure et \(minutes) minutes"
-        }
-        else if hours == 0 && minutes == 0{
-            return "Sélectionner un temps"
-        }else {
-            return "\(hours) \(hours > 1 ? "heures" : "heure")"
-        }
+                return "\(minutes) \(minutes > 1 ? "minutes" : "minute")"
+            } else if minutes == 0 {
+                return "\(hours) \(hours > 1 ? "heures" : "heure")"
+            } else {
+                return "\(hours) \(hours > 1 ? "heures" : "heure") et \(minutes) \(minutes > 1 ? "minutes" : "minute")"
+            }
+        
     }
   
     func playSound(sound:String) {

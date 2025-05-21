@@ -22,33 +22,36 @@ struct ConfiTimer: View {
     @State  var isPlaying : Bool = false
     @State private var cancellable: Cancellable?
     
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack (spacing: 30){
-                    Text("Configuration")
-                        .font(.largeTitle.bold())
-                        .foregroundStyle(.blue)
-                        .multilineTextAlignment(.center)
-                        .padding(.top)
                     
                     VStack {
                         Text("Sélectionner Un temps d'hydratation")
                             .font(.headline)
                             .fontWeight(.bold)
                         
-                      
-                            Picker("", selection: $selectedHour) {
-                                ForEach(hour,id: \.self) {
-                                    
-                                    Text("\(hydrationActivationViewModel.formatHour($0))")
-                                }
+                        Picker(
+                            selection: $selectedHour,
+                            label: Text(
+                                selectedHour == 0 ? "Sélectionner" : "Temps sélectionné"
+                            )
+                        ) {
+                            ForEach(hour,id: \.self) {
+                                
+                                Text(hydrationActivationViewModel.formatHour($0))
+                                    .lineLimit(1)
+                                
                             }
-                            .pickerStyle(.navigationLink)
-                            .padding()
-                            .background(Color(.systemGray6))
-                            .cornerRadius(12)
-                       
+                        }
+                        .pickerStyle(.navigationLink)
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(12)
+                        .navigationTitle("Configuration")
+                        .navigationBarTitleDisplayMode(.inline)
                     }
                     .padding()
                     .background(.ultraThinMaterial)
@@ -97,7 +100,7 @@ struct ConfiTimer: View {
 
 #Preview {
     @Previewable @State var selectedItems : String = "asphalt-sizzle"
-    @Previewable @State var selectedHour : Int = 7200
+    @Previewable @State var selectedHour : Int = 0
     ConfiTimer(
         selectedItems: $selectedItems,
         selectedHour: $selectedHour,
@@ -133,7 +136,6 @@ struct CustomButton: View {
                     .frame(width: 80,height: 80)
                     .padding()
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
-                
             }
             .onAppear{
                 isPlaying = false
