@@ -18,6 +18,8 @@ struct HydrationActivation: View {
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
+    @State private var cancellables = Set<AnyCancellable>()
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -173,7 +175,11 @@ struct HydrationActivation: View {
         withAnimation {
             hydrationActivationViewModel.authorization()
             timerIsReading.toggle()
-            timerIsReading ? startTimer() : stopTimer()
+            if  timerIsReading {
+                startTimer()
+            }else{
+                stopTimer()
+            }
         }
     }
     
@@ -183,22 +189,29 @@ struct HydrationActivation: View {
         cancellable = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
-                
                 guard let start = startDate else { return }
-                let elapsedTime = Int(Date().timeIntervalSince(start))
+                let elapsedTime = elapseBeforPause + Int(Date().timeIntervalSince(start))
                 let remainingTime = max(timerhour - elapsedTime, 0)
-                timeInterval = max(timerhour - (elapsedTime ),0)
+                timeInterval = remainingTime
                 
                 if timeInterval == 0 {
                     stopTimer()
                     hydrationActivationViewModel.notification()
                     hydrationActivationViewModel.playingSound(audioFile: selectedItems)
+                    elapseBeforPause = 0
                 }
+               
             }
+        
+       
     }
     
     func stopTimer() {
         cancellable?.cancel()
+        if let start = startDate {
+            let elapsedTime = Int(Date().timeIntervalSince(start))
+            elapseBeforPause += elapsedTime
+        }
     }
 }
 
