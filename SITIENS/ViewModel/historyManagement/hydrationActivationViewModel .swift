@@ -35,6 +35,10 @@ class HydrationActivationViewModel  {
     }
     
     
+    
+    
+    
+    
     func formatTimer(_ secondes: Int) -> String {
         let hours = secondes / 3600
         let minutes = (secondes % 3600) / 60
@@ -44,7 +48,17 @@ class HydrationActivationViewModel  {
     
     func formatHour(_ secondes : Int) -> String{
         let hours = secondes / 3600
-        return String(format: "%2d", hours)
+        let minutes = (secondes % 3600) / 60
+        
+        if hours == 0 {
+            return "\(minutes) minutes"
+        }else if hours != 0 && minutes > 0{
+            return "\(hours) heure \(minutes) minutes"
+        }
+        else{
+            return "\(hours) \(hours > 1 ? "heures" : "heure")"
+        }
+        
     }
   
     func playSound(sound:String) {

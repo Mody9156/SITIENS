@@ -12,7 +12,7 @@ import Combine
 
 struct ConfiTimer: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
-    @State var hour : [Int] = [3600,7200,10]
+    @State var hour : [Int] = [3600,7200,5400,1800]
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
@@ -37,16 +37,18 @@ struct ConfiTimer: View {
                             .font(.headline)
                             .fontWeight(.bold)
                         
-                        Picker("", selection: $selectedHour) {
-                            ForEach(hour,id: \.self) {
-                                
-                                Text("\(hydrationActivationViewModel.formatHour($0)) Hour\($0 == 3600 ? "" : "s")")
+                      
+                            Picker("", selection: $selectedHour) {
+                                ForEach(hour,id: \.self) {
+                                    
+                                    Text("\(hydrationActivationViewModel.formatHour($0))")
+                                }
                             }
-                        }
-                        .pickerStyle(.palette)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
+                            .pickerStyle(.navigationLink)
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(12)
+                       
                     }
                     .padding()
                     .background(.ultraThinMaterial)
