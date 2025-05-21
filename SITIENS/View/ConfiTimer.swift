@@ -21,55 +21,81 @@ struct ConfiTimer: View {
     @State private var audio : AVAudioPlayer?
     @State  var isPlaying : Bool = false
     @State private var cancellable: Cancellable?
-    
+    @State private var navigationTitle : String = "Configuration"
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack (spacing: 30){
                     
-                    VStack {
-                        Text("Sélectionner Un temps d'hydratation")
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Sélectionner le temps")
                             .font(.headline)
-                            .fontWeight(.bold)
-                        
+                            .padding(.horizontal, 4)
+
                         Picker(
                             selection: $selectedHour,
-                            label: Text(
-                                selectedHour == 0 ? "Sélectionner" : "Temps sélectionné"
-                            )
+                            label: HStack {
+                                Text(
+                                    selectedHour == 0
+                                    ? "Sélectionner"
+                                    : hydrationActivationViewModel.formatHour(selectedHour)
+                                )
+                                .foregroundColor(selectedHour == 0 ? .gray : .primary)
+                                .lineLimit(1)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
                         ) {
-                            ForEach(hour,id: \.self) {
-                                
-                                Text(hydrationActivationViewModel.formatHour($0))
+                            ForEach(hour, id: \.self) { value in
+                                Text(hydrationActivationViewModel.formatHour(value))
                                     .lineLimit(1)
-                                
                             }
                         }
                         .pickerStyle(.navigationLink)
                         .padding()
-                        .background(Color(.systemGray6))
+                        .background(Color(uiColor: .secondarySystemBackground))
                         .cornerRadius(12)
-                        .navigationTitle("Configuration")
-                        .navigationBarTitleDisplayMode(.inline)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                        )
+                        .accessibilityLabel("Sélection du temps")
+                        .accessibilityHint("Appuyez pour choisir une durée")
                     }
                     .padding()
                     .background(.ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
+
                     
-                    VStack {
+                    VStack(alignment: .leading, spacing: 12) {
                         Text("Sélectionner l'audio")
                             .font(.headline)
-                        Picker("", selection: $selectedItems) {
-                            ForEach(sound,id: \.self) {
-                                Text($0)
+                            .padding(.horizontal, 4)
+
+                        Picker(selection: $selectedItems, label: HStack {
+                            Text(selectedItems.isEmpty ? "Sélectionner" : selectedItems)
+                                .foregroundColor(selectedItems.isEmpty ? .gray : .primary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray)
+                        }) {
+                            ForEach(sound, id: \.self) { item in
+                                Text(item)
                             }
                         }
-                        .pickerStyle(.palette)
+                        .pickerStyle(.navigationLink)
                         .padding()
-                        .background(Color(.systemGray6))
+                        .background(Color(uiColor: .secondarySystemBackground))
                         .cornerRadius(12)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                        )
+                        .accessibilityLabel("Sélectionner un son")
+                        .accessibilityHint("Double-cliquez pour choisir un audio")
                     }
                     .padding()
                     .background(.ultraThinMaterial)
@@ -99,7 +125,7 @@ struct ConfiTimer: View {
 }
 
 #Preview {
-    @Previewable @State var selectedItems : String = "asphalt-sizzle"
+    @Previewable @State var selectedItems : String = ""
     @Previewable @State var selectedHour : Int = 0
     ConfiTimer(
         selectedItems: $selectedItems,

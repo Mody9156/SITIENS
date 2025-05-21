@@ -14,7 +14,7 @@ struct HydrationActivation: View {
     @State var sheetPresented : Bool = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var rotationInfiny : Bool = false
-    @State var selectedItems : String = "asphalt-sizzle"
+    @State var selectedItems : String = ""
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
