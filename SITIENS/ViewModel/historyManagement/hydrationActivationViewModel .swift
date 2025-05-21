@@ -31,6 +31,7 @@ class HydrationActivationViewModel  {
         hydrationProtocol.stopPlaying()
         avAudioEngine.stop()
         avAudioPlayerNode.stop()
+        
     }
     
     

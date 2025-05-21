@@ -61,10 +61,10 @@ struct HydrationActivation: View {
                         if timerhour == 0 && timeInterval == 0 {
                             DispatchQueue.main
                                 .asyncAfter(deadline: .now() + 0.2, execute: {
-                                withAnimation {
-                                    showMessage = true
-                                }
-                            })
+                                    withAnimation {
+                                        showMessage = true
+                                    }
+                                })
                         }
                         
                     } label: {
@@ -137,7 +137,7 @@ struct HydrationActivation: View {
                     hydrationActivationViewModel.notification()
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }
-               
+                
                 showMessage = false
                 
             }
@@ -200,10 +200,7 @@ struct HydrationActivation: View {
                     hydrationActivationViewModel.playingSound(audioFile: selectedItems)
                     elapseBeforPause = 0
                 }
-               
             }
-        
-       
     }
     
     func stopTimer() {

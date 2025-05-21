@@ -79,7 +79,6 @@ struct ConfiTimer: View {
                         isPlaying: $isPlaying,
                         hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
                     )
-                    
                 }
                 .padding()
             }
