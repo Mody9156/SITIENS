@@ -122,7 +122,7 @@ struct Chronograph: View {
                             .sheet(isPresented: $sheetPresented) {
                                 
                             } content: {
-                                ConfiTimer(
+                                TimerSettings(
                                     selectedItems: $selectedItems,
                                     selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
                                 )

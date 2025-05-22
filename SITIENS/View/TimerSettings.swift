@@ -10,7 +10,7 @@ import UIKit
 import AVFAudio
 import Combine
 
-struct ConfiTimer: View {
+struct TimerSettings: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
     @State var hour : [Int] = [3600,7200,5400,1800]
     @Binding var selectedItems : String
@@ -127,7 +127,7 @@ struct ConfiTimer: View {
 #Preview {
     @Previewable @State var selectedItems : String = ""
     @Previewable @State var selectedHour : Int = 0
-    ConfiTimer(
+    TimerSettings(
         selectedItems: $selectedItems,
         selectedHour: $selectedHour,
         hydrationActivationViewModel: HydrationActivationViewModel()
