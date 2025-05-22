@@ -4,7 +4,7 @@ import WidgetKit
 import UIKit
 import CoreData
 
-struct HydrationActivation: View {
+struct Chronograph: View {
     @State var timerIsReading = false
     @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
@@ -73,8 +73,8 @@ struct HydrationActivation: View {
                                 .fill(fill)
                                 .frame(width: 200, height: 200)
                                 .shadow(radius: 10)
-//                                .scaleEffect(timerIsReading ? 1.05 : 1)
-//                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+                                .scaleEffect(timerIsReading ? 1.05 : 1)
+                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
                             
                             Text(buttonLabel)
                                 .font(.title3)
@@ -139,7 +139,6 @@ struct HydrationActivation: View {
                 }
                 
                 showMessage = false
-                
             }
         }
     }
@@ -156,6 +155,7 @@ struct HydrationActivation: View {
             return .gray
         }
     }
+    
     var buttonLabel: String {
         if timeInterval == 0 {
             return "Réinitialiser"
@@ -213,5 +213,5 @@ struct HydrationActivation: View {
 }
 
 #Preview {
-    HydrationActivation()
+    Chronograph()
 }

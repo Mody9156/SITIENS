@@ -17,7 +17,7 @@ struct SITIENSApp: App {
                     Tab(
                         "Chronomètre",
                         systemImage: "stopwatch") {
-                            HydrationActivation()
+                            Chronograph()
                     }
                     
                     Tab(
