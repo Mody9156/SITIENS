@@ -17,7 +17,7 @@ struct SITIENSApp: App {
                     Tab(
                         "Chronomètre",
                         systemImage: "stopwatch") {
-                            HydrationActivation()
+                            Chronograph()
                     }
                     
                     Tab(
@@ -31,7 +31,7 @@ struct SITIENSApp: App {
                 TabView{
                     HomeView(activeNavLink: $useNavLink)
                         
-                    InfosView(activeNavLink: $useNavLink)
+                    InformationView(activeNavLink: $useNavLink)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .background(  LinearGradient(

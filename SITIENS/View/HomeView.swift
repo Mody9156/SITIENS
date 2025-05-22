@@ -22,43 +22,43 @@ struct HomeView: View {
                 .ignoresSafeArea()
                 
                 VStack {
-                    HStack {
+                    HStack{
                         Spacer()
+                        
                         Button(action: {
                             withAnimation {
                                 activeNavLink = true
                             }
                         }) {
-                            Text("Skip")
+                            Text("Ignorer")
                                 .font(.headline)
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
-                                .background(Color.black)
+                                .foregroundStyle(.black)
+                                .padding()
+                                .background(Color.white)
                                 .clipShape(Capsule())
                         }
                         .accessibilityLabel("Passer l’introduction")
-                        
                     }
                     .padding()
                     
                     Image("Water")
                         .resizable()
-                        
+                        .frame(height: 350)
+                        .clipShape(Circle())
+                        .shadow(color: .white, radius: 15)
                     
                     ScrollView {
-                        VStack(alignment: .leading){
+                        VStack(alignment: .leading, spacing: 16) {
                             Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
-                                .font(.title)
+                                .font(.title2)
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.leading)
-                                .padding()
                             
                             Text("Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps en bonne santé.")
-                                .font(.callout)
+                                .font(.body)
                                 .multilineTextAlignment(.leading)
-                                .padding(.horizontal)
                         }
+                        .padding()
                     }
                 }
             }

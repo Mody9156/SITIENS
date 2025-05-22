@@ -4,21 +4,19 @@ import WidgetKit
 import UIKit
 import CoreData
 
-struct HydrationActivation: View {
+struct Chronograph: View {
     @State var timerIsReading = false
     @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
-    @State private var cancellable: Cancellable?
-    @State private var soundPlayed = false
+    @State  var cancellable: Cancellable?
+    @State  var soundPlayed = false
     @State var startDate: Date?
     @State var sheetPresented : Bool = false
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = ""
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
-    @State private var cancellables = Set<AnyCancellable>()
     
     var body: some View {
         NavigationStack {
@@ -48,42 +46,31 @@ struct HydrationActivation: View {
                         .foregroundStyle(.primary)
                     
                     // Bouton du cercle principal
-                    Button {
-                        toggleTimer()
-                        showMessage = false
+                    HStack {
+                        Start_timer(
+                            showMessage: $showMessage,
+                            timeInterval: $timeInterval,
+                            timerIsReading: $timerIsReading,
+                            cancellable: $cancellable,
+                            startDate: $startDate,
+                            elapseBeforPause: $elapseBeforPause,
+                            selectedItems: selectedItems,
+                            nameBtm: "Start"
+                        )
                         
-                        if timeInterval == 0{
-                            timeInterval = timerhour
-                            stopTimer()
-                            hydrationActivationViewModel.stopPlaying()
-                        }
+                        Start_timer(
+                            showMessage: $showMessage,
+                            timeInterval: $timeInterval,
+                            timerIsReading: $timerIsReading,
+                            cancellable: $cancellable,
+                            startDate: $startDate,
+                            elapseBeforPause: $elapseBeforPause,
+                            selectedItems: selectedItems,
+                            nameBtm: "stop"
+                        )
                         
-                        if timerhour == 0 && timeInterval == 0 {
-                            DispatchQueue.main
-                                .asyncAfter(deadline: .now() + 0.2, execute: {
-                                    withAnimation {
-                                        showMessage = true
-                                    }
-                                })
-                        }
                         
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(fill)
-                                .frame(width: 200, height: 200)
-                                .shadow(radius: 10)
-                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
-                            
-                            Text(buttonLabel)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .foregroundStyle(.white)
-                        }
                     }
-                    .buttonStyle(.plain)
-                    .animation(.spring(), value: timerIsReading)
                     
                     if showMessage{
                         HStack {
@@ -97,7 +84,6 @@ struct HydrationActivation: View {
                         )
                         .padding()
                     }
-                    
                 }
                 .toolbar(
                     content: {
@@ -124,7 +110,7 @@ struct HydrationActivation: View {
                             .sheet(isPresented: $sheetPresented) {
                                 
                             } content: {
-                                ConfiTimer(
+                                TimerSettings(
                                     selectedItems: $selectedItems,
                                     selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
                                 )
@@ -139,7 +125,6 @@ struct HydrationActivation: View {
                 }
                 
                 showMessage = false
-                
             }
         }
     }
@@ -147,15 +132,16 @@ struct HydrationActivation: View {
     var fill : Color {
         switch buttonLabel{
         case "Réinitialiser" :
-            return .orange
+            return Color("ToReboot")
         case "REPRENDRE" :
-            return .red
+            return Color("ToResume")
         case "COMMENCER" :
-            return .blue
+            return Color("ToBegin")
         default:
             return .gray
         }
     }
+    
     var buttonLabel: String {
         if timeInterval == 0 {
             return "Réinitialiser"
@@ -213,5 +199,6 @@ struct HydrationActivation: View {
 }
 
 #Preview {
-    HydrationActivation()
+    Chronograph()
 }
+

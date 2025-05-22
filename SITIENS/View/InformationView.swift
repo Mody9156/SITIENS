@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InfosView: View {
+struct InformationView: View {
     @Binding var activeNavLink: Bool
     
     var body: some View {
@@ -31,12 +31,11 @@ struct InfosView: View {
                             }
                             
                         }) {
-                            Text("Skip")
+                            Text("Ignorer")
                                 .font(.headline)
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
-                                .background(Color.black)
+                                .foregroundStyle(.black)
+                                .padding()
+                                .background(Color.white)
                                 .clipShape(Capsule())
                         }
                         .accessibilityLabel("Passer l’introduction")
@@ -46,8 +45,9 @@ struct InfosView: View {
                     
                     Image("thirstyPicture")
                         .resizable()
-                        .frame(height: 480)
-                    
+                        .frame(height: 350)
+                        .clipShape(Circle())
+                        .shadow(color: .white, radius: 15)
                     ScrollView {
                         VStack(alignment: .leading) {
                             Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
@@ -75,5 +75,5 @@ struct InfosView: View {
 
 #Preview {
     @Previewable @State var activeNavLink: Bool = false
-    InfosView(activeNavLink: $activeNavLink)
+    InformationView(activeNavLink: $activeNavLink)
 }
