@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InfosView: View {
+struct InformationView: View {
     @Binding var activeNavLink: Bool
     
     var body: some View {
@@ -75,5 +75,5 @@ struct InfosView: View {
 
 #Preview {
     @Previewable @State var activeNavLink: Bool = false
-    InfosView(activeNavLink: $activeNavLink)
+    InformationView(activeNavLink: $activeNavLink)
 }
