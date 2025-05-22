@@ -29,7 +29,7 @@ struct SITIENSApp: App {
                 
             }else {
                 TabView{
-                    HomeView(activeNavLink: $useNavLink)
+                    HomeView(activeNavLink: $useNavLink, image: UIImage())
                         
                     InformationView(activeNavLink: $useNavLink)
                 }
