@@ -18,47 +18,53 @@ struct Start_timer: View {
     @Binding var startDate: Date?
     @Binding var elapseBeforPause : Int
     @State var selectedItems : String
+    var nameBtm : String 
     
     
     var body: some View {
-        Button {
-            toggleTimer()
-            showMessage = false
-            
-            if timeInterval == 0{
-                timeInterval = timerhour
-                stopTimer()
-                hydrationActivationViewModel.stopPlaying()
-            }
-            
-            if timerhour == 0 && timeInterval == 0 {
-                DispatchQueue.main
-                    .asyncAfter(deadline: .now() + 0.2, execute: {
-                        withAnimation {
-                            showMessage = true
-                        }
-                    })
-            }
-            
-        } label: {
-            ZStack {
-                Circle()
-                    .fill(fill)
-                    .frame(width: 200, height: 200)
-                    .shadow(radius: 10)
-                //                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+        
+        if nameBtm == "Start" {
+            Button {
+                toggleTimer()
+                showMessage = false
                 
-                Text(buttonLabel)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.white)
+                if timeInterval == 0{
+                    timeInterval = timerhour
+                    stopTimer()
+                    hydrationActivationViewModel.stopPlaying()
+                }
+                
+                if timerhour == 0 && timeInterval == 0 {
+                    DispatchQueue.main
+                        .asyncAfter(deadline: .now() + 0.2, execute: {
+                            withAnimation {
+                                showMessage = true
+                            }
+                        })
+                }
+                
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(fill)
+                        .frame(width: 200, height: 200)
+                        .shadow(radius: 10)
+                    //                                .scaleEffect(timerIsReading ? 1.05 : 1)
+                    //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+                    
+                    Text(buttonLabel)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                }
             }
+            .buttonStyle(.plain)
+            .animation(.spring(), value: timerIsReading)
+        }else{
+            
+            
         }
-        .buttonStyle(.plain)
-        .animation(.spring(), value: timerIsReading)
     }
-    
     
     func toggleTimer() {
         withAnimation {
@@ -147,6 +153,6 @@ struct Start_timer: View {
         cancellable: $cancellable,
         startDate: $startDate,
         elapseBeforPause: $elapseBeforPause,
-        selectedItems: selectedItems
+        selectedItems: selectedItems, nameBtm: "Start"
     )
 }

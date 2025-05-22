@@ -46,15 +46,20 @@ struct Chronograph: View {
                         .foregroundStyle(.primary)
                     
                     // Bouton du cercle principal
-                    Start_timer(
-                        showMessage: $showMessage,
-                        timeInterval: $timeInterval,
-                        timerIsReading: $timerIsReading,
-                        cancellable: $cancellable,
-                        startDate: $startDate,
-                        elapseBeforPause: $elapseBeforPause,
-                        selectedItems: selectedItems
-                    )
+                    HStack {
+                        Start_timer(
+                            showMessage: $showMessage,
+                            timeInterval: $timeInterval,
+                            timerIsReading: $timerIsReading,
+                            cancellable: $cancellable,
+                            startDate: $startDate,
+                            elapseBeforPause: $elapseBeforPause,
+                            selectedItems: selectedItems,
+                            nameBtm: "Start"
+                        )
+                        
+                        
+                    }
                     
                     if showMessage{
                         HStack {
