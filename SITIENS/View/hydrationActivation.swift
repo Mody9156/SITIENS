@@ -18,7 +18,6 @@ struct Chronograph: View {
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
-    @State private var cancellables = Set<AnyCancellable>()
     
     var body: some View {
         NavigationStack {
@@ -73,8 +72,8 @@ struct Chronograph: View {
                                 .fill(fill)
                                 .frame(width: 200, height: 200)
                                 .shadow(radius: 10)
-                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+//                                .scaleEffect(timerIsReading ? 1.05 : 1)
+//                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
                             
                             Text(buttonLabel)
                                 .font(.title3)
