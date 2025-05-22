@@ -12,7 +12,6 @@ struct Chronograph: View {
     @State private var soundPlayed = false
     @State var startDate: Date?
     @State var sheetPresented : Bool = false
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = ""
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
