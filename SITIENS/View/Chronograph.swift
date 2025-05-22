@@ -46,42 +46,7 @@ struct Chronograph: View {
                         .foregroundStyle(.primary)
                     
                     // Bouton du cercle principal
-                    Button {
-                        toggleTimer()
-                        showMessage = false
-                        
-                        if timeInterval == 0{
-                            timeInterval = timerhour
-                            stopTimer()
-                            hydrationActivationViewModel.stopPlaying()
-                        }
-                        
-                        if timerhour == 0 && timeInterval == 0 {
-                            DispatchQueue.main
-                                .asyncAfter(deadline: .now() + 0.2, execute: {
-                                    withAnimation {
-                                        showMessage = true
-                                    }
-                                })
-                        }
-                        
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(fill)
-                                .frame(width: 200, height: 200)
-                                .shadow(radius: 10)
-                            //                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                            //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
-                            
-                            Text(buttonLabel)
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .foregroundStyle(.white)
-                        }
-                    }
-                    .buttonStyle(.plain)
-                    .animation(.spring(), value: timerIsReading)
+                    Start_timer()
                     
                     if showMessage{
                         HStack {
@@ -211,4 +176,45 @@ struct Chronograph: View {
 
 #Preview {
     Chronograph()
+}
+
+struct Start_timer: View {
+    var body: some View {
+        Button {
+            toggleTimer()
+            showMessage = false
+            
+            if timeInterval == 0{
+                timeInterval = timerhour
+                stopTimer()
+                hydrationActivationViewModel.stopPlaying()
+            }
+            
+            if timerhour == 0 && timeInterval == 0 {
+                DispatchQueue.main
+                    .asyncAfter(deadline: .now() + 0.2, execute: {
+                        withAnimation {
+                            showMessage = true
+                        }
+                    })
+            }
+            
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(fill)
+                    .frame(width: 200, height: 200)
+                    .shadow(radius: 10)
+                //                                .scaleEffect(timerIsReading ? 1.05 : 1)
+                //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+                
+                Text(buttonLabel)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+            }
+        }
+        .buttonStyle(.plain)
+        .animation(.spring(), value: timerIsReading)
+    }
 }
