@@ -33,10 +33,10 @@ struct InformationView: View {
                         }) {
                             Text("Skip")
                                 .font(.headline)
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.black)
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 8)
-                                .background(Color.black)
+                                .background(Color.white)
                                 .clipShape(Capsule())
                         }
                         .accessibilityLabel("Passer l’introduction")
@@ -46,7 +46,10 @@ struct InformationView: View {
                     
                     Image("thirstyPicture")
                         .resizable()
-                        .frame(height: 480)
+                        .scaledToFill()
+                        .frame(width: 350,height: 350)
+                        .clipShape(Circle())
+                        .shadow(color: .white, radius: 15)
                     
                     ScrollView {
                         VStack(alignment: .leading) {

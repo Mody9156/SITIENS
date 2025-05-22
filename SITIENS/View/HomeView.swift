@@ -25,6 +25,28 @@ struct HomeView: View {
                 .ignoresSafeArea()
                 
                 VStack {
+                    
+                    HStack{
+                        Spacer()
+                        
+                        Button(action: {
+                            withAnimation {
+                                activeNavLink = true
+                            }
+                        }) {
+                            Text("Skip")
+                                .font(.headline)
+                                .foregroundStyle(.black)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
+                                .background(Color.white)
+                                .clipShape(Capsule())
+                                .padding()
+                        }
+                        .accessibilityLabel("Passer l’introduction")
+                    }
+                    .padding()
+                    
                     ZStack {
                         
                         Image("Water")
@@ -47,27 +69,6 @@ struct HomeView: View {
                                 .multilineTextAlignment(.leading)
                         }
                         .padding()
-                    }
-                }
-
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: {
-                            withAnimation {
-                                activeNavLink = true
-                            }
-                        }) {
-                            Text("Skip")
-                                .font(.headline)
-                                .foregroundStyle(.black)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
-                                .background(Color.white)
-                                .clipShape(Capsule())
-                                .padding()
-                        }
-                        .accessibilityLabel("Passer l’introduction")
-                        
                     }
                 }
             }
