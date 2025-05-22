@@ -58,6 +58,17 @@ struct Chronograph: View {
                             nameBtm: "Start"
                         )
                         
+                        Start_timer(
+                            showMessage: $showMessage,
+                            timeInterval: $timeInterval,
+                            timerIsReading: $timerIsReading,
+                            cancellable: $cancellable,
+                            startDate: $startDate,
+                            elapseBeforPause: $elapseBeforPause,
+                            selectedItems: selectedItems,
+                            nameBtm: "stop"
+                        )
+                        
                         
                     }
                     

@@ -18,7 +18,7 @@ struct Start_timer: View {
     @Binding var startDate: Date?
     @Binding var elapseBeforPause : Int
     @State var selectedItems : String
-    var nameBtm : String 
+    var nameBtm : String
     
     
     var body: some View {
@@ -47,21 +47,59 @@ struct Start_timer: View {
                 ZStack {
                     Circle()
                         .fill(fill)
-                        .frame(width: 200, height: 200)
+                        .frame(width: 120, height: 120)
                         .shadow(radius: 10)
                     //                                .scaleEffect(timerIsReading ? 1.05 : 1)
                     //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
                     
                     Text(buttonLabel)
-                        .font(.title3)
+                        .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
                 }
             }
             .buttonStyle(.plain)
             .animation(.spring(), value: timerIsReading)
-        }else{
+            .padding()
             
+        }else{
+            Button {
+                toggleTimer()
+                showMessage = false
+                
+                if timeInterval == 0{
+                    timeInterval = timerhour
+                    stopTimer()
+                    hydrationActivationViewModel.stopPlaying()
+                }
+                
+                if timerhour == 0 && timeInterval == 0 {
+                    DispatchQueue.main
+                        .asyncAfter(deadline: .now() + 0.2, execute: {
+                            withAnimation {
+                                showMessage = true
+                            }
+                        })
+                }
+                
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(fill)
+                        .frame(width: 120, height: 120)
+                        .shadow(radius: 10)
+                    //                                .scaleEffect(timerIsReading ? 1.05 : 1)
+                    //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+                    
+                    Text(buttonLabel)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                }
+            }
+            .buttonStyle(.plain)
+            .animation(.spring(), value: timerIsReading)
+            .padding()
             
         }
     }
@@ -146,13 +184,24 @@ struct Start_timer: View {
     @Previewable @State var elapseBeforPause : Int = 12
     @Previewable @State var selectedItems : String = "fakeTest"
     
-    Start_timer(
-        showMessage: $showMessage,
-        timeInterval: $timeInterval,
-        timerIsReading: $timerIsReading,
-        cancellable: $cancellable,
-        startDate: $startDate,
-        elapseBeforPause: $elapseBeforPause,
-        selectedItems: selectedItems, nameBtm: "Start"
-    )
+    HStack {
+        Start_timer(
+            showMessage: $showMessage,
+            timeInterval: $timeInterval,
+            timerIsReading: $timerIsReading,
+            cancellable: $cancellable,
+            startDate: $startDate,
+            elapseBeforPause: $elapseBeforPause,
+            selectedItems: selectedItems, nameBtm: "Start"
+        )
+        Start_timer(
+            showMessage: $showMessage,
+            timeInterval: $timeInterval,
+            timerIsReading: $timerIsReading,
+            cancellable: $cancellable,
+            startDate: $startDate,
+            elapseBeforPause: $elapseBeforPause,
+            selectedItems: selectedItems, nameBtm: "stop"
+        )
+    }
 }
