@@ -31,11 +31,10 @@ struct InformationView: View {
                             }
                             
                         }) {
-                            Text("Skip")
+                            Text("Ignorer")
                                 .font(.headline)
                                 .foregroundStyle(.black)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
+                                .padding()
                                 .background(Color.white)
                                 .clipShape(Capsule())
                         }
@@ -46,11 +45,9 @@ struct InformationView: View {
                     
                     Image("thirstyPicture")
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 350,height: 350)
+                        .frame(height: 350)
                         .clipShape(Circle())
                         .shadow(color: .white, radius: 15)
-                    
                     ScrollView {
                         VStack(alignment: .leading) {
                             Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")

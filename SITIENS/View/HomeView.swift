@@ -6,12 +6,9 @@
 //
 
 import SwiftUI
-import Combine
 
 struct HomeView: View {
     @Binding  var activeNavLink : Bool
-    //    let imageProcessor = ImageProcessor()
-    let image : UIImage
     
     var body: some View {
         NavigationStack {
@@ -25,7 +22,6 @@ struct HomeView: View {
                 .ignoresSafeArea()
                 
                 VStack {
-                    
                     HStack{
                         Spacer()
                         
@@ -34,36 +30,30 @@ struct HomeView: View {
                                 activeNavLink = true
                             }
                         }) {
-                            Text("Skip")
+                            Text("Ignorer")
                                 .font(.headline)
                                 .foregroundStyle(.black)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
+                                .padding()
                                 .background(Color.white)
                                 .clipShape(Capsule())
-                                .padding()
                         }
                         .accessibilityLabel("Passer l’introduction")
                     }
                     .padding()
                     
-                    ZStack {
-                        
-                        Image("Water")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 350,height: 350)
-                            .clipShape(Circle())
-                            .shadow(color: .white, radius: 15)
-                    }
-
+                    Image("Water")
+                        .resizable()
+                        .frame(height: 350)
+                        .clipShape(Circle())
+                        .shadow(color: .white, radius: 15)
+                    
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
                             Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
                                 .font(.title2)
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.leading)
-
+                            
                             Text("Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps en bonne santé.")
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
@@ -78,6 +68,6 @@ struct HomeView: View {
 
 #Preview {
     @Previewable @State var activeNavLink: Bool = false
-    HomeView(activeNavLink: $activeNavLink, image: UIImage())
+    HomeView(activeNavLink: $activeNavLink)
     
 }
