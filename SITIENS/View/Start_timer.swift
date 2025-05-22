@@ -14,7 +14,7 @@ struct Start_timer: View {
     @Binding var timeInterval: Int
     @Binding var timerIsReading : Bool
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
-    @Binding private var cancellable: Cancellable?
+    @Binding  var cancellable: Cancellable?
     @Binding var startDate: Date?
     @Binding var elapseBeforPause : Int
     @State var selectedItems : String
@@ -132,5 +132,21 @@ struct Start_timer: View {
 
 
 #Preview {
-    Start_timer()
+    @Previewable @State var showMessage : Bool = false
+    @Previewable @State var timeInterval : Int = 10
+    @Previewable @State var timerIsReading : Bool = false
+    @Previewable @State var cancellable : Cancellable? = nil
+    @Previewable @State var startDate : Date? = Date.now
+    @Previewable @State var elapseBeforPause : Int = 12
+    @Previewable @State var selectedItems : String = "fakeTest"
+    
+    Start_timer(
+        showMessage: $showMessage,
+        timeInterval: $timeInterval,
+        timerIsReading: $timerIsReading,
+        cancellable: $cancellable,
+        startDate: $startDate,
+        elapseBeforPause: $elapseBeforPause,
+        selectedItems: selectedItems
+    )
 }

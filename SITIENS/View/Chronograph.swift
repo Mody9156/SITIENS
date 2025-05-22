@@ -8,8 +8,8 @@ struct Chronograph: View {
     @State var timerIsReading = false
     @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
-    @State private var cancellable: Cancellable?
-    @State private var soundPlayed = false
+    @State  var cancellable: Cancellable?
+    @State  var soundPlayed = false
     @State var startDate: Date?
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
@@ -46,7 +46,15 @@ struct Chronograph: View {
                         .foregroundStyle(.primary)
                     
                     // Bouton du cercle principal
-                    Start_timer()
+                    Start_timer(
+                        showMessage: $showMessage,
+                        timeInterval: $timeInterval,
+                        timerIsReading: $timerIsReading,
+                        cancellable: $cancellable,
+                        startDate: $startDate,
+                        elapseBeforPause: $elapseBeforPause,
+                        selectedItems: selectedItems
+                    )
                     
                     if showMessage{
                         HStack {
