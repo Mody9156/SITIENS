@@ -38,13 +38,12 @@ struct HomeView: View {
                                 .clipShape(Capsule())
                         }
                         .accessibilityLabel("Passer l’introduction")
-                        
                     }
                     .padding()
                     
                     Image("Water")
                         .resizable()
-                        
+                    
                     
                     ScrollView {
                         VStack(alignment: .leading){

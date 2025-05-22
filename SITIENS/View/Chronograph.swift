@@ -71,8 +71,8 @@ struct Chronograph: View {
                                 .fill(fill)
                                 .frame(width: 200, height: 200)
                                 .shadow(radius: 10)
-//                                .scaleEffect(timerIsReading ? 1.05 : 1)
-//                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+                            //                                .scaleEffect(timerIsReading ? 1.05 : 1)
+                            //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
                             
                             Text(buttonLabel)
                                 .font(.title3)
@@ -95,7 +95,6 @@ struct Chronograph: View {
                         )
                         .padding()
                     }
-                    
                 }
                 .toolbar(
                     content: {

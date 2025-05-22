@@ -40,7 +40,6 @@ struct InformationView: View {
                                 .clipShape(Capsule())
                         }
                         .accessibilityLabel("Passer l’introduction")
-                        
                     }
                     .padding()
                     
