@@ -73,8 +73,8 @@ struct HydrationActivation: View {
                                 .fill(fill)
                                 .frame(width: 200, height: 200)
                                 .shadow(radius: 10)
-                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+//                                .scaleEffect(timerIsReading ? 1.05 : 1)
+//                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
                             
                             Text(buttonLabel)
                                 .font(.title3)
@@ -147,11 +147,11 @@ struct HydrationActivation: View {
     var fill : Color {
         switch buttonLabel{
         case "Réinitialiser" :
-            return .orange
+            return Color("ToReboot")
         case "REPRENDRE" :
-            return .red
+            return Color("ToResume")
         case "COMMENCER" :
-            return .blue
+            return Color("ToBegin")
         default:
             return .gray
         }
