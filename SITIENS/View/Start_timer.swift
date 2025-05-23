@@ -28,47 +28,60 @@ struct Start_timer: View {
     var body: some View {
         
         if nameBtm == "Start" {
-            Button {
-              
-                
-            } label: {
-                ZStack {
-                    Circle()
-                        .fill(.gray)
-                        .frame(width: 120, height: 120)
-                        .shadow(radius: 10)
-                    //                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                    //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
-                    
-                    Text(firstButtonLabel)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
-                }
-            }
-            .buttonStyle(.plain)
-            .animation(.spring(), value: timerIsReading)
-            .padding()
             
-        }else{
-            Button {
-                toggleTimer()
-                showMessage = false
-                
-                if timeInterval == 0{
+            if  timeInterval == 0 || buttonLabel == "REPRENDRE"  {
+                Button {
+                   
+                    
                     timeInterval = timerhour
                     stopTimer()
                     hydrationActivationViewModel.stopPlaying()
-                }
-                
-                if timerhour == 0 && timeInterval == 0 {
+                    
                     DispatchQueue.main
                         .asyncAfter(deadline: .now() + 0.2, execute: {
                             withAnimation {
                                 showMessage = true
                             }
                         })
+                    
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(.gray)
+                            .frame(width: 120, height: 120)
+                            .shadow(radius: 10)
+                        //                                .scaleEffect(timerIsReading ? 1.05 : 1)
+                        //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+                        
+                        Text(firstButtonLabel)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                    }
                 }
+                .buttonStyle(.plain)
+                .animation(.spring(), value: timerIsReading)
+                .padding()
+            }
+        }else{
+            Button {
+                toggleTimer()
+                showMessage = false
+//                
+//                if timeInterval == 0{
+//                    timeInterval = timerhour
+//                    stopTimer()
+//                    hydrationActivationViewModel.stopPlaying()
+//                }
+//
+//                if timerhour == 0 && timeInterval == 0 {
+//                    DispatchQueue.main
+//                        .asyncAfter(deadline: .now() + 0.2, execute: {
+//                            withAnimation {
+//                                showMessage = true
+//                            }
+//                        })
+//                }
                 
             } label: {
                 ZStack {
@@ -106,8 +119,6 @@ struct Start_timer: View {
     
     var fill : Color {
         switch buttonLabel{
-        case "Réinitialiser" :
-            return Color("ToReboot")
         case "REPRENDRE" :
             return Color("ToResume")
         case "COMMENCER" :
@@ -128,10 +139,7 @@ struct Start_timer: View {
     }
     
     var buttonLabel: String {
-        if timeInterval == 0 {
-            return "Réinitialiser"
-        }
-        else {
+        
             if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
                 return "STOPPER"
             } else if timeInterval < timerhour {
@@ -139,7 +147,6 @@ struct Start_timer: View {
             } else {
                 return "COMMENCER"
             }
-        }
     }
     
    
@@ -169,7 +176,7 @@ struct Start_timer: View {
 
 #Preview {
     @Previewable @State var showMessage : Bool = false
-    @Previewable @State var timeInterval : Int = 10
+    @Previewable @State var timeInterval : Int = 0
     @Previewable @State var timerIsReading : Bool = false
     @Previewable @State var cancellable : Cancellable? = nil
     @Previewable @State var startDate : Date? = Date.now
