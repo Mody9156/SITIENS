@@ -12,7 +12,7 @@ import Combine
 
 struct TimerSettings: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze"]
-    @State var hour : [Int] = [3600,7200,5400,1800]
+    @State var hour : [Int] = [3600,7200,5400,1800,10]
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss

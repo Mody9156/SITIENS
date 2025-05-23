@@ -19,60 +19,73 @@ struct Start_timer: View {
     @Binding var elapseBeforPause : Int
     @State var selectedItems : String
     var nameBtm : String
+    @State private var animeFrame : CGFloat = 1.0
+    @State private var activeAnimationToFrame : Bool = false
     
+    var firstButtonLabel : String {
+//        if  timeInterval < timerhour {
+            return "Réinitialiser"
+    }
     
     var body: some View {
         
         if nameBtm == "Start" {
-            Button {
-                toggleTimer()
-                showMessage = false
-                
-                if timeInterval == 0{
+            
+            if  timeInterval == 0 || buttonLabel == "Démarrer"  {
+                Button {
                     timeInterval = timerhour
                     stopTimer()
                     hydrationActivationViewModel.stopPlaying()
-                }
-                
-                if timerhour == 0 && timeInterval == 0 {
-                    DispatchQueue.main
-                        .asyncAfter(deadline: .now() + 0.2, execute: {
-                            withAnimation {
-                                showMessage = true
-                            }
-                        })
-                }
-                
-            } label: {
-                ZStack {
-                    Circle()
-                        .fill(fill)
-                        .frame(width: 120, height: 120)
-                        .shadow(radius: 10)
-                    //                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                    //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+                    if timerhour == 0 && timeInterval == 0 {
+                        DispatchQueue.main
+                            .asyncAfter(deadline: .now() + 0.2, execute: {
+                                withAnimation {
+                                    showMessage = true
+                                }
+                            })
+                    }
                     
-                    Text(buttonLabel)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(.gray)
+                            .frame(width: 13, height: 13)
+                            .shadow(radius: 10)
+                        
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 125, height: 125)
+                            .shadow(radius: 10)
+                        
+                        Circle()
+                            .fill(.gray)
+                            .frame(width: 120, height: 120)
+                            .shadow(radius: 10)
+                     
+                        
+                        Text(firstButtonLabel)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                    }
                 }
+                .buttonStyle(.plain)
+                .padding()
             }
-            .buttonStyle(.plain)
-            .animation(.spring(), value: timerIsReading)
-            .padding()
-            
         }else{
             Button {
                 toggleTimer()
                 showMessage = false
-                
-                if timeInterval == 0{
-                    timeInterval = timerhour
-                    stopTimer()
-                    hydrationActivationViewModel.stopPlaying()
-                }
-                
+//
+//                if timeInterval == 0{
+//                    timeInterval = timerhour
+//                    stopTimer()
+//                    hydrationActivationViewModel.stopPlaying()
+//                }
+//                if buttonLabel == "Arrêter" {
+//                    activeAnimationToFrame = true
+//                }
+//
                 if timerhour == 0 && timeInterval == 0 {
                     DispatchQueue.main
                         .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -86,10 +99,44 @@ struct Start_timer: View {
                 ZStack {
                     Circle()
                         .fill(fill)
+                        .frame(width: 13, height: 13)
+                        .shadow(radius: 10)
+                    
+                    Circle()
+                        .fill(.white)
+                        .frame(width: 125, height: 125)
+                        .shadow(radius: 10)
+                    
+                    if  buttonLabel == "Arrêter" {
+                        Circle()
+                            .fill(.red)
+                            .scaleEffect(animeFrame)
+                            .frame(width:  120, height:  120)
+                            .shadow(radius: 10)
+                            .animation(
+                                .easeIn(
+                                    duration: 2)
+                                .repeatForever(),
+                                
+                                value: animeFrame
+                            )
+                            
+                            .onAppear{
+                                withAnimation {
+                                    animeFrame = 1.5
+                                }
+                            }
+                            .onChange(of: animeFrame, {
+                                withAnimation {
+                                    animeFrame = 1.0
+                                }
+                            })
+                    }
+                    
+                    Circle()
+                        .fill(fill)
                         .frame(width: 120, height: 120)
                         .shadow(radius: 10)
-                    //                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                    //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
                     
                     Text(buttonLabel)
                         .font(.headline)
@@ -98,8 +145,8 @@ struct Start_timer: View {
                 }
             }
             .buttonStyle(.plain)
-            .animation(.spring(), value: timerIsReading)
             .padding()
+           
             
         }
     }
@@ -112,22 +159,23 @@ struct Start_timer: View {
                 startTimer()
             }else{
                 stopTimer()
+                
             }
         }
     }
     
     var fill : Color {
         switch buttonLabel{
-        case "Réinitialiser" :
-            return Color("ToReboot")
-        case "REPRENDRE" :
-            return Color("ToResume")
-        case "COMMENCER" :
-            return Color("ToBegin")
+        case "Démarrer" :
+            return .green
+        case "Arrêter" :
+            return .red
         default:
             return .gray
         }
     }
+    
+   
     
     func stopTimer() {
         cancellable?.cancel()
@@ -138,19 +186,15 @@ struct Start_timer: View {
     }
     
     var buttonLabel: String {
-        if timeInterval == 0 {
-            return "Réinitialiser"
-        }
-        else {
+        
             if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
-                return "STOPPER"
-            } else if timeInterval < timerhour {
-                return "REPRENDRE"
+                return "Arrêter"
             } else {
-                return "COMMENCER"
+                return "Démarrer"
             }
-        }
     }
+    
+   
     
     
     func startTimer() {
@@ -177,12 +221,13 @@ struct Start_timer: View {
 
 #Preview {
     @Previewable @State var showMessage : Bool = false
-    @Previewable @State var timeInterval : Int = 10
+    @Previewable @State var timeInterval : Int = 0
     @Previewable @State var timerIsReading : Bool = false
     @Previewable @State var cancellable : Cancellable? = nil
     @Previewable @State var startDate : Date? = Date.now
     @Previewable @State var elapseBeforPause : Int = 12
     @Previewable @State var selectedItems : String = "fakeTest"
+    @Previewable @State var activeTrim : Bool = true
     
     HStack {
         Start_timer(
