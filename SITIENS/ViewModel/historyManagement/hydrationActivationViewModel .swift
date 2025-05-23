@@ -32,6 +32,7 @@ class HydrationActivationViewModel  {
         avAudioEngine.stop()
         avAudioPlayerNode.stop()
         
+        
     }
     
     func formatTimer(_ secondes: Int) -> String {

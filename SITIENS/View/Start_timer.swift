@@ -33,7 +33,6 @@ struct Start_timer: View {
             
             if  timeInterval == 0 || buttonLabel == "Démarrer"  {
                 Button {
-                    timerIsReading = false
                     timeInterval = timerhour
                     stopTimer()
                     hydrationActivationViewModel.stopPlaying()
@@ -71,7 +70,6 @@ struct Start_timer: View {
                     }
                 }
                 .buttonStyle(.plain)
-                .animation(.spring(), value: timerIsReading)
                 .padding()
             }
         }else{
@@ -147,7 +145,6 @@ struct Start_timer: View {
                 }
             }
             .buttonStyle(.plain)
-//            .animation(.spring(), value: timerIsReading)
             .padding()
            
             
