@@ -118,18 +118,25 @@ struct Start_timer: View {
                             .frame(width:  120, height:  120)
                             .shadow(radius: 10)
                             .animation(
-                                .easeInOut(duration: 2)
+                                .easeIn(
+                                    duration: 1)
                                 .repeatForever(),
                                 
                                 value: animeFrame
                             )
-                            .onChange(of: animeFrame, {
-                                animeFrame = 1.5
-                            })
-                            .onAppear{
-                                animeFrame = 1.5
-                            }
                             
+                            .onAppear{
+                                withAnimation {
+                                    animeFrame = 0.9
+                                }
+
+                               
+                            }
+                            .onChange(of: animeFrame, {
+                                withAnimation {
+                                    animeFrame = 1.5
+                                }
+                            })
                     }
                     
                     Circle()
