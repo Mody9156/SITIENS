@@ -133,81 +133,9 @@ struct Chronograph: View {
                     hydrationActivationViewModel.notification()
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }
-                
-//                    progress = 1.0
-               
-                   
-                    showMessage = false
+               showMessage = false
             }
             
-        }
-    }
-    
-    var fill : Color {
-        switch buttonLabel{
-        case "Réinitialiser" :
-            return Color("ToReboot")
-        case "REPRENDRE" :
-            return Color("ToResume")
-        case "COMMENCER" :
-            return Color("ToBegin")
-        default:
-            return .gray
-        }
-    }
-    
-    var buttonLabel: String {
-        if timeInterval == 0 {
-            return "Réinitialiser"
-        }
-        else {
-            if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
-                return "STOPPER"
-            } else if timeInterval < timerhour {
-                return "REPRENDRE"
-            } else {
-                return "COMMENCER"
-            }
-        }
-    }
-    
-    func toggleTimer() {
-        withAnimation {
-            hydrationActivationViewModel.authorization()
-            timerIsReading.toggle()
-            if  timerIsReading {
-                startTimer()
-            }else{
-                stopTimer()
-            }
-        }
-    }
-    
-    func startTimer() {
-        startDate = Date()
-        cancellable?.cancel()
-        cancellable = Timer.publish(every: 1, on: .main, in: .common)
-            .autoconnect()
-            .sink { _ in
-                guard let start = startDate else { return }
-                let elapsedTime = elapseBeforPause + Int(Date().timeIntervalSince(start))
-                let remainingTime = max(timerhour - elapsedTime, 0)
-                timeInterval = remainingTime
-                
-                if timeInterval == 0 {
-                    stopTimer()
-                    hydrationActivationViewModel.notification()
-                    hydrationActivationViewModel.playingSound(audioFile: selectedItems)
-                    elapseBeforPause = 0
-                }
-            }
-    }
-    
-    func stopTimer() {
-        cancellable?.cancel()
-        if let start = startDate {
-            let elapsedTime = Int(Date().timeIntervalSince(start))
-            elapseBeforPause += elapsedTime
         }
     }
 }
