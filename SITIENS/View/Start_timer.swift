@@ -29,7 +29,7 @@ struct Start_timer: View {
         
         if nameBtm == "Start" {
             
-            if  timeInterval == 0 || buttonLabel == "REPRENDRE"  {
+            if  timeInterval == 0 || buttonLabel == "Démarrer"  {
                 Button {
                    
                     
@@ -37,21 +37,32 @@ struct Start_timer: View {
                     stopTimer()
                     hydrationActivationViewModel.stopPlaying()
                     
-                    DispatchQueue.main
-                        .asyncAfter(deadline: .now() + 0.2, execute: {
-                            withAnimation {
-                                showMessage = true
-                            }
-                        })
+                    if timerhour == 0 && timeInterval == 0 {
+                        DispatchQueue.main
+                            .asyncAfter(deadline: .now() + 0.2, execute: {
+                                withAnimation {
+                                    showMessage = true
+                                }
+                            })
+                    }
                     
                 } label: {
                     ZStack {
                         Circle()
                             .fill(.gray)
+                            .frame(width: 13, height: 13)
+                            .shadow(radius: 10)
+                        
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 125, height: 125)
+                            .shadow(radius: 10)
+                        
+                        Circle()
+                            .fill(.gray)
                             .frame(width: 120, height: 120)
                             .shadow(radius: 10)
-                        //                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                        //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+                     
                         
                         Text(firstButtonLabel)
                             .font(.headline)
@@ -74,23 +85,32 @@ struct Start_timer: View {
 //                    hydrationActivationViewModel.stopPlaying()
 //                }
 //
-//                if timerhour == 0 && timeInterval == 0 {
-//                    DispatchQueue.main
-//                        .asyncAfter(deadline: .now() + 0.2, execute: {
-//                            withAnimation {
-//                                showMessage = true
-//                            }
-//                        })
-//                }
+                if timerhour == 0 && timeInterval == 0 {
+                    DispatchQueue.main
+                        .asyncAfter(deadline: .now() + 0.2, execute: {
+                            withAnimation {
+                                showMessage = true
+                            }
+                        })
+                }
                 
             } label: {
                 ZStack {
                     Circle()
                         .fill(fill)
+                        .frame(width: 13, height: 13)
+                        .shadow(radius: 10)
+                    
+                    Circle()
+                        .fill(.white)
+                        .frame(width: 125, height: 125)
+                        .shadow(radius: 10)
+                    
+                    Circle()
+                        .fill(fill)
                         .frame(width: 120, height: 120)
                         .shadow(radius: 10)
-                    //                                .scaleEffect(timerIsReading ? 1.05 : 1)
-                    //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
+          
                     
                     Text(buttonLabel)
                         .font(.headline)
@@ -119,10 +139,10 @@ struct Start_timer: View {
     
     var fill : Color {
         switch buttonLabel{
-        case "REPRENDRE" :
-            return Color("ToResume")
-        case "COMMENCER" :
-            return Color("ToBegin")
+        case "Démarrer" :
+            return .green
+        case "Arrêter" :
+            return .red
         default:
             return .gray
         }
@@ -141,11 +161,9 @@ struct Start_timer: View {
     var buttonLabel: String {
         
             if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
-                return "STOPPER"
-            } else if timeInterval < timerhour {
-                return "REPRENDRE"
+                return "Arrêter"
             } else {
-                return "COMMENCER"
+                return "Démarrer"
             }
     }
     
