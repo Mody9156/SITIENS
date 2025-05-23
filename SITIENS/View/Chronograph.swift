@@ -17,6 +17,8 @@ struct Chronograph: View {
     @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
+    @State private var progress: CGFloat = 0.0
+    
     
     var body: some View {
         NavigationStack {
@@ -41,9 +43,20 @@ struct Chronograph: View {
                             .foregroundStyle(.secondary)
                     }
                     
-                    Text(hydrationActivationViewModel.formatTimer(timeInterval))
-                        .font(.system(size: 48, weight: .bold, design: .monospaced))
-                        .foregroundStyle(.primary)
+                    ZStack {
+                        Circle()
+                            .stroke(lineWidth: 8)
+                            .foregroundStyle(.secondary)
+                        
+                        Circle()
+                            .stroke(Color.blue, style: StrokeStyle(lineWidth: 20, lineCap: .round))
+                            .rotationEffect(.degrees(-90)) // Commencer en haut
+                        
+                        
+                        Text(hydrationActivationViewModel.formatTimer(timeInterval))
+                            .font(.system(size: 48, weight: .bold, design: .monospaced))
+                            .foregroundStyle(.primary)
+                    }
                     
                     // Bouton du cercle principal
                     HStack {

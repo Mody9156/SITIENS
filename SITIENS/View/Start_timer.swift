@@ -119,7 +119,7 @@ struct Start_timer: View {
                             .shadow(radius: 10)
                             .animation(
                                 .easeIn(
-                                    duration: 1)
+                                    duration: 2)
                                 .repeatForever(),
                                 
                                 value: animeFrame
@@ -127,14 +127,14 @@ struct Start_timer: View {
                             
                             .onAppear{
                                 withAnimation {
-                                    animeFrame = 0.9
+                                    animeFrame = 1.5
                                 }
 
                                
                             }
                             .onChange(of: animeFrame, {
                                 withAnimation {
-                                    animeFrame = 1.5
+                                    animeFrame = 1.0
                                 }
                             })
                     }
