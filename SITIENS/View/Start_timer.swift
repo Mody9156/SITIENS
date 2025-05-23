@@ -19,6 +19,8 @@ struct Start_timer: View {
     @Binding var elapseBeforPause : Int
     @State var selectedItems : String
     var nameBtm : String
+    @State private var animeFrame : CGFloat = 1.0
+    @State private var activeAnimationToFrame : Bool = false
     
     var firstButtonLabel : String {
 //        if  timeInterval < timerhour {
@@ -78,12 +80,15 @@ struct Start_timer: View {
             Button {
                 toggleTimer()
                 showMessage = false
-//                
+//
 //                if timeInterval == 0{
 //                    timeInterval = timerhour
 //                    stopTimer()
 //                    hydrationActivationViewModel.stopPlaying()
 //                }
+                if buttonLabel == "Arrêter" {
+                    activeAnimationToFrame = true
+                }
 //
                 if timerhour == 0 && timeInterval == 0 {
                     DispatchQueue.main
@@ -106,11 +111,31 @@ struct Start_timer: View {
                         .frame(width: 125, height: 125)
                         .shadow(radius: 10)
                     
+                    if  buttonLabel == "Arrêter"{
+                        Circle()
+                            .fill(.red)
+                            .scaleEffect(animeFrame)
+                            .frame(width:  120, height:  120)
+                            .shadow(radius: 10)
+                            .animation(
+                                .easeInOut(duration: 2)
+                                .repeatForever(),
+                                
+                                value: animeFrame
+                            )
+                            .onChange(of: animeFrame, {
+                                animeFrame = 1.5
+                            })
+                            .onAppear{
+                                animeFrame = 1.5
+                            }
+                            
+                    }
+                    
                     Circle()
                         .fill(fill)
                         .frame(width: 120, height: 120)
                         .shadow(radius: 10)
-          
                     
                     Text(buttonLabel)
                         .font(.headline)
@@ -119,8 +144,9 @@ struct Start_timer: View {
                 }
             }
             .buttonStyle(.plain)
-            .animation(.spring(), value: timerIsReading)
+//            .animation(.spring(), value: timerIsReading)
             .padding()
+           
             
         }
     }
