@@ -20,39 +20,27 @@ struct Start_timer: View {
     @State var selectedItems : String
     var nameBtm : String
     
+    var firstButtonLabel : String {
+//        if  timeInterval < timerhour {
+            return "Réinitialiser"
+    }
     
     var body: some View {
         
         if nameBtm == "Start" {
             Button {
-                toggleTimer()
-                showMessage = false
-                
-                if timeInterval == 0{
-                    timeInterval = timerhour
-                    stopTimer()
-                    hydrationActivationViewModel.stopPlaying()
-                }
-                
-                if timerhour == 0 && timeInterval == 0 {
-                    DispatchQueue.main
-                        .asyncAfter(deadline: .now() + 0.2, execute: {
-                            withAnimation {
-                                showMessage = true
-                            }
-                        })
-                }
+              
                 
             } label: {
                 ZStack {
                     Circle()
-                        .fill(fill)
+                        .fill(.gray)
                         .frame(width: 120, height: 120)
                         .shadow(radius: 10)
                     //                                .scaleEffect(timerIsReading ? 1.05 : 1)
                     //                                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: timerIsReading)
                     
-                    Text(buttonLabel)
+                    Text(firstButtonLabel)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -129,6 +117,8 @@ struct Start_timer: View {
         }
     }
     
+   
+    
     func stopTimer() {
         cancellable?.cancel()
         if let start = startDate {
@@ -151,6 +141,8 @@ struct Start_timer: View {
             }
         }
     }
+    
+   
     
     
     func startTimer() {
