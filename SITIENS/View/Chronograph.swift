@@ -14,11 +14,10 @@ struct Chronograph: View {
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = ""
-    @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
+    @AppStorage("hour",store: .standard) var timerhour : Int = 10//Attention
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
     @State private var progress: CGFloat = 0.0
-    
     
     var body: some View {
         NavigationStack {
@@ -44,15 +43,13 @@ struct Chronograph: View {
                     }
                     
                     ZStack {
+                        
+                        
                         Circle()
                             .stroke(lineWidth: 8)
                             .foregroundStyle(.secondary)
-                        
-                        Circle()
-                            .stroke(Color.blue, style: StrokeStyle(lineWidth: 20, lineCap: .round))
-                            .rotationEffect(.degrees(-90)) // Commencer en haut
-                        
-                        
+                            .frame(height: 300)
+
                         Text(hydrationActivationViewModel.formatTimer(timeInterval))
                             .font(.system(size: 48, weight: .bold, design: .monospaced))
                             .foregroundStyle(.primary)
@@ -137,8 +134,12 @@ struct Chronograph: View {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }
                 
-                showMessage = false
+//                    progress = 1.0
+               
+                   
+                    showMessage = false
             }
+            
         }
     }
     

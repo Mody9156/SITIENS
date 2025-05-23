@@ -33,12 +33,9 @@ struct Start_timer: View {
             
             if  timeInterval == 0 || buttonLabel == "Démarrer"  {
                 Button {
-                   
-                    
                     timeInterval = timerhour
                     stopTimer()
                     hydrationActivationViewModel.stopPlaying()
-                    
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
                             .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -86,9 +83,9 @@ struct Start_timer: View {
 //                    stopTimer()
 //                    hydrationActivationViewModel.stopPlaying()
 //                }
-                if buttonLabel == "Arrêter" {
-                    activeAnimationToFrame = true
-                }
+//                if buttonLabel == "Arrêter" {
+//                    activeAnimationToFrame = true
+//                }
 //
                 if timerhour == 0 && timeInterval == 0 {
                     DispatchQueue.main
@@ -111,7 +108,7 @@ struct Start_timer: View {
                         .frame(width: 125, height: 125)
                         .shadow(radius: 10)
                     
-                    if  buttonLabel == "Arrêter"{
+                    if  buttonLabel == "Arrêter" {
                         Circle()
                             .fill(.red)
                             .scaleEffect(animeFrame)
@@ -129,8 +126,6 @@ struct Start_timer: View {
                                 withAnimation {
                                     animeFrame = 1.5
                                 }
-
-                               
                             }
                             .onChange(of: animeFrame, {
                                 withAnimation {
@@ -166,6 +161,7 @@ struct Start_timer: View {
                 startTimer()
             }else{
                 stopTimer()
+                
             }
         }
     }
@@ -233,6 +229,7 @@ struct Start_timer: View {
     @Previewable @State var startDate : Date? = Date.now
     @Previewable @State var elapseBeforPause : Int = 12
     @Previewable @State var selectedItems : String = "fakeTest"
+    @Previewable @State var activeTrim : Bool = true
     
     HStack {
         Start_timer(
