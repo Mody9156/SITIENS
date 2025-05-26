@@ -6,7 +6,7 @@ import CoreData
 
 struct Chronograph: View {
     @State var timerIsReading = false
-    @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
+    @State var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
     @State  var cancellable: Cancellable?
     @State  var soundPlayed = false

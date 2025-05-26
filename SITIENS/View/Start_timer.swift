@@ -34,7 +34,7 @@ struct Start_timer: View {
             if  timeInterval == 0 || buttonLabel == "Démarrer"  {
                 Button {
                     timeInterval = timerhour
-                    stopTimer()
+//                    stopTimer()
                     hydrationActivationViewModel.stopPlaying()
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
