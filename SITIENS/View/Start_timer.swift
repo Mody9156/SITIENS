@@ -20,29 +20,22 @@ struct Start_timer: View {
     @State var selectedItems : String
     var nameBtm : String
     @State private var animeFrame : CGFloat = 1.0
-    @State private var activeAnimationToFrame : Bool = false
+    
     
     var firstButtonLabel : String {
-//        if  timeInterval < timerhour {
-            return "Réinitialiser"
+        //        if  timeInterval < timerhour {
+        return "Réinitialiser"
     }
     
     var body: some View {
         
         if nameBtm == "Start" {
-            if  timeInterval == 0 || buttonLabel == "Démarrer"  {
-                Button {
-//                    toggleTimer()
+            Button {
+                
+                if buttonLabel == "Démarrer"  {
                     showMessage = false
-//                    
                     timeInterval = timerhour
-//                    
-                     if timeInterval == 0{
-                        timeInterval = timerhour
-                        stopTimer()
-                        hydrationActivationViewModel.stopPlaying()
-                    }
-                  
+                    
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
                             .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -51,48 +44,39 @@ struct Start_timer: View {
                                 }
                             })
                     }
-                    
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(.gray)
-                            .frame(width: 13, height: 13)
-                            .shadow(radius: 10)
-                        
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 125, height: 125)
-                            .shadow(radius: 10)
-                        
-                        Circle()
-                            .fill(.gray)
-                            .frame(width: 120, height: 120)
-                            .shadow(radius: 10)
-                     
-                        
-                        Text(firstButtonLabel)
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.white)
-                    }
                 }
-                .buttonStyle(.plain)
-                .padding()
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(.gray)
+                        .frame(width: 13, height: 13)
+                        .shadow(radius: 10)
+                    
+                    Circle()
+                        .fill(.white)
+                        .frame(width: 125, height: 125)
+                        .shadow(radius: 10)
+                    
+                    Circle()
+                        .fill(.gray)
+                        .frame(width: 120, height: 120)
+                        .shadow(radius: 10)
+                    
+                    
+                    Text(firstButtonLabel)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                }
             }
+            .buttonStyle(.plain)
+            .padding()
+            
         }else{
             Button {
-                toggleTimer()
                 showMessage = false
-//
-//                if timeInterval == 0{
-//                    timeInterval = timerhour
-//                    stopTimer()
-//                    hydrationActivationViewModel.stopPlaying()
-//                }
-//                if buttonLabel == "Arrêter" {
-//                    activeAnimationToFrame = true
-//                }
-//
+                toggleTimer()
+
                 if timerhour == 0 && timeInterval == 0 {
                     DispatchQueue.main
                         .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -101,7 +85,6 @@ struct Start_timer: View {
                             }
                         })
                 }
-                
             } label: {
                 ZStack {
                     Circle()
@@ -127,7 +110,7 @@ struct Start_timer: View {
                                 
                                 value: animeFrame
                             )
-                            
+                        
                             .onAppear{
                                 withAnimation {
                                     animeFrame = 1.5
@@ -153,8 +136,6 @@ struct Start_timer: View {
             }
             .buttonStyle(.plain)
             .padding()
-           
-            
         }
     }
     
@@ -166,7 +147,6 @@ struct Start_timer: View {
                 startTimer()
             }else{
                 stopTimer()
-                
             }
         }
     }
@@ -182,8 +162,6 @@ struct Start_timer: View {
         }
     }
     
-   
-    
     func stopTimer() {
         cancellable?.cancel()
         hydrationActivationViewModel.stopPlaying()
@@ -195,15 +173,12 @@ struct Start_timer: View {
     
     var buttonLabel: String {
         
-            if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
-                return "Arrêter"
-            } else {
-                return "Démarrer"
-            }
+        if timerIsReading && timeInterval != 0 && timeInterval != timerhour {
+            return "Arrêter"
+        } else {
+            return "Démarrer"
+        }
     }
-    
-   
-    
     
     func startTimer() {
         startDate = Date()

@@ -79,7 +79,6 @@ struct Chronograph: View {
                             nameBtm: "stop"
                         )
                         
-                        
                     }
                     
                     if showMessage{
