@@ -10,7 +10,7 @@ import Combine
 
 struct Start_timer: View {
     @Binding var showMessage : Bool
-    @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @Binding var timeInterval: Int
     @Binding var timerIsReading : Bool
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
@@ -32,9 +32,17 @@ struct Start_timer: View {
         if nameBtm == "Start" {
             if  timeInterval == 0 || buttonLabel == "Démarrer"  {
                 Button {
+//                    toggleTimer()
+                    showMessage = false
+//                    
                     timeInterval = timerhour
-                    stopTimer()
-                    hydrationActivationViewModel.stopPlaying()
+//                    
+                     if timeInterval == 0{
+                        timeInterval = timerhour
+                        stopTimer()
+                        hydrationActivationViewModel.stopPlaying()
+                    }
+                  
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
                             .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -228,10 +236,11 @@ struct Start_timer: View {
     @Previewable @State var elapseBeforPause : Int = 12
     @Previewable @State var selectedItems : String = "fakeTest"
     @Previewable @State var activeTrim : Bool = true
+    @Previewable @State var hydrationActivationViewModel  = HydrationActivationViewModel()
     
     HStack {
         Start_timer(
-            showMessage: $showMessage,
+            showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
             timeInterval: $timeInterval,
             timerIsReading: $timerIsReading,
             cancellable: $cancellable,
@@ -240,7 +249,7 @@ struct Start_timer: View {
             selectedItems: selectedItems, nameBtm: "Start"
         )
         Start_timer(
-            showMessage: $showMessage,
+            showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
             timeInterval: $timeInterval,
             timerIsReading: $timerIsReading,
             cancellable: $cancellable,

@@ -58,7 +58,7 @@ struct Chronograph: View {
                     // Bouton du cercle principal
                     HStack {
                         Start_timer(
-                            showMessage: $showMessage,
+                            showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
                             timeInterval: $timeInterval,
                             timerIsReading: $timerIsReading,
                             cancellable: $cancellable,
@@ -69,7 +69,7 @@ struct Chronograph: View {
                         )
                         
                         Start_timer(
-                            showMessage: $showMessage,
+                            showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
                             timeInterval: $timeInterval,
                             timerIsReading: $timerIsReading,
                             cancellable: $cancellable,
