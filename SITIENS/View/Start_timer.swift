@@ -30,11 +30,10 @@ struct Start_timer: View {
     var body: some View {
         
         if nameBtm == "Start" {
-            
             if  timeInterval == 0 || buttonLabel == "Démarrer"  {
                 Button {
                     timeInterval = timerhour
-//                    stopTimer()
+                    stopTimer()
                     hydrationActivationViewModel.stopPlaying()
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
@@ -179,6 +178,7 @@ struct Start_timer: View {
     
     func stopTimer() {
         cancellable?.cancel()
+        hydrationActivationViewModel.stopPlaying()
         if let start = startDate {
             let elapsedTime = Int(Date().timeIntervalSince(start))
             elapseBeforPause += elapsedTime
