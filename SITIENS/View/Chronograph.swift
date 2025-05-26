@@ -6,7 +6,7 @@ import CoreData
 
 struct Chronograph: View {
     @State var timerIsReading = false
-    @Bindable var hydrationActivationViewModel = HydrationActivationViewModel()
+    @State var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
     @State  var cancellable: Cancellable?
     @State  var soundPlayed = false
@@ -58,7 +58,7 @@ struct Chronograph: View {
                     // Bouton du cercle principal
                     HStack {
                         Start_timer(
-                            showMessage: $showMessage,
+                            showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
                             timeInterval: $timeInterval,
                             timerIsReading: $timerIsReading,
                             cancellable: $cancellable,
@@ -69,7 +69,7 @@ struct Chronograph: View {
                         )
                         
                         Start_timer(
-                            showMessage: $showMessage,
+                            showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
                             timeInterval: $timeInterval,
                             timerIsReading: $timerIsReading,
                             cancellable: $cancellable,
@@ -78,7 +78,6 @@ struct Chronograph: View {
                             selectedItems: selectedItems,
                             nameBtm: "stop"
                         )
-                        
                         
                     }
                     
