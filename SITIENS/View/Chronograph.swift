@@ -18,7 +18,7 @@ struct Chronograph: View {
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
     @State private var progress: CGFloat = 0.0
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -43,7 +43,6 @@ struct Chronograph: View {
                     }
                     
                     ZStack {
-                        
                         
                         Circle()
                             .stroke(lineWidth: 8)

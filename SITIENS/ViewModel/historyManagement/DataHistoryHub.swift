@@ -14,8 +14,8 @@ import AVKit
 class DataHistoryHub : HydrationProtocol {
     var audioPlayer: AVAudioPlayer?
     
-    let avAudioEngine = AVAudioEngine()
-    let avAudioPlayerNode = AVAudioPlayerNode()
+    var avAudioEngine = AVAudioEngine()
+    var avAudioPlayerNode = AVAudioPlayerNode()
     
     func playingSound(audioFile: String) {
         guard let url = Bundle.main.url(forResource: audioFile, withExtension: "mp3") else{
