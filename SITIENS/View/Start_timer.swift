@@ -66,6 +66,8 @@ struct Start_timer: View {
                 .padding()
             }
         }else{
+            if  timeInterval != 0 {
+                
             Button {
                 showMessage = false
                 toggleTimer()
@@ -130,13 +132,15 @@ struct Start_timer: View {
             .buttonStyle(.plain)
             .padding()
         }
+        }
     }
     
     func toggleTimer() {
         withAnimation {
             hydrationActivationViewModel.authorization()
             timerIsReading.toggle()
-            if  timerIsReading {
+             
+            if  timerIsReading && timeInterval != 0 {
                 startTimer()
             }else{
                 stopTimer()
@@ -157,7 +161,6 @@ struct Start_timer: View {
     
     func stopTimer() {
         cancellable?.cancel()
-        hydrationActivationViewModel.stopPlaying()
         if let start = startDate {
             let elapsedTime = Int(Date().timeIntervalSince(start))
             elapseBeforPause += elapsedTime
