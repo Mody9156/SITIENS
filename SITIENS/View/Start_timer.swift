@@ -21,10 +21,6 @@ struct Start_timer: View {
     var nameBtm : String
     @State private var animeFrame : CGFloat = 1.0
 
-    var firstButtonLabel : String {
-        //        if  timeInterval < timerhour {
-        return "Réinitialiser"
-    }
     
     var body: some View {
         
@@ -61,7 +57,7 @@ struct Start_timer: View {
                         .shadow(radius: 10)
                     
                     
-                    Text(firstButtonLabel)
+                    Text("Réinitialiser")
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
