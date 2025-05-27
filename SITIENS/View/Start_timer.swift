@@ -20,17 +20,16 @@ struct Start_timer: View {
     @State var selectedItems : String
     var nameBtm : String
     @State private var animeFrame : CGFloat = 1.0
-
+    
     
     var body: some View {
         
         if nameBtm == "Start" {
             if  buttonLabel == "Démarrer" && buttonLabel != "Arrêter"  {
-            Button {
-                    timerIsReading = false
+                Button {
                     timeInterval = timerhour
-                    stopTimer()
-                    
+                    elapseBeforPause = 0
+                    hydrationActivationViewModel.stopPlaying()
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
                             .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -39,38 +38,38 @@ struct Start_timer: View {
                                 }
                             })
                     }
-            } label: {
-                ZStack {
-                    Circle()
-                        .fill(.gray)
-                        .frame(width: 13, height: 13)
-                        .shadow(radius: 10)
-                    
-                    Circle()
-                        .fill(.white)
-                        .frame(width: 125, height: 125)
-                        .shadow(radius: 10)
-                    
-                    Circle()
-                        .fill(.gray)
-                        .frame(width: 120, height: 120)
-                        .shadow(radius: 10)
-                    
-                    
-                    Text("Réinitialiser")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(.gray)
+                            .frame(width: 13, height: 13)
+                            .shadow(radius: 10)
+                        
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 125, height: 125)
+                            .shadow(radius: 10)
+                        
+                        Circle()
+                            .fill(.gray)
+                            .frame(width: 120, height: 120)
+                            .shadow(radius: 10)
+                        
+                        
+                        Text("Réinitialiser")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                    }
                 }
+                .buttonStyle(.plain)
+                .padding()
             }
-            .buttonStyle(.plain)
-            .padding()
-        }
         }else{
             Button {
                 showMessage = false
                 toggleTimer()
-
+                
                 if timerhour == 0 && timeInterval == 0 {
                     DispatchQueue.main
                         .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -206,7 +205,7 @@ struct Start_timer: View {
     @Previewable @State var selectedItems : String = "fakeTest"
     @Previewable @State var activeTrim : Bool = true
     @Previewable @State var hydrationActivationViewModel  = HydrationActivationViewModel()
-
+    
     HStack {
         Start_timer(
             showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,

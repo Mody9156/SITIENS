@@ -14,8 +14,8 @@ import AVKit
 class HydrationActivationViewModel  {
     var audioPlayer: AVAudioPlayer?
     
-    let avAudioEngine = AVAudioEngine()
-    let avAudioPlayerNode = AVAudioPlayerNode()
+    var avAudioEngine = AVAudioEngine()
+    var avAudioPlayerNode = AVAudioPlayerNode()
     let hydrationProtocol : HydrationProtocol
     
     init(audioPlayer: AVAudioPlayer? = nil, hydrationProtocol : HydrationProtocol = DataHistoryHub() ) {
@@ -29,8 +29,8 @@ class HydrationActivationViewModel  {
     
     func stopPlaying(){
         hydrationProtocol.stopPlaying()
-//        avAudioEngine.stop()
-//        avAudioPlayerNode.stop()
+        avAudioEngine.stop()
+        avAudioPlayerNode.stop()
         
         
     }

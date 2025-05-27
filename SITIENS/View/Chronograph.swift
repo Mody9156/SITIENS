@@ -44,7 +44,6 @@ struct Chronograph: View {
                     
                     ZStack {
                         
-                        
                         Circle()
                             .stroke(lineWidth: 8)
                             .foregroundStyle(.secondary)
