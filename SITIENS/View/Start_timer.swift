@@ -20,8 +20,7 @@ struct Start_timer: View {
     @State var selectedItems : String
     var nameBtm : String
     @State private var animeFrame : CGFloat = 1.0
-    
-    
+
     var firstButtonLabel : String {
         //        if  timeInterval < timerhour {
         return "Réinitialiser"
@@ -30,11 +29,11 @@ struct Start_timer: View {
     var body: some View {
         
         if nameBtm == "Start" {
+            if  buttonLabel == "Démarrer" && buttonLabel != "Arrêter"  {
             Button {
-                
-                if buttonLabel == "Démarrer"  {
-                    showMessage = false
+                    timerIsReading = false
                     timeInterval = timerhour
+                    stopTimer()
                     
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
@@ -44,7 +43,6 @@ struct Start_timer: View {
                                 }
                             })
                     }
-                }
             } label: {
                 ZStack {
                     Circle()
@@ -71,7 +69,7 @@ struct Start_timer: View {
             }
             .buttonStyle(.plain)
             .padding()
-            
+        }
         }else{
             Button {
                 showMessage = false
@@ -212,7 +210,7 @@ struct Start_timer: View {
     @Previewable @State var selectedItems : String = "fakeTest"
     @Previewable @State var activeTrim : Bool = true
     @Previewable @State var hydrationActivationViewModel  = HydrationActivationViewModel()
-    
+
     HStack {
         Start_timer(
             showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
@@ -223,6 +221,7 @@ struct Start_timer: View {
             elapseBeforPause: $elapseBeforPause,
             selectedItems: selectedItems, nameBtm: "Start"
         )
+        
         Start_timer(
             showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
             timeInterval: $timeInterval,
