@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUICore
 
 @Observable class HistoryViewModel {
      var history = [History]()
@@ -15,7 +16,7 @@ import CoreData
     var errorMessage = ""
     
     var viewContext: NSManagedObjectContext?
-     var historyRepository : HistoryProtocol
+    var historyRepository : HistoryProtocol
     
     init(viewContext: NSManagedObjectContext? = nil, historyRepository: HistoryProtocol = HistoryRepository() ,name: String = "", quantity: String = "") {
         self.viewContext = viewContext
@@ -56,7 +57,7 @@ import CoreData
     
     func fetchHistory()  throws {
         do {
-            history =  try historyRepository.getHisoData()
+            history = try historyRepository.getHisoData()
         } catch {
             throw FetchError.fetchFailed
         }
@@ -72,5 +73,18 @@ import CoreData
         }
     }
     
-
+    func delete(at offsets: IndexSet) {
+        offsets.forEach { offset in
+            guard offset < history.count else { return }
+            let historyToDelete = history[offset]
+            viewContext?.delete(historyToDelete)
+        }
+        
+        do{
+          try  viewContext?.save()
+          try  fetchHistory()
+        }catch{
+            print("there are error ")
+        }
+    }
 }
