@@ -57,7 +57,7 @@ import SwiftUICore
     
     func fetchHistory()  throws {
         do {
-            history =  try historyRepository.getHisoData()
+            history = try historyRepository.getHisoData()
         } catch {
             throw FetchError.fetchFailed
         }
@@ -79,7 +79,12 @@ import SwiftUICore
             let historyToDelete = history[offset]
             viewContext?.delete(historyToDelete)
         }
+        
+        do{
+          try  viewContext?.save()
+          try  fetchHistory()
+        }catch{
+            print("there are error ")
+        }
     }
-    
-
 }
