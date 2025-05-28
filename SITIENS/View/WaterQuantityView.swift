@@ -46,19 +46,11 @@ struct WaterQuantityView: View {
                     .foregroundStyle(.gray)
                     .font(.title2)
                 
-                ZStack (alignment: .bottom){
-                    RoundedRectangle(cornerRadius: 20)
-                        .frame(width: 300,height: 30)
-                        .foregroundStyle(Color("BackgroundColor"))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundStyle(Color("BackgroundColor"))
-                        }
-                    
+                ZStack {
                     ZStack (alignment: .bottom){
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 180,height: 300)
-                            .foregroundColor(.gray.opacity(0.3))
+                            .foregroundColor(.white)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.blue, lineWidth: 2)
