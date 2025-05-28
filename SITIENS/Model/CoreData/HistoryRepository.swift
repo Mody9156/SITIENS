@@ -10,7 +10,7 @@ import CoreData
 
 struct HistoryRepository: HistoryProtocol {
     
-    private var context: NSManagedObjectContext
+     var context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext = PersistenceController.shared.newBackgroundContext()) {
         self.context = context
@@ -39,4 +39,5 @@ struct HistoryRepository: HistoryProtocol {
             try context.save()
         }
     }
+   
 }

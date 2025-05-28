@@ -64,7 +64,7 @@ struct ShowHistory: View {
                             
                         }
                     }
-                    .onDelete(perform: historyViewModel.delete)
+                    .onDelete(perform: historyViewModel.deleteHistory)
                 }
                 
         }
@@ -102,6 +102,10 @@ struct ShowHistory: View {
 #Preview {
     
     ShowHistory(
-        historyViewModel: HistoryViewModel()
+        historyViewModel: HistoryViewModel(
+            viewContext: NSManagedObjectContext.init(
+                concurrencyType: .mainQueueConcurrencyType
+            )
+        )
     )
 }

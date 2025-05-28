@@ -199,5 +199,6 @@ struct WaterQuantityView: View {
 }
 
 #Preview {
-    WaterQuantityView(historyViewModel: HistoryViewModel())
+    let viewContext = PersistenceController.shared.container.viewContext
+    WaterQuantityView(historyViewModel: HistoryViewModel(viewContext: viewContext))
 }

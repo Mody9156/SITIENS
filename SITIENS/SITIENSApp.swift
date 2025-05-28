@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 @main
 struct SITIENSApp: App {
     @State var useNavLink : Bool = false 
-    
+    let viewContext = PersistenceController.shared.container.viewContext
     var body: some Scene {
         WindowGroup {
             if useNavLink {
@@ -23,7 +24,11 @@ struct SITIENSApp: App {
                     Tab(
                         "Hydradation",
                         systemImage: "drop.fill") {
-                            WaterQuantityView(historyViewModel: HistoryViewModel())
+                            WaterQuantityView(
+                                historyViewModel: HistoryViewModel(
+                                    
+                                    viewContext: viewContext)
+                            )
                     }
                 }
                 
