@@ -64,6 +64,7 @@ struct ShowHistory: View {
                     
                 }
             }
+                .onDelete(perform: <#T##Optional<(IndexSet) -> Void>##Optional<(IndexSet) -> Void>##(IndexSet) -> Void#>)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar(content: {

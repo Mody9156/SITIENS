@@ -49,7 +49,7 @@ struct WaterQuantityView: View {
                 ZStack {
                     ZStack (alignment: .bottom){
                         RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 180,height: 300)
+                            .frame(width: 200,height: 300)
                             .foregroundColor(.white)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 10)
@@ -57,11 +57,11 @@ struct WaterQuantityView: View {
                             }
                         
                         RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 180,height: updateHeight)
+                            .frame(width: 200,height: updateHeight)
                             .foregroundStyle(.blue)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 6)
-                                    .foregroundStyle(Color.blue)
+                                    .foregroundStyle(.blue)
                             }
                     }
                     .padding()
