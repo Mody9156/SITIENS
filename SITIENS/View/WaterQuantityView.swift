@@ -112,7 +112,7 @@ struct WaterQuantityView: View {
                     )
                 }
                 
-                if updateHeight == 300 {
+                if updateHeight != 0 {
                     
                     Button {
                         withAnimation {
