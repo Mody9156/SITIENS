@@ -87,9 +87,7 @@ import SwiftUICore
             print("historyToDelete : \(historyToDelete)")
         }
       
-        do{
-          try viewContext.save()
-             
+        do{             
           try fetchHistory()
                 print("Greate job vous avez supprimer les elements du tableaux")
         }catch{
