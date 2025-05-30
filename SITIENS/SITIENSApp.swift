@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import CoreData
 @main
 struct SITIENSApp: App {
     @State var useNavLink : Bool = false 
-    
     var body: some Scene {
         WindowGroup {
             if useNavLink {
@@ -23,7 +23,9 @@ struct SITIENSApp: App {
                     Tab(
                         "Hydradation",
                         systemImage: "drop.fill") {
-                            WaterQuantityView(historyViewModel: HistoryViewModel())
+                            WaterQuantityView(
+                                historyViewModel: HistoryViewModel()
+                            )
                     }
                 }
                 

@@ -9,16 +9,23 @@ import Foundation
 import CoreData
 import SwiftUICore
 
+
 @Observable class HistoryViewModel {
-     var history = [History]()
+    var history = [History]()
      var name: String
      var quantity: String
     var errorMessage = ""
     
-    var viewContext: NSManagedObjectContext?
+    var viewContext: NSManagedObjectContext
+    
     var historyRepository : HistoryProtocol
     
-    init(viewContext: NSManagedObjectContext? = nil, historyRepository: HistoryProtocol = HistoryRepository() ,name: String = "", quantity: String = "") {
+    init(
+        viewContext: NSManagedObjectContext = PersistenceController.shared.newBackgroundContext(),
+        historyRepository: HistoryProtocol = HistoryRepository() ,
+        name: String = "",
+        quantity: String = ""
+    ) {
         self.viewContext = viewContext
         self.historyRepository = historyRepository
         self.name = name
@@ -63,8 +70,6 @@ import SwiftUICore
         }
     }
     
-    
-    
     func reload() {
         do{
             try  fetchHistory()
@@ -73,16 +78,18 @@ import SwiftUICore
         }
     }
     
-    func delete(at offsets: IndexSet) {
+    func deleteHistory(at offsets: IndexSet) {
         offsets.forEach { offset in
             guard offset < history.count else { return }
             let historyToDelete = history[offset]
-            viewContext?.delete(historyToDelete)
+//            viewContext.delete(historyToDelete)
+            historyRepository.deleteHistory(history: historyToDelete)
+            print("historyToDelete : \(historyToDelete)")
         }
-        
-        do{
-          try  viewContext?.save()
-          try  fetchHistory()
+      
+        do{             
+          try fetchHistory()
+                print("Greate job vous avez supprimer les elements du tableaux")
         }catch{
             print("there are error ")
         }
