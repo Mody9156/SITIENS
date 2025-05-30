@@ -24,7 +24,7 @@ struct ShowHistory: View {
                     ForEach(historyViewModel.history,id:\.self) { historyManager in
                         if let name =  historyManager.name, let quantity =  historyManager.quantity, let date =  historyManager.date{
                             
-                            if !name.isEmpty && !quantity.isEmpty && !date.isEmpty{
+                            if !name.isEmpty && !quantity.isEmpty{
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(.ultraThinMaterial)
