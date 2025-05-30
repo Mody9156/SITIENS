@@ -134,6 +134,8 @@ struct WaterQuantityView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
+                    if updateHeight == 0 {
+
                     Button {
                         withAnimation {
                             sheetPresented = true
@@ -152,28 +154,42 @@ struct WaterQuantityView: View {
                                 rotationInfiny = true
                             }
                     }
+                    
                     .sheet(isPresented: $sheetPresented) {
                         
                     } content: {
                         UserSettingsView(profil:$profilType)
                     }
+                    
+                    }else{
+                                    
+                                    Image(systemName: "gearshape.fill")
+                                        .foregroundColor(.gray)
+                                                  }
+                    
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
-                    
-                    NavigationLink {
-                        ShowHistory(
-                            historyViewModel:HistoryViewModel(
-                                viewContext: historyViewModel.viewContext)
-                        )
-                        .onAppear{
-                            historyViewModel.reload()
+//                    if updateHeight != 0 {
+                        NavigationLink {
+                            ShowHistory(
+                                historyViewModel:HistoryViewModel(
+                                    viewContext: historyViewModel.viewContext)
+                            )
+                            .onAppear{
+                                historyViewModel.reload()
+                            }
+                            
+                        } label: {
+                            Image(systemName: "clock.arrow.circlepath")
+                                .font(.title2)
+                                .foregroundStyle(.blue)
                         }
-                    } label: {
-                        Image(systemName: "clock.arrow.circlepath")
-                            .font(.title2)
-                            .foregroundStyle(.blue)
-                    }
+//
+//                    }   else{
+//                            Text("Veuillez reinitialiser la machine")
+//                          }
+                    
                 }
                 
             }
