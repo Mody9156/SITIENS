@@ -39,5 +39,8 @@ struct HistoryRepository: HistoryProtocol {
             try context.save()
         }
     }
-   
+    
+    func deleteHistory(history: History) {
+        context.delete(history)
+    }
 }

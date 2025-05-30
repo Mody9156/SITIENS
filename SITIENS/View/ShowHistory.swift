@@ -102,10 +102,6 @@ struct ShowHistory: View {
 #Preview {
     
     ShowHistory(
-        historyViewModel: HistoryViewModel(
-            viewContext: NSManagedObjectContext.init(
-                concurrencyType: .mainQueueConcurrencyType
-            )
-        )
+        historyViewModel: HistoryViewModel()
     )
 }

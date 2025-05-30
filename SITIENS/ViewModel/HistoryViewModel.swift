@@ -21,7 +21,7 @@ import SwiftUICore
     var historyRepository : HistoryProtocol
     
     init(
-        viewContext: NSManagedObjectContext,
+        viewContext: NSManagedObjectContext = PersistenceController.shared.newBackgroundContext(),
         historyRepository: HistoryProtocol = HistoryRepository() ,
         name: String = "",
         quantity: String = ""
@@ -82,8 +82,8 @@ import SwiftUICore
         offsets.forEach { offset in
             guard offset < history.count else { return }
             let historyToDelete = history[offset]
-            viewContext.delete(historyToDelete)
-//            PersistenceController.shared.viewContext.delete(historyToDelete)
+//            viewContext.delete(historyToDelete)
+         
             print("historyToDelete : \(historyToDelete)")
         }
       

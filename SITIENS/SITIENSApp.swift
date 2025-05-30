@@ -10,7 +10,6 @@ import CoreData
 @main
 struct SITIENSApp: App {
     @State var useNavLink : Bool = false 
-    let viewContext = PersistenceController.shared.container.viewContext
     var body: some Scene {
         WindowGroup {
             if useNavLink {
@@ -25,9 +24,7 @@ struct SITIENSApp: App {
                         "Hydradation",
                         systemImage: "drop.fill") {
                             WaterQuantityView(
-                                historyViewModel: HistoryViewModel(
-                                    
-                                    viewContext: viewContext)
+                                historyViewModel: HistoryViewModel()
                             )
                     }
                 }
