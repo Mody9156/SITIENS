@@ -83,7 +83,7 @@ import SwiftUICore
             guard offset < history.count else { return }
             let historyToDelete = history[offset]
 //            viewContext.delete(historyToDelete)
-         
+            historyRepository.deleteHistory(history: historyToDelete)
             print("historyToDelete : \(historyToDelete)")
         }
       
