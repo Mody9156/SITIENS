@@ -99,17 +99,7 @@ struct WaterQuantityView: View {
                 }
                 .padding()
                 
-                if throwError && profilType.isEmpty {
-                    HStack {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(Color.orange)
-                        Text("Veuillez bien selectionner un profil")
-                    }
-                    .opacity(showMessage ? 1 : 0)
-                    .animation(
-                        .easeOut(duration: 1.0),value: showMessage
-                    )
-                }
+               
                 
                 if updateHeight != 0 {
                     
@@ -129,6 +119,18 @@ struct WaterQuantityView: View {
                         }
                     }
                     .padding()
+                }
+                
+                if throwError && profilType.isEmpty {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(Color.orange)
+                        Text("Veuillez bien selectionner un profil")
+                    }
+                    .opacity(showMessage ? 1 : 0)
+                    .animation(
+                        .easeOut(duration: 1.0),value: showMessage
+                    )
                 }
             }
             .toolbar {
