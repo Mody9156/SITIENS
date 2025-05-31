@@ -28,7 +28,6 @@ struct WaterQuantityView: View {
     var body: some View {
         NavigationStack {
             VStack{
-                
                 Text("Hydradation")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -135,60 +134,56 @@ struct WaterQuantityView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     if updateHeight == 0 {
-
-                    Button {
-                        withAnimation {
-                            sheetPresented = true
-                        }
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .font(.title2)
-                            .foregroundStyle(.primary)
-                            .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
-                            .animation(
-                                .linear(duration: 2.9)
-                                .repeatForever(autoreverses: false),
-                                value: rotationInfiny
-                            )
-                            .onAppear{
-                                rotationInfiny = true
-                            }
-                    }
-                    
-                    .sheet(isPresented: $sheetPresented) {
                         
-                    } content: {
-                        UserSettingsView(profil:$profilType)
-                    }
-                    
+                        Button {
+                            withAnimation {
+                                sheetPresented = true
+                            }
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                                .font(.title2)
+                                .foregroundStyle(.primary)
+                                .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
+                                .animation(
+                                    .linear(duration: 2.9)
+                                    .repeatForever(autoreverses: false),
+                                    value: rotationInfiny
+                                )
+                                .onAppear{
+                                    rotationInfiny = true
+                                }
+                        }
+                        
+                        .sheet(isPresented: $sheetPresented) {
+                            
+                        } content: {
+                            UserSettingsView(profil:$profilType)
+                        }
+                        
                     }else{
-                                    
-                                    Image(systemName: "gearshape.fill")
-                                        .foregroundColor(.gray)
-                                                  }
+                        
+                        Image(systemName: "gearshape.fill")
+                            .foregroundColor(.gray)
+                    }
                     
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
-//                    if updateHeight != 0 {
-                        NavigationLink {
-                            ShowHistory(
-                                historyViewModel:HistoryViewModel(
-                                    viewContext: historyViewModel.viewContext)
-                            )
-                            .onAppear{
-                                historyViewModel.reload()
-                            }
-                            
-                        } label: {
-                            Image(systemName: "clock.arrow.circlepath")
-                                .font(.title2)
-                                .foregroundStyle(.blue)
+                    NavigationLink {
+                        ShowHistory(
+                            historyViewModel:HistoryViewModel(
+                                viewContext: historyViewModel.viewContext)
+                        )
+                        .onAppear{
+                            historyViewModel.reload()
                         }
-//
-//                    }   else{
-//                            Text("Veuillez reinitialiser la machine")
-//                          }
+                        
+                    } label: {
+                        Image(systemName: "clock.arrow.circlepath")
+                            .font(.title2)
+                            .foregroundStyle(.blue)
+                    }
+               
                     
                 }
                 
