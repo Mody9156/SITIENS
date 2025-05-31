@@ -92,7 +92,7 @@ struct WaterQuantityView: View {
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
-                            .frame(width: 200,height: 80)
+                            .frame(width: 150,height: 50)
                         Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
                             .foregroundStyle(.white)
                     }
@@ -121,7 +121,7 @@ struct WaterQuantityView: View {
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
-                                .frame(width: 200,height: 80)
+                                .frame(width: 150,height: 50)
                                 .foregroundStyle(.orange)
                             
                             Text("Reinitialiser")
