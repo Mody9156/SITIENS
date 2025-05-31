@@ -163,6 +163,7 @@ struct WaterQuantityView: View {
                     }else{
                         
                         Image(systemName: "gearshape.fill")
+                            .font(.title2)
                             .foregroundColor(.gray)
                     }
                     
