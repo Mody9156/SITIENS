@@ -14,11 +14,11 @@ struct Chronograph: View {
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = ""
-    @AppStorage("hour",store: .standard) var timerhour : Int = 10//Attention
+    @AppStorage("hour",store: .standard) var timerhour : Int = 0//Attention
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
     @State private var progress: CGFloat = 0.0
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -80,7 +80,7 @@ struct Chronograph: View {
                         
                     }
                     
-                    if showMessage{
+                    if showMessage {
                         HStack {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .foregroundStyle(Color.orange)
@@ -115,6 +115,7 @@ struct Chronograph: View {
                                     }
                                 
                             }
+                            .disabled(timerIsReading && timeInterval != 0 && timeInterval != timerhour)
                             .sheet(isPresented: $sheetPresented) {
                                 
                             } content: {
@@ -123,6 +124,7 @@ struct Chronograph: View {
                                     selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
                                 )
                             }
+//
                         }
                     })
             }

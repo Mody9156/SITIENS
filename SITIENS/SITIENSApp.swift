@@ -27,6 +27,13 @@ struct SITIENSApp: App {
                                 historyViewModel: HistoryViewModel()
                             )
                     }
+                    
+                    Tab(
+                        "Carte"
+                         ,systemImage: "map"){
+                             MapView(waterAPIViewModel: WaterAPIViewModel())
+                       }
+                    
                 }
                 
             }else {
