@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var activeBool : Bool = false
     @Binding  var activeNavLink : Bool
+    @State private var inventoryItem : InventoryItem?
     var moreText : String {
      return   """
         Il est généralement conseillé de boire entre 1,3 litre et 2 litres d’eau par jour. Tout dépend de son poids et de son niveau d’activité dans la journée. Mais dans tous les cas, si un organisme perd plus de 15 % de son poids en eau, le pronostic vital est alors engagé.
@@ -93,7 +94,7 @@ struct HomeView: View {
                                                 .padding(.vertical, 8)
                                                 .background(Color.blue.opacity(0.1))
                                                 .cornerRadius(8)
-                                }.sheet(item: $activeBool,onDismiss: dissMiss) { _ in
+                                }.sheet(item: $inventoryItem,onDismiss: dissMiss) { item in
                                     
                                 }
                         }
