@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct ManagementReseau {
+struct ManagementNetwork {
     
 }
