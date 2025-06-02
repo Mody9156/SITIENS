@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var activeBool : Bool = false
     @Binding  var activeNavLink : Bool
-    
+    @State var widthAnimation : CGFloat = 0
     var moreText : String {
         return   """
         Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales.
@@ -66,13 +66,27 @@ struct HomeView: View {
                         .shadow(radius: 5)
                         .clipShape(Capsule())
                     
+                    Capsule()
+                        .fill(Color.blue)
+                        .frame(width:widthAnimation ,height: 4)
+                        .overlay(.white)
+                        .animation(
+                            .easeInOut(duration: 2)
+                            .repeatForever(autoreverses: true),
+                            value: widthAnimation
+                        )
+                        .onAppear{
+                            widthAnimation = 250
+                        }
+                    
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 16) {
                             Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
                                 .font(.title)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.blue)
-                            
+                                .foregroundColor(.black)
+                                .padding(.leading)
+                                .padding(.trailing)
+                                .padding(.top)
                             Text(
                                  """
                                  Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales...
@@ -81,6 +95,9 @@ struct HomeView: View {
                             .font(.body)
                             .background(Color.gray.opacity(0.05))
                             .cornerRadius(8)
+                            .padding(.leading)
+                            .padding(.trailing)
+                            .padding(.top)
                             
                             Button {
                                 withAnimation {
@@ -127,10 +144,8 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                            .padding()
                         }
-                        .padding()
-                    }
+                    
                 }
             }
         }
