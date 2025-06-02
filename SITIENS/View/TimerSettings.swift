@@ -68,7 +68,6 @@ struct TimerSettings: View {
                     .background(.ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
-
                     
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Sélectionner l'audio")
