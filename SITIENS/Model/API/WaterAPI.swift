@@ -27,14 +27,14 @@ struct WaterAPI {
         return request
     }
     
-    func fetchWaterLocation() async throws -> [Data] {
+    func fetchWaterLocation() async throws -> [AnalyseEau] {
         let request = fetchURL()
         let (data,response) = try await APIManagement.fetchRequest(request: request)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw Failure.statueCodeError
         }
-        
-        return [data]
+        let result = try JSONDecoder().decode([AnalyseEau].self, from: data)
+        return result
     }
 }
