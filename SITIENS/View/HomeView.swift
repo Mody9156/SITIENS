@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var activeBool : Bool = false
     @Binding  var activeNavLink : Bool
     var moreText : String {
      return   """
@@ -22,7 +23,7 @@ struct HomeView: View {
         Mais attention à ne pas attendre d’avoir soif pour boire ! Car même si la soif permet de compenser les pertes hydriques de l’organisme, la sensation de soif indique que la déshydratation est déjà amorcée. Il faut donc penser à boire régulièrement au fil de la journée, sachant qu’une quantité de 1,5 litre correspond environ à 8 verres d’eau. L’idéal est de boire souvent et en petites quantités.
         """
     }
-    @State private var activeBool : Bool = false 
+    
     var body: some View {
         NavigationStack {
             ZStack{
@@ -61,7 +62,7 @@ struct HomeView: View {
                         .shadow(color: .white, radius: 15)
                     
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 16) {
+                        VStack(alignment: .center, spacing: 16) {
                             Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
                                 .font(.title2)
                                 .fontWeight(.semibold)
@@ -70,16 +71,26 @@ struct HomeView: View {
                             Text(
                                  """
                                  Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps en bonne santé.
+                                 \(activeBool ? moreText : "")
                                  """)
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
+                           
+                                Button {
+                                    withAnimation {
+                                        activeBool.toggle()
+                                    }
+                                    
+                                } label: {
+                                    Text( activeBool ?  "Réduire" : "Plus")
+                                        .fontWeight(.medium)
+                                                .padding(.horizontal, 16)
+                                                .padding(.vertical, 8)
+                                                .background(Color.blue.opacity(0.1))
+                                                .cornerRadius(8)
+                                    
+                                }
                             
-                            Button {
-                                
-                            } label: {
-                                
-                            }
-
                         }
                         .padding()
                     }
