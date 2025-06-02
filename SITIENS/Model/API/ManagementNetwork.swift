@@ -9,4 +9,8 @@ import Foundation
 
 struct ManagementNetwork {
     
+    
+    func fetchMap(){
+        
+    }
 }
