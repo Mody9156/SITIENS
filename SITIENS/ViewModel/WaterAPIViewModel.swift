@@ -14,9 +14,13 @@ class WaterAPIViewModel {
     init(waterAPI: WaterAPI = WaterAPI()) {
         self.waterAPI = waterAPI
     }
-    
-    func showLocation() async throws {
+
+    func showLocation() async throws -> [AnalyseEau] {
      let result = try await waterAPI.fetchWaterLocation()
       print("result:\(result)")
+    print("other: \(result.count)")
+        
+     return result
+        
     }
 }
