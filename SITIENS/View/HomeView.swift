@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var activeBool : Bool = false
     @Binding  var activeNavLink : Bool
-    @State private var inventoryItem : InventoryItem?
+
     var moreText : String {
      return   """
         Il est généralement conseillé de boire entre 1,3 litre et 2 litres d’eau par jour. Tout dépend de son poids et de son niveau d’activité dans la journée. Mais dans tous les cas, si un organisme perd plus de 15 % de son poids en eau, le pronostic vital est alors engagé.
@@ -75,27 +75,56 @@ struct HomeView: View {
                                  """
                                  Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps en bonne santé.
                                  
-                                 \(activeBool ? moreText : "")
                                  """)
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
                         
                             
                                 Button {
-                                    
                                     withAnimation {
                                         activeBool.toggle()
                                     }
                                     
                                 } label: {
-                                    Text( activeBool ?  "Réduire" : "Plus")
+                                    Text("Plus")
                                         .fontWeight(.medium)
                                                 .padding(.horizontal, 16)
                                                 .padding(.vertical, 8)
                                                 .background(Color.blue.opacity(0.1))
                                                 .cornerRadius(8)
-                                }.sheet(item: $inventoryItem,onDismiss: dissMiss) { item in
-                                    
+                                }.sheet(isPresented: $activeBool) {
+                                    ScrollView {
+                                        ZStack {
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                            .ignoresSafeArea()
+                                            
+                                            VStack(alignment: .center, spacing: 16) {
+                                                Text(moreText)
+                                                    .font(.body)
+                                                    .multilineTextAlignment(.leading)
+                                                
+                                                Button {
+                                                    withAnimation {
+                                                        activeBool.toggle()
+                                                    }
+                                                    
+                                                } label: {
+                                                    Text("Réduir")
+                                                        .fontWeight(.medium)
+                                                                .padding(.horizontal, 16)
+                                                                .padding(.vertical, 8)
+                                                                .background(Color.blue.opacity(0.1))
+                                                                .cornerRadius(8)
+                                                }
+                                            }
+                                            .padding()
+                                        }
+                                        
+                                    }
                                 }
                         }
                         .padding()
@@ -115,8 +144,3 @@ struct HomeView: View {
     
 }
 
-struct InventoryItem : Identifiable {
-    var id = UUID()
-
-    
-}
