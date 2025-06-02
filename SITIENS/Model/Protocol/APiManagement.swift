@@ -8,5 +8,5 @@
 import Foundation
 
 protocol APIManagement {
-    
+    func fetchRequest(request:URLRequest) async throws -> (Data, URLResponse)
 }

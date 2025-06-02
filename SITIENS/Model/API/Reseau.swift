@@ -8,14 +8,13 @@
 import Foundation
 
 struct Reseau : Identifiable,Decodable {
-    var id: String { code }
-       let code: String
+    var id = UUID()
        let nom: String
        let debit: String
 }
 
 
-struct AnalyseEau : Decodable{
+struct AnalyseEau : Identifiable, Decodable{
     var id: String { code_prelevement }
     let code_departement: String
         let nom_departement: String

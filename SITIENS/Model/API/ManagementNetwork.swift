@@ -7,10 +7,29 @@
 
 import Foundation
 
-struct ManagementNetwork {
+struct ManagementNetwork: APIManagement {
+    private let session : URLSession
     
+    init(session: URLSession = URLSession.shared) {
+        self.session = session
+    }
     
-    func fetchMap(){
+    enum Failure: Swift.Error {
+        case HTTPSThorwError
         
     }
+    
+    func fetchRequest(request: URLRequest) async throws ->  (
+        Data,
+        URLResponse
+    ) {
+        let (data,response) = try await session.data(for: request)
+        
+        guard let HTTPURLResponse = response as? HTTPURLResponse, HTTPURLResponse.statusCode == 200 else {
+            throw Failure.HTTPSThorwError
+        }
+        
+        return (data,response)
+    }
+    
 }
