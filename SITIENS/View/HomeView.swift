@@ -22,6 +22,7 @@ struct HomeView: View {
         Mais attention à ne pas attendre d’avoir soif pour boire ! Car même si la soif permet de compenser les pertes hydriques de l’organisme, la sensation de soif indique que la déshydratation est déjà amorcée. Il faut donc penser à boire régulièrement au fil de la journée, sachant qu’une quantité de 1,5 litre correspond environ à 8 verres d’eau. L’idéal est de boire souvent et en petites quantités.
         """
     }
+    @State private var activeBool : Bool = false 
     var body: some View {
         NavigationStack {
             ZStack{
@@ -73,7 +74,12 @@ struct HomeView: View {
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
                             
-                            
+                            Button {
+                                
+                            } label: {
+                                
+                            }
+
                         }
                         .padding()
                     }
