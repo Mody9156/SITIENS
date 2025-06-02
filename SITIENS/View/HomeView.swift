@@ -79,7 +79,9 @@ struct HomeView: View {
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
                         
+                            
                                 Button {
+                                    
                                     withAnimation {
                                         activeBool.toggle()
                                     }
@@ -91,6 +93,8 @@ struct HomeView: View {
                                                 .padding(.vertical, 8)
                                                 .background(Color.blue.opacity(0.1))
                                                 .cornerRadius(8)
+                                }.sheet(item: $activeBool,onDismiss: dissMiss) { _ in
+                                    
                                 }
                         }
                         .padding()
@@ -99,10 +103,19 @@ struct HomeView: View {
             }
         }
     }
+    func dissMiss(){
+        
+    }
 }
 
 #Preview {
     @Previewable @State var activeNavLink: Bool = false
     HomeView(activeNavLink: $activeNavLink)
+    
+}
+
+struct InventoryItem : Identifiable {
+    var id = UUID()
+
     
 }

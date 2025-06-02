@@ -46,25 +46,26 @@ struct InformationView: View {
                     
                     Image("thirstyPicture")
                         .resizable()
-                        .frame(height: 350)
+                        .scaledToFill()
+                        .frame(width: 350, height: 350)
                         .clipShape(Circle())
-                        .shadow(color: .white, radius: 15)
+//                        .overlay(Circle().stroke(Color.black, lineWidth: 4))
+                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                    
                     ScrollView {
                         VStack(alignment: .center) {
                             Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                                 .font(.title2)
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.leading)
-                                .padding(.bottom, 8)
                             
                             Text("""
                                 D’une manière générale, il est fortement déconseillé de boire plus de 5 litres d’eau par jour, \
                                 car une grande quantité d’eau risque de diluer les constantes sanguines. Voyons quelles peuvent \
                                 être les différentes conséquences d’une surconsommation d’eau.
                                 """)
-                            .font(.callout)
+                            .font(.body)
                             .multilineTextAlignment(.leading)
-                            .frame(width: 300, alignment: .leading)
                             
                             Button {
                                 withAnimation {
