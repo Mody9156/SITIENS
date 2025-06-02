@@ -57,9 +57,11 @@ struct HomeView: View {
                     
                     Image("Water")
                         .resizable()
-                        .frame(height: 350)
+                        .scaledToFill()
+                        .frame(width: 350, height: 350)
                         .clipShape(Circle())
-                        .shadow(color: .white, radius: 15)
+//                        .overlay(Circle().stroke(Color.black, lineWidth: 4))
+                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                     
                     ScrollView {
                         VStack(alignment: .center, spacing: 16) {
@@ -71,11 +73,12 @@ struct HomeView: View {
                             Text(
                                  """
                                  Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps en bonne santé.
+                                 
                                  \(activeBool ? moreText : "")
                                  """)
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
-                           
+                        
                                 Button {
                                     withAnimation {
                                         activeBool.toggle()
@@ -88,9 +91,7 @@ struct HomeView: View {
                                                 .padding(.vertical, 8)
                                                 .background(Color.blue.opacity(0.1))
                                                 .cornerRadius(8)
-                                    
                                 }
-                            
                         }
                         .padding()
                     }

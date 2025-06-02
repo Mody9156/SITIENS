@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InformationView: View {
     @Binding var activeNavLink: Bool
+    @State private var activeBool : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -49,7 +50,7 @@ struct InformationView: View {
                         .clipShape(Circle())
                         .shadow(color: .white, radius: 15)
                     ScrollView {
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .center) {
                             Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                                 .font(.title2)
                                 .fontWeight(.semibold)
@@ -64,6 +65,20 @@ struct InformationView: View {
                             .font(.callout)
                             .multilineTextAlignment(.leading)
                             .frame(width: 300, alignment: .leading)
+                            
+                            Button {
+                                withAnimation {
+                                    activeBool.toggle()
+                                }
+                                
+                            } label: {
+                                Text( activeBool ?  "Réduire" : "Plus")
+                                    .fontWeight(.medium)
+                                            .padding(.horizontal, 16)
+                                            .padding(.vertical, 8)
+                                            .background(Color.blue.opacity(0.1))
+                                            .cornerRadius(8)
+                            }
                         }
                         .padding()
                     }
