@@ -10,13 +10,14 @@ import MapKit
 
 struct MapView: View {
     @State var waterAPIViewModel : WaterAPIViewModel
+    
     var body: some View {
         VStack {
             Map{
                 Marker(
                     "Paris",
                     coordinate: CLLocationCoordinate2D(latitude: 48.862725, longitude: 2.287592)
-                    
+
                 )
                 .tint(.orange)
                 Marker("Lyon", coordinate: CLLocationCoordinate2D(latitude: 45.7578137, longitude: 4.8320114))
@@ -29,6 +30,7 @@ struct MapView: View {
                     )
                 )
             }
+            
             .onAppear{
                 let result = waterAPIViewModel
                 Task{
@@ -36,11 +38,18 @@ struct MapView: View {
                 }
                 
             }
-            .mapControlVisibility(.hidden)
+//            .mapControlVisibility(.hidden)
         }
+    }
+    
+    func coordinate(){
+        
     }
 }
 
 #Preview {
-    MapView(waterAPIViewModel: WaterAPIViewModel())
+  
+    MapView(
+        waterAPIViewModel: WaterAPIViewModel()
+    )
 }

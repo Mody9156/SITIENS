@@ -31,7 +31,9 @@ struct SITIENSApp: App {
                     Tab(
                         "Carte"
                          ,systemImage: "map"){
-                             MapView(waterAPIViewModel: WaterAPIViewModel())
+                             MapView(
+                                waterAPIViewModel: WaterAPIViewModel()
+                             )
                        }
                     
                 }
