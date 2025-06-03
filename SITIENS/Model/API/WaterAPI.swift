@@ -37,14 +37,28 @@ struct WaterAPI {
         }
         
         do{
-            let result = try JSONDecoder().decode(AnalyseEauResponse.self, from: data)
+            let json = JSONDecoder()
+            let result = try json.decode(AnalyseEauResponse.self, from: data)
             return result.data
         }catch{
-            print("Erreur de décodage : \(error)")
+            print("Erreur de décodage ❌: \(error.localizedDescription)")
+              
+              // Plus détaillé :
+              if let decodingError = error as? DecodingError {
+                  switch decodingError {
+                  case .typeMismatch(let type, let context):
+                      print("Type mismatch for type \(type), context: \(context)")
+                  case .valueNotFound(let value, let context):
+                      print("Valeur manquante: \(value), contexte: \(context)")
+                  case .keyNotFound(let key, let context):
+                      print("Clé manquante: \(key), contexte: \(context)")
+                  case .dataCorrupted(let context):
+                      print("Données corrompues, contexte: \(context)")
+                  default:
+                      print("Erreur inconnue: \(decodingError)")
+                  }
+              }
             throw Failure.error
         }
-        
-       
-      
     }
 }
