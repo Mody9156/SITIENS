@@ -28,7 +28,7 @@ struct AnalyseEau : Identifiable, Decodable{
     let code_type_parametre: String
     let code_lieu_analyse: String
     let resultat_alphanumerique: String
-    let resultat_numerique: Double
+    let resultat_numerique: Double?
     let libelle_unite: String
     let code_unite: String
     let limite_qualite_parametre: String
@@ -49,4 +49,8 @@ struct AnalyseEau : Identifiable, Decodable{
     let nom_installation_amont: String
     
     let reseaux: [Reseau]
+}
+
+struct AnalyseEauResponse: Decodable {
+    let data: [AnalyseEau]
 }

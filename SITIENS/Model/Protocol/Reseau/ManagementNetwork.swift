@@ -25,7 +25,9 @@ struct ManagementNetwork: APIManagement {
     ) {
         let (data,response) = try await session.data(for: request)
         
-        guard let HTTPURLResponse = response as? HTTPURLResponse, HTTPURLResponse.statusCode == 200 else {
+        guard let HTTPURLResponse = response as? HTTPURLResponse, (200...299).contains(HTTPURLResponse.statusCode) else {
+            print("data:\(data)")
+            print("data:\(response)")
             throw Failure.HTTPSThorwError
         }
         
