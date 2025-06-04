@@ -17,11 +17,11 @@ struct MapView: View {
                    
                     Map(
                         coordinateRegion: $waterAPIViewModel.region,
-                        annotationItems: waterAPIViewModel.annotation
+                        annotationItems: waterAPIViewModel.annotations
                     ){ place in
                         MapMarker(
                             coordinate: place.location,
-                            tint: .red
+                            tint: .blue
                         )
                             
                         }

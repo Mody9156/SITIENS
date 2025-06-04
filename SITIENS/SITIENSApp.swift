@@ -29,13 +29,13 @@ struct SITIENSApp: App {
                             )
                     }
                     
-                    Tab(
-                        "Carte"
-                         ,systemImage: "map"){
-                             MapView(
-                                waterAPIViewModel: WaterAPIViewModel()
-                             )
-                       }
+//                    Tab(
+//                        "Carte"
+//                         ,systemImage: "map"){
+//                             MapView(
+//                                waterAPIViewModel: WaterAPIViewModel()
+//                             )
+//                       }
                     
                 }
                 

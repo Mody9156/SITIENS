@@ -18,7 +18,7 @@ class WaterAPIViewModel {
         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
     )
     
-    var annotation: [IdentifiablePlace] = []
+    var annotations: [IdentifiablePlace] = []
     
     init(waterAPI: WaterAPI = WaterAPI()) {
         self.waterAPI = waterAPI
@@ -29,7 +29,7 @@ class WaterAPIViewModel {
             let result = try await waterAPI.fetchWaterLocation()
             
             self.analyseEau = result
-//            print("result:\(analyseEau)")
+            print("result:\(analyseEau)")
         }catch{
             print("dommage il y a une erreur:\(error)")
         }
@@ -39,26 +39,27 @@ class WaterAPIViewModel {
     func geocode() async {
         let geocoder = CLGeocoder()
         var newAnnotations: [IdentifiablePlace] = []
+        let analyseWater = Array(Set(analyseEau.map{$0.nom_departement}))
         
-        for city in analyseEau {
+        for city in analyseWater {
             do{
-                let placemarks = try await geocoder.geocodeAddressString(city.nom_commune)
+                let placemarks = try await geocoder.geocodeAddressString(city)
                 
                 for place in placemarks {
-                    guard let location = place.location else { continue }
-                    print("📍 \(city.nom_commune): \(location.coordinate)")
+                    guard let location = place.location  else { continue }
+                    print("📍 \(city): \(location.coordinate)")
                     newAnnotations
                         .append(IdentifiablePlace(location: location.coordinate))
                     try await Task.sleep(nanoseconds: 300_000_000)
                     self.region.center = location.coordinate
                 }
-               
+              
             }
             catch{
-                print("Erreur de géocodage pour \(city.nom_commune): \(error)")
+                print("Erreur de géocodage pour \(city): \(error)")
             }
         }
       
-        self.annotation = newAnnotations
+        self.annotations = newAnnotations
     }
 }
