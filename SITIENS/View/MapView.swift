@@ -18,8 +18,12 @@ struct MapView: View {
                    
                     Map(
                         coordinateRegion: $waterAPIViewModel.region,
-                        annotationItems: waterAPIViewModel.annotation != nil ? [waterAPIViewModel.annotation!] : []){ place in
-                            MapMarker(coordinate: place.location, tint: .red)
+                        annotationItems: waterAPIViewModel.annotation
+                    ){ place in
+                        MapMarker(
+                            coordinate: place.location,
+                            tint: .red
+                        )
                             
                         }
                         .frame(height: 400)

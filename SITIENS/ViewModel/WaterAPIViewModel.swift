@@ -18,7 +18,7 @@ class WaterAPIViewModel {
         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
     )
     
-    var annotation: IdentifiablePlace? = nil
+    var annotation: [IdentifiablePlace] = []
     
     init(waterAPI: WaterAPI = WaterAPI()) {
         self.waterAPI = waterAPI
@@ -77,7 +77,7 @@ class WaterAPIViewModel {
                     
                 }
                 
-                let place = IdentifiablePlace(location: location.coordinate)
+                let place = [IdentifiablePlace(location: location.coordinate)]
                 
                 self.annotation = place
                 self.region.center = location.coordinate
