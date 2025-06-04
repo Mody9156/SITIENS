@@ -11,7 +11,6 @@ import CoreLocation
 
 struct MapView: View {
     @State var waterAPIViewModel : WaterAPIViewModel
-    var analyseEau : [AnalyseEau] = []
     
     var body: some View {
                 VStack {

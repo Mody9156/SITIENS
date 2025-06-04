@@ -29,7 +29,7 @@ class WaterAPIViewModel {
             let result = try await waterAPI.fetchWaterLocation()
             
             self.analyseEau = result
-            print("result:\(analyseEau)")
+//            print("result:\(analyseEau)")
         }catch{
             print("dommage il y a une erreur:\(error)")
         }
@@ -38,65 +38,21 @@ class WaterAPIViewModel {
     
     func geocode() async {
         let geocoder = CLGeocoder()
+        var newAnnotations: [IdentifiablePlace] = []
         
         for city in analyseEau {
             do{
-                //                geocoder
-                //                    .geocodeAddressString(city.nom_commune) { (placemarks, error) in
-                //
-                //                    if let error = error {
-                //                        print("Geocoding failed: \(error)")
-                //                        return
-                //                    }
-                //
-                //                    guard let placemarks = placemarks else {
-                //                        print("Pas de placemarks trouvés.")
-                //                        return
-                //                    }
-                //
-                //                    guard let location = placemarks.first,
-                //                          let location = location.location
-                //                    else {
-                //                        print("Aucun résultat trouvé pour le géocodage.")
-                //                        return
-                //
-                //                    }
-                //
-                //                        let place = IdentifiablePlace(location: location.coordinate)
-                //                        self.annotation = place
-                //                        self.region.center = location.coordinate
-                //
-                //                }
-                
-                let placemarks =  try await geocoder.geocodeAddressString(city.nom_commune)
-                
-                for allPlacemarks in placemarks {
-                    guard let location = allPlacemarks.location
-                    else {
-                        print("Aucun emplacement trouvé pour \(city.nom_commune)")
-                        continue
-                        
-                    }
-                    
-                    let place = IdentifiablePlace(location: location.coordinate)
-                    
-                    self.annotation.append(place)
-                    self.region.center = location.coordinate
-                    print("\(city.nom_commune)")
-                    
-                    for locat in annotation {
-                    print("locat\(locat.location)")
-                    }
-                    
-                    try await Task.sleep(nanoseconds: 300_000_000)
-                }
-               
-                
+                let placemarks = try await geocoder.geocodeAddressString(city.nom_commune)
+                guard let location = placemarks.first?.location else { continue }
+                print("📍 \(city.nom_commune): \(location.coordinate)")
+                newAnnotations
+                    .append(IdentifiablePlace(location: location.coordinate))
+                try await Task.sleep(nanoseconds: 300_000_000)
             }
             catch{
                 print("Erreur de géocodage pour \(city.nom_commune): \(error)")
             }
         }
-        
+        self.annotation = newAnnotations
     }
 }
