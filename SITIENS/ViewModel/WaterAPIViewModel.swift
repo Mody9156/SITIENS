@@ -43,16 +43,22 @@ class WaterAPIViewModel {
         for city in analyseEau {
             do{
                 let placemarks = try await geocoder.geocodeAddressString(city.nom_commune)
-                guard let location = placemarks.first?.location else { continue }
-                print("📍 \(city.nom_commune): \(location.coordinate)")
-                newAnnotations
-                    .append(IdentifiablePlace(location: location.coordinate))
-                try await Task.sleep(nanoseconds: 300_000_000)
+                
+                for place in placemarks {
+                    guard let location = place.location else { continue }
+                    print("📍 \(city.nom_commune): \(location.coordinate)")
+                    newAnnotations
+                        .append(IdentifiablePlace(location: location.coordinate))
+                    try await Task.sleep(nanoseconds: 300_000_000)
+                    self.region.center = location.coordinate
+                }
+               
             }
             catch{
                 print("Erreur de géocodage pour \(city.nom_commune): \(error)")
             }
         }
+      
         self.annotation = newAnnotations
     }
 }
