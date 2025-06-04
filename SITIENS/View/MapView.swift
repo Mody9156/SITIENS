@@ -32,8 +32,9 @@ struct MapView: View {
                     let result = waterAPIViewModel
                    
                     Task{
-                        await result.geocode()
+                        
                         try await result.showLocation()
+                        await result.geocode()
                     }
                 }
     }

@@ -70,19 +70,27 @@ class WaterAPIViewModel {
                 
                 let placemarks =  try await geocoder.geocodeAddressString(city.nom_commune)
                 
-                guard let location = placemarks.first?.location
-                else {
-                    print("Aucun emplacement trouvé pour \(city.nom_commune)")
-                    continue
+                for allPlacemarks in placemarks {
+                    guard let location = allPlacemarks.location
+                    else {
+                        print("Aucun emplacement trouvé pour \(city.nom_commune)")
+                        continue
+                        
+                    }
                     
+                    let place = IdentifiablePlace(location: location.coordinate)
+                    
+                    self.annotation.append(place)
+                    self.region.center = location.coordinate
+                    print("\(city.nom_commune)")
+                    
+                    for locat in annotation {
+                    print("locat\(locat.location)")
+                    }
+                    
+                    try await Task.sleep(nanoseconds: 300_000_000)
                 }
-                
-                let place = [IdentifiablePlace(location: location.coordinate)]
-                
-                self.annotation = place
-                self.region.center = location.coordinate
-                
-                try await Task.sleep(nanoseconds: 300_000_000)
+               
                 
             }
             catch{
