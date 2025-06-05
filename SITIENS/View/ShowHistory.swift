@@ -12,10 +12,10 @@ struct ShowHistory: View {
     @Bindable var historyViewModel : HistoryViewModel
     @Environment(\.dismiss) var dismiss
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
-    
+    @State private var searchText = ""
     var body: some View {
         ZStack {
-            // 🔵 Dégradé de fond
+         
             LinearGradient(
                 gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
                 startPoint: .topLeading,
@@ -24,13 +24,13 @@ struct ShowHistory: View {
             .ignoresSafeArea()
             
             VStack(alignment: .center, spacing: 16) {
-                // 🧾 Titre
+
                 Text("Historique d'hydratation")
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundStyle(.blue)
                     .padding(.top, 10)
                 
-                // 📜 Liste stylisée
+                
                 List {
                     Section {
                         ForEach(historyViewModel.history, id: \.self) { historyManager in
@@ -83,7 +83,7 @@ struct ShowHistory: View {
                             }
                         }
                         .onDelete(perform: historyViewModel.deleteHistory)
-                    } 
+                    }
                 }
                 .listStyle(.plain)
             }
@@ -116,7 +116,6 @@ struct ShowHistory: View {
                 }
             }
         }
-
     }
 }
 
