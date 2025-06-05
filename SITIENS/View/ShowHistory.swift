@@ -126,9 +126,10 @@ struct ShowHistory: View {
         if searchText.isEmpty {
            return historyViewModel.history
         }else{
-            let filterSearchText = searchText.map{$0}
+           
             return historyViewModel.history
-                .filter{$0 == $0}
+                .filter{
+                    $0.name?.contains(searchText) == true                }
         }
         
     }
