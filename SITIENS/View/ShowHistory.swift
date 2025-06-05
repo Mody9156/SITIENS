@@ -15,95 +15,108 @@ struct ShowHistory: View {
     
     var body: some View {
         ZStack {
+            // 🔵 Dégradé de fond
             LinearGradient(
                 gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            VStack(alignment: .center, spacing: 8) {
-                Text("Historique")
-                    .font(.system(size: 40, weight: .light, design: .serif))
-                    .foregroundStyle(.gray)
-                    .padding()
+            
+            VStack(alignment: .center, spacing: 16) {
+                // 🧾 Titre
+                Text("Historique d'hydratation")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .foregroundStyle(.blue)
+                    .padding(.top, 10)
                 
+                // 📜 Liste stylisée
                 List {
-                    ForEach(historyViewModel.history,id:\.self) { historyManager in
-                        if let name =  historyManager.name, let quantity =  historyManager.quantity, let date =  historyManager.date{
-                            
-                            if !name.isEmpty && !quantity.isEmpty{
+                    Section {
+                        ForEach(historyViewModel.history, id: \.self) { historyManager in
+                            if let name = historyManager.name,
+                               let quantity = historyManager.quantity,
+                               let date = historyManager.date,
+                               !name.isEmpty,
+                               !quantity.isEmpty {
+                                
                                 ZStack {
-                                    RoundedRectangle(cornerRadius: 20)
+                                    RoundedRectangle(cornerRadius: 16)
                                         .fill(.ultraThinMaterial)
                                         .background(
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .fill(Color.blue.opacity(0.1))
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .fill(Color.blue.opacity(0.05))
                                         )
-                                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
+                                        .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
                                     
-                                    VStack(alignment: .leading, spacing: 8) {
+                                    VStack(alignment: .leading, spacing: 10) {
                                         Text(date)
                                             .font(.caption)
                                             .foregroundColor(.gray)
                                         
-                                        HStack(spacing: 10) {
+                                        HStack {
                                             Text("\(name) :")
                                                 .font(.headline)
-                                                .foregroundColor(.blue)
+                                                .foregroundStyle(.blue)
                                             
-                                            ZStack {
-                                                RoundedRectangle(cornerRadius: 10)
-                                                    .fill(Color.blue)
-                                                    .frame(width: 80, height: 32)
+                                            Spacer()
+                                            
+                                            HStack(spacing: 6) {
+                                                Image(systemName: "drop.fill")
+                                                    .foregroundColor(.white)
+                                                
                                                 Text("\(quantity)")
                                                     .foregroundColor(.white)
-                                                    .font(.subheadline)
+                                                    .font(.subheadline.bold())
                                             }
-                                            
-                                            Image(systemName: "drop.fill")
-                                                .foregroundColor(.blue)
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 6)
+                                            .background(Color.blue)
+                                            .cornerRadius(10)
                                         }
                                     }
                                     .padding()
                                 }
-                                .padding(.horizontal)
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                                .padding(.vertical, 4)
                             }
-                            
                         }
-                    }
-                    .onDelete(perform: historyViewModel.deleteHistory)
+                        .onDelete(perform: historyViewModel.deleteHistory)
+                    } 
                 }
-                .navigationTitle("Historique")
-                .listStyle(GroupedListStyle())
-                
+                .listStyle(.plain)
             }
+            .padding()
             .navigationBarBackButtonHidden(true)
-            .toolbar(content: {
+            .toolbar {
+                // 🔙 Bouton retour
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         withAnimation {
                             dismiss()
                         }
                     } label: {
-                        HStack {
+                        HStack(spacing: 4) {
                             Image(systemName: "chevron.left")
-                            Text("Hydradation")
+                            Text("Hydratation")
                         }
+                        .foregroundStyle(.blue)
                     }
                 }
-            })
-            .toolbar(content: {
-                EditButton()
-            })
-            .padding()
-            
-            
-            .onAppear{
-                Task{
-                    try historyViewModel.fetchHistory()
+                
+                // ✏️ Bouton d'édition
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
+                }
+            }
+            .onAppear {
+                Task {
+                    try? historyViewModel.fetchHistory()
                 }
             }
         }
+
     }
 }
 
