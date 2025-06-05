@@ -17,7 +17,13 @@ struct WaterQuantityView: View {
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
     @Bindable var historyViewModel : HistoryViewModel
-    
+    let containers = [
+           ("Petit verre", 200, "cup.and.saucer.fill"),
+           ("Grand verre", 250, "cup.and.saucer.fill"),
+           ("Grande bouteille", 1000, "bottle.fill"),
+           ("Petite bouteille", 500, "bottle.fill")
+       ]
+    //Ne pas oublier d'ajouter ce dernier
     var body: some View {
         NavigationStack {
             ZStack {
