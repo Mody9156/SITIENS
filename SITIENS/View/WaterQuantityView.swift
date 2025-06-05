@@ -40,13 +40,6 @@ struct WaterQuantityView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.blue)
-                        .shadow(radius: 12)
-                        .padding()
-                    
-                    Text("\(Int((updateHeight / 2) * 200 / 300)) %")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.blue)
                         .padding()
                     
                     Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
@@ -54,25 +47,29 @@ struct WaterQuantityView: View {
                         .font(.title2)
                     
                     ZStack {
-                        ZStack (alignment: .bottom){
+                        ZStack(alignment: .bottom) {
                             RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 200,height: 300)
+                                .frame(width: 200, height: 300)
                                 .foregroundColor(.clear)
-                                .overlay {
+                                .overlay(
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.blue, lineWidth: 2)
-                                }
+                                )
                             
                             RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 200,height: updateHeight)
+                                .frame(width: 200, height: updateHeight)
                                 .foregroundStyle(.blue)
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 6)
-                                        .foregroundStyle(.blue)
-                                }
+                                .animation(.easeInOut, value: updateHeight)
+                            
+                            Text("\(Int(updateHeight / 3))%")
+                                .font(.caption)
+                                .foregroundColor(.white)
+                                .bold()
+                                .padding(.bottom, 8)
                         }
                         .padding()
                     }
+
                     
                     Button {
                         withAnimation {
@@ -93,18 +90,29 @@ struct WaterQuantityView: View {
                             })
                             
                             if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0{
-                                updateHeight += 50
+                                withAnimation {
+                                    updateHeight += 50
+                                }
                             }
                         }
                         
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
-                                .frame(width: 150,height: 50)
-                            Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
-                                .foregroundStyle(.white)
+                                .frame(height: 50)
+                                .foregroundStyle(updateHeight == 300 ? .green : .blue)
+                                .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
+
+                            HStack {
+                                Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
+                                    .foregroundStyle(.white)
+                                Image(systemName: "drop.degreesign.fill")
+                                    .foregroundStyle(.white)
+                            }
+                            
                         }
                     }
+                    
                     .padding()
                     
                     
@@ -119,11 +127,18 @@ struct WaterQuantityView: View {
                         } label: {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 12)
-                                    .frame(width: 150,height: 50)
+                                    .frame(height: 50)
                                     .foregroundStyle(.orange)
+                                    .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
+
+                              
+                                HStack {
+                                    Text("Reinitialiser")
+                                        .foregroundStyle(.white)
+                                    Image(systemName: "arrow.counterclockwise")
+                                        .foregroundStyle(.white)
+                                }
                                 
-                                Text("Reinitialiser")
-                                    .foregroundStyle(.white)
                             }
                         }
                         .padding()
