@@ -10,20 +10,13 @@ import CoreData
 
 struct WaterQuantityView: View {
     @State var updateHeight : CGFloat = 0
-    @State var title : String = "150ml"
-    @State var nameOfCategory : String = "Nourrisson"
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
     @State var profilType : String = ""
-    @State var mesure = Measurement<UnitLength>(value: 10, unit: .centimeters)
-    @State var number = 2.3332/1000
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
     @Bindable var historyViewModel : HistoryViewModel
-    @State var name : String = ""
-    @State var quantity : String = ""
-    @State private var level: CGFloat = 50
     
     var body: some View {
         NavigationStack {
@@ -69,7 +62,6 @@ struct WaterQuantityView: View {
                         }
                         .padding()
                     }
-
                     
                     Button {
                         withAnimation {
@@ -102,26 +94,23 @@ struct WaterQuantityView: View {
                                 .frame(height: 50)
                                 .foregroundStyle(updateHeight == 300 ? .green : .blue)
                                 .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
-
+                            
                             HStack {
                                 Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
                                     .foregroundStyle(.white)
-                                       .fontWeight(.semibold)
-                                       .font(.system(size: 16))
+                                    .fontWeight(.semibold)
+                                    .font(.system(size: 16))
                                 
                                 if updateHeight != 300  {
                                     Image(systemName: "drop.fill" )
                                         .foregroundStyle(.white)
                                 }
                             }
-                            
                         }
                         .padding(.horizontal)
                     }
                     
                     .padding()
-                    
-                    
                     
                     if updateHeight != 0 {
                         
@@ -136,15 +125,14 @@ struct WaterQuantityView: View {
                                     .frame(height: 50)
                                     .foregroundStyle(.orange)
                                     .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
-
-                              
+                                
+                                
                                 HStack {
                                     Text("Reinitialiser")
                                         .foregroundStyle(.white)
                                     Image(systemName: "arrow.counterclockwise")
                                         .foregroundStyle(.white)
                                 }
-                                
                             }
                         }
                         .padding()
@@ -197,7 +185,6 @@ struct WaterQuantityView: View {
                                 .font(.title2)
                                 .foregroundColor(.gray)
                         }
-                        
                     }
                     
                     ToolbarItem(placement: .topBarLeading) {
@@ -215,10 +202,7 @@ struct WaterQuantityView: View {
                                 .font(.title2)
                                 .foregroundStyle(.blue)
                         }
-                        
-                        
                     }
-                    
                 }
                 .onChange(of: updateHeight) {
                     if updateHeight == 300 {
