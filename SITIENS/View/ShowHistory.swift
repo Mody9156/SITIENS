@@ -13,6 +13,7 @@ struct ShowHistory: View {
     @Environment(\.dismiss) var dismiss
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
     @State private var searchText = ""
+    
     var body: some View {
         ZStack {
          
@@ -33,7 +34,7 @@ struct ShowHistory: View {
                 
                 List {
                     Section {
-                        ForEach(historyViewModel.history, id: \.self) { historyManager in
+                        ForEach(search, id: \.self) { historyManager in
                             if let name = historyManager.name,
                                let quantity = historyManager.quantity,
                                let date = historyManager.date,
@@ -85,8 +86,10 @@ struct ShowHistory: View {
                         .onDelete(perform: historyViewModel.deleteHistory)
                     }
                 }
+                .searchable(text: $searchText)
                 .listStyle(.plain)
             }
+           
             .padding()
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -105,7 +108,7 @@ struct ShowHistory: View {
                     }
                 }
                 
-                // ✏️ Bouton d'édition
+               
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
                 }
@@ -116,6 +119,18 @@ struct ShowHistory: View {
                 }
             }
         }
+        
+    }
+    
+    var search : [History]{
+        if searchText.isEmpty {
+           return historyViewModel.history
+        }else{
+            let filterSearchText = searchText.map{$0}
+            return historyViewModel.history
+                .filter{$0 == $0}
+        }
+        
     }
 }
 
