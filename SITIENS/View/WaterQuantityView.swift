@@ -106,11 +106,17 @@ struct WaterQuantityView: View {
                             HStack {
                                 Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
                                     .foregroundStyle(.white)
-                                Image(systemName: "drop.degreesign.fill")
-                                    .foregroundStyle(.white)
+                                       .fontWeight(.semibold)
+                                       .font(.system(size: 16))
+                                
+                                if updateHeight != 300  {
+                                    Image(systemName: "drop.fill" )
+                                        .foregroundStyle(.white)
+                                }
                             }
                             
                         }
+                        .padding(.horizontal)
                     }
                     
                     .padding()
