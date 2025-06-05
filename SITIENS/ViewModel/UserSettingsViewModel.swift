@@ -12,13 +12,13 @@ class UserSettingsViewModel{
 
     func updateWater(type name:String) -> CGFloat{
         switch name  {
-        case "nourrissons":
+        case "Nourrissons":
             return 0.7
-        case "femmes enceintes":
+        case "Femmes enceintes":
             return 2.5
-        case "personnes âgées":
+        case "Personnes âgées":
             return 2
-        case "sportifs":
+        case "Sportifs":
             return 3
         case "Enfants et adolescents":
             return 2.5
@@ -39,13 +39,13 @@ class UserSettingsViewModel{
     
     func updateType(name type: String) -> Double{
         switch type  {
-        case "nourrissons":
+        case "Nourrissons":
             return 2.3332/1000
-        case "femmes enceintes":
+        case "Femmes enceintes":
             return 8.36/1000
-        case "personnes âgées":
+        case "Personnes âgées":
             return 6.66/1000
-        case "sportifs":
+        case "Sportifs":
             return 1/100
         case "Enfants et adolescents":
             return 8.36/1000
