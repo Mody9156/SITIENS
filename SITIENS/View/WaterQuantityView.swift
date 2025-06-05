@@ -27,183 +27,192 @@ struct WaterQuantityView: View {
     
     var body: some View {
         NavigationStack {
-            VStack{
-                Text("Hydradation")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.blue)
-                    .shadow(radius: 12)
-                    .padding()
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
                 
-                Text("\(Int((updateHeight / 2) * 200 / 300)) %")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.blue)
-                    .padding()
-                
-                Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
-                    .foregroundStyle(.gray)
-                    .font(.title2)
-                
-                ZStack {
-                    ZStack (alignment: .bottom){
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 200,height: 300)
-                            .foregroundColor(.white)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 2)
-                            }
-                        
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 200,height: updateHeight)
-                            .foregroundStyle(.blue)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 6)
-                                    .foregroundStyle(.blue)
-                            }
-                    }
-                    .padding()
-                }
-                
-                Button {
-                    withAnimation {
-                        throwError = true
-                        showMessage = false
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                            withAnimation {
-                                showMessage = true
-                            }
-                        })
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-                            withAnimation {
-                                showMessage = false
-                                throwError = false
-                            }
-                        })
-                        
-                        if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0{
-                            updateHeight += 50
-                        }
-                    }
+                VStack{
+                    Text("Hydradation")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.blue)
+                        .shadow(radius: 12)
+                        .padding()
                     
-                } label: {
+                    Text("\(Int((updateHeight / 2) * 200 / 300)) %")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.blue)
+                        .padding()
+                    
+                    Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
+                        .foregroundStyle(.gray)
+                        .font(.title2)
+                    
                     ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(width: 150,height: 50)
-                        Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
-                            .foregroundStyle(.white)
+                        ZStack (alignment: .bottom){
+                            RoundedRectangle(cornerRadius: 10)
+                                .frame(width: 200,height: 300)
+                                .foregroundColor(.white)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.blue, lineWidth: 2)
+                                }
+                            
+                            RoundedRectangle(cornerRadius: 10)
+                                .frame(width: 200,height: updateHeight)
+                                .foregroundStyle(.blue)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .foregroundStyle(.blue)
+                                }
+                        }
+                        .padding()
                     }
-                }
-                .padding()
-                
-               
-                
-                if updateHeight != 0 {
                     
                     Button {
                         withAnimation {
-                            updateHeight = 0
+                            throwError = true
+                            showMessage = false
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                                withAnimation {
+                                    showMessage = true
+                                }
+                            })
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                                withAnimation {
+                                    showMessage = false
+                                    throwError = false
+                                }
+                            })
+                            
+                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0{
+                                updateHeight += 50
+                            }
                         }
                         
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
                                 .frame(width: 150,height: 50)
-                                .foregroundStyle(.orange)
-                            
-                            Text("Reinitialiser")
+                            Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
                                 .foregroundStyle(.white)
                         }
                     }
                     .padding()
-                }
-                
-                if throwError && profilType.isEmpty {
-                    HStack {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(Color.orange)
-                        Text("Veuillez bien selectionner un profil")
-                    }
-                    .opacity(showMessage ? 1 : 0)
-                    .animation(
-                        .easeOut(duration: 1.0),value: showMessage
-                    )
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    if updateHeight == 0 {
+                    
+                    
+                    
+                    if updateHeight != 0 {
                         
                         Button {
                             withAnimation {
-                                sheetPresented = true
+                                updateHeight = 0
                             }
+                            
                         } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .frame(width: 150,height: 50)
+                                    .foregroundStyle(.orange)
+                                
+                                Text("Reinitialiser")
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                        .padding()
+                    }
+                    
+                    if throwError && profilType.isEmpty {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(Color.orange)
+                            Text("Veuillez bien selectionner un profil")
+                        }
+                        .opacity(showMessage ? 1 : 0)
+                        .animation(
+                            .easeOut(duration: 1.0),value: showMessage
+                        )
+                    }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        if updateHeight == 0 {
+                            
+                            Button {
+                                withAnimation {
+                                    sheetPresented = true
+                                }
+                            } label: {
+                                Image(systemName: "gearshape.fill")
+                                    .font(.title2)
+                                    .foregroundStyle(.primary)
+                                    .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
+                                    .animation(
+                                        .linear(duration: 2.9)
+                                        .repeatForever(autoreverses: false),
+                                        value: rotationInfiny
+                                    )
+                                    .onAppear{
+                                        rotationInfiny = true
+                                    }
+                            }
+                            
+                            .sheet(isPresented: $sheetPresented) {
+                                
+                            } content: {
+                                UserSettingsView(profil:$profilType)
+                            }
+                            
+                        }else{
+                            
                             Image(systemName: "gearshape.fill")
                                 .font(.title2)
-                                .foregroundStyle(.primary)
-                                .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
-                                .animation(
-                                    .linear(duration: 2.9)
-                                    .repeatForever(autoreverses: false),
-                                    value: rotationInfiny
-                                )
-                                .onAppear{
-                                    rotationInfiny = true
-                                }
+                                .foregroundColor(.gray)
                         }
                         
-                        .sheet(isPresented: $sheetPresented) {
+                    }
+                    
+                    ToolbarItem(placement: .topBarLeading) {
+                        NavigationLink {
+                            ShowHistory(
+                                historyViewModel:HistoryViewModel(
+                                    viewContext: historyViewModel.viewContext)
+                            )
+                            .onAppear{
+                                historyViewModel.reload()
+                            }
                             
-                        } content: {
-                            UserSettingsView(profil:$profilType)
+                        } label: {
+                            Image(systemName: "clock.arrow.circlepath")
+                                .font(.title2)
+                                .foregroundStyle(.blue)
                         }
                         
-                    }else{
                         
-                        Image(systemName: "gearshape.fill")
-                            .font(.title2)
-                            .foregroundColor(.gray)
                     }
                     
                 }
-                
-                ToolbarItem(placement: .topBarLeading) {
-                    NavigationLink {
-                        ShowHistory(
-                            historyViewModel:HistoryViewModel(
-                                viewContext: historyViewModel.viewContext)
-                        )
-                        .onAppear{
-                            historyViewModel.reload()
-                        }
+                .onChange(of: updateHeight) {
+                    if updateHeight == 300 {
                         
-                    } label: {
-                        Image(systemName: "clock.arrow.circlepath")
-                            .font(.title2)
-                            .foregroundStyle(.blue)
-                    }
-               
-                    
-                }
-                
-            }
-            .onChange(of: updateHeight) {
-                if updateHeight == 300 {
-                    
-                    historyViewModel.name = profilType
-                    
-                    let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
-                    historyViewModel.quantity = formattedQuantity
-                    
-                    Task{
-                        do{
-                            try historyViewModel.addHistory()
-                        }catch{
-                            print("Erreur lors du test de l'ajout de l'historique : \(error)")
+                        historyViewModel.name = profilType
+                        
+                        let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
+                        historyViewModel.quantity = formattedQuantity
+                        
+                        Task{
+                            do{
+                                try historyViewModel.addHistory()
+                            }catch{
+                                print("Erreur lors du test de l'ajout de l'historique : \(error)")
+                            }
                         }
                     }
                 }
