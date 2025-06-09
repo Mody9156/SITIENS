@@ -19,6 +19,7 @@ struct WaterQuantityView: View {
     @Bindable var historyViewModel : HistoryViewModel
     @State var progress : CGFloat = 0.5
     @State var startAnimation : CGFloat = 0
+    
     let containers = [
            ("Petit verre", 200, "cup.and.saucer.fill"),
            ("Grand verre", 250, "cup.and.saucer.fill"),
@@ -51,6 +52,7 @@ struct WaterQuantityView: View {
                             GeometryReader { GeometryProxy in
                                 let height = GeometryProxy.size.height
                                 let width  = GeometryProxy.size.width
+                                
                                 ZStack(alignment: .bottom) {
                                 Image(systemName: "drop.fill")
                                     .resizable()
@@ -60,10 +62,11 @@ struct WaterQuantityView: View {
                                     .scaleEffect(x:1.1,y:1)
                                 
                                     WaterWave(
-                                        progress: 0.5,
+                                        progress: progress,
                                         waveHeight: 0.1,
-                                        offset: width
+                                        offset: startAnimation
                                     )
+                                   
                                     .fill(Color.blue)
                                     .overlay(
 content: {
@@ -116,6 +119,7 @@ content: {
                                                 )
                                                 .offset(x:-40,y:50)
                                         }
+                                       
                                     })
                                     .mask {
                                         Image(systemName: "drop.fill")
@@ -123,6 +127,11 @@ content: {
                                             .aspectRatio(contentMode: .fit)
                                             .padding(20)
                                             .offset(y:-1)
+                                    }
+                                    .overlay(
+                                        alignment:.bottom
+                                    ) {
+                                        
                                     }
 //                                RoundedRectangle(cornerRadius: 10)
 //                                    .frame(width:width * 0.3 , height: updateHeight)
@@ -135,12 +144,13 @@ content: {
 //                                       .bold()
 ////                                       .offset(y: -updateHeight / 2 + 10)//Ajuster
 //                                       .position(x: width / 2, y: height - height / 2)
-                            }
-                                .frame(
+                            }.frame(
                                     width: width,
                                     height: height,
                                     alignment: .center
                                 )
+                                
+                                
 //                            RoundedRectangle(cornerRadius: 10)
 //                                .frame(width: 200, height: 300)
 //                                .foregroundColor(.clear)
@@ -148,8 +158,17 @@ content: {
 //                                    RoundedRectangle(cornerRadius: 10)
 //                                        .stroke(Color.blue, lineWidth: 2)
 //                                )
-                            
-                     
+//                            .scaleEffect(startAnimation)
+//                            .scaleEffect(startAnimation)
+                            .onAppear{
+                                withAnimation(
+                                    .easeOut(duration:2)
+                                    .repeatForever(autoreverses: true))
+                                {
+                                    startAnimation = width
+                                }
+
+                            }
                         }
                             .frame(width: 350)
                     
@@ -171,9 +190,10 @@ content: {
                                 }
                             })
                             
-                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0{
+                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 || progress != 300{
                                 withAnimation {
                                     updateHeight += 50
+                                    progress += 0.1
                                 }
                             }
                         }
@@ -202,11 +222,12 @@ content: {
                     
                     .padding()
                     
-                    if updateHeight != 0 {
+                    if updateHeight != 0 || progress != 0{
                         
                         Button {
                             withAnimation {
                                 updateHeight = 0
+                                progress = 0
                             }
                             
                         } label: {
@@ -240,6 +261,7 @@ content: {
                         )
                     }
                 }
+                .frame(width: .infinity, height: .infinity, alignment: .top)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         if updateHeight == 0 {
