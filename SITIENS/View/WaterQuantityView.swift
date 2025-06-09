@@ -48,6 +48,9 @@ struct WaterQuantityView: View {
                     ZStack {
                         ZStack(alignment: .bottom) {
                         
+                            Image("water")
+                                .resizable()
+                                .frame(width: 200, height: 300)
                             
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 200, height: 300)
