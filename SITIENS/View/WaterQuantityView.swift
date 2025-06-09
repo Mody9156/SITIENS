@@ -47,6 +47,8 @@ struct WaterQuantityView: View {
                     
                     ZStack {
                         ZStack(alignment: .bottom) {
+                        
+                            
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 200, height: 300)
                                 .foregroundColor(.clear)
