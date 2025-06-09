@@ -17,6 +17,9 @@ struct WaterQuantityView: View {
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
     @Bindable var historyViewModel : HistoryViewModel
+    @State var progress : CGFloat = 0.5
+    @State var startAnimation : CGFloat = 0
+    
     let containers = [
            ("Petit verre", 200, "cup.and.saucer.fill"),
            ("Grand verre", 250, "cup.and.saucer.fill"),
@@ -44,30 +47,130 @@ struct WaterQuantityView: View {
                     Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
                         .foregroundStyle(.gray)
                         .font(.title2)
-                    
-                    ZStack {
-                        ZStack(alignment: .bottom) {
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 200, height: 300)
-                                .foregroundColor(.clear)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.blue, lineWidth: 2)
+                  
+                      
+                            GeometryReader { GeometryProxy in
+                                let height = GeometryProxy.size.height
+                                let width  = GeometryProxy.size.width
+                                
+                                ZStack(alignment: .bottom) {
+                                Image(systemName: "drop.fill")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundStyle(.white)
+                                    .scaleEffect(x:1.1,y:1)
+                                
+                                    WaterWave(
+                                        progress: progress,
+                                        waveHeight: 0.1,
+                                        offset: startAnimation
+                                    )
+                                   
+                                    .fill(Color.blue)
+                                    .overlay(
+content: {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 15,
+                                                    height: 15
+                                                )
+                                                .offset(x:-20)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 15,
+                                                    height: 15
+                                                )
+                                                .offset(x:40,y:30)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 25,
+                                                    height: 25
+                                                )
+                                                .offset(x:-30,y:80)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 25,
+                                                    height: 25
+                                                )
+                                                .offset(x:50,y:70)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 10,
+                                                    height: 10
+                                                )
+                                                .offset(x:40,y:100)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 10,
+                                                    height: 10
+                                                )
+                                                .offset(x:-40,y:50)
+                                        }
+                                       
+                                    })
+                                    .mask {
+                                        Image(systemName: "drop.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .padding(20)
+                                            .offset(y:-1)
+                                    }
+                                    .overlay(
+                                        alignment:.bottom
+                                    ) {
+                                        
+                                    }
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .frame(width:width * 0.3 , height: updateHeight)
+//                                       .foregroundStyle(.blue)
+//                                       .animation(.easeInOut, value: updateHeight)
+//                                       .position(x: width / 2, y: height - updateHeight / 2)
+//                                   Text("\(Int(updateHeight / 3))%")
+//                                       .font(.caption)
+//                                       .foregroundColor(updateHeight == 0 ? .blue : .white)
+//                                       .bold()
+////                                       .offset(y: -updateHeight / 2 + 10)//Ajuster
+//                                       .position(x: width / 2, y: height - height / 2)
+                            }.frame(
+                                    width: width,
+                                    height: height,
+                                    alignment: .center
                                 )
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 200, height: updateHeight)
-                                .foregroundStyle(.blue)
-                                .animation(.easeInOut, value: updateHeight)
-                            
-                            Text("\(Int(updateHeight / 3))%")
-                                .font(.caption)
-                                .foregroundColor(.white)
-                                .bold()
-                                .padding(.bottom, 8)
+                                
+                                
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .frame(width: 200, height: 300)
+//                                .foregroundColor(.clear)
+//                                .overlay(
+//                                    RoundedRectangle(cornerRadius: 10)
+//                                        .stroke(Color.blue, lineWidth: 2)
+//                                )
+//                            .scaleEffect(startAnimation)
+//                            .scaleEffect(startAnimation)
+                            .onAppear{
+                                withAnimation(
+                                    .easeOut(duration:2)
+                                    .repeatForever(autoreverses: true))
+                                {
+                                    startAnimation = width
+                                }
+
+                            }
                         }
-                        .padding()
-                    }
+                            .frame(width: 350)
                     
                     Button {
                         withAnimation {
@@ -87,9 +190,10 @@ struct WaterQuantityView: View {
                                 }
                             })
                             
-                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0{
+                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 || progress != 300{
                                 withAnimation {
                                     updateHeight += 50
+                                    progress += 0.1
                                 }
                             }
                         }
@@ -118,11 +222,12 @@ struct WaterQuantityView: View {
                     
                     .padding()
                     
-                    if updateHeight != 0 {
+                    if updateHeight != 0 || progress != 0{
                         
                         Button {
                             withAnimation {
                                 updateHeight = 0
+                                progress = 0
                             }
                             
                         } label: {
@@ -156,6 +261,7 @@ struct WaterQuantityView: View {
                         )
                     }
                 }
+                .frame(width: .infinity, height: .infinity, alignment: .top)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         if updateHeight == 0 {
@@ -234,4 +340,36 @@ struct WaterQuantityView: View {
 
 #Preview {
     WaterQuantityView(historyViewModel: HistoryViewModel())
+}
+
+
+struct WaterWave: Shape {
+    var progress : CGFloat
+    //Wague
+    var waveHeight : CGFloat
+    //Animation du début
+    var offset : CGFloat
+    // Aniamtion
+    var animation : CGFloat {
+        get {offset}
+        set{offset = newValue}
+    }
+    
+    func path(in rect: CGRect) -> Path {
+        return Path { path in
+            path.move(to: .zero)
+            let progressHeight : CGFloat = (1 - progress) * rect.height
+            let height = waveHeight * rect.height
+            
+            for value in stride(from: 0, to: rect.width, by: 1) {
+                let x : CGFloat = value
+                let sine : CGFloat = sin(Angle(degrees:value + offset).radians)
+                let y : CGFloat = progressHeight + (height * sine)
+                
+                path.addLine(to: CGPoint(x: x, y: y))
+            }
+            path.addLine(to: CGPoint(x: rect.width, y: rect.height))
+            path.addLine(to: CGPoint(x: 0, y: rect.height))
+        }
+    }
 }
