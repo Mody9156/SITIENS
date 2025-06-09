@@ -44,35 +44,59 @@ struct WaterQuantityView: View {
                     Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
                         .foregroundStyle(.gray)
                         .font(.title2)
-                    
-                    ZStack {
-                        ZStack(alignment: .bottom) {
-                        
-                            Image("water")
-                                .resizable()
-                                .frame(width: 200, height: 300)
-                            
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 200, height: 300)
-                                .foregroundColor(.clear)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.blue, lineWidth: 2)
+                  
+                      
+                            GeometryReader { GeometryProxy in
+                                let height = GeometryProxy.size.height
+                                let width  = GeometryProxy.size.width
+                                ZStack(alignment: .bottom) {
+                                Image(systemName: "drop.fill")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundStyle(.white)
+                                    .scaleEffect(x:1.1,y:1)
+                                
+                                    WaterWave(
+                                        progress: updateHeight,
+                                        waveHeight: 0.1,
+                                        offset: width
+                                    )
+                                    .fill(Color.blue)
+                                    .mask {
+                                        Image(systemName: "drop.fill")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .padding(20)
+                                    }
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .frame(width:width * 0.3 , height: updateHeight)
+//                                       .foregroundStyle(.blue)
+//                                       .animation(.easeInOut, value: updateHeight)
+//                                       .position(x: width / 2, y: height - updateHeight / 2)
+//                                   Text("\(Int(updateHeight / 3))%")
+//                                       .font(.caption)
+//                                       .foregroundColor(updateHeight == 0 ? .blue : .white)
+//                                       .bold()
+////                                       .offset(y: -updateHeight / 2 + 10)//Ajuster
+//                                       .position(x: width / 2, y: height - height / 2)
+                            }
+                                .frame(
+                                    width: width,
+                                    height: height,
+                                    alignment: .center
                                 )
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .frame(width: 200, height: 300)
+//                                .foregroundColor(.clear)
+//                                .overlay(
+//                                    RoundedRectangle(cornerRadius: 10)
+//                                        .stroke(Color.blue, lineWidth: 2)
+//                                )
                             
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: 200, height: updateHeight)
-                                .foregroundStyle(.blue)
-                                .animation(.easeInOut, value: updateHeight)
-                            
-                            Text("\(Int(updateHeight / 3))%")
-                                .font(.caption)
-                                .foregroundColor(updateHeight == 0 ? .blue : .white)
-                                .bold()
-                                .padding(.bottom, 8)
+                     
                         }
-                        .padding()
-                    }
+                            .frame(width: 350)
                     
                     Button {
                         withAnimation {
@@ -239,4 +263,36 @@ struct WaterQuantityView: View {
 
 #Preview {
     WaterQuantityView(historyViewModel: HistoryViewModel())
+}
+
+
+struct WaterWave: Shape {
+    var progress : CGFloat
+    //Wague
+    var waveHeight : CGFloat
+    //Animation du début
+    var offset : CGFloat
+    // Aniamtion
+    var animation : CGFloat {
+        get {offset}
+        set{offset = newValue}
+    }
+    
+    func path(in rect: CGRect) -> Path {
+        return Path { path in
+            path.move(to: .zero)
+            let progressHeight : CGFloat = (1 - progress) * rect.height
+            let height = waveHeight * rect.height
+            
+            for value in stride(from: 0, to: rect.width, by: 1) {
+                let x : CGFloat = value
+                let sine : CGFloat = sin(Angle(degrees:value + offset).radians)
+                let y : CGFloat = progressHeight + (height * sine)
+                
+                path.addLine(to: CGPoint(x: x, y: y))
+            }
+            path.addLine(to: CGPoint(x: rect.width, y: rect.height))
+            path.addLine(to: CGPoint(x: 0, y: rect.height))
+        }
+    }
 }
