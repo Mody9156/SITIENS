@@ -62,7 +62,7 @@ struct WaterQuantityView: View {
                             
                             Text("\(Int(updateHeight / 3))%")
                                 .font(.caption)
-                                .foregroundColor(.white)
+                                .foregroundColor(updateHeight == 0 ? .blue : .white)
                                 .bold()
                                 .padding(.bottom, 8)
                         }
