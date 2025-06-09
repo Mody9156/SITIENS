@@ -18,6 +18,7 @@ struct WaterQuantityView: View {
     @State var showMessage : Bool = false
     @Bindable var historyViewModel : HistoryViewModel
     @State var progress : CGFloat = 0.5
+    @State var startAnimation : CGFloat = 0
     let containers = [
            ("Petit verre", 200, "cup.and.saucer.fill"),
            ("Grand verre", 250, "cup.and.saucer.fill"),
