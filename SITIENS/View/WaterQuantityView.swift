@@ -17,6 +17,7 @@ struct WaterQuantityView: View {
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
     @Bindable var historyViewModel : HistoryViewModel
+    @State var progress : CGFloat = 0.5
     let containers = [
            ("Petit verre", 200, "cup.and.saucer.fill"),
            ("Grand verre", 250, "cup.and.saucer.fill"),
@@ -58,16 +59,69 @@ struct WaterQuantityView: View {
                                     .scaleEffect(x:1.1,y:1)
                                 
                                     WaterWave(
-                                        progress: updateHeight,
+                                        progress: 0.5,
                                         waveHeight: 0.1,
                                         offset: width
                                     )
                                     .fill(Color.blue)
+                                    .overlay(
+content: {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 15,
+                                                    height: 15
+                                                )
+                                                .offset(x:-20)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 15,
+                                                    height: 15
+                                                )
+                                                .offset(x:40,y:30)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 25,
+                                                    height: 25
+                                                )
+                                                .offset(x:-30,y:80)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 25,
+                                                    height: 25
+                                                )
+                                                .offset(x:50,y:70)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 10,
+                                                    height: 10
+                                                )
+                                                .offset(x:40,y:100)
+                                            
+                                            Circle()
+                                                .fill(Color.white.opacity(0.1))
+                                                .frame(
+                                                    width: 10,
+                                                    height: 10
+                                                )
+                                                .offset(x:-40,y:50)
+                                        }
+                                    })
                                     .mask {
                                         Image(systemName: "drop.fill")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .padding(20)
+                                            .offset(y:-1)
                                     }
 //                                RoundedRectangle(cornerRadius: 10)
 //                                    .frame(width:width * 0.3 , height: updateHeight)
