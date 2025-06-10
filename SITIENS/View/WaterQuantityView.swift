@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 struct WaterQuantityView: View {
     @State var updateHeight : CGFloat = 0
@@ -19,13 +20,15 @@ struct WaterQuantityView: View {
     @Bindable var historyViewModel : HistoryViewModel
     @State var progress : CGFloat = 0.5
     @State var startAnimation : CGFloat = 0
+    @State private var isScaledUp = false
+
     
     let containers = [
-           ("Petit verre", 200, "cup.and.saucer.fill"),
-           ("Grand verre", 250, "cup.and.saucer.fill"),
-           ("Grande bouteille", 1000, "bottle.fill"),
-           ("Petite bouteille", 500, "bottle.fill")
-       ]
+        ("Petit verre", 200, "cup.and.saucer.fill"),
+        ("Grand verre", 250, "cup.and.saucer.fill"),
+        ("Grande bouteille", 1000, "bottle.fill"),
+        ("Petite bouteille", 500, "bottle.fill")
+    ]
     //Ne pas oublier d'ajouter ce dernier
     var body: some View {
         NavigationStack {
@@ -47,130 +50,114 @@ struct WaterQuantityView: View {
                     Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
                         .foregroundStyle(.gray)
                         .font(.title2)
-                  
-                      
-                            GeometryReader { GeometryProxy in
-                                let height = GeometryProxy.size.height
-                                let width  = GeometryProxy.size.width
-                                
-                                ZStack(alignment: .bottom) {
+                    
+                    GeometryReader { GeometryProxy in
+                        let height = GeometryProxy.size.height
+                        let width  = GeometryProxy.size.width
+                        
+                        ZStack{
+                            
+                            Image(systemName: "drop.fill")
+                                .resizable()
+                                .renderingMode(.template)
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(.white)
+                            
+                               
+                            
+                            WaterWave(
+                                progress: 0.5,
+                                waveHeight: 0.1,
+                                offset: startAnimation
+                            )
+                            
+                            .fill(Color.blue)
+                            .overlay(
+                                content: {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color.white.opacity(0.1))
+                                            .frame(
+                                                width: 15,
+                                                height: 15
+                                            )
+                                            .offset(x:-20)
+                                        
+                                        Circle()
+                                            .fill(Color.white.opacity(0.1))
+                                            .frame(
+                                                width: 15,
+                                                height: 15
+                                            )
+                                            .offset(x:40,y:30)
+                                        
+                                        Circle()
+                                            .fill(Color.white.opacity(0.1))
+                                            .frame(
+                                                width: 25,
+                                                height: 25
+                                            )
+                                            .offset(x:-30,y:80)
+                                        
+                                        Circle()
+                                            .fill(Color.white.opacity(0.1))
+                                            .frame(
+                                                width: 25,
+                                                height: 25
+                                            )
+                                            .offset(x:50,y:70)
+                                        
+                                        Circle()
+                                            .fill(Color.white.opacity(0.1))
+                                            .frame(
+                                                width: 10,
+                                                height: 10
+                                            )
+                                            .offset(x:40,y:100)
+                                        
+                                        Circle()
+                                            .fill(Color.white.opacity(0.1))
+                                            .frame(
+                                                width: 10,
+                                                height: 10
+                                            )
+                                            .offset(x:-40,y:50)
+                                    }
+                                    
+                                })
+                            .mask {
                                 Image(systemName: "drop.fill")
                                     .resizable()
-                                    .renderingMode(.template)
                                     .aspectRatio(contentMode: .fit)
-                                    .foregroundStyle(.white)
-                                    .scaleEffect(x:1.1,y:1)
+                                    .padding(20)
+                                    .scaleEffect(x:isScaledUp ? 1.0 : 1.1,y:1)
+                                    .offset(y: -1)
+                             }
+                            
+                            .overlay(
+                                alignment:.bottom
+                            ) {
                                 
-                                    WaterWave(
-                                        progress: progress,
-                                        waveHeight: 0.1,
-                                        offset: startAnimation
-                                    )
-                                   
-                                    .fill(Color.blue)
-                                    .overlay(
-content: {
-                                        ZStack {
-                                            Circle()
-                                                .fill(Color.white.opacity(0.1))
-                                                .frame(
-                                                    width: 15,
-                                                    height: 15
-                                                )
-                                                .offset(x:-20)
-                                            
-                                            Circle()
-                                                .fill(Color.white.opacity(0.1))
-                                                .frame(
-                                                    width: 15,
-                                                    height: 15
-                                                )
-                                                .offset(x:40,y:30)
-                                            
-                                            Circle()
-                                                .fill(Color.white.opacity(0.1))
-                                                .frame(
-                                                    width: 25,
-                                                    height: 25
-                                                )
-                                                .offset(x:-30,y:80)
-                                            
-                                            Circle()
-                                                .fill(Color.white.opacity(0.1))
-                                                .frame(
-                                                    width: 25,
-                                                    height: 25
-                                                )
-                                                .offset(x:50,y:70)
-                                            
-                                            Circle()
-                                                .fill(Color.white.opacity(0.1))
-                                                .frame(
-                                                    width: 10,
-                                                    height: 10
-                                                )
-                                                .offset(x:40,y:100)
-                                            
-                                            Circle()
-                                                .fill(Color.white.opacity(0.1))
-                                                .frame(
-                                                    width: 10,
-                                                    height: 10
-                                                )
-                                                .offset(x:-40,y:50)
-                                        }
-                                       
-                                    })
-                                    .mask {
-                                        Image(systemName: "drop.fill")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .padding(20)
-                                            .offset(y:-1)
-                                    }
-                                    .overlay(
-                                        alignment:.bottom
-                                    ) {
-                                        
-                                    }
-//                                RoundedRectangle(cornerRadius: 10)
-//                                    .frame(width:width * 0.3 , height: updateHeight)
-//                                       .foregroundStyle(.blue)
-//                                       .animation(.easeInOut, value: updateHeight)
-//                                       .position(x: width / 2, y: height - updateHeight / 2)
-//                                   Text("\(Int(updateHeight / 3))%")
-//                                       .font(.caption)
-//                                       .foregroundColor(updateHeight == 0 ? .blue : .white)
-//                                       .bold()
-////                                       .offset(y: -updateHeight / 2 + 10)//Ajuster
-//                                       .position(x: width / 2, y: height - height / 2)
-                            }.frame(
-                                    width: width,
-                                    height: height,
-                                    alignment: .center
-                                )
-                                
-                                
-//                            RoundedRectangle(cornerRadius: 10)
-//                                .frame(width: 200, height: 300)
-//                                .foregroundColor(.clear)
-//                                .overlay(
-//                                    RoundedRectangle(cornerRadius: 10)
-//                                        .stroke(Color.blue, lineWidth: 2)
-//                                )
-//                            .scaleEffect(startAnimation)
-//                            .scaleEffect(startAnimation)
-                            .onAppear{
-                                withAnimation(
-                                    .easeOut(duration:2)
-                                    .repeatForever(autoreverses: true))
-                                {
-                                    startAnimation = width
-                                }
-
                             }
+                            
                         }
-                            .frame(width: 350)
+                        .frame(
+                            width: width,
+                            height: height,
+                            alignment: .center
+                        )
+                        .onAppear{
+                            withAnimation(
+                                .linear(duration: 2)
+                                .repeatForever(autoreverses: true)){
+                                    isScaledUp = true
+                            }
+                            
+                            
+                            
+                        }
+                    }
+                    .frame(width: 350)
                     
                     Button {
                         withAnimation {
@@ -190,10 +177,10 @@ content: {
                                 }
                             })
                             
-                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 || progress != 300{
+                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 {
                                 withAnimation {
                                     updateHeight += 50
-                                    progress += 0.1
+                                    progress += 0.2
                                 }
                             }
                         }
@@ -222,7 +209,7 @@ content: {
                     
                     .padding()
                     
-                    if updateHeight != 0 || progress != 0{
+                    if updateHeight != 0 {
                         
                         Button {
                             withAnimation {
@@ -261,10 +248,9 @@ content: {
                         )
                     }
                 }
-                .frame(width: .infinity, height: .infinity, alignment: .top)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        if updateHeight == 0 {
+                        if progress == 0 {
                             
                             Button {
                                 withAnimation {
@@ -317,7 +303,7 @@ content: {
                     }
                 }
                 .onChange(of: updateHeight) {
-                    if updateHeight == 300 {
+                    if progress == 300 {
                         
                         historyViewModel.name = profilType
                         
@@ -342,7 +328,6 @@ content: {
     WaterQuantityView(historyViewModel: HistoryViewModel())
 }
 
-
 struct WaterWave: Shape {
     var progress : CGFloat
     //Wague
@@ -351,19 +336,21 @@ struct WaterWave: Shape {
     var offset : CGFloat
     // Aniamtion
     var animation : CGFloat {
-        get {offset}
+        get{offset}
         set{offset = newValue}
     }
     
     func path(in rect: CGRect) -> Path {
         return Path { path in
+            //Start
             path.move(to: .zero)
+            
             let progressHeight : CGFloat = (1 - progress) * rect.height
             let height = waveHeight * rect.height
             
-            for value in stride(from: 0, to: rect.width, by: 1) {
+            for value in stride(from: 0, to: rect.width, by: 2) {
                 let x : CGFloat = value
-                let sine : CGFloat = sin(Angle(degrees:value + offset).radians)
+                let sine : CGFloat = sin(Angle(degrees:  value + offset).radians)
                 let y : CGFloat = progressHeight + (height * sine)
                 
                 path.addLine(to: CGPoint(x: x, y: y))
