@@ -17,7 +17,7 @@ struct WaterQuantityView: View {
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
     @Bindable var historyViewModel : HistoryViewModel
-    @State var progress : CGFloat = 0.5
+    @State var progress : CGFloat = 0.0
     @State var startAnimation : CGFloat = 0
     
     let containers = [
@@ -48,7 +48,6 @@ struct WaterQuantityView: View {
                         .foregroundStyle(.gray)
                         .font(.title2)
                   
-                      
                             GeometryReader { GeometryProxy in
                                 let height = GeometryProxy.size.height
                                 let width  = GeometryProxy.size.width
@@ -165,7 +164,7 @@ content: {
                                     .easeOut(duration:2)
                                     .repeatForever(autoreverses: true))
                                 {
-                                    startAnimation = width
+                                    startAnimation = 300
                                 }
 
                             }
@@ -190,10 +189,10 @@ content: {
                                 }
                             })
                             
-                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 || progress != 300{
+                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 {
                                 withAnimation {
                                     updateHeight += 50
-                                    progress += 0.1
+                                    progress += 0.2
                                 }
                             }
                         }
@@ -222,7 +221,7 @@ content: {
                     
                     .padding()
                     
-                    if updateHeight != 0 || progress != 0{
+                    if updateHeight != 0 {
                         
                         Button {
                             withAnimation {
@@ -264,7 +263,7 @@ content: {
                 .frame(width: .infinity, height: .infinity, alignment: .top)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        if updateHeight == 0 {
+                        if progress == 0 {
                             
                             Button {
                                 withAnimation {
@@ -317,7 +316,7 @@ content: {
                     }
                 }
                 .onChange(of: updateHeight) {
-                    if updateHeight == 300 {
+                    if progress == 300 {
                         
                         historyViewModel.name = profilType
                         
