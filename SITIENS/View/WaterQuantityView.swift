@@ -48,21 +48,20 @@ struct WaterQuantityView: View {
                         let width  = GeometryProxy.size.width
                         
                         ZStack{
-                            
-                            Image(systemName: "drop.fill")
+                             Image(systemName: "drop.fill")
                                 .resizable()
                                 .renderingMode(.template)
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(.white)
-                                .offset(y: -1)
-                                .scaleEffect(x: 1.1,y: 1)
                             
                             WaterWave(
-                                progress: 0.5,
+                                progress: progress,
                                 waveHeight: 0.1,
                                 offset: startAnimation
                             )
                             .fill(Color.blue)
+                            .scaleEffect(x: isScaledUp ? 2:1.1,y:1)
+                            .offset(y: -1)
                             .overlay(
                                 content: {
                                     ZStack {
@@ -135,8 +134,8 @@ struct WaterQuantityView: View {
                         )
                         .onAppear{
                             withAnimation(
-                                .linear(duration: 2)
-                                .repeatForever(autoreverses: false)){
+                                .linear(duration: 0.8)
+                                .repeatForever(autoreverses: true)){
                                     isScaledUp = true
                             }
                         }
