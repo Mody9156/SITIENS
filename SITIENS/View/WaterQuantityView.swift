@@ -21,7 +21,7 @@ struct WaterQuantityView: View {
     @State var progress : CGFloat = 0.0
     @State var startAnimation : CGFloat = 0
     @State private var isScaledUp = false
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -48,13 +48,13 @@ struct WaterQuantityView: View {
                         let width  = GeometryProxy.size.width
                         
                         ZStack{
-                             Image(systemName: "drop.fill")
+                            
+                            Image(systemName: "drop.fill")
                                 .resizable()
                                 .renderingMode(.template)
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(.white)
-                                
-                                .offset(y: -1)
+                            
                             
                             WaterWave(
                                 progress: progress,
@@ -121,10 +121,10 @@ struct WaterQuantityView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .padding(20)
-                             }
+                            }
                             .overlay(
                                 alignment:.bottom
-                            ) {
+                            ){
                                 Button {
                                     withAnimation {
                                         throwError = true
@@ -152,45 +152,29 @@ struct WaterQuantityView: View {
                                     }
                                     
                                 } label: {
-//                                    ZStack {
-//                                        RoundedRectangle(cornerRadius: 12)
-//                                            .frame(height: 50)
-//                                            .foregroundStyle(updateHeight == 300 ? .green : .blue)
-//                                            .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
-//                                        
-//                                        HStack {
-//                                            Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
-//                                                .foregroundStyle(.white)
-//                                                .fontWeight(.semibold)
-//                                                .font(.system(size: 16))
-//                                            
-//                                            if updateHeight != 300  {
-//                                                Image(systemName: "drop.fill" )
-//                                                    .foregroundStyle(.white)
-//                                            }
-//                                        }
-//                                    }
-//                                    .padding(.horizontal)
                                     
-                                        Image(systemName: "plus")
-                                            .font(.system(size:60,weight:.bold))
-                                            .foregroundStyle(.blue)
-                                            .shadow(radius: 2)
-                                            .padding(25)
-                                            .background(
-                                                Circle()
-                                                    .foregroundStyle(.white)
-                                                    .overlay(content: {
-                                                        Circle()
-                                                            .stroke(.blue,lineWidth:6)
-                                                    })
-                                                   
-                                            )
-                                           
-                                            
+                                    Image(systemName: "plus")
+                                        .font(.system(size:60,weight:.bold))
+                                        .foregroundStyle(.blue)
+                                        .shadow(radius: 2)
+                                        .padding(25)
+                                        .background(
+                                            Circle()
+                                                .foregroundStyle(.white)
+                                                .overlay(content: {
+                                                    Circle()
+                                                        .stroke(.blue,lineWidth:6)
+                                                })
+                                        )
                                 }
-                               
+                                
                             }
+                            
+                            Text("\(Int((updateHeight / 300) * 100)) %")
+                                .foregroundStyle(updateHeight >= 150 ? .white: .blue)
+                                .font(.title)
+                                .offset(y:75)
+                            
                         }
                         .frame(
                             width: width,
@@ -203,12 +187,10 @@ struct WaterQuantityView: View {
                                 .repeatForever(autoreverses: true)){
                                     startAnimation = 300
                                     isScaledUp = true
-                            }
+                                }
                         }
                     }
                     .frame(width: 350)
-                    
-                   
                     
                     if updateHeight != 0 {
                         
