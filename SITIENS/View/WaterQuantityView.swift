@@ -18,18 +18,10 @@ struct WaterQuantityView: View {
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
     @Bindable var historyViewModel : HistoryViewModel
-    @State var progress : CGFloat = 0.5
+    @State var progress : CGFloat = 0.0
     @State var startAnimation : CGFloat = 0
     @State private var isScaledUp = false
 
-    
-    let containers = [
-        ("Petit verre", 200, "cup.and.saucer.fill"),
-        ("Grand verre", 250, "cup.and.saucer.fill"),
-        ("Grande bouteille", 1000, "bottle.fill"),
-        ("Petite bouteille", 500, "bottle.fill")
-    ]
-    //Ne pas oublier d'ajouter ce dernier
     var body: some View {
         NavigationStack {
             ZStack {
@@ -62,15 +54,14 @@ struct WaterQuantityView: View {
                                 .renderingMode(.template)
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(.white)
-                            
-                               
+                                .offset(y: -1)
+                                .scaleEffect(x: 1.1,y: 1)
                             
                             WaterWave(
                                 progress: 0.5,
                                 waveHeight: 0.1,
                                 offset: startAnimation
                             )
-                            
                             .fill(Color.blue)
                             .overlay(
                                 content: {
@@ -130,16 +121,12 @@ struct WaterQuantityView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .padding(20)
-                                    .scaleEffect(x:isScaledUp ? 1.0 : 1.1,y:1)
-                                    .offset(y: -1)
                              }
-                            
                             .overlay(
                                 alignment:.bottom
                             ) {
                                 
                             }
-                            
                         }
                         .frame(
                             width: width,
@@ -149,12 +136,9 @@ struct WaterQuantityView: View {
                         .onAppear{
                             withAnimation(
                                 .linear(duration: 2)
-                                .repeatForever(autoreverses: true)){
+                                .repeatForever(autoreverses: false)){
                                     isScaledUp = true
                             }
-                            
-                            
-                            
                         }
                     }
                     .frame(width: 350)
@@ -206,7 +190,6 @@ struct WaterQuantityView: View {
                         }
                         .padding(.horizontal)
                     }
-                    
                     .padding()
                     
                     if updateHeight != 0 {
