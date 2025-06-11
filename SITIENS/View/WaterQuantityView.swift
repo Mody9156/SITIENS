@@ -53,15 +53,16 @@ struct WaterQuantityView: View {
                                 .renderingMode(.template)
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(.white)
+                                
+                                .offset(y: -1)
                             
                             WaterWave(
                                 progress: progress,
-                                waveHeight: 0.1,
+                                waveHeight:0.1,
                                 offset: startAnimation
                             )
                             .fill(Color.blue)
-                            .scaleEffect(x: isScaledUp ? 2:1.1,y:1)
-                            .offset(y: -1)
+                            .scaleEffect(x: isScaledUp ? 1.1:1,y:isScaledUp ? 1:1.1)
                             .overlay(
                                 content: {
                                     ZStack {
@@ -124,7 +125,71 @@ struct WaterQuantityView: View {
                             .overlay(
                                 alignment:.bottom
                             ) {
-                                
+                                Button {
+                                    withAnimation {
+                                        throwError = true
+                                        showMessage = false
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                                            withAnimation {
+                                                showMessage = true
+                                            }
+                                        })
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                                            withAnimation {
+                                                showMessage = false
+                                                throwError = false
+                                            }
+                                        })
+                                        
+                                        if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 {
+                                            withAnimation {
+                                                updateHeight += 50
+                                                progress += 0.2
+                                            }
+                                        }
+                                    }
+                                    
+                                } label: {
+//                                    ZStack {
+//                                        RoundedRectangle(cornerRadius: 12)
+//                                            .frame(height: 50)
+//                                            .foregroundStyle(updateHeight == 300 ? .green : .blue)
+//                                            .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
+//                                        
+//                                        HStack {
+//                                            Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
+//                                                .foregroundStyle(.white)
+//                                                .fontWeight(.semibold)
+//                                                .font(.system(size: 16))
+//                                            
+//                                            if updateHeight != 300  {
+//                                                Image(systemName: "drop.fill" )
+//                                                    .foregroundStyle(.white)
+//                                            }
+//                                        }
+//                                    }
+//                                    .padding(.horizontal)
+                                    
+                                        Image(systemName: "plus")
+                                            .font(.system(size:60,weight:.bold))
+                                            .foregroundStyle(.blue)
+                                            .shadow(radius: 2)
+                                            .padding(25)
+                                            .background(
+                                                Circle()
+                                                    .foregroundStyle(.white)
+                                                    .overlay(content: {
+                                                        Circle()
+                                                            .stroke(.blue,lineWidth:6)
+                                                    })
+                                                   
+                                            )
+                                           
+                                            
+                                }
+                               
                             }
                         }
                         .frame(
@@ -136,60 +201,14 @@ struct WaterQuantityView: View {
                             withAnimation(
                                 .linear(duration: 0.8)
                                 .repeatForever(autoreverses: true)){
+                                    startAnimation = 300
                                     isScaledUp = true
                             }
                         }
                     }
                     .frame(width: 350)
                     
-                    Button {
-                        withAnimation {
-                            throwError = true
-                            showMessage = false
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                                withAnimation {
-                                    showMessage = true
-                                }
-                            })
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-                                withAnimation {
-                                    showMessage = false
-                                    throwError = false
-                                }
-                            })
-                            
-                            if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 {
-                                withAnimation {
-                                    updateHeight += 50
-                                    progress += 0.2
-                                }
-                            }
-                        }
-                        
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(height: 50)
-                                .foregroundStyle(updateHeight == 300 ? .green : .blue)
-                                .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
-                            
-                            HStack {
-                                Text(updateHeight == 300 ? "Objectif atteint" : "Ajouter de l'eau")
-                                    .foregroundStyle(.white)
-                                    .fontWeight(.semibold)
-                                    .font(.system(size: 16))
-                                
-                                if updateHeight != 300  {
-                                    Image(systemName: "drop.fill" )
-                                        .foregroundStyle(.white)
-                                }
-                            }
-                        }
-                        .padding(.horizontal)
-                    }
-                    .padding()
+                   
                     
                     if updateHeight != 0 {
                         
