@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeView: View {
     @State private var activeBool : Bool = false
     @Binding  var activeNavLink : Bool
-    @State var widthAnimation : CGFloat = 0
     var moreText : String {
         return   """
         Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales.
@@ -62,22 +61,10 @@ struct HomeView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: 350)
-//                        .clipShape(RoundedRectangle(cornerRadius: 16))
                         .shadow(radius: 5)
                         .clipShape(Capsule())
                     
-                    Capsule()
-                        .fill(Color.blue)
-                        .frame(width:widthAnimation ,height: 4)
-                        .overlay(.white)
-                        .animation(
-                            .easeInOut(duration: 2)
-                            .repeatForever(autoreverses: true),
-                            value: widthAnimation
-                        )
-                        .onAppear{
-                            widthAnimation = 250
-                        }
+            
                     
                     ScrollView {
                             Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
