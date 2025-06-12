@@ -72,12 +72,14 @@ struct InformationView: View {
 //                        .overlay(Circle().stroke(Color.black, lineWidth: 4))
                         .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                     
+                    Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
+                    
                     ScrollView {
                         VStack(alignment: .leading) {
-                            Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                                .font(.title)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.blue)
+                            
                             
                             Text("""
                                 D’une manière générale, il est fortement déconseillé de boire plus de 5 litres d’eau par jour, \
