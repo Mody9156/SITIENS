@@ -70,7 +70,7 @@ struct HomeView: View {
                             .clipShape(Circle())
                             .offset(y:-100)
                         
-                        ExtractedView()
+                        ScrollView()
                     }
                 }
             }
@@ -88,7 +88,7 @@ struct HomeView: View {
 }
 
 
-struct ExtractedView: View {
+struct ScrollView: View {
     var body: some View {
         ScrollView {
             Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
