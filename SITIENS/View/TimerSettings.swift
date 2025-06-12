@@ -111,13 +111,6 @@ struct TimerSettings: View {
                         isPlaying: $isPlaying,
                         hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
                     )
-                    
-                    Slider(value: Binding(get: {
-                        slide
-                    }, set: { newValue in
-                        audio?.currentTime = newValue
-                        slide = newValue
-                    }))
                 }
                 .padding()
             }
