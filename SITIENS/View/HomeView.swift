@@ -39,6 +39,7 @@ struct HomeView: View {
                 
                 VStack {
                     HStack{
+                        
                         Spacer()
                         
                         Button(action: {
@@ -62,77 +63,72 @@ struct HomeView: View {
                         .scaledToFit()
                         .frame(height: 350)
                         .shadow(radius: 5)
-                        .clipShape(Capsule())
-                    
-            
+                        .clipShape(Circle())
                     
                     ScrollView {
-                            Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
-                                .font(.title)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                                .padding(.leading)
-                                .padding(.trailing)
-                                .padding(.top)
-                            Text(
-                                 """
-                                 Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales...
-                                 
-                                 """)
-                            .font(.body)
-                            .background(Color.gray.opacity(0.05))
-                            .cornerRadius(8)
+                        Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
                             .padding(.leading)
                             .padding(.trailing)
                             .padding(.top)
-                            
-                            Button {
-                                withAnimation {
-                                    activeBool.toggle()
-                                }
-                                
-                            } label: {
-                                Text("Lire plus")
-                                    .fontWeight(.medium)
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
-                                    .background(Color.blue.opacity(0.1))
-                                    .cornerRadius(8)
+                        Text("""
+                                 Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales...
+                                 
+                                 """)
+                        .font(.body)
+                        .background(Color.gray.opacity(0.05))
+                        .cornerRadius(8)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .padding(.top)
+                        
+                        Button {
+                            withAnimation {
+                                activeBool.toggle()
                             }
-                            .accessibilityLabel("Lire plus sur l’hydratation")
-                            .accessibilityHint("Ouvre une fenêtre avec plus d’informations")
-                            .sheet(isPresented: $activeBool) {
-                                ScrollView {
-                                    ZStack {
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                        .ignoresSafeArea()
+                        } label: {
+                            Text("Lire plus")
+                                .fontWeight(.medium)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(Color.blue.opacity(0.1))
+                                .cornerRadius(8)
+                        }
+                        .accessibilityLabel("Lire plus sur l’hydratation")
+                        .accessibilityHint("Ouvre une fenêtre avec plus d’informations")
+                        .sheet(isPresented: $activeBool) {
+                            ScrollView {
+                                ZStack {
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                    .ignoresSafeArea()
+                                    
+                                    VStack(alignment: .center, spacing: 16) {
+                                        Text(moreText)
+                                            .font(.body)
+                                            .multilineTextAlignment(.leading)
                                         
-                                        VStack(alignment: .center, spacing: 16) {
-                                            Text(moreText)
-                                                .font(.body)
-                                                .multilineTextAlignment(.leading)
-                                            
-                                            Button("x") {
-                                                dissMiss()
-                                            }
-                                            .fontWeight(.medium)
-                                            .padding(.horizontal, 16)
-                                            .padding(.vertical, 8)
-                                            .background(Color.blue.opacity(0.1))
-                                            .cornerRadius(8)
-                                            .accessibilityLabel("Fermer la page")
-                                            .accessibilityHint("Fermer une fenêtre avec plus d’informations")
+                                        Button("x") {
+                                            dissMiss()
                                         }
-                                        .padding()
+                                        .fontWeight(.medium)
+                                        .padding(.horizontal, 16)
+                                        .padding(.vertical, 8)
+                                        .background(Color.blue.opacity(0.1))
+                                        .cornerRadius(8)
+                                        .accessibilityLabel("Fermer la page")
+                                        .accessibilityHint("Fermer une fenêtre avec plus d’informations")
                                     }
+                                    .padding()
                                 }
                             }
                         }
-                    
+                    }
                 }
             }
         }
