@@ -22,6 +22,8 @@ struct TimerSettings: View {
     @State  var isPlaying : Bool = false
     @State private var cancellable: Cancellable?
     @State private var navigationTitle : String = "Configuration"
+    @State private var slide : Double = 0.0
+    @State private var activeSlide : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -109,6 +111,13 @@ struct TimerSettings: View {
                         isPlaying: $isPlaying,
                         hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
                     )
+                    
+                    Slider(value: Binding(get: {
+                        slide
+                    }, set: { newValue in
+                        audio?.currentTime = newValue
+                        slide = newValue
+                    }))
                 }
                 .padding()
             }
