@@ -4,6 +4,7 @@ import WidgetKit
 import UIKit
 import CoreData
 
+// MARK: - HomeView : Chronomètre pour mesurer le temps restant avant une nouvelle hydradation
 struct Chronograph: View {
     @State var timerIsReading = false
     @State var hydrationActivationViewModel = HydrationActivationViewModel()
@@ -20,7 +21,8 @@ struct Chronograph: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background
+                
+                // MARK: - Fond avec dégradé bleu/cyan
                 LinearGradient(
                     gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
                     startPoint: .topLeading,
@@ -51,7 +53,8 @@ struct Chronograph: View {
                             .font(.system(size: 48, weight: .bold, design: .monospaced))
                             .foregroundStyle(.primary)
                     }
-                    // Bouton du cercle principal
+                    
+                    // MARK: - Bouton du cercle principal
                     HStack {
                         Start_timer(
                             showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
@@ -133,6 +136,7 @@ struct Chronograph: View {
     }
 }
 
+// MARK: - Preview
 #Preview {
     Chronograph()
 }

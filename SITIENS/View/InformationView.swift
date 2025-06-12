@@ -34,7 +34,8 @@ struct InformationView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // Background
+                
+                // MARK: - Fond avec dégradé bleu/cyan
                 LinearGradient(
                     gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
                     startPoint: .topLeading,
@@ -69,7 +70,6 @@ struct InformationView: View {
                         .scaledToFill()
                         .frame(width: 350, height: 350)
                         .clipShape(Circle())
-//                        .overlay(Circle().stroke(Color.black, lineWidth: 4))
                         .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                     
                     Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
@@ -79,7 +79,6 @@ struct InformationView: View {
                     
                     ScrollView {
                         VStack(alignment: .leading) {
-                            
                             
                             Text("""
                                 D’une manière générale, il est fortement déconseillé de boire plus de 5 litres d’eau par jour, \
@@ -91,11 +90,10 @@ struct InformationView: View {
                             .background(Color.gray.opacity(0.05))
                             .cornerRadius(8)
                             
-                            
-
                         }
                         .padding()
                         
+                        //MARK: - Bouton pour afficher l'intégralité du text
                         Button {
                             withAnimation {
                                 activeBool.toggle()
@@ -154,7 +152,6 @@ struct InformationView: View {
                                     }
                                     .padding()
                                 }
-//
                             }
                         }
                     }
