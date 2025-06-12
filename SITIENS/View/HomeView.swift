@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: - HomeView : Vue d'accueil avec contenu informatif sur l'hydratation
 struct HomeView: View {
     @State private var activeBool : Bool = false
     @Binding  var activeNavLink : Bool
@@ -29,7 +30,8 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                // Background
+                
+                // MARK: - Fond avec dégradé bleu/cyan
                 LinearGradient(
                     gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
                     startPoint: .topLeading,
@@ -38,6 +40,8 @@ struct HomeView: View {
                 .ignoresSafeArea()
                 
                 VStack {
+                    
+                    // MARK: - Bouton "Ignorer" en haut à droite
                     HStack{
                         
                         Spacer()
@@ -58,91 +62,94 @@ struct HomeView: View {
                     }
                     .padding()
                     
+                    // MARK: - Image principale en forme de cercle
                     Image("Water")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 350, height: 350)
                         .clipShape(Circle())
                         .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-              
                     
-                        Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.black)
-                            .padding(.leading)
-                            .padding(.trailing)
-                            .padding(.top)
-                        
-                        ScrollView {
-                           
-                            Text("""
+                    Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .padding(.top)
+                    
+                    // MARK: - Bloc de texte + bouton "Lire plus"
+                    ScrollView {
+                        Text("""
                                          Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales...
                                          
                                          """)
-                            .font(.body)
-                            .background(Color.gray.opacity(0.05))
-                            .cornerRadius(8)
-                            .padding(.leading)
-                            .padding(.trailing)
-                            .padding(.top)
-                            
-                            Button {
-                                withAnimation {
-                                    activeBool.toggle()
-                                }
-                            } label: {
-                                Text("Lire plus")
-                                    .fontWeight(.medium)
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 8)
-                                    .background(Color.blue.opacity(0.1))
-                                    .cornerRadius(8)
+                        .font(.body)
+                        .background(Color.gray.opacity(0.05))
+                        .cornerRadius(8)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .padding(.top)
+                        
+                        Button {
+                            withAnimation {
+                                activeBool.toggle()
                             }
-                            .accessibilityLabel("Lire plus sur l’hydratation")
-                            .accessibilityHint("Ouvre une fenêtre avec plus d’informations")
-                            .sheet(isPresented: $activeBool) {
-                                ScrollView {
-                                    ZStack {
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                        .ignoresSafeArea()
+                        } label: {
+                            Text("Lire plus")
+                                .fontWeight(.medium)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(Color.blue.opacity(0.1))
+                                .cornerRadius(8)
+                        }
+                        .accessibilityLabel("Lire plus sur l’hydratation")
+                        .accessibilityHint("Ouvre une fenêtre avec plus d’informations")
+                        
+                        // MARK: - Feuille modale avec le texte complet
+                        .sheet(isPresented: $activeBool) {
+                            ScrollView {
+                                ZStack {
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                    .ignoresSafeArea()
+                                    
+                                    VStack(alignment: .center, spacing: 16) {
+                                        Text(moreText)
+                                            .font(.body)
+                                            .multilineTextAlignment(.leading)
                                         
-                                        VStack(alignment: .center, spacing: 16) {
-                                            Text(moreText)
-                                                .font(.body)
-                                                .multilineTextAlignment(.leading)
-                                            
-                                            Button("x") {
-                                                dissMiss()
-                                            }
-                                            .fontWeight(.medium)
-                                            .padding(.horizontal, 16)
-                                            .padding(.vertical, 8)
-                                            .background(Color.blue.opacity(0.1))
-                                            .cornerRadius(8)
-                                            .accessibilityLabel("Fermer la page")
-                                            .accessibilityHint("Fermer une fenêtre avec plus d’informations")
+                                        Button("x") {
+                                            dissMiss()
                                         }
-                                        .padding()
+                                        .fontWeight(.medium)
+                                        .padding(.horizontal, 16)
+                                        .padding(.vertical, 8)
+                                        .background(Color.blue.opacity(0.1))
+                                        .cornerRadius(8)
+                                        .accessibilityLabel("Fermer la page")
+                                        .accessibilityHint("Fermer une fenêtre avec plus d’informations")
                                     }
+                                    .padding()
                                 }
                             }
                         }
-                    
-                  
+                    }
                 }
             }
         }
     }
+    
+    // MARK: - Fonction pour fermer la feuille modale
     func dissMiss(){
         activeBool = false
     }
 }
 
+// MARK: - Preview
 #Preview {
     @Previewable @State var activeNavLink: Bool = false
     HomeView(activeNavLink: $activeNavLink)
