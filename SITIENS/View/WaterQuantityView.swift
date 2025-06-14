@@ -230,9 +230,17 @@ struct WaterQuantityView: View {
                             .easeOut(duration: 1.0),value: showMessage
                         )
                     }
-//ici
+
                     HStack{
-                        Image("")
+                        Image("SmallGlace")
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
+                        Image("MediumGlace")
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
+                        Image("LargeGlace")
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
                     }
                 }
                 .toolbar {
