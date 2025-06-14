@@ -154,7 +154,7 @@ struct WaterQuantityView: View {
                                 } label: {
                                     
                                     Image(systemName: "plus")
-                                        .font(.system(size:60,weight:.bold))
+                                        .font(.system(size:45,weight:.bold))
                                         .foregroundStyle(.blue)
                                         .shadow(radius: 2)
                                         .padding(25)
@@ -229,6 +229,10 @@ struct WaterQuantityView: View {
                         .animation(
                             .easeOut(duration: 1.0),value: showMessage
                         )
+                    }
+//ici
+                    HStack{
+                        Image("")
                     }
                 }
                 .toolbar {

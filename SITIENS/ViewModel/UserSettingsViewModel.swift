@@ -65,5 +65,32 @@ class UserSettingsViewModel{
         
     }
     
+    func uptateQuanittyOfWater(name type: String) -> Int{
+        switch type  {
+        case "Nourrissons":
+            return 2
+        case "Femmes enceintes":
+            return 8
+        case "Personnes âgées":
+            return 6
+        case "Sportifs":
+            return 1
+        case "Enfants et adolescents":
+            return 8
+        case "Travailleurs en environnement chaud":
+            return 1
+        case "Personnes souffrant de maladies chroniques":
+            return 6
+        case "Personnes en surpoids ou obèses":
+            return 1
+        case "Voyageurs ou personnes en altitude":
+            return 1
+        case "Personnes sous traitement médicamenteux":
+            return 6
+        default:
+            return 0
+        }
+  
+    }
     
 }
