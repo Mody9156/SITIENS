@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-
+import Combine
 // MARK: - HomeView : Vue d'accueil avec contenu informatif sur l'hydratation
 struct HomeView: View {
     @State private var activeBool : Bool = false
-    @Binding var activeNavLink : Bool
+    @Binding var hasSeenIntro : Bool
     var moreText : String {
         return   """
         Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales.
@@ -40,7 +40,6 @@ struct HomeView: View {
                 .ignoresSafeArea()
                 
                 VStack {
-                    
                     // MARK: - Bouton "Ignorer" en haut à droite
                     HStack{
                         
@@ -48,8 +47,9 @@ struct HomeView: View {
                         
                         Button(action: {
                             withAnimation {
-                                activeNavLink.toggle()
+                                hasSeenIntro = true
                             }
+                            print("showMainApp :\(hasSeenIntro) ")
                         }) {
                             Text("Ignorer")
                                 .font(.headline)
@@ -138,6 +138,9 @@ struct HomeView: View {
                     }
                 }
             }
+            .onChange(of: activeBool) {
+                print("hasSeenIntro : \(activeBool)")
+            }
         }
     }
     
@@ -150,7 +153,7 @@ struct HomeView: View {
 // MARK: - Preview
 #Preview {
     @Previewable @State var activeNavLink: Bool = true
-    HomeView(activeNavLink: $activeNavLink)
+    HomeView(hasSeenIntro: $activeNavLink)
     
 }
 
