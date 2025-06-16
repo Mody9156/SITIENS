@@ -13,6 +13,20 @@ struct UserSettingsView: View {
     @Binding var profil : String
     @Environment(\.dismiss) var dismiss
     
+    
+//    
+//    HStack{
+//        Image("SmallGlace")
+//            .resizable()
+//            .frame(width: 40, height: 40, alignment: .center)
+//        Image("MediumGlace")
+//            .resizable()
+//            .frame(width: 40, height: 40, alignment: .center)
+//        Image("LargeGlace")
+//            .resizable()
+//            .frame(width: 40, height: 40, alignment: .center)
+//    }
+//}
     var body: some View {
         VStack {
             List {
@@ -22,8 +36,15 @@ struct UserSettingsView: View {
                     }
                 }
                 .pickerStyle(.inline)
+              
+                Picker("Type", selection: $profil) {
+                    ForEach(profileType,id: \.self) { profile in
+                        Text(profile)
+                    }
+                }
+                .pickerStyle(.inline)
+                
             }
-            
             
             Button {
                 withAnimation {

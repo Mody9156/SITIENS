@@ -65,7 +65,8 @@ class UserSettingsViewModel{
         
     }
     //indiqué la quantité en fonction du type de verre ⛔️
-    //créer un struct avec par exemple quantity && name pour la picture 
+    //créer un struct avec par exemple quantity && name pour la picture
+    //
     func uptateQuanittyOfWater(name type: String) -> Int{
         switch type  {
         case "Nourrissons":
