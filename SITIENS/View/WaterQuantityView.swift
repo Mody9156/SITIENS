@@ -232,16 +232,24 @@ struct WaterQuantityView: View {
                         )
                     }
 
-                    HStack{
-                        Image("SmallGlace")
-                            .resizable()
-                            .frame(width: 40, height: 40, alignment: .center)
-                        Image("MediumGlace")
-                            .resizable()
-                            .frame(width: 40, height: 40, alignment: .center)
-                        Image("LargeGlace")
-                            .resizable()
-                            .frame(width: 40, height: 40, alignment: .center)
+                    if !glace.isEmpty {
+                        HStack{
+                            ZStack {
+                                Circle()
+                                    .frame(width: 70,height: 70)
+                                    .foregroundStyle(.blue)
+                                
+                                
+                                Circle()
+                                    .frame(width: 70,height: 60)
+                                    .foregroundStyle(.white)
+                                Image(userSettingsViewModel.chooseBottleOfWater(name: glace))
+                                    .resizable()
+                                    .frame(width: 40, height: 40, alignment: .center)
+                                
+                            }
+                            
+                        }
                     }
                 }
                 .toolbar {
