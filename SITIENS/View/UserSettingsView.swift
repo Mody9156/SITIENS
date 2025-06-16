@@ -36,7 +36,7 @@ struct UserSettingsView: View {
             
             Button {
                 withAnimation {
-                    if !profil.isEmpty {
+                    if !profil.isEmpty && !glace.isEmpty{
                         dismiss()
                     }
                 }
