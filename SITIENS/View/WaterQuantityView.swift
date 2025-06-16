@@ -21,6 +21,7 @@ struct WaterQuantityView: View {
     @State var progress : CGFloat = 0.0
     @State var startAnimation : CGFloat = 0
     @State private var isScaledUp = false
+    @State var glace : String = ""
     
     var body: some View {
         NavigationStack {
@@ -269,7 +270,7 @@ struct WaterQuantityView: View {
                             .sheet(isPresented: $sheetPresented) {
                                 
                             } content: {
-                                UserSettingsView(profil:$profilType)
+                                UserSettingsView(profil:$profilType,glace:$glace)
                             }
                             
                         }else{

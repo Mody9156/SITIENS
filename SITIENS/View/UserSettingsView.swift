@@ -9,8 +9,10 @@ import SwiftUI
 
 struct UserSettingsView: View {
     @State var profileType : [String] = ["Nourrissons","Femmes enceintes", "Personnes âgées","Sportifs","Enfants et adolescents","Travailleurs en environnement chaud","Personnes souffrant de maladies chroniques","Personnes en surpoids ou obèses","Voyageurs ou personnes en altitude","Personnes sous traitement médicamenteux"]
+    @State var sizeOfGlace : [String] = ["SmallGlace","MediumGlace","LargeGlace"]
     @State var selectedProfileType : String = "nourrissons"
     @Binding var profil : String
+    @Binding var glace : String
     @Environment(\.dismiss) var dismiss
     
     
@@ -37,8 +39,8 @@ struct UserSettingsView: View {
                 }
                 .pickerStyle(.inline)
               
-                Picker("Type", selection: $profil) {
-                    ForEach(profileType,id: \.self) { profile in
+                Picker("Taille de bouteille", selection: $glace) {
+                    ForEach(sizeOfGlace,id: \.self) { profile in
                         Text(profile)
                     }
                 }
