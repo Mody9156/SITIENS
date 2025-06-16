@@ -94,5 +94,17 @@ class UserSettingsViewModel{
         }
   
     }
-    
+//    "Petit – 200 ml","Moyen – 300 ml",  "Grand – 500 ml"
+    func chooseBottleOfWater(name type: String) -> String {
+        switch type {
+        case "Petit – 200 ml" :
+            return "SmallGlace"
+        case "Moyen – 300 ml" :
+            return "MediumGlace"
+        case "Grand – 500 ml" :
+            return "LargeGlace"
+        default :
+            return ""
+        }
+    }
 }

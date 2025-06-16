@@ -9,26 +9,12 @@ import SwiftUI
 
 struct UserSettingsView: View {
     @State var profileType : [String] = ["Nourrissons","Femmes enceintes", "Personnes âgées","Sportifs","Enfants et adolescents","Travailleurs en environnement chaud","Personnes souffrant de maladies chroniques","Personnes en surpoids ou obèses","Voyageurs ou personnes en altitude","Personnes sous traitement médicamenteux"]
-    @State var sizeOfGlace : [String] = ["SmallGlace","MediumGlace","LargeGlace"]
+    @State var sizeOfGlace : [String] = ["Petit – 200 ml","Moyen – 300 ml",  "Grand – 500 ml"]
     @State var selectedProfileType : String = "nourrissons"
     @Binding var profil : String
     @Binding var glace : String
     @Environment(\.dismiss) var dismiss
-    
-    
-//    
-//    HStack{
-//        Image("SmallGlace")
-//            .resizable()
-//            .frame(width: 40, height: 40, alignment: .center)
-//        Image("MediumGlace")
-//            .resizable()
-//            .frame(width: 40, height: 40, alignment: .center)
-//        Image("LargeGlace")
-//            .resizable()
-//            .frame(width: 40, height: 40, alignment: .center)
-//    }
-//}
+
     var body: some View {
         VStack {
             List {
@@ -39,7 +25,7 @@ struct UserSettingsView: View {
                 }
                 .pickerStyle(.inline)
               
-                Picker("Taille de bouteille", selection: $glace) {
+                Picker("Type de récipient", selection: $glace) {
                     ForEach(sizeOfGlace,id: \.self) { profile in
                         Text(profile)
                     }
@@ -71,5 +57,6 @@ struct UserSettingsView: View {
 
 #Preview {
     @Previewable @State var profilType : String = ""
-    UserSettingsView(profil: $profilType)
+    @Previewable @State var glace : String = ""
+    UserSettingsView(profil: $profilType, glace: $glace)
 }
