@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: - HomeView : Vue d'accueil avec contenu informatif sur l'hydratation
 struct HomeView: View {
     @State private var activeBool : Bool = false
-    @Binding  var activeNavLink : Bool
+    @Binding var activeNavLink : Bool
     var moreText : String {
         return   """
         Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales.
@@ -48,7 +48,7 @@ struct HomeView: View {
                         
                         Button(action: {
                             withAnimation {
-                                activeNavLink = true
+                                activeNavLink.toggle()
                             }
                         }) {
                             Text("Ignorer")
@@ -82,7 +82,6 @@ struct HomeView: View {
                     ScrollView {
                         Text("""
                                          Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales...
-                                         
                                          """)
                         .font(.body)
                         .background(Color.gray.opacity(0.05))
@@ -105,7 +104,6 @@ struct HomeView: View {
                         }
                         .accessibilityLabel("Lire plus sur l’hydratation")
                         .accessibilityHint("Ouvre une fenêtre avec plus d’informations")
-                        
                         // MARK: - Feuille modale avec le texte complet
                         .sheet(isPresented: $activeBool) {
                             ScrollView {
@@ -151,7 +149,7 @@ struct HomeView: View {
 
 // MARK: - Preview
 #Preview {
-    @Previewable @State var activeNavLink: Bool = false
+    @Previewable @State var activeNavLink: Bool = true
     HomeView(activeNavLink: $activeNavLink)
     
 }

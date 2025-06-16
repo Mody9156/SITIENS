@@ -9,11 +9,11 @@ import SwiftUI
 import CoreData
 @main
 struct SITIENSApp: App {
-    @State var useNavLink : Bool = false
+    @State var showMainApp : Bool = false
     
     var body: some Scene {
         WindowGroup {
-            if useNavLink {
+            if showMainApp {
                 TabView {
                     Tab(
                         "Chronomètre",
@@ -36,14 +36,13 @@ struct SITIENSApp: App {
 //                                waterAPIViewModel: WaterAPIViewModel()
 //                             )
 //                       }
-                    
                 }
                 
             }else {
                 TabView{
-                    HomeView(activeNavLink: $useNavLink)
+                    HomeView(activeNavLink: $showMainApp)
                         
-                    InformationView(activeNavLink: $useNavLink)
+                    InformationView(activeNavLink: $showMainApp)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .background(  LinearGradient(
