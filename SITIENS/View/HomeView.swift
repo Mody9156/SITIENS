@@ -53,7 +53,7 @@ struct HomeView: View {
                         }) {
                             Text("Ignorer")
                                 .font(.headline)
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.black)
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 8)
                                 .background(Color.white)
