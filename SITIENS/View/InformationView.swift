@@ -20,77 +20,87 @@ struct InformationView: View {
                 )
                 .ignoresSafeArea()
 
-                VStack(spacing: 20) {
-                    Spacer()
-
-                    Image("thirstyPicture")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 280, height: 280)
-                        .clipShape(Circle())
-                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-
-                    Text("💧 Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .multilineTextAlignment(.center)
+                    ZStack(alignment: .topTrailing) {
+                        Button(action: {
+                            withAnimation {
+                                hasSeenIntro = true
+                            }
+                        }) {
+                            Text("Ignorer")
+                                .fontWeight(.semibold)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
+                                .background(Color.white.opacity(0.25))
+                                .foregroundColor(.black)
+                                .clipShape(Capsule())
+                        }
                         .padding()
-                        .background(Color.white.opacity(0.2))
-                        .cornerRadius(12)
-
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("""
-                            Il est fortement déconseillé de boire plus de 5 litres d’eau par jour. Une surconsommation peut entraîner une dilution des constantes sanguines et des conséquences graves.
-                            """)
-                            .font(.body)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.black.opacity(0.2))
-                            .cornerRadius(12)
-
-                            Button {
-                                withAnimation {
-                                    showSheet.toggle()
+                        .accessibilityLabel("Ignorer l’introduction")
+                        
+                        VStack(spacing: 20) {
+                            Spacer()
+                            
+                            Image("thirstyPicture")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 280, height: 280)
+                                .clipShape(Circle())
+                                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                            
+                            Text("💧 Boire de l’eau : quelle est la limite à ne pas dépasser ?")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                                .background(Color.white.opacity(0.2))
+                                .cornerRadius(12)
+                            
+                            
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text("""
+                                    Il est fortement déconseillé de boire plus de 5 litres d’eau par jour. Une surconsommation peut entraîner une dilution des constantes sanguines et des conséquences graves...
+                                    """)
+                                .font(.body)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.black.opacity(0.2))
+                                .cornerRadius(12)
+                                
+                                Button {
+                                    withAnimation {
+                                        showSheet.toggle()
+                                    }
+                                } label: {
+                                    Label("Lire plus", systemImage: "chevron.down.circle")
+                                        .font(.headline)
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                        .background(.white)
+                                        .foregroundColor(.blue)
+                                        .cornerRadius(16)
                                 }
-                            } label: {
-                                Label("Lire plus", systemImage: "chevron.down.circle")
-                                    .font(.headline)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(.white)
-                                    .foregroundColor(.blue)
-                                    .cornerRadius(16)
+                                .padding(.horizontal)
+                                .accessibilityLabel("Lire plus")
                             }
                             .padding(.horizontal)
-                            .accessibilityLabel("Lire plus")
+                            
+                            Spacer()
                         }
-                        .padding(.horizontal)
+                        .padding()
                     }
-
-                    Spacer()
-                }
-                .padding()
+                
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        withAnimation {
-                            hasSeenIntro = true
-                        }
-                    }) {
-                        Text("Ignorer")
-                            .fontWeight(.semibold)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .background(Color.white.opacity(0.25))
-                            .foregroundColor(.black)
-                            .clipShape(Capsule())
-                    }
-                    .accessibilityLabel("Ignorer l’introduction")
-                }
+//                ToolbarItem(placement: .topBarTrailing) {
+//
+//                }
             }
             .sheet(isPresented: $showSheet) {
+                RoundedRectangle(cornerRadius: 3)
+                    .frame(width: 40, height: 5)
+                    .foregroundColor(.gray.opacity(0.4))
+                    .padding(.top, 8)
+
                 InfoDetailSheet(
                     sections: [
                         ("Insomnies et réveils nocturnes", moreText),
@@ -175,6 +185,6 @@ struct InfoSection: View {
 
 // MARK: - Preview
 #Preview {
-    @State var seen = false
+    @Previewable @State var seen = false
     return InformationView(hasSeenIntro: $seen)
 }

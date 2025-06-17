@@ -62,7 +62,7 @@ struct SITIENSApp: App {
                     .onAppear{
                         UIPageControl.appearance().pageIndicatorTintColor = .gray
                         UIPageControl
-                            .appearance().currentPageIndicatorTintColor = .white
+                            .appearance().currentPageIndicatorTintColor = .blue
                     }
                 }
             }
