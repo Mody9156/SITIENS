@@ -12,7 +12,7 @@ struct HomeView: View {
     @Binding var hasSeenIntro: Bool
     @Environment(\.dismiss) var dismiss
 
-    var moreText: String {
+    private var moreText: String {
         """
         Notre organisme est composé de 60 à 65 % d’eau. Cette eau permet d’assurer de nombreuses fonctions vitales du corps. Il est donc crucial de boire régulièrement et en quantité suffisante.
 
