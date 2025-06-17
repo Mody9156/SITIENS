@@ -10,6 +10,7 @@ import CoreData
 @main
 struct SITIENSApp: App {
     @State var showMainApp : Bool = false
+    
     var body: some Scene {
         WindowGroup {
             ZStack{

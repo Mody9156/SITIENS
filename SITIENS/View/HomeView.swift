@@ -11,6 +11,7 @@ import Combine
 struct HomeView: View {
     @State private var activeBool : Bool = false
     @Binding var hasSeenIntro : Bool
+    
     var moreText : String {
         return   """
         Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales.
@@ -49,7 +50,6 @@ struct HomeView: View {
                             withAnimation {
                                 hasSeenIntro = true
                             }
-                            print("showMainApp :\(hasSeenIntro) ")
                         }) {
                             Text("Ignorer")
                                 .font(.headline)
@@ -137,9 +137,6 @@ struct HomeView: View {
                         }
                     }
                 }
-            }
-            .onChange(of: activeBool) {
-                print("hasSeenIntro : \(activeBool)")
             }
         }
     }
