@@ -53,8 +53,10 @@ struct HomeView: View {
                         }) {
                             Text("Ignorer")
                                 .font(.headline)
-                                .foregroundStyle(.black)
-                                .background(Color.white)
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
+                                .background(Color.black)
                                 .clipShape(Capsule())
                         }
                         .accessibilityLabel("Passer l’introduction")
