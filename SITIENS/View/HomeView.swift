@@ -39,45 +39,21 @@ struct HomeView: View {
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
-                
+//                
                 VStack {
-                    // MARK: - Bouton "Ignorer" en haut à droite
-                    HStack{
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            withAnimation {
-                                hasSeenIntro = true
-                            }
-                        }) {
-                            Text("Ignorer")
-                                .font(.headline)
-                                .foregroundStyle(.black)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
-                                .background(Color.white)
-                                .clipShape(Capsule())
-                        }
-                        .accessibilityLabel("Passer l’introduction")
-                    }
-                    .padding()
-                    
-                    // MARK: - Image principale en forme de cercle
                     Image("Water")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 350, height: 350)
+                        .frame(width: 300, height: 300)
                         .clipShape(Circle())
                         .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                        .padding()
                     
                     Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
                         .font(.title)
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
-                        .padding(.leading)
-                        .padding(.trailing)
-                        .padding(.top)
+                        .padding()
                     
                     // MARK: - Bloc de texte + bouton "Lire plus"
                     ScrollView {
@@ -87,9 +63,7 @@ struct HomeView: View {
                         .font(.body)
                         .background(Color.gray.opacity(0.05))
                         .cornerRadius(8)
-                        .padding(.leading)
-                        .padding(.trailing)
-                        .padding(.top)
+                        .padding()
                         
                         Button {
                             withAnimation {
@@ -138,6 +112,26 @@ struct HomeView: View {
                         }
                     }
                 }
+            }
+            .toolbar {
+                // MARK: - Image principale en forme de cercle
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        withAnimation {
+                            hasSeenIntro = true
+                        }
+                    }) {
+                        Text("Ignorer")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                            .padding()
+                            .background(Color.white)
+                            .clipShape(Capsule())
+                    }
+                    .accessibilityLabel("Passer l’introduction")
+                    
+                }
+                
             }
         }
     }
