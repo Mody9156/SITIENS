@@ -32,85 +32,67 @@ struct HomeView: View {
         NavigationStack {
             ZStack{
                 
-                // MARK: - Fond avec dégradé bleu/cyan
-                LinearGradient(
-                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-//                
-                VStack {
-                    Image("Water")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 300, height: 300)
-                        .clipShape(Circle())
-                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                        .padding()
+                Image("Water")
+                    .renderingMode(.original)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .ignoresSafeArea()
+                    .scaledToFill()
+                
+                VStack (spacing: 20){
                     
-                    Text("Combien d’eau faut-il boire en moyenne chaque jour ?")
-                        .font(.title)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black)
-                        .padding()
+                    Spacer()
                     
-                    // MARK: - Bloc de texte + bouton "Lire plus"
-                    ScrollView {
-                        Text("""
-                                         Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales...
-                                         """)
-                        .font(.body)
-                        .background(Color.gray.opacity(0.05))
-                        .cornerRadius(8)
-                        .padding()
+                    VStack {
+                        Text("Pour votre bien-être mental, commencez par comprendre l'impact de l'eau sur votre santé.")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.black.opacity(0.5), Color.clear]),
+                                    startPoint: .bottom,
+                                    endPoint: .top
+                                )
+                            )
+                            .cornerRadius(12)
                         
-                        Button {
-                            withAnimation {
-                                activeBool.toggle()
-                            }
-                        } label: {
-                            Text("Lire plus")
-                                .fontWeight(.medium)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .background(Color.blue.opacity(0.1))
-                                .cornerRadius(8)
-                        }
-                        .accessibilityLabel("Lire plus sur l’hydratation")
-                        .accessibilityHint("Ouvre une fenêtre avec plus d’informations")
-                        // MARK: - Feuille modale avec le texte complet
-                        .sheet(isPresented: $activeBool) {
-                            ScrollView {
-                                ZStack {
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                    .ignoresSafeArea()
-                                    
-                                    VStack(alignment: .center, spacing: 16) {
-                                        Text(moreText)
-                                            .font(.body)
-                                            .multilineTextAlignment(.leading)
-                                        
-                                        Button("x") {
-                                            dissMiss()
-                                        }
-                                        .fontWeight(.medium)
-                                        .padding(.horizontal, 16)
-                                        .padding(.vertical, 8)
-                                        .background(Color.blue.opacity(0.1))
-                                        .cornerRadius(8)
-                                        .accessibilityLabel("Fermer la page")
-                                        .accessibilityHint("Fermer une fenêtre avec plus d’informations")
-                                    }
-                                    .padding()
+                        //
+                        
+                        // MARK: - Bloc de texte + bouton "Lire plus"
+                        ScrollView {
+                            Text("""
+                                                                 Notre organisme est composé de 60 à 65 % d’eau. Et c’est précisément cette eau présente dans notre corps qui permet d’assurer de nombreuses fonctions vitales de notre corps. On comprend alors pourquoi il est si important de boire régulièrement et en quantité suffisante pour maintenir notre corps de nombreuses fonctions vitales...
+                                                                 """)
+                            .font(.body)
+                            .background(Color.gray.opacity(0.05))
+                            .cornerRadius(8)
+                            .padding()
+                            //
+                            Button {
+                                withAnimation {
+                                    activeBool.toggle()
                                 }
+                            } label: {
+                                Label("Lire plus", systemImage: "chevron.down.circle")
+                                    .font(.headline)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(16)
                             }
+                            .padding(.horizontal)
+                            .accessibilityLabel("Lire plus")
+                            .accessibilityHint("Affiche plus d'informations sur l'impact de l'eau")
+                            
+                            // MARK: - Feuille modale avec le texte complet
+                          
                         }
+                        Spacer()
                     }
+                    
                 }
             }
             .toolbar {
@@ -122,10 +104,9 @@ struct HomeView: View {
                         }
                     }) {
                         Text("Ignorer")
-                            .font(.headline)
-                            .foregroundStyle(.black)
-                            .padding()
-                            .background(Color.white)
+                            .padding(.horizontal)
+                            .padding(.vertical, 6)
+                            .background(Color.white.opacity(0.2))
                             .clipShape(Capsule())
                     }
                     .accessibilityLabel("Passer l’introduction")
@@ -133,12 +114,46 @@ struct HomeView: View {
                 }
                 
             }
+            .sheet(isPresented: $activeBool) {
+                SheetView()
+            }
         }
     }
     
     // MARK: - Fonction pour fermer la feuille modale
     func dissMiss(){
         activeBool = false
+    }
+    
+    @ViewBuilder
+    func SheetView() -> some View {
+        ZStack {
+            Color.white.opacity(0.95).ignoresSafeArea()
+            
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        activeBool = false
+                    }) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.black)
+                            .padding(10)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(Circle())
+                    }
+                    .accessibilityLabel("Fermer")
+                    .accessibilityHint("Ferme la feuille d'information")
+                }
+                ScrollView {
+                    Text(moreText)
+                        .font(.body)
+                        .multilineTextAlignment(.leading)
+                }
+            }
+            Spacer()
+        }
+        .padding()
     }
 }
 

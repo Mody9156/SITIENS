@@ -46,20 +46,23 @@ struct SITIENSApp: App {
                     TabView{
                         HomeView(hasSeenIntro: $showMainApp)
                             .transition(.opacity)
+                            
                         InformationView(hasSeenIntro: $showMainApp)
                             .transition(.opacity)
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))
-                    .background(  LinearGradient(
-                        gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                        .ignoresSafeArea())
+//                    .background(  LinearGradient(
+//                        gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+//                        startPoint: .topLeading,
+//                        endPoint: .bottomTrailing
+//                    )
+//                        .ignoresSafeArea())
+                    .background(Color.black)
+                    .ignoresSafeArea()
                     .onAppear{
                         UIPageControl.appearance().pageIndicatorTintColor = .gray
-                        UIPageControl.appearance().currentPageIndicatorTintColor = .black
-                        print("showMainApp :\(showMainApp) ")
+                        UIPageControl
+                            .appearance().currentPageIndicatorTintColor = .white
                     }
                 }
             }

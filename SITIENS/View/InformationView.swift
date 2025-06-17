@@ -36,13 +36,13 @@ struct InformationView: View {
             ZStack {
                 
                 // MARK: - Fond avec dégradé bleu/cyan
-                LinearGradient(
-                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-                
+//                LinearGradient(
+//                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+//                    startPoint: .topLeading,
+//                    endPoint: .bottomTrailing
+//                )
+//                .ignoresSafeArea()
+//                
                 VStack {
                     HStack {
                         Spacer()
