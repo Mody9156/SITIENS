@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InformationView: View {
-    @Binding var activeNavLink: Bool
+    @Binding var hasSeenIntro: Bool
     @State private var activeBool : Bool = false
     
     var moreText : String {
@@ -49,7 +49,7 @@ struct InformationView: View {
                         
                         Button(action: {
                             withAnimation {
-                                activeNavLink = true
+                                hasSeenIntro = true
                             }
                             
                         }) {
@@ -167,7 +167,7 @@ func dissMiss(){
 
 #Preview {
     @Previewable @State var activeNavLink: Bool = false
-    InformationView(activeNavLink: $activeNavLink)
+    InformationView(hasSeenIntro: $activeNavLink)
 }
 
 

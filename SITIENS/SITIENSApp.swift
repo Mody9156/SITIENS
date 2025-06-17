@@ -46,7 +46,7 @@ struct SITIENSApp: App {
                     TabView{
                         HomeView(hasSeenIntro: $showMainApp)
                             .transition(.opacity)
-                        InformationView(activeNavLink: $showMainApp)
+                        InformationView(hasSeenIntro: $showMainApp)
                             .transition(.opacity)
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))

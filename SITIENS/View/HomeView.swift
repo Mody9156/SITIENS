@@ -56,7 +56,7 @@ struct HomeView: View {
                                 .foregroundStyle(.white)
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 8)
-                                .background(Color.black)
+                                .background(Color.white)
                                 .clipShape(Capsule())
                         }
                         .accessibilityLabel("Passer l’introduction")
