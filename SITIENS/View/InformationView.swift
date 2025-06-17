@@ -55,8 +55,9 @@ struct InformationView: View {
                         }) {
                             Text("Ignorer")
                                 .font(.headline)
-                                .foregroundStyle(.black)
-                                .padding()
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
                                 .background(Color.white)
                                 .clipShape(Capsule())
                         }
