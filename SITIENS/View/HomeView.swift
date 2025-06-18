@@ -41,8 +41,8 @@ struct HomeView: View {
                     // Image circulaire
                     Image("Water")
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 260, height: 260)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 300.0, height: 300)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                         .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
@@ -51,34 +51,34 @@ struct HomeView: View {
                         
                         Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
                             .font(.title3)
-                            .fontWeight(.semibold)
+                            .fontWeight(.bold)
                             .multilineTextAlignment(.center)
-                            .padding()
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(16)
+//                            .padding()
+//                            .background(.ultraThinMaterial)
+//                            .cornerRadius(16)
                         
                         Button(action: {
                             withAnimation { showSheet = true }
                         }) {
                             Text("Notre organisme est composé de 60 à 65 % d’eau. Cette eau assure de nombreuses fonctions vitales...")
                                 .font(.body)
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.blue.opacity(0.4))
-                                .cornerRadius(12)
+                                .foregroundColor(.black)
+//                                .padding()
+//                                .frame(maxWidth: .infinity)
+//                                .background(Color.blue.opacity(0.4))
+//                                .cornerRadius(12)
                         }
                         .padding(.horizontal)
-
+                        Spacer()
                         Button(action: {
                             withAnimation { hasSeenIntro = true }
                         }) {
-                            Label("Ignorer", systemImage: "forward.fill")
+                            Text("Ignorer")
                                 .font(.headline)
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(.thinMaterial)
-                                .foregroundColor(.blue)
+                                .background(Color(.blue).opacity(0.4))
+                                .foregroundColor(.white)
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal)
