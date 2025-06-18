@@ -9,7 +9,6 @@ import SwiftUI
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
     @State private var showSheet: Bool = false
-    @State private var animateEmoji : Bool =  false
     
     var body: some View {
         NavigationStack {
@@ -34,10 +33,7 @@ struct InformationView: View {
                             .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                             .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                         
-                        Text("💧")
-                            .font(.system(size: 40))
-                            .scaleEffect(animateEmoji ? 1.2 : 1)
-                            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: animateEmoji)
+            
                         
                         Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                             .font(.title3)
@@ -65,7 +61,6 @@ struct InformationView: View {
                             }
                             .padding(.horizontal)
                             .accessibilityLabel("Lire plus")
-                            
                         }
                         .padding(.horizontal)
                         
@@ -87,9 +82,7 @@ struct InformationView: View {
                     }
                     .padding()
                 }
-                
             }
-            .onAppear { animateEmoji = true }
             .sheet(isPresented: $showSheet) {
                 RoundedRectangle(cornerRadius: 3)
                     .frame(width: 40, height: 5)

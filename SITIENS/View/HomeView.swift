@@ -23,7 +23,6 @@ struct HomeView: View {
         N’attendez pas d’avoir soif : buvez régulièrement en petites quantités pour rester bien hydraté.
         """
     }
-    @State private var animateEmoji : Bool =  false
     
     var body: some View {
         NavigationStack {
@@ -50,12 +49,6 @@ struct HomeView: View {
                     
                     VStack(alignment: .center, spacing: 16) {
                         
-                        Text("💧")
-                            .font(.system(size: 40))
-                            .scaleEffect(animateEmoji ? 1.2 : 1)
-                            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: animateEmoji)
-                            .onAppear { animateEmoji = true }
-                        
                         Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
                             .font(.title3)
                             .fontWeight(.semibold)
@@ -63,7 +56,6 @@ struct HomeView: View {
                             .padding()
                             .background(.ultraThinMaterial)
                             .cornerRadius(16)
-                        
                         
                         Button(action: {
                             withAnimation { showSheet = true }
@@ -92,28 +84,9 @@ struct HomeView: View {
                         .padding(.horizontal)
                         .accessibilityLabel("Ignorer l'introduction")
                     }
-                    
                     Spacer()
                 }
                 .padding()
-            }
-            .toolbar {
-                //                ToolbarItem(placement: .topBarTrailing) {
-                //                    Button(action: {
-                //                        withAnimation {
-                //                            hasSeenIntro = true
-                //                        }
-                //                    }) {
-                //                        Text("Ignorer")
-                //                            .fontWeight(.semibold)
-                //                            .padding(.horizontal, 16)
-                //                            .padding(.vertical, 8)
-                //                            .background(Color.white.opacity(0.25))
-                //                            .foregroundColor(.black)
-                //                            .clipShape(Capsule())
-                //                    }
-                //                    .accessibilityLabel("Ignorer l’introduction")
-                //                }
             }
             .sheet(isPresented: $showSheet) {
                 MoreInfoSheet(content: moreText) {
