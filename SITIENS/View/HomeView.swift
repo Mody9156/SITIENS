@@ -77,12 +77,11 @@ struct HomeView: View {
                                 .cornerRadius(12)
                         }
                         .padding(.horizontal)
-                        
-                        
+
                         Button(action: {
                             withAnimation { hasSeenIntro = true }
                         }) {
-                            Label("Suivant", systemImage: "chevron.right.circle")
+                            Label("Ignorer", systemImage: "forward.fill")
                                 .font(.headline)
                                 .padding()
                                 .frame(maxWidth: .infinity)
@@ -91,7 +90,7 @@ struct HomeView: View {
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal)
-                        .accessibilityLabel("Suivant")
+                        .accessibilityLabel("Ignorer l'introduction")
                     }
                     
                     Spacer()
@@ -117,10 +116,9 @@ struct HomeView: View {
                 //                }
             }
             .sheet(isPresented: $showSheet) {
-//                MoreInfoSheet(content: moreText) {
-//                    showSheet = false
-//                }
-                InformationView(hasSeenIntro: $hasSeenIntro)
+                MoreInfoSheet(content: moreText) {
+                    showSheet = false
+                }
             }
         }
     }
