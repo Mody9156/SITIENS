@@ -11,19 +11,20 @@ struct HomeView: View {
     @State private var showSheet: Bool = false
     @Binding var hasSeenIntro: Bool
     @Environment(\.dismiss) var dismiss
-
+    
     private var moreText: String {
         """
         Notre organisme est composé de 60 à 65 % d’eau. Cette eau permet d’assurer de nombreuses fonctions vitales du corps. Il est donc crucial de boire régulièrement et en quantité suffisante.
-
+        
         On recommande de boire entre 1,3 L et 2 L par jour, selon le poids et l’activité. Une perte de plus de 15 % du poids en eau met en jeu le pronostic vital.
-
+        
         Chaque jour, nous perdons environ 2,6 L d’eau (urines, transpiration, respiration...). En consommant fruits et légumes, nous récupérons 1 L, et 30 cl sont produits par le métabolisme. Il reste donc à boire environ 1,5 L — soit 8 verres d’eau.
-
+        
         N’attendez pas d’avoir soif : buvez régulièrement en petites quantités pour rester bien hydraté.
         """
     }
-
+    @State private var animateEmoji : Bool =  false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -34,77 +35,92 @@ struct HomeView: View {
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
-
+                
                 VStack(spacing: 24) {
                     Spacer()
-
+                    
                     // Image circulaire
                     Image("picture3")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 280, height: 280)
+                        .frame(width: 260, height: 260)
                         .clipShape(Circle())
-                        .shadow(color: .gray.opacity(0.3), radius: 12, x: 0, y: 6)
-
+                        .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                    
                     VStack(alignment: .center, spacing: 16) {
-                        Text("💧 Comprendre l’impact de l’eau sur votre santé mentale et physique")
+                        
+                        Text("💧")
+                            .font(.system(size: 40))
+                            .scaleEffect(animateEmoji ? 1.2 : 1)
+                            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: animateEmoji)
+                            .onAppear { animateEmoji = true }
+                        
+                        Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
                             .font(.title3)
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
                             .padding()
-                            .background(Color.white.opacity(0.15))
-                            .cornerRadius(12)
-
-                        Text("Notre organisme est composé de 60 à 65 % d’eau. Cette eau assure de nombreuses fonctions vitales...")
-                            .font(.body)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.leading)
-                            .padding()
-                            .background(Color.black.opacity(0.2))
-                            .cornerRadius(12)
-
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(16)
+                        
+                        
                         Button(action: {
                             withAnimation { showSheet = true }
                         }) {
-                            Label("Lire plus", systemImage: "chevron.down.circle")
+                            Text("Notre organisme est composé de 60 à 65 % d’eau. Cette eau assure de nombreuses fonctions vitales...")
+                                .font(.body)
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue.opacity(0.4))
+                                .cornerRadius(12)
+                        }
+                        .padding(.horizontal)
+                        
+                        
+                        Button(action: {
+                            withAnimation { hasSeenIntro = true }
+                        }) {
+                            Label("Suivant", systemImage: "chevron.right.circle")
                                 .font(.headline)
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(Color.white.opacity(0.9))
+                                .background(.thinMaterial)
                                 .foregroundColor(.blue)
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal)
-                        .accessibilityLabel("Lire plus")
-                        .accessibilityHint("Affiche plus d'informations sur l'impact de l'eau")
+                        .accessibilityLabel("Suivant")
                     }
-
+                    
                     Spacer()
                 }
                 .padding()
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        withAnimation {
-                            hasSeenIntro = true
-                        }
-                    }) {
-                        Text("Ignorer")
-                            .fontWeight(.semibold)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(Color.white.opacity(0.25))
-                            .foregroundColor(.black)
-                            .clipShape(Capsule())
-                    }
-                    .accessibilityLabel("Ignorer l’introduction")
-                }
+                //                ToolbarItem(placement: .topBarTrailing) {
+                //                    Button(action: {
+                //                        withAnimation {
+                //                            hasSeenIntro = true
+                //                        }
+                //                    }) {
+                //                        Text("Ignorer")
+                //                            .fontWeight(.semibold)
+                //                            .padding(.horizontal, 16)
+                //                            .padding(.vertical, 8)
+                //                            .background(Color.white.opacity(0.25))
+                //                            .foregroundColor(.black)
+                //                            .clipShape(Capsule())
+                //                    }
+                //                    .accessibilityLabel("Ignorer l’introduction")
+                //                }
             }
             .sheet(isPresented: $showSheet) {
-                MoreInfoSheet(content: moreText) {
-                    showSheet = false
-                }
+//                MoreInfoSheet(content: moreText) {
+//                    showSheet = false
+//                }
+                InformationView(hasSeenIntro: $hasSeenIntro)
             }
         }
     }
@@ -114,7 +130,7 @@ struct HomeView: View {
 struct MoreInfoSheet: View {
     let content: String
     let dismissAction: () -> Void
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
