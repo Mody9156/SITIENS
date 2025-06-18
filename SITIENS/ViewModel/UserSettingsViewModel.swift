@@ -95,16 +95,20 @@ class UserSettingsViewModel{
   
     }
 
-    func chooseBottleOfWater(name type: String) -> String {
+    func chooseBottleOfWater(name type: String, _ number : Int) -> Int {
         switch type {
         case "Petit – 200 ml" :
-            return "SmallGlace"
+            return number / 15
         case "Moyen – 300 ml" :
-            return "MediumGlace"
+            return number / 10
         case "Grand – 500 ml" :
-            return "LargeGlace"
+            return number / 6
         default :
-            return ""
+            return 0
         }
     }
+    
+    // pour 300 c'est number/300 = 10
+    // pour 200 c'est number/200 = 15
+    // pour 500 c'est number/10 = 6
 }
