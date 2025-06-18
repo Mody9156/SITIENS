@@ -40,7 +40,7 @@ struct HomeView: View {
                     Spacer()
                     
                     // Image circulaire
-                    Image("picture3")
+                    Image("Water")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 260, height: 260)

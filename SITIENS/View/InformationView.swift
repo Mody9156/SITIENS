@@ -20,94 +20,97 @@ struct InformationView: View {
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
-
-                    ZStack(alignment: .topTrailing) {
-                        Button(action: {
-                            withAnimation {
-                                hasSeenIntro = true
-                            }
-                        }) {
-                            Text("Ignorer")
-                                .fontWeight(.semibold)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
-                                .background(Color.white.opacity(0.25))
-                                .foregroundColor(.black)
-                                .clipShape(Capsule())
+                
+                ZStack(alignment: .topTrailing) {
+                    Button(action: {
+                        withAnimation {
+                            hasSeenIntro = true
                         }
-                        .padding()
-                        .accessibilityLabel("Ignorer l’introduction")
+                    }) {
+                        Text("Ignorer")
+                            .fontWeight(.semibold)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(Color.white.opacity(0.25))
+                            .foregroundColor(.black)
+                            .clipShape(Capsule())
+                    }
+                    .padding()
+                    .accessibilityLabel("Ignorer l’introduction")
+                    
+                    VStack(spacing: 20) {
+                        Spacer()
                         
-                        VStack(spacing: 20) {
-                            Spacer()
-                            
-                            Image("thirstyPicture")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 280, height: 280)
-                                .clipShape(Circle())
-                                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                            
-                            Text("💧")
-                                .font(.system(size: 40))
-                                .scaleEffect(animateEmoji ? 1.2 : 1)
-                                .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: animateEmoji)
-                                .onAppear { animateEmoji = true }
-                            
-                            Text("💧 Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .background(Color.white.opacity(0.2))
-                                .cornerRadius(12)
-                            
-                            
+                        Image("thirstyPicture")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 260, height: 260)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                            .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                        
+                        Text("💧")
+                            .font(.system(size: 40))
+                            .scaleEffect(animateEmoji ? 1.2 : 1)
+                            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: animateEmoji)
+                        
+                        Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .background(Color.white.opacity(0.2))
+                            .cornerRadius(12)
+                        
+                        Button {
+                            withAnimation {
+                                showSheet.toggle()
+                            }
+                        } label: {
                             VStack(alignment: .leading, spacing: 16) {
                                 Text("""
-                                    Il est fortement déconseillé de boire plus de 5 litres d’eau par jour. Une surconsommation peut entraîner une dilution des constantes sanguines et des conséquences graves...
-                                    """)
+                                            Il est fortement déconseillé de boire plus de 5 litres d’eau par jour. Une surconsommation peut entraîner une dilution des constantes sanguines et des conséquences graves...
+                                            """)
                                 .font(.body)
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(Color.black.opacity(0.2))
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue.opacity(0.4))
                                 .cornerRadius(12)
-                                
-                                Button {
-                                    withAnimation {
-                                        showSheet.toggle()
-                                    }
-                                } label: {
-                                    Label("Lire plus", systemImage: "chevron.down.circle")
-                                        .font(.headline)
-                                        .padding()
-                                        .frame(maxWidth: .infinity)
-                                        .background(.white)
-                                        .foregroundColor(.blue)
-                                        .cornerRadius(16)
-                                }
-                                .padding(.horizontal)
-                                .accessibilityLabel("Lire plus")
                             }
                             .padding(.horizontal)
+                            .accessibilityLabel("Lire plus")
                             
-                            Spacer()
                         }
-                        .padding()
+                        .padding(.horizontal)
+                        
+                        Button(action: {
+                            withAnimation {hasSeenIntro = true }
+                        }) {
+                            Label("Ignorer", systemImage: "forward.fill")
+                                .font(.headline)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(.thinMaterial)
+                                .foregroundColor(.blue)
+                                .cornerRadius(16)
+                        }
+                        .padding(.horizontal)
+                        .accessibilityLabel("Ignorer l'introduction")
+                        
+                        Spacer()
                     }
+                    .padding()
+                }
                 
             }
-            .toolbar {
-//                ToolbarItem(placement: .topBarTrailing) {
-//
-//                }
-            }
+            .onAppear { animateEmoji = true }
             .sheet(isPresented: $showSheet) {
                 RoundedRectangle(cornerRadius: 3)
                     .frame(width: 40, height: 5)
                     .foregroundColor(.gray.opacity(0.4))
                     .padding(.top, 8)
-
+                
                 InfoDetailSheet(
                     sections: [
                         ("Insomnies et réveils nocturnes", moreText),
@@ -119,20 +122,20 @@ struct InformationView: View {
             }
         }
     }
-
+    
     // MARK: - Contenu à afficher dans la feuille
     private var moreText: String {
         """
         Si vous buvez trop d’eau avant de dormir, vous risquez de vous réveiller fréquemment. En effet, cela empêche la sécrétion de l’hormone antidiurétique nécessaire à un sommeil profond.
         """
     }
-
+    
     private var potomanie: String {
         """
         La potomanie est un trouble psychiatrique caractérisé par une consommation excessive d’eau. Elle peut mener à de graves complications, dont un œdème cérébral ou un coma.
         """
     }
-
+    
     private var hydrique: String {
         """
         Boire plus de 5 litres d’eau par jour peut entraîner un déséquilibre en sodium, provoquant une intoxication à l’eau, maux de tête, voire un coma potentiellement mortel.
@@ -144,7 +147,7 @@ struct InformationView: View {
 struct InfoDetailSheet: View {
     let sections: [(String, String)]
     let dismissAction: () -> Void
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -177,13 +180,13 @@ struct InfoDetailSheet: View {
 struct InfoSection: View {
     let title: String
     let text: String
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.title2)
                 .fontWeight(.bold)
-
+            
             Text(text)
                 .font(.body)
         }
