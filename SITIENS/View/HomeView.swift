@@ -42,7 +42,7 @@ struct HomeView: View {
                     Image("Water")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 300.0, height: 300)
+                        .frame(width: 260, height: 260)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                         .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
@@ -53,9 +53,6 @@ struct HomeView: View {
                             .font(.title3)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
-//                            .padding()
-//                            .background(.ultraThinMaterial)
-//                            .cornerRadius(16)
                         
                         Button(action: {
                             withAnimation { showSheet = true }
@@ -63,13 +60,9 @@ struct HomeView: View {
                             Text("Notre organisme est composé de 60 à 65 % d’eau. Cette eau assure de nombreuses fonctions vitales...")
                                 .font(.body)
                                 .foregroundColor(.black)
-//                                .padding()
-//                                .frame(maxWidth: .infinity)
-//                                .background(Color.blue.opacity(0.4))
-//                                .cornerRadius(12)
                         }
                         .padding(.horizontal)
-                        Spacer()
+
                         Button(action: {
                             withAnimation { hasSeenIntro = true }
                         }) {

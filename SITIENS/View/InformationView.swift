@@ -33,11 +33,9 @@ struct InformationView: View {
                             .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                             .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                         
-            
-                        
                         Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                             .font(.title3)
-                            .fontWeight(.semibold)
+                            .fontWeight(.bold)
                             .multilineTextAlignment(.center)
                             .padding()
                             .background(Color.white.opacity(0.2))
@@ -50,14 +48,13 @@ struct InformationView: View {
                         } label: {
                             VStack(alignment: .leading, spacing: 16) {
                                 Text("""
-                                            Il est fortement déconseillé de boire plus de 5 litres d’eau par jour. Une surconsommation peut entraîner une dilution des constantes sanguines et des conséquences graves...
-                                            """)
+                                Il est fortement déconseillé de boire plus de 5 litres d’eau par jour... 
+                                """)
                                 .font(.body)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
+                                .multilineTextAlignment(.center)
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(Color.blue.opacity(0.4))
-                                .cornerRadius(12)
                             }
                             .padding(.horizontal)
                             .accessibilityLabel("Lire plus")
@@ -71,8 +68,8 @@ struct InformationView: View {
                                 .font(.headline)
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(.thinMaterial)
-                                .foregroundColor(.blue)
+                                .background(Color(.blue).opacity(0.4))
+                                .foregroundColor(.white)
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal)
