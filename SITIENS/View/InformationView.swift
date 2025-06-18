@@ -21,22 +21,7 @@ struct InformationView: View {
                 )
                 .ignoresSafeArea()
                 
-                ZStack(alignment: .topTrailing) {
-                    Button(action: {
-                        withAnimation {
-                            hasSeenIntro = true
-                        }
-                    }) {
-                        Text("Ignorer")
-                            .fontWeight(.semibold)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .background(Color.white.opacity(0.25))
-                            .foregroundColor(.black)
-                            .clipShape(Capsule())
-                    }
-                    .padding()
-                    .accessibilityLabel("Ignorer l’introduction")
+                ZStack{
                     
                     VStack(spacing: 20) {
                         Spacer()
