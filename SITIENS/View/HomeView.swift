@@ -37,7 +37,6 @@ struct HomeView: View {
                 
                 VStack(spacing: 24) {
                     Spacer()
-                    
                     // Image circulaire
                     Image("Water")
                         .resizable()
@@ -77,9 +76,8 @@ struct HomeView: View {
                         .padding(.horizontal)
                         .accessibilityLabel("Ignorer l'introduction")
                     }
-                    Spacer()
+                        Spacer()
                 }
-                .padding()
             }
             .sheet(isPresented: $showSheet) {
                 MoreInfoSheet(content: moreText) {

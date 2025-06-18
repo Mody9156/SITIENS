@@ -20,51 +20,41 @@ struct InformationView: View {
                 )
                 .ignoresSafeArea()
                 
-                ZStack{
-                    
-                    VStack(spacing: 20) {
+                    VStack(spacing: 24) {
                         Spacer()
                         
                         Image("thirstyPicture")
                             .resizable()
-                            .scaledToFill()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 260, height: 260)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                             .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                         
+                        VStack(alignment: .center, spacing: 16){
+                            
                         Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                             .font(.title3)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
-                            .padding()
-                            .background(Color.white.opacity(0.2))
-                            .cornerRadius(12)
                         
                         Button {
                             withAnimation {
                                 showSheet.toggle()
                             }
                         } label: {
-                            VStack(alignment: .leading, spacing: 16) {
                                 Text("""
                                 Il est fortement déconseillé de boire plus de 5 litres d’eau par jour... 
                                 """)
                                 .font(.body)
                                 .foregroundColor(.black)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                            }
-                            .padding(.horizontal)
-                            .accessibilityLabel("Lire plus")
                         }
                         .padding(.horizontal)
                         
                         Button(action: {
                             withAnimation {hasSeenIntro = true }
                         }) {
-                            Label("Ignorer", systemImage: "forward.fill")
+                            Text("Ignorer")
                                 .font(.headline)
                                 .padding()
                                 .frame(maxWidth: .infinity)
@@ -74,11 +64,9 @@ struct InformationView: View {
                         }
                         .padding(.horizontal)
                         .accessibilityLabel("Ignorer l'introduction")
-                        
+                    }
                         Spacer()
                     }
-                    .padding()
-                }
             }
             .sheet(isPresented: $showSheet) {
                 RoundedRectangle(cornerRadius: 3)
