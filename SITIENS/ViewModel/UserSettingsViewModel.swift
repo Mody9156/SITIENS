@@ -67,20 +67,38 @@ class UserSettingsViewModel{
     //indiqué la quantité en fonction du type de verre ⛔️
     //créer un struct avec par exemple quantity && name pour la picture
     //
-    func uptateQuanittyOfWater(name type: String) -> Int{
-        switch type {
+    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int{
+        let quantityWater = updateType(name: quantityWater)
+        let limit = 300.0
+        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
+       
+        let resultOfQuanittyOfWater = quantityWater / BootleOfWater
+        
+        
+        let resultOfType = limit / resultOfQuanittyOfWater
+  
+        return Int(quantityWater / resultOfType)
+    }
+
+    func quantityWaterNumber(chooseBottle:String) -> Double {
+        let BootleOfWater = chooseBottleOfWater(name: chooseBottle)
+        
+         switch BootleOfWater {
         case "Petit – 200 ml" :
-            return 300 / 200
+            return 200
         case "Moyen – 300 ml" :
-            return 300 / 300
+            return 300
         case "Grand – 500 ml" :
-            return 300 / 500
+            return 500
         default :
             return 0
         }
-  
     }
-
+    
+    
+    
+    
+    
     func chooseBottleOfWater(name type: String) -> String {
         switch type {
         case "Petit – 200 ml" :
