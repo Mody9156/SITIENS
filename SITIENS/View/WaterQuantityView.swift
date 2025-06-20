@@ -146,7 +146,7 @@ struct WaterQuantityView: View {
                                         
                                         if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 {
                                             withAnimation {
-                                                let _ = userSettingsViewModel
+                                                updateHeight += userSettingsViewModel
                                                     .uptateQuanittyOfWater(
                                                         quantityWater: profilType,
                                                         chooseBottle: glace
