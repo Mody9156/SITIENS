@@ -222,7 +222,6 @@ struct WaterQuantityView: View {
                     }
                     
                     if throwError && profilType.isEmpty {
-                        VStack {
                             HStack {
                                 Image(systemName: "exclamationmark.triangle.fill")
                                     .foregroundStyle(Color.orange)
@@ -232,26 +231,29 @@ struct WaterQuantityView: View {
                             .animation(
                                 .easeOut(duration: 1.0),value: showMessage
                             )
-                            userSettingsViewModel
-                                .showNumberOfGlass(chooseBottle: glace, name: profilType)
-                        }
+                           
                     }
 
                     if !glace.isEmpty {
-                        HStack{
-                            ZStack {
-                                Circle()
-                                    .frame(width: 70,height: 70)
-                                    .foregroundStyle(.blue)
-                                
-                                
-                                Circle()
-                                    .frame(width: 70,height: 60)
-                                    .foregroundStyle(.white)
-                                Image(userSettingsViewModel.chooseBottleOfWater(name: glace))
-                                    .resizable()
-                                    .frame(width: 40, height: 40, alignment: .center)
+                        VStack {
+                            HStack{
+                                ZStack {
+                                    Circle()
+                                        .frame(width: 70,height: 70)
+                                        .foregroundStyle(.blue)
+                                    
+                                    
+                                    Circle()
+                                        .frame(width: 70,height: 60)
+                                        .foregroundStyle(.white)
+                                    Image(userSettingsViewModel.chooseBottleOfWater(name: glace))
+                                        .resizable()
+                                        .frame(width: 40, height: 40, alignment: .center)
+                                }
                             }
+                            let result = userSettingsViewModel
+                                .showNumberOfGlass(chooseBottle: glace, name: profilType)
+                           Text("X \(result)")
                         }
                     }
                 }
