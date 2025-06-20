@@ -222,15 +222,19 @@ struct WaterQuantityView: View {
                     }
                     
                     if throwError && profilType.isEmpty {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundStyle(Color.orange)
-                            Text("Veuillez bien selectionner un profil")
+                        VStack {
+                            HStack {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundStyle(Color.orange)
+                                Text("Veuillez bien selectionner un profil")
+                            }
+                            .opacity(showMessage ? 1 : 0)
+                            .animation(
+                                .easeOut(duration: 1.0),value: showMessage
+                            )
+                            userSettingsViewModel
+                                .showNumberOfGlass(chooseBottle: glace, name: profilType)
                         }
-                        .opacity(showMessage ? 1 : 0)
-                        .animation(
-                            .easeOut(duration: 1.0),value: showMessage
-                        )
                     }
 
                     if !glace.isEmpty {

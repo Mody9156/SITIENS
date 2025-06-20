@@ -91,21 +91,26 @@ class UserSettingsViewModel{
 //        return Int(resultOfType / updateWater )
 //    }
 
-    func quantityWaterNumber(chooseBottle:String,name:String) -> Double {
-        let name = updateWater(type name:name)
-        let updateQuantity = name * 1000
-        
+    func quantityWaterNumber(chooseBottle:String) -> Int {
+      
          switch chooseBottle {
         case "Petit – 200 ml" :
-             200
+           return  200
         case "Moyen – 300 ml" :
-             300
+             return 300
         case "Grand – 500 ml" :
-             500
+             return 500
         default :
-             0
+             return  0
         }
-        return updateQuantity / chooseBottle
+        
+    }
+    
+    func showNumberOfGlass(chooseBottle:String, name:String) -> Int {
+        let quantityWaterNumber = quantityWaterNumber(chooseBottle:name)
+        let name = updateWater(type :name)
+        let updateQuantity = Int(name * 1000)
+        return updateQuantity / quantityWaterNumber
         
     }
     
