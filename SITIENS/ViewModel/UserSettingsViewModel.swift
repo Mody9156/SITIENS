@@ -64,32 +64,20 @@ class UserSettingsViewModel{
         }
         
     }
-    //indiqué la quantité en fonction du type de verre ⛔️
-    //créer un struct avec par exemple quantity && name pour la picture
-    //
-//    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
-//        let quantityWater = updateWater(type: quantityWater)
-//        let updateWater = quantityWater * 100
-//        
-////        format: .number.precision(.fractionLength(1))
-//        
-//        let limit = 300.0
-//        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
-//       
-//        let resultOfQuanittyOfWater =  updateWater / BootleOfWater
-//        
-//        
-//        let resultOfType =  limit / resultOfQuanittyOfWater
-//
-//        print("quantityWater : \(updateWater)")
-//        print("limit : \(limit)")
-//        print("BootleOfWater : \(BootleOfWater)")
-//        print("resultOfQuanittyOfWater : \(resultOfQuanittyOfWater)")
-//        print("resultOfType : \(resultOfType)")
-//        print("quantityWater +  resultOfType : \( resultOfType / quantityWater )")
-//
-//        return Int(resultOfType / updateWater )
-//    }
+
+    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
+        let quantityWater = updateWater(type: quantityWater)
+        let updateWater = quantityWater * 100
+                
+        let limit = 300
+        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
+       
+        let resultOfQuanittyOfWater =  Int(updateWater) / BootleOfWater
+        
+        let resultOfType =  limit / resultOfQuanittyOfWater
+
+        return resultOfType / Int(updateWater)
+    }
 
     func quantityWaterNumber(chooseBottle:String) -> Int {
       
@@ -103,7 +91,6 @@ class UserSettingsViewModel{
         default :
              return  0
         }
-        
     }
     
     func showNumberOfGlass(chooseBottle:String, name:String) -> Int {
@@ -111,8 +98,8 @@ class UserSettingsViewModel{
         let updatedProfile = updateWater(type :name)
         
         let totalMl = Int(updatedProfile * 1000)
-        print("totalMl \(totalMl)")
-        return totalMl / waterQuantity
+        print("")
+        return Int(totalMl) / waterQuantity
     }
     
     func chooseBottleOfWater(name type: String) -> String {
