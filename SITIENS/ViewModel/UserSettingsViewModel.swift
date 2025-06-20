@@ -67,48 +67,47 @@ class UserSettingsViewModel{
     //indiqué la quantité en fonction du type de verre ⛔️
     //créer un struct avec par exemple quantity && name pour la picture
     //
-    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
-        let quantityWater = updateWater(type: quantityWater)
-        let updateWater = quantityWater * 100
-        
-//        format: .number.precision(.fractionLength(1))
-        
-        let limit = 300.0
-        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
-       
-        let resultOfQuanittyOfWater =  BootleOfWater / updateWater
-        
-        
-        let resultOfType =  limit / resultOfQuanittyOfWater
+//    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
+//        let quantityWater = updateWater(type: quantityWater)
+//        let updateWater = quantityWater * 100
+//        
+////        format: .number.precision(.fractionLength(1))
+//        
+//        let limit = 300.0
+//        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
+//       
+//        let resultOfQuanittyOfWater =  updateWater / BootleOfWater
+//        
+//        
+//        let resultOfType =  limit / resultOfQuanittyOfWater
+//
+//        print("quantityWater : \(updateWater)")
+//        print("limit : \(limit)")
+//        print("BootleOfWater : \(BootleOfWater)")
+//        print("resultOfQuanittyOfWater : \(resultOfQuanittyOfWater)")
+//        print("resultOfType : \(resultOfType)")
+//        print("quantityWater +  resultOfType : \( resultOfType / quantityWater )")
+//
+//        return Int(resultOfType / updateWater )
+//    }
 
-        print("quantityWater : \(updateWater)")
-        print("limit : \(limit)")
-        print("BootleOfWater : \(BootleOfWater)")
-        print("resultOfQuanittyOfWater : \(resultOfQuanittyOfWater)")
-        print("resultOfType : \(resultOfType)")
-        print("quantityWater +  resultOfType : \( resultOfType / quantityWater )")
-
-        return Int(updateWater / resultOfType)
-    }
-
-    func quantityWaterNumber(chooseBottle:String) -> Double {
-       
+    func quantityWaterNumber(chooseBottle:String,name:String) -> Double {
+        let name = updateWater(type name:name)
+        let updateQuantity = name * 1000
         
          switch chooseBottle {
         case "Petit – 200 ml" :
-            return 200
+             200
         case "Moyen – 300 ml" :
-            return 300
+             300
         case "Grand – 500 ml" :
-            return 500
+             500
         default :
-            return 0
+             0
         }
+        return updateQuantity / chooseBottle
+        
     }
-    
-    
-    
-    
     
     func chooseBottleOfWater(name type: String) -> String {
         switch type {
@@ -123,8 +122,4 @@ class UserSettingsViewModel{
         }
     }
  
-    
-    // pour 300 c'est number/300 = 10
-    // pour 300 c'est number/10
-    // pour 500 c'est number/10
 }

@@ -146,12 +146,8 @@ struct WaterQuantityView: View {
                                         
                                         if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 {
                                             withAnimation {
-                                                updateHeight += userSettingsViewModel
-                                                    .uptateQuanittyOfWater(
-                                                        quantityWater: profilType,
-                                                        chooseBottle: glace
-                                                    )
-//                                                updateHeight += 50
+                                              
+                                                updateHeight += 50
                                                 progress += 0.2
                                             }
                                         }
