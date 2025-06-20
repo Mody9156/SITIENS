@@ -67,7 +67,7 @@ class UserSettingsViewModel{
     //indiqué la quantité en fonction du type de verre ⛔️
     //créer un struct avec par exemple quantity && name pour la picture
     //
-    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> CFloat {
+    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
         let quantityWater = updateWater(type: quantityWater)
         let updateWater = quantityWater * 100
         
@@ -88,7 +88,7 @@ class UserSettingsViewModel{
         print("resultOfType : \(resultOfType)")
         print("quantityWater +  resultOfType : \( resultOfType / quantityWater )")
 
-        return CFloat(updateWater / resultOfType)
+        return Int(updateWater / resultOfType)
     }
 
     func quantityWaterNumber(chooseBottle:String) -> Double {
