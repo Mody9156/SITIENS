@@ -154,9 +154,9 @@ struct WaterQuantityView: View {
 //                                                    quantityWater: profilType,
 //                                                    chooseBottle: glace
 //                                                )
-////                                                
-                                                updateHeight += 50
-                                                progress += 10 / result
+
+                                                updateHeight += 1
+                                                progress += result
                                             }
                                         }
                                     }
@@ -258,9 +258,13 @@ struct WaterQuantityView: View {
                                         .frame(width: 40, height: 40, alignment: .center)
                                 }
                             }
-                            let result = userSettingsViewModel
-                                .showNumberOfGlass(chooseBottle: glace, name: profilType)
-                           Text("X \(Int(result))")
+                           
+                            let type = userSettingsViewModel.UpdateGlaceWithRIghtValues(
+                                chooseBottle: glace,
+                                name: profilType)
+                            let rounded =  type.rounded()
+                            
+                           Text("X \(Int(rounded))")
                         }
                     }
                 }
