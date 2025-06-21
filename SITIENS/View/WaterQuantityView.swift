@@ -150,12 +150,12 @@ struct WaterQuantityView: View {
                                                     chooseBottle: glace,
                                                     name: profilType
                                                 )
-//                                                let water =  userSettingsViewModel.uptateQuanittyOfWater(
-//                                                    quantityWater: profilType,
-//                                                    chooseBottle: glace
-//                                                )
+                                                let water =  userSettingsViewModel.uptateQuanittyOfWater2(
+                                                    quantityWater: name,
+                                                    chooseBottle: glace
+                                                )
 
-                                                updateHeight += 1
+                                                updateHeight += water
                                                 progress += result
                                             }
                                         }

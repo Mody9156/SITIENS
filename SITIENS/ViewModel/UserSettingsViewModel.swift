@@ -65,19 +65,15 @@ class UserSettingsViewModel{
         
     }
 
-//    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> CGFloat {
-//        let quantityWater = updateWater(type: quantityWater)
-//        let updateWater = quantityWater * 100
-//                
-//        let limit = 300
-//        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
-//       
-//        let resultOfQuanittyOfWater =  Int(updateWater) / BootleOfWater
-//        
-//        let resultOfType =  limit / resultOfQuanittyOfWater
-//
-//        return CGFloat(resultOfType) / updateWater
-//    }
+    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
+        let quantityWater = updateWater(type: quantityWater)
+        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
+        let updateWater = quantityWater * 1000
+        let limit = 300
+
+        
+        return 10 
+    }
 
     func quantityWaterNumber(chooseBottle:String) -> Int {
       
@@ -105,17 +101,19 @@ class UserSettingsViewModel{
         return result
     }
     
-    func UpdateGlaceWithRIghtValues(chooseBottle:String, name:String) -> Double {
-        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
-        let updatedProfile = updateWater(type :name)
-        let totalMl = updatedProfile * 100
-        
-        let result = CGFloat(waterQuantity) / totalMl
-        
-        let resultA = 10 / result
-       
-        return resultA
-    }
+    func uptateQuanittyOfWater2(quantityWater  : String,chooseBottle:String) -> Int {
+           let quantityWater = updateWater(type: quantityWater)
+           let updateWater = quantityWater * 100
+                   
+           let limit = 300
+           let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
+          
+           let resultOfQuanittyOfWater =  Int(updateWater) / BootleOfWater
+           
+           let resultOfType =  limit / resultOfQuanittyOfWater
+
+           return resultOfType / Int(updateWater)
+       }
     
     func chooseBottleOfWater(name type: String) -> String {
         switch type {
