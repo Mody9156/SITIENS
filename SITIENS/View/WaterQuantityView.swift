@@ -260,7 +260,7 @@ struct WaterQuantityView: View {
                             }
                             let result = userSettingsViewModel
                                 .showNumberOfGlass(chooseBottle: glace, name: profilType)
-                           Text("X \(result)")
+                           Text("X \(Int(result))")
                         }
                     }
                 }
