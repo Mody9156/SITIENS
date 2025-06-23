@@ -40,7 +40,10 @@ struct WaterQuantityView: View {
                         .foregroundStyle(Color.blue)
                         .padding()
                     
-                    Text("\(updateHeight * userSettingsViewModel.updateType(name:profilType),format: .number.precision(.fractionLength(1)))L / \(userSettingsViewModel.updateWater(type:profilType),format: .number.precision(.fractionLength(1)))L")
+                    let currentWater = updateHeight * userSettingsViewModel.updateType(name:profilType)
+                    let targetWater = userSettingsViewModel.updateWater(type: profilType)
+                    
+                    Text("\(currentWater,format: .number.precision(.fractionLength(1)))L / \(targetWater,format: .number.precision(.fractionLength(1)))L")
                         .foregroundStyle(.gray)
                         .font(.title2)
                     
@@ -144,20 +147,22 @@ struct WaterQuantityView: View {
                                             }
                                         })
                                         
-                                        if updateHeight != 300 && userSettingsViewModel.updateWater(type:profilType) != 0 {
-                                            withAnimation {
+                                        guard !profilType.isEmpty, !glace.isEmpty else { return }
+                                        let isFull = updateHeight != 300
+                                        let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
+                                        
+                                        if isFull && updateWater {
+                                                
                                                 let result = userSettingsViewModel.showNumberOfGlass(
                                                     chooseBottle: glace,
                                                     name: profilType
                                                 )
-                                                let water =  userSettingsViewModel.uptateQuanittyOfWater2(
-                                                    quantityWater: name,
-                                                    chooseBottle: glace
-                                                )
-
-                                                updateHeight += water
-                                                progress += result
-                                            }
+                                                let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
+                                                withAnimation {
+                                                    updateHeight += CGFloat(water)
+                                                    
+                                                    progress += result
+                                                }
                                         }
                                     }
                                     
@@ -180,7 +185,9 @@ struct WaterQuantityView: View {
                                 
                             }
                             
-                            Text("\(Int((updateHeight / 300) * 100)) %")
+                            let updateHeight = Int((updateHeight / 300) * 100)
+                            
+                            Text("\(updateHeight) %")
                                 .foregroundStyle(updateHeight >= 150 ? .white: .blue)
                                 .font(.title)
                                 .offset(y:75)
@@ -323,7 +330,7 @@ struct WaterQuantityView: View {
                     }
                 }
                 .onChange(of: updateHeight) {
-                    if progress == 300 {
+                    if progress >= 300 {
                         
                         historyViewModel.name = profilType
                         

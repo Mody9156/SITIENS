@@ -38,7 +38,7 @@ struct HomeView: View {
                 VStack(spacing: 24) {
                     Spacer()
                     // Image circulaire
-                    Image("Water")
+                    Image("WaterWallaper")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 260, height: 260)

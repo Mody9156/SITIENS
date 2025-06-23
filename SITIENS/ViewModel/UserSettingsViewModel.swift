@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 class UserSettingsViewModel{
-
+    
     func updateWater(type name:String) -> CGFloat{
         switch name  {
         case "Nourrissons":
@@ -64,32 +64,32 @@ class UserSettingsViewModel{
         }
         
     }
-
-    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
-        let quantityWater = updateWater(type: quantityWater)
-        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
-        let updateWater = quantityWater * 1000
-        let limit = 300
-
-        
-        return 10 
-    }
-
+    //
+    //    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
+    //        let quantityWater = updateWater(type: quantityWater)
+    //        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
+    //        let updateWater = quantityWater * 1000
+    //        let limit = 300
+    //
+    //
+    //        return 10
+    //    }
+    
     func quantityWaterNumber(chooseBottle:String) -> Int {
-      
-         switch chooseBottle {
+        
+        switch chooseBottle {
         case "Petit – 200 ml" :
-           return  200
+            return  200
         case "Moyen – 300 ml" :
-             return 300
+            return 300
         case "Grand – 500 ml" :
-             return 500
+            return 500
         default :
-             return  0
+            return  0
         }
     }
     
-
+    
     
     
     func showNumberOfGlass(chooseBottle:String, name:String) -> Double {
@@ -97,24 +97,22 @@ class UserSettingsViewModel{
         let updatedProfile = updateWater(type :name)
         let totalMl = updatedProfile * 1000
         let result = CGFloat(waterQuantity) / totalMl
-       
+        
         return result
     }
     
-    func uptateQuanittyOfWater2(quantityWater  : String,chooseBottle:String) -> Int {
-           let quantityWater = updateWater(type: quantityWater)
-           let updateWater = quantityWater * 100
-                   
-           let limit = 300
-           let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
-          
-           let resultOfQuanittyOfWater =  Int(updateWater) / BootleOfWater
-           
-           let resultOfType =  limit / resultOfQuanittyOfWater
+    func uptateQuanittyOfWater2(quantityWater : String,chooseBottle:String) -> Int {
+        let quantity = updateWater(type: quantityWater)
+            let update = quantity * 1000
 
-           return resultOfType / Int(updateWater)
-       }
-    
+            let limit = 300
+            let bottle = quantityWaterNumber(chooseBottle: chooseBottle)
+            let waterUnits = Int(update) / bottle
+            let result = limit / waterUnits
+        
+        return Int(CGFloat(result))
+    }
+
     func chooseBottleOfWater(name type: String) -> String {
         switch type {
         case "Petit – 200 ml" :
@@ -127,5 +125,5 @@ class UserSettingsViewModel{
             return ""
         }
     }
- 
+    
 }
