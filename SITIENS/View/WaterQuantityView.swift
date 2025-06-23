@@ -69,55 +69,7 @@ struct WaterQuantityView: View {
                             .scaleEffect(x: isScaledUp ? 1.1:1,y:isScaledUp ? 1:1.1)
                             .overlay(
                                 content: {
-                                    ZStack {
-                                        Circle()
-                                            .fill(Color.white.opacity(0.1))
-                                            .frame(
-                                                width: 15,
-                                                height: 15
-                                            )
-                                            .offset(x:-20)
-                                        
-                                        Circle()
-                                            .fill(Color.white.opacity(0.1))
-                                            .frame(
-                                                width: 15,
-                                                height: 15
-                                            )
-                                            .offset(x:40,y:30)
-                                        
-                                        Circle()
-                                            .fill(Color.white.opacity(0.1))
-                                            .frame(
-                                                width: 25,
-                                                height: 25
-                                            )
-                                            .offset(x:-30,y:80)
-                                        
-                                        Circle()
-                                            .fill(Color.white.opacity(0.1))
-                                            .frame(
-                                                width: 25,
-                                                height: 25
-                                            )
-                                            .offset(x:50,y:70)
-                                        
-                                        Circle()
-                                            .fill(Color.white.opacity(0.1))
-                                            .frame(
-                                                width: 10,
-                                                height: 10
-                                            )
-                                            .offset(x:40,y:100)
-                                        
-                                        Circle()
-                                            .fill(Color.white.opacity(0.1))
-                                            .frame(
-                                                width: 10,
-                                                height: 10
-                                            )
-                                            .offset(x:-40,y:50)
-                                    }
+                                    ExtractedView()
                                     
                                 })
                             .mask {
@@ -152,17 +104,17 @@ struct WaterQuantityView: View {
                                         let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
                                         
                                         if isFull && updateWater {
+                                            
+                                            let result = userSettingsViewModel.showNumberOfGlass(
+                                                chooseBottle: glace,
+                                                name: profilType
+                                            )
+                                            let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
+                                            withAnimation {
+                                                updateHeight += CGFloat(water)
                                                 
-                                                let result = userSettingsViewModel.showNumberOfGlass(
-                                                    chooseBottle: glace,
-                                                    name: profilType
-                                                )
-                                                let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
-                                                withAnimation {
-                                                    updateHeight += CGFloat(water)
-                                                    
-                                                    progress += result
-                                                }
+                                                progress += result
+                                            }
                                         }
                                     }
                                     
@@ -237,18 +189,18 @@ struct WaterQuantityView: View {
                     }
                     
                     if throwError && profilType.isEmpty {
-                            HStack {
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .foregroundStyle(Color.orange)
-                                Text("Veuillez bien selectionner un profil")
-                            }
-                            .opacity(showMessage ? 1 : 0)
-                            .animation(
-                                .easeOut(duration: 1.0),value: showMessage
-                            )
-                           
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(Color.orange)
+                            Text("Veuillez bien selectionner un profil")
+                        }
+                        .opacity(showMessage ? 1 : 0)
+                        .animation(
+                            .easeOut(duration: 1.0),value: showMessage
+                        )
+                        
                     }
-
+                    
                     if !glace.isEmpty {
                         VStack {
                             HStack{
@@ -265,13 +217,13 @@ struct WaterQuantityView: View {
                                         .frame(width: 40, height: 40, alignment: .center)
                                 }
                             }
-                           
+                            
                             let type = userSettingsViewModel.UpdateGlaceWithRIghtValues(
                                 chooseBottle: glace,
                                 name: profilType)
                             let rounded =  type.rounded()
                             
-                           Text("X \(Int(rounded))")
+                            Text("X \(Int(rounded))")
                         }
                     }
                 }
@@ -384,6 +336,60 @@ struct WaterWave: Shape {
             }
             path.addLine(to: CGPoint(x: rect.width, y: rect.height))
             path.addLine(to: CGPoint(x: 0, y: rect.height))
+        }
+    }
+}
+
+struct ExtractedView: View {
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(Color.white.opacity(0.1))
+                .frame(
+                    width: 15,
+                    height: 15
+                )
+                .offset(x:-20)
+            
+            Circle()
+                .fill(Color.white.opacity(0.1))
+                .frame(
+                    width: 15,
+                    height: 15
+                )
+                .offset(x:40,y:30)
+            
+            Circle()
+                .fill(Color.white.opacity(0.1))
+                .frame(
+                    width: 25,
+                    height: 25
+                )
+                .offset(x:-30,y:80)
+            
+            Circle()
+                .fill(Color.white.opacity(0.1))
+                .frame(
+                    width: 25,
+                    height: 25
+                )
+                .offset(x:50,y:70)
+            
+            Circle()
+                .fill(Color.white.opacity(0.1))
+                .frame(
+                    width: 10,
+                    height: 10
+                )
+                .offset(x:40,y:100)
+            
+            Circle()
+                .fill(Color.white.opacity(0.1))
+                .frame(
+                    width: 10,
+                    height: 10
+                )
+                .offset(x:-40,y:50)
         }
     }
 }
