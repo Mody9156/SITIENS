@@ -340,7 +340,8 @@ struct WaterWave: Shape {
     }
 }
 
-struct ExtractedView: View {
+struct CircleView: View {
+    
     var body: some View {
         ZStack {
             Circle()
