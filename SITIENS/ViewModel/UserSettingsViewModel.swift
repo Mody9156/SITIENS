@@ -65,14 +65,14 @@ class UserSettingsViewModel{
         
     }
     
-        func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Double {
-            let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
-            let updatedProfile = updateWater(type :quantityWater)
-            let totalMl = updatedProfile * 1000
-            let result =  totalMl / CGFloat(waterQuantity)
-            
-            return result
-        }
+    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Double {
+        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
+        let updatedProfile = updateWater(type :quantityWater)
+        let totalMl = updatedProfile * 1000
+        let result =  totalMl / CGFloat(waterQuantity)
+        
+        return result
+    }
     
     func quantityWaterNumber(chooseBottle:String) -> Int {
         
@@ -88,29 +88,42 @@ class UserSettingsViewModel{
         }
     }
     
-    
-    
-    
     func showNumberOfGlass(chooseBottle:String, name:String) -> Double {
         let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
         let updatedProfile = updateWater(type :name)
         let totalMl = updatedProfile * 1000
         let result = CGFloat(waterQuantity) / totalMl
         
-        return result
+        return  result
     }
     
-    func uptateQuanittyOfWater2(quantityWater : String,chooseBottle:String) -> Int {
+    func uptateQuanittyOfWater2(quantityWater : String,chooseBottle:String) -> Double {
         let quantity = updateWater(type: quantityWater)
-            let update = quantity * 1000
-
-            let limit = 300
-            let bottle = quantityWaterNumber(chooseBottle: chooseBottle)
-            let waterUnits = Int(update) / bottle
-            let result = limit / waterUnits
         
-        return Int(CGFloat(result))
+        guard quantity > 0 else{
+            print("Error: Bottle size can't be zero")
+            return 0
+        }
+        
+        let update = quantity * 1000
+        let limit = 300
+                
+        let bottle = quantityWaterNumber(chooseBottle: chooseBottle)
+        
+        guard bottle > 0 else{
+            print("Error: Bottle size can't be zero")
+            return 0
+        }
+        
+        let waterUnits = Int(update) / bottle
+        let result = limit / waterUnits
+        
+        
+        print("result : \(Double(result).rounded())")
+        
+        return Double(result)
     }
+    
     func chooseBottleOfWater(name type: String) -> String {
         switch type {
         case "Petit – 200 ml" :
@@ -123,5 +136,4 @@ class UserSettingsViewModel{
             return ""
         }
     }
-    
 }

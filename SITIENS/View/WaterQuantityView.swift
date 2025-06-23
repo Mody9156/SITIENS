@@ -119,9 +119,10 @@ struct WaterQuantityView: View {
                                                 name: profilType
                                             )
                                             let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
+                                            
                                             withAnimation {
-                                                updateHeight += CGFloat(water)
-                                                
+                                                updateHeight += water.rounded() - 50
+                                                print("updateHeight : \(updateHeight)")
                                                 progress += result
                                             }
                                         }
@@ -229,9 +230,9 @@ struct WaterQuantityView: View {
                                 quantityWater  : profilType,
                                 chooseBottle:glace
                             )
-                              
+                            
                             let rounded =  type.rounded()
-
+                            
                             Text("X \(Int(rounded))")
                         }
                     }
@@ -262,13 +263,13 @@ struct WaterQuantityView: View {
     }
     
     private var backgroundGradient: some View {
-            LinearGradient(
-                gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
-        }
+        LinearGradient(
+            gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
+    }
     
     
     private var settingsToolbar: some ToolbarContent {
@@ -308,7 +309,7 @@ struct WaterQuantityView: View {
             }
         }
         
-       
+        
     }
     private var historyToolbar :some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
@@ -356,7 +357,7 @@ struct WaterWave: Shape {
             let progressHeight : CGFloat = (1 - progress) * rect.height
             let height = waveHeight * rect.height
             
-            for value in stride(from: 0, to: rect.width, by: 2) {
+            for value in stride(from: 0, to: rect.width, by: 1) {
                 let x : CGFloat = value
                 let sine : CGFloat = sin(Angle(degrees:  value + offset).radians)
                 let y : CGFloat = progressHeight + (height * sine)
