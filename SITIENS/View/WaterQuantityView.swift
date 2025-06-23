@@ -225,10 +225,11 @@ struct WaterQuantityView: View {
                                 }
                             }
                             
-                            let type = userSettingsViewModel.UpdateGlaceWithRIghtValues(chooseBottle: glace,
-                                name: profilType)
+                            let type = userSettingsViewModel.showNumberOfGlass(chooseBottle: glace, name: profilType)
+                              
                             let rounded =  type.rounded()
-                            
+//                            userSettingsViewModel.UpdateGlaceWithRIghtValues(chooseBottle: glace,
+//                                name: profilType)
                             Text("X \(Int(rounded))")
                         }
                     }

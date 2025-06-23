@@ -93,10 +93,10 @@ class UserSettingsViewModel{
     
     
     func showNumberOfGlass(chooseBottle:String, name:String) -> Double {
-        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
-        let updatedProfile = updateWater(type :name)
-        let totalMl = updatedProfile * 1000
-        let result = CGFloat(waterQuantity) / totalMl
+        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)// 2
+        let updatedProfile = updateWater(type :name)// 2 000
+        let totalMl = updatedProfile * 1_000
+        let result =  totalMl / CGFloat(waterQuantity)  // 2 000 / 200 = 10
         
         return result
     }
