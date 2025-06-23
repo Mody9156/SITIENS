@@ -225,7 +225,10 @@ struct WaterQuantityView: View {
                                 }
                             }
                             
-                            let type = userSettingsViewModel.showNumberOfGlass(chooseBottle: glace, name: profilType)
+                            let type = userSettingsViewModel.uptateQuanittyOfWater(
+                                quantityWater  : profilType,
+                                chooseBottle:glace
+                            )
                               
                             let rounded =  type.rounded()
 

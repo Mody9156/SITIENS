@@ -65,14 +65,13 @@ class UserSettingsViewModel{
         
     }
     
-        func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
-            let quantityWater = updateWater(type: quantityWater)
-            let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
-            let updateWater = quantityWater * 1000
-            let limit = 300
-    
-    
-            return 10
+        func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Double {
+            let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
+            let updatedProfile = updateWater(type :quantityWater)
+            let totalMl = updatedProfile * 1000
+            let result =  totalMl / CGFloat(waterQuantity)
+            
+            return result
         }
     
     func quantityWaterNumber(chooseBottle:String) -> Int {
@@ -93,10 +92,10 @@ class UserSettingsViewModel{
     
     
     func showNumberOfGlass(chooseBottle:String, name:String) -> Double {
-        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)// 2
-        let updatedProfile = updateWater(type :name)// 2 000
-        let totalMl = updatedProfile * 1_000
-        let result =  totalMl / CGFloat(waterQuantity)  // 2 000 / 200 = 10
+        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
+        let updatedProfile = updateWater(type :name)
+        let totalMl = updatedProfile * 1000
+        let result = CGFloat(waterQuantity) / totalMl
         
         return result
     }
@@ -112,7 +111,6 @@ class UserSettingsViewModel{
         
         return Int(CGFloat(result))
     }
-
     func chooseBottleOfWater(name type: String) -> String {
         switch type {
         case "Petit – 200 ml" :
