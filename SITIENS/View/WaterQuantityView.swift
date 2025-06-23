@@ -23,6 +23,14 @@ struct WaterQuantityView: View {
     @State private var isScaledUp = false
     @State var glace : String = ""
     
+    var currentWater : CGFloat {
+        updateHeight * userSettingsViewModel.updateType(name:profilType)
+    }
+    
+    var targetWater : CGFloat {
+        userSettingsViewModel.updateWater(type: profilType)
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -69,7 +77,12 @@ struct WaterQuantityView: View {
                             .scaleEffect(x: isScaledUp ? 1.1:1,y:isScaledUp ? 1:1.1)
                             .overlay(
                                 content: {
-                                    ExtractedView()
+                                    CircleView(width: 15, height: 15, x: -20, y: 0)
+                                    CircleView(width: 15, height: 15, x: 40, y: 30)
+                                    CircleView(width: 25, height: 25, x: -30, y: 80)
+                                    CircleView(width: 25, height: 25, x: 50, y: 70)
+                                    CircleView(width: 10, height: 10, x: 40, y: 100)
+                                    CircleView(width: 10, height: 10, x: -40, y: 50)
                                     
                                 })
                             .mask {
@@ -100,6 +113,7 @@ struct WaterQuantityView: View {
                                         })
                                         
                                         guard !profilType.isEmpty, !glace.isEmpty else { return }
+                                        
                                         let isFull = updateHeight != 300
                                         let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
                                         
@@ -137,9 +151,9 @@ struct WaterQuantityView: View {
                                 
                             }
                             
-                            let updateHeight = Int((updateHeight / 300) * 100)
+                            let percentFilled = Int((updateHeight / 300) * 100)
                             
-                            Text("\(updateHeight) %")
+                            Text("\(percentFilled) %")
                                 .foregroundStyle(updateHeight >= 150 ? .white: .blue)
                                 .font(.title)
                                 .offset(y:75)
@@ -228,58 +242,7 @@ struct WaterQuantityView: View {
                     }
                 }
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        if progress == 0 {
-                            
-                            Button {
-                                withAnimation {
-                                    sheetPresented = true
-                                }
-                            } label: {
-                                Image(systemName: "gearshape.fill")
-                                    .font(.title2)
-                                    .foregroundStyle(.primary)
-                                    .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
-                                    .animation(
-                                        .linear(duration: 2.9)
-                                        .repeatForever(autoreverses: false),
-                                        value: rotationInfiny
-                                    )
-                                    .onAppear{
-                                        rotationInfiny = true
-                                    }
-                            }
-                            
-                            .sheet(isPresented: $sheetPresented) {
-                                
-                            } content: {
-                                UserSettingsView(profil:$profilType,glace:$glace)
-                            }
-                            
-                        }else{
-                            
-                            Image(systemName: "gearshape.fill")
-                                .font(.title2)
-                                .foregroundColor(.gray)
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .topBarLeading) {
-                        NavigationLink {
-                            ShowHistory(
-                                historyViewModel:HistoryViewModel(
-                                    viewContext: historyViewModel.viewContext)
-                            )
-                            .onAppear{
-                                historyViewModel.reload()
-                            }
-                            
-                        } label: {
-                            Image(systemName: "clock.arrow.circlepath")
-                                .font(.title2)
-                                .foregroundStyle(.blue)
-                        }
-                    }
+                    settingsTollbar
                 }
                 .onChange(of: updateHeight) {
                     if progress >= 300 {
@@ -301,7 +264,64 @@ struct WaterQuantityView: View {
             }
         }
     }
+    
+    private var settingsTollbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            if progress == 0 {
+                
+                Button {
+                    withAnimation {
+                        sheetPresented = true
+                    }
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                        .font(.title2)
+                        .foregroundStyle(.primary)
+                        .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
+                        .animation(
+                            .linear(duration: 2.9)
+                            .repeatForever(autoreverses: false),
+                            value: rotationInfiny
+                        )
+                        .onAppear{
+                            rotationInfiny = true
+                        }
+                }
+                
+                .sheet(isPresented: $sheetPresented) {
+                    
+                } content: {
+                    UserSettingsView(profil:$profilType,glace:$glace)
+                }
+                
+            }else{
+                
+                Image(systemName: "gearshape.fill")
+                    .font(.title2)
+                    .foregroundColor(.gray)
+            }
+        }
+        
+        ToolbarItem(placement: .topBarLeading) {
+            NavigationLink {
+                ShowHistory(
+                    historyViewModel:HistoryViewModel(
+                        viewContext: historyViewModel.viewContext)
+                )
+                .onAppear{
+                    historyViewModel.reload()
+                }
+                
+            } label: {
+                Image(systemName: "clock.arrow.circlepath")
+                    .font(.title2)
+                    .foregroundStyle(.blue)
+            }
+        }
+    }
 }
+
+
 
 #Preview {
     WaterQuantityView(historyViewModel: HistoryViewModel())
@@ -341,56 +361,19 @@ struct WaterWave: Shape {
 }
 
 struct CircleView: View {
-    
+    let width : CGFloat
+    let height : CGFloat
+    let x : CGFloat
+    let y : CGFloat
     var body: some View {
         ZStack {
             Circle()
                 .fill(Color.white.opacity(0.1))
                 .frame(
-                    width: 15,
-                    height: 15
+                    width: width,
+                    height: height
                 )
-                .offset(x:-20)
-            
-            Circle()
-                .fill(Color.white.opacity(0.1))
-                .frame(
-                    width: 15,
-                    height: 15
-                )
-                .offset(x:40,y:30)
-            
-            Circle()
-                .fill(Color.white.opacity(0.1))
-                .frame(
-                    width: 25,
-                    height: 25
-                )
-                .offset(x:-30,y:80)
-            
-            Circle()
-                .fill(Color.white.opacity(0.1))
-                .frame(
-                    width: 25,
-                    height: 25
-                )
-                .offset(x:50,y:70)
-            
-            Circle()
-                .fill(Color.white.opacity(0.1))
-                .frame(
-                    width: 10,
-                    height: 10
-                )
-                .offset(x:40,y:100)
-            
-            Circle()
-                .fill(Color.white.opacity(0.1))
-                .frame(
-                    width: 10,
-                    height: 10
-                )
-                .offset(x:-40,y:50)
+                .offset(x: x, y: y)
         }
     }
 }
