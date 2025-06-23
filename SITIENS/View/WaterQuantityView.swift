@@ -34,12 +34,7 @@ struct WaterQuantityView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                backgroundGradient
                 
                 VStack{
                     Text("Hydradation")
@@ -148,12 +143,11 @@ struct WaterQuantityView: View {
                                                 })
                                         )
                                 }
-                                
                             }
                             
-                            let percentFilled = Int((updateHeight / 300) * 100)
+                            let percentFilled = (updateHeight / 300) * 100
                             
-                            Text("\(percentFilled) %")
+                            Text("\(Int(percentFilled)) %")
                                 .foregroundStyle(updateHeight >= 150 ? .white: .blue)
                                 .font(.title)
                                 .offset(y:75)
@@ -212,7 +206,6 @@ struct WaterQuantityView: View {
                         .animation(
                             .easeOut(duration: 1.0),value: showMessage
                         )
-                        
                     }
                     
                     if !glace.isEmpty {
@@ -232,8 +225,7 @@ struct WaterQuantityView: View {
                                 }
                             }
                             
-                            let type = userSettingsViewModel.UpdateGlaceWithRIghtValues(
-                                chooseBottle: glace,
+                            let type = userSettingsViewModel.UpdateGlaceWithRIghtValues(chooseBottle: glace,
                                 name: profilType)
                             let rounded =  type.rounded()
                             
@@ -242,7 +234,8 @@ struct WaterQuantityView: View {
                     }
                 }
                 .toolbar {
-                    settingsTollbar
+                    settingsToolbar
+                    historyToolbar
                 }
                 .onChange(of: updateHeight) {
                     if progress >= 300 {
@@ -265,7 +258,17 @@ struct WaterQuantityView: View {
         }
     }
     
-    private var settingsTollbar: some ToolbarContent {
+    private var backgroundGradient: some View {
+            LinearGradient(
+                gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+        }
+    
+    
+    private var settingsToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             if progress == 0 {
                 
@@ -302,6 +305,9 @@ struct WaterQuantityView: View {
             }
         }
         
+       
+    }
+    private var historyToolbar :some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             NavigationLink {
                 ShowHistory(

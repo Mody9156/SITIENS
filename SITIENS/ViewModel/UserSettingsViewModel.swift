@@ -64,16 +64,16 @@ class UserSettingsViewModel{
         }
         
     }
-    //
-    //    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
-    //        let quantityWater = updateWater(type: quantityWater)
-    //        let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
-    //        let updateWater = quantityWater * 1000
-    //        let limit = 300
-    //
-    //
-    //        return 10
-    //    }
+    
+        func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Int {
+            let quantityWater = updateWater(type: quantityWater)
+            let BootleOfWater = quantityWaterNumber(chooseBottle: chooseBottle)
+            let updateWater = quantityWater * 1000
+            let limit = 300
+    
+    
+            return 10
+        }
     
     func quantityWaterNumber(chooseBottle:String) -> Int {
         
