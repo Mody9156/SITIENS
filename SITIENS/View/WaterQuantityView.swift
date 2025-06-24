@@ -65,7 +65,7 @@ struct WaterQuantityView: View {
                             
                             WaterWave(
                                 progress: progress,
-                                waveHeight:0.1,
+                                waveHeight:0.2,
                                 offset: startAnimation
                             )
                             .fill(Color.blue)
@@ -121,9 +121,10 @@ struct WaterQuantityView: View {
                                             let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
                                             
                                             withAnimation {
-                                                updateHeight += water.rounded() - 50
-                                                print("updateHeight : \(updateHeight)")
+                                                updateHeight += water
+                                                print("updateHeight: \(updateHeight)")
                                                 progress += result
+                                                print("progress: \(progress.rounded())")
                                             }
                                         }
                                     }
@@ -169,7 +170,7 @@ struct WaterQuantityView: View {
                         }
                     }
                     .frame(width: 350)
-                    
+
                     if updateHeight != 0 {
                         
                         Button {
@@ -354,7 +355,8 @@ struct WaterWave: Shape {
             //Start
             path.move(to: .zero)
             
-            let progressHeight : CGFloat = (1 - progress) * rect.height
+            let waveAmplitude = waveHeight * rect.height
+            let progressHeight : CGFloat = (1 - progress) * rect.height - waveHeight
             let height = waveHeight * rect.height
             
             for value in stride(from: 0, to: rect.width, by: 1) {
