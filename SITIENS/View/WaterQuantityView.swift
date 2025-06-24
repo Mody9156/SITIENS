@@ -31,7 +31,6 @@ struct WaterQuantityView: View {
         userSettingsViewModel.updateWater(type: profilType)
     }
     
-    
     var body: some View {
         NavigationStack {
             ZStack {
