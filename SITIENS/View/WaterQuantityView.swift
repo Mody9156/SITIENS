@@ -31,6 +31,7 @@ struct WaterQuantityView: View {
         userSettingsViewModel.updateWater(type: profilType)
     }
     
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -65,7 +66,7 @@ struct WaterQuantityView: View {
                             
                             WaterWave(
                                 progress: progress,
-                                waveHeight:0.2,
+                                waveHeight:0.1,
                                 offset: startAnimation
                             )
                             .fill(Color.blue)
@@ -112,7 +113,7 @@ struct WaterQuantityView: View {
                                         let isFull = updateHeight != 300
                                         let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
                                         
-                                        if isFull && updateWater {
+                                        if isFull && updateWater && progress < 1 {
                                             
                                             let result = userSettingsViewModel.showNumberOfGlass(
                                                 chooseBottle: glace,
@@ -121,7 +122,9 @@ struct WaterQuantityView: View {
                                             let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
                                             
                                             withAnimation {
-                                                updateHeight += water
+                                                
+                                                    updateHeight += water
+                                                
                                                 print("updateHeight: \(updateHeight)")
                                                 progress += result
                                                 print("progress: \(progress.rounded())")
@@ -243,7 +246,7 @@ struct WaterQuantityView: View {
                     historyToolbar
                 }
                 .onChange(of: updateHeight) {
-                    if progress >= 300 {
+                    if updateHeight >= 300 {
                         
                         historyViewModel.name = profilType
                         
@@ -356,7 +359,7 @@ struct WaterWave: Shape {
             path.move(to: .zero)
             
             let waveAmplitude = waveHeight * rect.height
-            let progressHeight : CGFloat = (1 - progress) * rect.height - waveHeight
+            let progressHeight : CGFloat = (1 - progress) * rect.height - waveAmplitude
             let height = waveHeight * rect.height
             
             for value in stride(from: 0, to: rect.width, by: 1) {
