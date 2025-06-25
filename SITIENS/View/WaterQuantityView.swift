@@ -46,7 +46,7 @@ struct WaterQuantityView: View {
                     let currentWater = updateHeight * userSettingsViewModel.updateType(name:profilType)
                     let targetWater = userSettingsViewModel.updateWater(type: profilType)
                     
-                    Text("\(currentWater,format: .number.precision(.fractionLength(1)))L / \(targetWater,format: .number.precision(.fractionLength(1)))L")
+                    Text("\(currentWater > targetWater ? targetWater : currentWater ,format: .number.precision(.fractionLength(1)))L / \(targetWater,format: .number.precision(.fractionLength(1)))L")
                         .foregroundStyle(.gray)
                         .font(.title2)
                     
@@ -156,7 +156,7 @@ struct WaterQuantityView: View {
                                     .foregroundStyle(updateHeight >= 150 ? .white: .blue)
                                     .font(.title)
                                     .offset(y:75)
-                                //attention 
+                                //attention
                             }else {
                                 Text("\(Int(percentFilled)) %")
                                     .foregroundStyle(updateHeight >= 150 ? .white: .blue)
@@ -365,7 +365,7 @@ struct WaterWave: Shape {
             path.move(to: .zero)
             
             let waveAmplitude = waveHeight * rect.height
-            let progressHeight : CGFloat = (1 - progress) * rect.height - waveAmplitude
+            let progressHeight : CGFloat = (1 - progress) * rect.height
             let height = waveHeight * rect.height
             
             for value in stride(from: 0, to: rect.width, by: 2) {
