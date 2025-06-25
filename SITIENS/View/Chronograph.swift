@@ -42,20 +42,31 @@ struct Chronograph: View {
                             .font(.title3)
                             .foregroundStyle(.secondary)
                     }
-                    
+                   
                     ZStack {
-                        
-                        ProgressView(value:progress)
-                            .progressViewStyle(.circular)
                         
                         Circle()
                             .stroke(lineWidth: 8)
-                            .foregroundStyle(.secondary)
+                            .fill(.clear)
                             .frame(height: 300)
+                            .overlay {
+                                Circle()
+                                    .trim(from: 0,to: progressWater())
+                                    .stroke(
+                                        style: StrokeStyle(
+                                            lineWidth: 15,
+                                            lineCap: .round,
+                                            lineJoin: .round,
+                                        )
+                                    )
+                                    .foregroundStyle(.orange)
+                                    .animation(.easeInOut(duration: 0.2))
+                            }
                         
                         Text(hydrationActivationViewModel.formatTimer(timeInterval))
                             .font(.system(size: 48, weight: .bold, design: .monospaced))
                             .foregroundStyle(.primary)
+                     
                     }
                     
                     // MARK: - Bouton du cercle principal
@@ -138,6 +149,14 @@ struct Chronograph: View {
             }
         }
     }
+    
+    func completed() -> Bool {
+            return progressWater() == 1
+        }
+    
+    func progressWater() -> CGFloat {
+        return  CGFloat(timeInterval) / CGFloat(timerhour) 
+        }
 }
 
 // MARK: - Preview

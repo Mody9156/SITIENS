@@ -30,6 +30,7 @@ struct Start_timer: View {
                     timeInterval = timerhour
                     elapseBeforPause = 0
                     hydrationActivationViewModel.stopPlaying()
+                    
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
                             .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -38,6 +39,7 @@ struct Start_timer: View {
                                 }
                             })
                     }
+                    
                 } label: {
                     ZStack {
                         Circle()
@@ -54,7 +56,6 @@ struct Start_timer: View {
                             .fill(.gray)
                             .frame(width: 120, height: 120)
                             .shadow(radius: 10)
-                        
                         
                         Text("Réinitialiser")
                             .font(.headline)
