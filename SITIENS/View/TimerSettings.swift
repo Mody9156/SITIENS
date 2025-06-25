@@ -29,7 +29,6 @@ struct TimerSettings: View {
         NavigationStack {
             ScrollView {
                 VStack (spacing: 30){
-                    
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Sélectionner le temps")
                             .font(.headline)

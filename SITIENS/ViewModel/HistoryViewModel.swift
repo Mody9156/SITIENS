@@ -38,7 +38,6 @@ import SwiftUICore
         case fetchFailed
     }
     
-    
     func showMessageError()  -> String? {
         if name.isEmpty || quantity.isEmpty   {
             return "Veuillez remplir tous les champs."
@@ -49,7 +48,6 @@ import SwiftUICore
     func addHistory() throws {
         if let erreor =  showMessageError(){
              errorMessage = erreor
-             
         }
 
         do {
