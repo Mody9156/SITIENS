@@ -241,9 +241,10 @@ struct WaterQuantityView: View {
                                 chooseBottle:glace
                             )
                             
-                            let rounded =  type.rounded()
-                            
+                            let rounded = ceil(type)
+                          
                             Text("X \(Int(rounded))")
+                            
                         }
                     }
                 }
