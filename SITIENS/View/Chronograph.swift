@@ -59,8 +59,9 @@ struct Chronograph: View {
                                             lineJoin: .round,
                                         )
                                     )
-                                    .foregroundStyle(.orange)
+                                    .foregroundStyle(completed() ? .blue : .orange)
                                     .animation(.easeInOut(duration: 0.2))
+                                
                             }
                         
                         Text(hydrationActivationViewModel.formatTimer(timeInterval))
@@ -155,7 +156,7 @@ struct Chronograph: View {
         }
     
     func progressWater() -> CGFloat {
-        return  CGFloat(timeInterval) / CGFloat(timerhour) 
+        return  CGFloat(timeInterval) / CGFloat(timerhour)
         }
 }
 
