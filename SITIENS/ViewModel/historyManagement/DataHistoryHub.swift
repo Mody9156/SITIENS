@@ -85,7 +85,7 @@ class DataHistoryHub : HydrationProtocol {
         
         //Trigger (déclanche quand la notification sera envoyée)
         let trigger = UNTimeIntervalNotificationTrigger(
-            timeInterval: 5,
+            timeInterval: 1,
             repeats: false
         )
         //Request
