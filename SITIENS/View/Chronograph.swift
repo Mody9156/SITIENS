@@ -46,8 +46,7 @@ struct Chronograph: View {
                     ZStack {
                         
                         Circle()
-                            .stroke(lineWidth: 8)
-                            .fill(.clear)
+                            .stroke(Color.gray.opacity(0.2), lineWidth: 15)
                             .frame(height: 300)
                             .overlay {
                                 Circle()
@@ -61,10 +60,9 @@ struct Chronograph: View {
                                     )
                                     .foregroundStyle(completed() ? .blue : .orange)
                                     .animation(
-                                        .easeInOut(duration: 0.2),
-                                        value: completed()
+                                        .easeInOut(duration: 0.5),
+                                        value: progressWater()
                                     )
-                                
                             }
                         
                         Text(hydrationActivationViewModel.formatTimer(timeInterval))
