@@ -31,8 +31,6 @@ class HydrationActivationViewModel  {
         hydrationProtocol.stopPlaying()
         avAudioEngine.stop()
         avAudioPlayerNode.stop()
-        
-        
     }
     
     func formatTimer(_ secondes: Int) -> String {
@@ -53,7 +51,6 @@ class HydrationActivationViewModel  {
             } else {
                 return "\(hours) \(hours > 1 ? "heures" : "heure") et \(minutes) \(minutes > 1 ? "minutes" : "minute")"
             }
-        
     }
   
     func playSound(sound:String) {

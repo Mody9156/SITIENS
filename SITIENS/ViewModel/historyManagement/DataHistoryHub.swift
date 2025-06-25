@@ -53,7 +53,6 @@ class DataHistoryHub : HydrationProtocol {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
                 audioPlayer?.play()
-                
             } catch {
                 print("ERROR")
             }
@@ -72,7 +71,6 @@ class DataHistoryHub : HydrationProtocol {
         avAudioEngine.stop()
         avAudioPlayerNode.stop()
         audioPlayer = nil
-        
     }
     
     func notification(){
@@ -98,6 +96,5 @@ class DataHistoryHub : HydrationProtocol {
         UNUserNotificationCenter
             .current()
             .add(request)
-        
     }
 }
