@@ -17,6 +17,7 @@ struct Chronograph: View {
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @State var showMessage : Bool = false
     @State var elapseBeforPause : Int = 0
+    @State private var progress = 0.6
     
     var body: some View {
         NavigationStack {
@@ -43,6 +44,9 @@ struct Chronograph: View {
                     }
                     
                     ZStack {
+                        
+                        ProgressView(value:progress)
+                            .progressViewStyle(.circular)
                         
                         Circle()
                             .stroke(lineWidth: 8)
