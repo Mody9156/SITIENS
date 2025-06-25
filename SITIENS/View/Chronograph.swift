@@ -42,7 +42,7 @@ struct Chronograph: View {
                             .font(.title3)
                             .foregroundStyle(.secondary)
                     }
-                   
+                    
                     ZStack {
                         
                         Circle()
@@ -68,7 +68,7 @@ struct Chronograph: View {
                         Text(hydrationActivationViewModel.formatTimer(timeInterval))
                             .font(.system(size: 48, weight: .bold, design: .monospaced))
                             .foregroundStyle(.primary)
-                     
+                        
                     }
                     
                     // MARK: - Bouton du cercle principal
@@ -153,12 +153,12 @@ struct Chronograph: View {
     }
     
     func completed() -> Bool {
-            return progressWater() == 1
-        }
+        return progressWater() == 1
+    }
     
     func progressWater() -> CGFloat {
         return  CGFloat(timeInterval) / CGFloat(timerhour)
-        }
+    }
 }
 
 // MARK: - Preview
