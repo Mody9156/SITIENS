@@ -159,7 +159,7 @@ struct WaterQuantityView: View {
                                 //attention
                             }else {
                                 Text("\(Int(percentFilled)) %")
-                                    .foregroundStyle(updateHeight >= 150 ? .white: .blue)
+                                    .foregroundStyle(Int(percentFilled) > 40 ? .white: .blue)
                                     .font(.title)
                                     .offset(y:75)
                             }
