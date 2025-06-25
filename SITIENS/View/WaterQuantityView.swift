@@ -126,7 +126,7 @@ struct WaterQuantityView: View {
                                                 
                                                 print("updateHeight: \(updateHeight)")
                                                 progress += result
-                                                print("progress: \(progress.rounded())")
+                                                print("progress: \(progress)")
                                             }
                                         }
                                     }
@@ -151,11 +151,18 @@ struct WaterQuantityView: View {
                             
                             let percentFilled = (updateHeight / 300) * 100
                             
-                            Text("\(Int(percentFilled)) %")
-                                .foregroundStyle(updateHeight >= 150 ? .white: .blue)
-                                .font(.title)
-                                .offset(y:75)
-                            
+                            if progress > 1.0 {
+                                Text("100 %")
+                                    .foregroundStyle(updateHeight >= 150 ? .white: .blue)
+                                    .font(.title)
+                                    .offset(y:75)
+                                //attention 
+                            }else {
+                                Text("\(Int(percentFilled)) %")
+                                    .foregroundStyle(updateHeight >= 150 ? .white: .blue)
+                                    .font(.title)
+                                    .offset(y:75)
+                            }
                         }
                         .frame(
                             width: width,
@@ -361,7 +368,7 @@ struct WaterWave: Shape {
             let progressHeight : CGFloat = (1 - progress) * rect.height - waveAmplitude
             let height = waveHeight * rect.height
             
-            for value in stride(from: 0, to: rect.width, by: 1) {
+            for value in stride(from: 0, to: rect.width, by: 2) {
                 let x : CGFloat = value
                 let sine : CGFloat = sin(Angle(degrees:  value + offset).radians)
                 let y : CGFloat = progressHeight + (height * sine)
