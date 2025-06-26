@@ -125,10 +125,14 @@ struct ShowHistory: View {
         if searchText.isEmpty {
            return historyViewModel.history
         }else{
-           
-            return historyViewModel.history
+           let water = historyViewModel.history
                 .filter{
-                    $0.name?.lowercased().contains(searchText) == true }
+                    $0.name?.contains(searchText) == true ||
+                    $0.quantity?.contains(searchText) == true ||
+                    $0.date?.contains(searchText) == true
+                }
+         
+            return  water
         }
         
     }
