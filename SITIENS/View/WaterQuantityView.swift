@@ -10,7 +10,14 @@ import CoreData
 import Combine
 
 struct WaterQuantityView: View {
-    @State var updateHeight : CGFloat = 0
+    @AppStorage("updateHeight") var updateHeightRaw : Double = 0
+    
+    var updateHeight : CGFloat {
+        get{updateHeightRaw}
+        set{updateHeightRaw = Double(newValue)}
+        
+    }
+    
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
     @State var profilType : String = ""
