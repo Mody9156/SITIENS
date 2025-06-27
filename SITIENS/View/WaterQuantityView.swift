@@ -11,6 +11,9 @@ import Combine
 
 struct WaterQuantityView: View {
     @AppStorage("updateHeight")  var updateHeightRaw : Double = 0
+    @AppStorage("progress")  var progressRaw: Double = 0
+    @AppStorage("progress")  var profilTypeRaw: Double = 0
+    @AppStorage("progress")  var glaceRaw: Double = 0
     @State var updateHeight : CGFloat = 0
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
@@ -172,6 +175,9 @@ struct WaterQuantityView: View {
                         )
                         .onAppear{
                             updateHeight = CGFloat(updateHeightRaw)
+                            progress = CGFloat(progressRaw)
+                            profilType = CGFloat(profilTypeRaw)
+                            glace = CGFloat(glaceRaw)
                             withAnimation(
                                 .linear(duration: 0.8)
                                 .repeatForever(autoreverses: true)){
@@ -256,9 +262,13 @@ struct WaterQuantityView: View {
                 }
                 .onChange(of: updateHeight) {
                     updateHeightRaw = Double(updateHeight)
+                    progressRaw = Double(progress)
+                    profilTypeRaw = Double(profilType)
+                    glaceRaw = Double(glace)
                     if updateHeight >= 300 {
                         
                         historyViewModel.name = profilType
+                       
                         
                         let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
                         historyViewModel.quantity = formattedQuantity
