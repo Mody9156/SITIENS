@@ -12,8 +12,8 @@ import Combine
 struct WaterQuantityView: View {
     @AppStorage("updateHeight") var updateHeightRaw : Double = 0
     @AppStorage("progress")  var progressRaw: Double = 0
-    @AppStorage("progress") var profilTypeRaw: String = ""
-    @AppStorage("progress") var glaceRaw: String = ""
+    @AppStorage("profilType") var profilTypeRaw: String = ""
+    @AppStorage("glace") var glaceRaw: String = ""
     @State var updateHeight : CGFloat = 0
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
@@ -245,7 +245,7 @@ struct WaterQuantityView: View {
                             }
                             
                             let type = userSettingsViewModel.uptateQuanittyOfWater(
-                                quantityWater  : profilType,
+                                quantityWater : profilType,
                                 chooseBottle:glace
                             )
                             
