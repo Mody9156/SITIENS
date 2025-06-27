@@ -12,6 +12,7 @@ struct Chronograph: View {
     @AppStorage("timeInterval",store: .standard) var timeIntervalRaw : Int = 0
     @State  var cancellable: Cancellable?
     @State var startDate: Date?
+    @AppStorage("startDate",store: .standard) var startDateRaw : Date?
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = ""
@@ -147,10 +148,12 @@ struct Chronograph: View {
                     })
             }
             .onAppear {
+               
                 timeInterval = timeIntervalRaw
                 selectedItems = selectedItemsRaw
                 elapseBeforPause = elapseBeforPauseRaw
                 showMessage = showMessageRaw
+                startDate = startDateRaw
                 if timeInterval == 0 {
                     hydrationActivationViewModel.notification()
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -162,6 +165,7 @@ struct Chronograph: View {
                 selectedItemsRaw = selectedItems
                 elapseBeforPauseRaw = elapseBeforPause
                 showMessageRaw = showMessage
+                startDateRaw = startDate
             }
         }
     }
