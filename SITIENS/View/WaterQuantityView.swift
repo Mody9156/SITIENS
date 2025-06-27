@@ -10,10 +10,10 @@ import CoreData
 import Combine
 
 struct WaterQuantityView: View {
-    @AppStorage("updateHeight")  var updateHeightRaw : Double = 0
+    @AppStorage("updateHeight") var updateHeightRaw : Double = 0
     @AppStorage("progress")  var progressRaw: Double = 0
-    @AppStorage("progress")  var profilTypeRaw: Double = 0
-    @AppStorage("progress")  var glaceRaw: Double = 0
+    @AppStorage("progress") var profilTypeRaw: String = ""
+    @AppStorage("progress") var glaceRaw: String = ""
     @State var updateHeight : CGFloat = 0
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
@@ -176,8 +176,8 @@ struct WaterQuantityView: View {
                         .onAppear{
                             updateHeight = CGFloat(updateHeightRaw)
                             progress = CGFloat(progressRaw)
-                            profilType = CGFloat(profilTypeRaw)
-                            glace = CGFloat(glaceRaw)
+                            profilType = profilTypeRaw
+                            glace = glaceRaw
                             withAnimation(
                                 .linear(duration: 0.8)
                                 .repeatForever(autoreverses: true)){
@@ -262,9 +262,9 @@ struct WaterQuantityView: View {
                 }
                 .onChange(of: updateHeight) {
                     updateHeightRaw = Double(updateHeight)
-                    progressRaw = Double(progress)
-                    profilTypeRaw = Double(profilType)
-                    glaceRaw = Double(glace)
+                    progressRaw = progress
+                    profilTypeRaw = profilType
+                    glaceRaw = glace
                     if updateHeight >= 300 {
                         
                         historyViewModel.name = profilType
