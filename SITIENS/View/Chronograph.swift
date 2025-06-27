@@ -9,14 +9,18 @@ struct Chronograph: View {
     @State var timerIsReading = false
     @State var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
+    @AppStorage("timeInterval",store: .standard) var timeIntervalRaw : Int = 0
     @State  var cancellable: Cancellable?
     @State var startDate: Date?
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
     @State var selectedItems : String = ""
+    @AppStorage("selectedItems",store: .standard) var selectedItemsRaw : String = ""
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @State var showMessage : Bool = false
+    @AppStorage("showMessage",store: .standard) var showMessageRaw : Bool = false
     @State var elapseBeforPause : Int = 0
+    @AppStorage("elapseBeforPause",store: .standard) var elapseBeforPauseRaw : Int = 0
     @State private var progress = 0.6
     
     var body: some View {
@@ -143,11 +147,21 @@ struct Chronograph: View {
                     })
             }
             .onAppear {
+                timeInterval = timeIntervalRaw
+                selectedItems = selectedItemsRaw
+                elapseBeforPause = elapseBeforPauseRaw
+                showMessage = showMessageRaw
                 if timeInterval == 0 {
                     hydrationActivationViewModel.notification()
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }
                 showMessage = false
+            }
+            .onChange(of: timeInterval) {
+                timeIntervalRaw = timeInterval
+                selectedItemsRaw = selectedItems
+                elapseBeforPauseRaw = elapseBeforPause
+                showMessageRaw = showMessage
             }
         }
     }

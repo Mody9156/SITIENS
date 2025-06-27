@@ -178,6 +178,7 @@ struct WaterQuantityView: View {
                             progress = CGFloat(progressRaw)
                             profilType = profilTypeRaw
                             glace = glaceRaw
+                            
                             withAnimation(
                                 .linear(duration: 0.8)
                                 .repeatForever(autoreverses: true)){
@@ -262,9 +263,10 @@ struct WaterQuantityView: View {
                 }
                 .onChange(of: updateHeight) {
                     updateHeightRaw = Double(updateHeight)
-                    progressRaw = progress
+                    progressRaw = Double(progress)
                     profilTypeRaw = profilType
                     glaceRaw = glace
+                    
                     if updateHeight >= 300 {
                         
                         historyViewModel.name = profilType
