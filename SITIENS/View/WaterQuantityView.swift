@@ -11,7 +11,6 @@ import Combine
 
 struct WaterQuantityView: View {
     @AppStorage("updateHeight")  var updateHeightRaw : Double = 0
-    
     @State var updateHeight : CGFloat = 0
     @State var sheetPresented : Bool = false
     @State var rotationInfiny : Bool = false
@@ -172,6 +171,7 @@ struct WaterQuantityView: View {
                             alignment: .center
                         )
                         .onAppear{
+                            updateHeight = CGFloat(updateHeightRaw)
                             withAnimation(
                                 .linear(duration: 0.8)
                                 .repeatForever(autoreverses: true)){
@@ -255,6 +255,7 @@ struct WaterQuantityView: View {
                     historyToolbar
                 }
                 .onChange(of: updateHeight) {
+                    updateHeightRaw = Double(updateHeight)
                     if updateHeight >= 300 {
                         
                         historyViewModel.name = profilType
@@ -321,9 +322,8 @@ struct WaterQuantityView: View {
                     .foregroundColor(.gray)
             }
         }
-        
-        
     }
+    
     private var historyToolbar :some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             NavigationLink {
