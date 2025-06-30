@@ -7,10 +7,13 @@ import CoreData
 // MARK: - HomeView : Chronomètre pour mesurer le temps restant avant une nouvelle hydradation
 struct Chronograph: View {
     @State var timerIsReading = false
+//    @AppStorage("timerIsReading",store: .standard) var timerIsReadingRaw : Bool = false
+
     @State var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
     @AppStorage("timeInterval",store: .standard) var timeIntervalRaw : Int = 0
-    @State  var cancellable: Cancellable?
+    @State var cancellable: Cancellable?
+//    @AppStorage("cancellable",store: .standard) var cancellableRa : Date?
     @State var startDate: Date?
     @AppStorage("startDate",store: .standard) var startDateRaw : Date?
     @State var sheetPresented : Bool = false
@@ -85,7 +88,7 @@ struct Chronograph: View {
                             cancellable: $cancellable,
                             startDate: $startDate,
                             elapseBeforPause: $elapseBeforPause,
-                            selectedItems: selectedItems,
+                            selectedItems: $selectedItems,
                             nameBtm: "Start"
                         )
                         
@@ -96,7 +99,7 @@ struct Chronograph: View {
                             cancellable: $cancellable,
                             startDate: $startDate,
                             elapseBeforPause: $elapseBeforPause,
-                            selectedItems: selectedItems,
+                            selectedItems: $selectedItems,
                             nameBtm: "stop"
                         )
                     }
@@ -154,6 +157,7 @@ struct Chronograph: View {
                 elapseBeforPause = elapseBeforPauseRaw
                 showMessage = showMessageRaw
                 startDate = startDateRaw
+//                timerIsReading = timerIsReadingRaw
                 if timeInterval == 0 {
                     hydrationActivationViewModel.notification()
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -166,6 +170,7 @@ struct Chronograph: View {
                 elapseBeforPauseRaw = elapseBeforPause
                 showMessageRaw = showMessage
                 startDateRaw = startDate
+//                timerIsReadingRaw = timerIsReading
             }
         }
     }

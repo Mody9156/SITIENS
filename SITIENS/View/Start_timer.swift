@@ -13,14 +13,13 @@ struct Start_timer: View {
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @Binding var timeInterval: Int
     @Binding var timerIsReading : Bool
-    @AppStorage("hour",store: .standard) var timerhour : Int = 0
+    @AppStorage("hour",store: .standard) var timerhour : Int = 10
     @Binding  var cancellable: Cancellable?
     @Binding var startDate: Date?
     @Binding var elapseBeforPause : Int
-    @State var selectedItems : String
+    @Binding var selectedItems : String
     var nameBtm : String
     @State private var animeFrame : CGFloat = 1.0
-    
     
     var body: some View {
         
@@ -36,8 +35,8 @@ struct Start_timer: View {
                             .asyncAfter(deadline: .now() + 0.2, execute: {
                                 withAnimation {
                                     showMessage = true
-                                }
-                            })
+                            }
+                        })
                     }
                     
                 } label: {
@@ -66,73 +65,73 @@ struct Start_timer: View {
                 .buttonStyle(.plain)
                 .padding()
             }
+            
         }else{
+            
             if  timeInterval != 0 {
-                
-            Button {
-                showMessage = false
-                toggleTimer()
-                
-                if timerhour == 0 && timeInterval == 0 {
-                    DispatchQueue.main
-                        .asyncAfter(deadline: .now() + 0.2, execute: {
-                            withAnimation {
-                                showMessage = true
+                Button {
+                    showMessage = false
+                    toggleTimer()
+                    
+                    if timerhour == 0 && timeInterval == 0 {
+                        DispatchQueue.main
+                            .asyncAfter(deadline: .now() + 0.2, execute: {
+                                withAnimation {
+                                    showMessage = true
                             }
                         })
-                }
-            } label: {
-                ZStack {
-                    Circle()
-                        .fill(fill)
-                        .frame(width: 13, height: 13)
-                        .shadow(radius: 10)
-                    
-                    Circle()
-                        .fill(.white)
-                        .frame(width: 125, height: 125)
-                        .shadow(radius: 10)
-                    
-                    if  buttonLabel == "Arrêter" {
-                        Circle()
-                            .fill(.red)
-                            .scaleEffect(animeFrame)
-                            .frame(width:  120, height:  120)
-                            .shadow(radius: 10)
-                            .animation(
-                                .easeIn(
-                                    duration: 2)
-                                .repeatForever(),
-                                
-                                value: animeFrame
-                            )
-                        
-                            .onAppear{
-                                withAnimation {
-                                    animeFrame = 1.5
-                                }
-                            }
-                            .onChange(of: animeFrame, {
-                                withAnimation {
-                                    animeFrame = 1.0
-                                }
-                            })
                     }
-                    
-                    Circle()
-                        .fill(fill)
-                        .frame(width: 120, height: 120)
-                        .shadow(radius: 10)
-                    
-                    Text(buttonLabel)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(fill)
+                            .frame(width: 13, height: 13)
+                            .shadow(radius: 10)
+                        
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 125, height: 125)
+                            .shadow(radius: 10)
+                        
+                        if  buttonLabel == "Arrêter" {
+                            Circle()
+                                .fill(.red)
+                                .scaleEffect(animeFrame)
+                                .frame(width:  120, height:  120)
+                                .shadow(radius: 10)
+                                .animation(
+                                    .easeIn(
+                                        duration: 2)
+                                    .repeatForever(),
+                                    
+                                    value: animeFrame
+                                )
+                                .onAppear{
+                                    withAnimation {
+                                        animeFrame = 1.5
+                                    }
+                                }
+                                .onChange(of: animeFrame, {
+                                    withAnimation {
+                                        animeFrame = 1.0
+                                    }
+                                })
+                        }
+                        
+                        Circle()
+                            .fill(fill)
+                            .frame(width: 120, height: 120)
+                            .shadow(radius: 10)
+                        
+                        Text(buttonLabel)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                    }
                 }
+                .buttonStyle(.plain)
+                .padding()
             }
-            .buttonStyle(.plain)
-            .padding()
-        }
         }
     }
     
@@ -140,7 +139,7 @@ struct Start_timer: View {
         withAnimation {
             hydrationActivationViewModel.authorization()
             timerIsReading.toggle()
-             
+            
             if  timerIsReading && timeInterval != 0 {
                 startTimer()
             }else{
@@ -148,7 +147,7 @@ struct Start_timer: View {
             }
         }
     }
-    
+    // vérifier elapseBeforPause car le problème provient d'un delai absurde
     var fill : Color {
         switch buttonLabel{
         case "Démarrer" :
@@ -165,6 +164,8 @@ struct Start_timer: View {
         if let start = startDate {
             let elapsedTime = Int(Date().timeIntervalSince(start))
             elapseBeforPause += elapsedTime
+            print("elapsedTime : \(elapsedTime)")
+            print("elapseBeforPause : \(elapseBeforPause)")
         }
     }
     
@@ -179,7 +180,7 @@ struct Start_timer: View {
     
     func startTimer() {
         startDate = Date()
-        cancellable?.cancel()
+
         cancellable = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
@@ -193,8 +194,8 @@ struct Start_timer: View {
                     hydrationActivationViewModel.notification()
                     hydrationActivationViewModel.playingSound(audioFile: selectedItems)
                     elapseBeforPause = 0
-                }
             }
+        }
     }
 }
 
@@ -218,7 +219,7 @@ struct Start_timer: View {
             cancellable: $cancellable,
             startDate: $startDate,
             elapseBeforPause: $elapseBeforPause,
-            selectedItems: selectedItems, nameBtm: "Start"
+            selectedItems: $selectedItems, nameBtm: "Start"
         )
         
         Start_timer(
@@ -228,7 +229,7 @@ struct Start_timer: View {
             cancellable: $cancellable,
             startDate: $startDate,
             elapseBeforPause: $elapseBeforPause,
-            selectedItems: selectedItems, nameBtm: "stop"
+            selectedItems: $selectedItems, nameBtm: "stop"
         )
     }
 }
