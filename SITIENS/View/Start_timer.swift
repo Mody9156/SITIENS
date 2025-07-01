@@ -20,7 +20,7 @@ struct Start_timer: View {
     @Binding var selectedItems : String
     var nameBtm : String
     @State private var animeFrame : CGFloat = 1.0
-    
+    @AppStorage("buttonLabel") var buttonLabel : String = ""
     var body: some View {
         
         if nameBtm == "Start" {
@@ -28,6 +28,7 @@ struct Start_timer: View {
                 Button {
                     timeInterval = timerhour
                     elapseBeforPause = 0
+                    print("c'est le bon mec !")
                     hydrationActivationViewModel.stopPlaying()
                     
                     if timerhour == 0 && timeInterval == 0 {
@@ -72,7 +73,7 @@ struct Start_timer: View {
                 Button {
                     showMessage = false
                     toggleTimer()
-                    
+                    print("c'est le bon mais aussi le faux")
                     if timerhour == 0 && timeInterval == 0 {
                         DispatchQueue.main
                             .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -147,6 +148,7 @@ struct Start_timer: View {
             }
         }
     }
+    
     // vérifier elapseBeforPause car le problème provient d'un delai absurde
     var fill : Color {
         switch buttonLabel{
@@ -164,7 +166,7 @@ struct Start_timer: View {
         if let start = startDate {
             let elapsedTime = Int(Date().timeIntervalSince(start))
             elapseBeforPause += elapsedTime
-            print("elapsedTime : \(elapsedTime)")
+            UserDefaults.standard.set(elapsedTime, forKey: "elapseBeforPause")
             print("elapseBeforPause : \(elapseBeforPause)")
         }
     }
@@ -198,7 +200,6 @@ struct Start_timer: View {
         }
     }
 }
-
 
 #Preview {
     @Previewable @State var showMessage : Bool = false

@@ -8,7 +8,6 @@ import CoreData
 struct Chronograph: View {
     @State var timerIsReading = false
 //    @AppStorage("timerIsReading",store: .standard) var timerIsReadingRaw : Bool = false
-
     @State var hydrationActivationViewModel = HydrationActivationViewModel()
     @State var timeInterval: Int = 0
     @AppStorage("timeInterval",store: .standard) var timeIntervalRaw : Int = 0
@@ -26,7 +25,7 @@ struct Chronograph: View {
     @State var elapseBeforPause : Int = 0
     @AppStorage("elapseBeforPause",store: .standard) var elapseBeforPauseRaw : Int = 0
     @State private var progress = 0.6
-    
+    @AppStorage("buttonLabel") var buttonLabel : String = ""
     var body: some View {
         NavigationStack {
             ZStack {
