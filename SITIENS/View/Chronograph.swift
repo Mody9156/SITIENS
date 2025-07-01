@@ -156,6 +156,7 @@ struct Chronograph: View {
                 elapseBeforPause = elapseBeforPauseRaw
                 showMessage = showMessageRaw
                 startDate = startDateRaw
+//                buttonLabel = buttonLabel
 //                timerIsReading = timerIsReadingRaw
                 if timeInterval == 0 {
                     hydrationActivationViewModel.notification()

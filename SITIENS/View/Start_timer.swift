@@ -20,7 +20,8 @@ struct Start_timer: View {
     @Binding var selectedItems : String
     var nameBtm : String
     @State private var animeFrame : CGFloat = 1.0
-    @AppStorage("buttonLabel") var buttonLabel : String = ""
+    @AppStorage("buttonLabel") var buttonLabelRaw : String = ""
+    
     var body: some View {
         
         if nameBtm == "Start" {
@@ -36,8 +37,8 @@ struct Start_timer: View {
                             .asyncAfter(deadline: .now() + 0.2, execute: {
                                 withAnimation {
                                     showMessage = true
-                            }
-                        })
+                                }
+                            })
                     }
                     
                 } label: {
@@ -79,8 +80,8 @@ struct Start_timer: View {
                             .asyncAfter(deadline: .now() + 0.2, execute: {
                                 withAnimation {
                                     showMessage = true
-                            }
-                        })
+                                }
+                            })
                     }
                 } label: {
                     ZStack {
@@ -134,6 +135,7 @@ struct Start_timer: View {
                 .padding()
             }
         }
+    
     }
     
     func toggleTimer() {
