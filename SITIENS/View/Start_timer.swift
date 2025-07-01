@@ -24,118 +24,119 @@ struct Start_timer: View {
     
     var body: some View {
         
-        if nameBtm == "Start" {
-            if  buttonLabel == "Démarrer" && buttonLabel != "Arrêter"  {
-                Button {
-                    timeInterval = timerhour
-                    elapseBeforPause = 0
-                    print("c'est le bon mec !")
-                    hydrationActivationViewModel.stopPlaying()
-                    
-                    if timerhour == 0 && timeInterval == 0 {
-                        DispatchQueue.main
-                            .asyncAfter(deadline: .now() + 0.2, execute: {
-                                withAnimation {
-                                    showMessage = true
-                                }
-                            })
-                    }
-                    
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(.gray)
-                            .frame(width: 13, height: 13)
-                            .shadow(radius: 10)
+        VStack {
+            if nameBtm == "Start" {
+                if  buttonLabel == "Démarrer" && buttonLabel != "Arrêter"  {
+                    Button {
+                        timeInterval = timerhour
+                        elapseBeforPause = 0
+                        print("c'est le bon mec !")
+                        hydrationActivationViewModel.stopPlaying()
                         
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 125, height: 125)
-                            .shadow(radius: 10)
-                        
-                        Circle()
-                            .fill(.gray)
-                            .frame(width: 120, height: 120)
-                            .shadow(radius: 10)
-                        
-                        Text("Réinitialiser")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.white)
-                    }
-                }
-                .buttonStyle(.plain)
-                .padding()
-            }
-            
-        }else{
-            
-            if  timeInterval != 0 {
-                Button {
-                    showMessage = false
-                    toggleTimer()
-                    print("c'est le bon mais aussi le faux")
-                    if timerhour == 0 && timeInterval == 0 {
-                        DispatchQueue.main
-                            .asyncAfter(deadline: .now() + 0.2, execute: {
-                                withAnimation {
-                                    showMessage = true
-                                }
-                            })
-                    }
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(fill)
-                            .frame(width: 13, height: 13)
-                            .shadow(radius: 10)
-                        
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 125, height: 125)
-                            .shadow(radius: 10)
-                        
-                        if  buttonLabel == "Arrêter" {
-                            Circle()
-                                .fill(.red)
-                                .scaleEffect(animeFrame)
-                                .frame(width:  120, height:  120)
-                                .shadow(radius: 10)
-                                .animation(
-                                    .easeIn(
-                                        duration: 2)
-                                    .repeatForever(),
-                                    
-                                    value: animeFrame
-                                )
-                                .onAppear{
+                        if timerhour == 0 && timeInterval == 0 {
+                            DispatchQueue.main
+                                .asyncAfter(deadline: .now() + 0.2, execute: {
                                     withAnimation {
-                                        animeFrame = 1.5
-                                    }
-                                }
-                                .onChange(of: animeFrame, {
-                                    withAnimation {
-                                        animeFrame = 1.0
+                                        showMessage = true
                                     }
                                 })
                         }
                         
-                        Circle()
-                            .fill(fill)
-                            .frame(width: 120, height: 120)
-                            .shadow(radius: 10)
-                        
-                        Text(buttonLabel)
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.white)
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(.gray)
+                                .frame(width: 13, height: 13)
+                                .shadow(radius: 10)
+                            
+                            Circle()
+                                .fill(.white)
+                                .frame(width: 125, height: 125)
+                                .shadow(radius: 10)
+                            
+                            Circle()
+                                .fill(.gray)
+                                .frame(width: 120, height: 120)
+                                .shadow(radius: 10)
+                            
+                            Text("Réinitialiser")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundStyle(.white)
+                        }
                     }
+                    .buttonStyle(.plain)
+                    .padding()
                 }
-                .buttonStyle(.plain)
-                .padding()
+                
+            }else{
+                
+                if  timeInterval != 0 {
+                    Button {
+                        showMessage = false
+                        toggleTimer()
+                        print("c'est le bon mais aussi le faux")
+                        if timerhour == 0 && timeInterval == 0 {
+                            DispatchQueue.main
+                                .asyncAfter(deadline: .now() + 0.2, execute: {
+                                    withAnimation {
+                                        showMessage = true
+                                    }
+                                })
+                        }
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(fill)
+                                .frame(width: 13, height: 13)
+                                .shadow(radius: 10)
+                            
+                            Circle()
+                                .fill(.white)
+                                .frame(width: 125, height: 125)
+                                .shadow(radius: 10)
+                            
+                            if  buttonLabel == "Arrêter" {
+                                Circle()
+                                    .fill(.red)
+                                    .scaleEffect(animeFrame)
+                                    .frame(width:  120, height:  120)
+                                    .shadow(radius: 10)
+                                    .animation(
+                                        .easeIn(
+                                            duration: 2)
+                                        .repeatForever(),
+                                        
+                                        value: animeFrame
+                                    )
+                                    .onAppear{
+                                        withAnimation {
+                                            animeFrame = 1.5
+                                        }
+                                    }
+                                    .onChange(of: animeFrame, {
+                                        withAnimation {
+                                            animeFrame = 1.0
+                                        }
+                                    })
+                            }
+                            
+                            Circle()
+                                .fill(fill)
+                                .frame(width: 120, height: 120)
+                                .shadow(radius: 10)
+                            
+                            Text(buttonLabel)
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .padding()
+                }
             }
         }
-    
     }
     
     func toggleTimer() {
@@ -184,7 +185,7 @@ struct Start_timer: View {
     
     func startTimer() {
         startDate = Date()
-
+        cancellable?.cancel()
         cancellable = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
@@ -198,8 +199,8 @@ struct Start_timer: View {
                     hydrationActivationViewModel.notification()
                     hydrationActivationViewModel.playingSound(audioFile: selectedItems)
                     elapseBeforPause = 0
+                }
             }
-        }
     }
 }
 
