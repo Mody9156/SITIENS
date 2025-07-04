@@ -9,18 +9,18 @@ import SwiftUI
 import Combine
 
 struct Start_timer: View {
-    @Binding var showMessage : Bool
-    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
-    @Binding var timeInterval: Int
-    @Binding var timerIsReading : Bool
-    @AppStorage("hour",store: .standard) var timerhour : Int = 10
-    @Binding  var cancellable: Cancellable?
-    @Binding var startDate: Date?
-    @Binding var elapseBeforPause : Int
-    @Binding var selectedItems : String
-    var nameBtm : String
-    @State private var animeFrame : CGFloat = 1.0
-    @AppStorage("buttonLabel") var buttonLabelRaw : String = ""
+    @Binding var showMessage: Bool
+        @Bindable var hydrationActivationViewModel: HydrationActivationViewModel
+        @Binding var timeInterval: Int
+        @Binding var timerIsReading: Bool
+        @AppStorage("hour") var timerhour: Int = 10
+        @Binding var cancellable: Cancellable?
+        @Binding var startDate: Date?
+        @Binding var elapseBeforPause: Int
+        @Binding var selectedItems: String
+        var nameBtm: String
+        @State private var animeFrame: CGFloat = 1.0
+        @AppStorage("buttonLabel") var buttonLabelRaw: String = ""
     
     var body: some View {
         
@@ -29,7 +29,8 @@ struct Start_timer: View {
                 if  buttonLabel == "Démarrer" && buttonLabel != "Arrêter"  {
                     Button {
                         timeInterval = timerhour
-                        elapseBeforPause = 0
+                        elapseBeforPause = UserDefaults.standard
+                            .integer(forKey: "elapseBeforPause")
                         print("c'est le bon mec !")
                         hydrationActivationViewModel.stopPlaying()
                         
@@ -170,7 +171,6 @@ struct Start_timer: View {
             let elapsedTime = Int(Date().timeIntervalSince(start))
             elapseBeforPause += elapsedTime
             UserDefaults.standard.set(elapsedTime, forKey: "elapseBeforPause")
-            print("elapseBeforPause : \(elapseBeforPause)")
         }
     }
     
@@ -184,21 +184,26 @@ struct Start_timer: View {
     }
     
     func startTimer() {
-        startDate = Date()
+        let now = Date()
+        startDate = now
+        UserDefaults.standard.set(now, forKey: "startDate")
+
         cancellable?.cancel()
         cancellable = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
-                guard let start = startDate else { return }
-                let elapsedTime = elapseBeforPause + Int(Date().timeIntervalSince(start))
+                guard let savedStart = startDate else { return }
+                let elapsedTime = elapseBeforPause + Int(Date().timeIntervalSince(savedStart))
+                UserDefaults.standard.set(savedStart, forKey: "savedStart")
                 let remainingTime = max(timerhour - elapsedTime, 0)
                 timeInterval = remainingTime
-                
-                if timeInterval == 0 {
+
+                if remainingTime == 0 {
                     stopTimer()
                     hydrationActivationViewModel.notification()
                     hydrationActivationViewModel.playingSound(audioFile: selectedItems)
                     elapseBeforPause = 0
+                    UserDefaults.standard.set(0, forKey: "elapseBeforPause")
                 }
             }
     }

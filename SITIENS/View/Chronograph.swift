@@ -5,27 +5,26 @@ import UIKit
 import CoreData
 
 // MARK: - HomeView : Chronomètre pour mesurer le temps restant avant une nouvelle hydradation
+
 struct Chronograph: View {
     @State var timerIsReading = false
-//    @AppStorage("timerIsReading",store: .standard) var timerIsReadingRaw : Bool = false
-    @State var hydrationActivationViewModel = HydrationActivationViewModel()
-    @State var timeInterval: Int = 0
-    @AppStorage("timeInterval",store: .standard) var timeIntervalRaw : Int = 0
-    @State var cancellable: Cancellable?
-//    @AppStorage("cancellable",store: .standard) var cancellableRa : Date?
-    @State var startDate: Date?
-    @AppStorage("startDate",store: .standard) var startDateRaw : Date?
-    @State var sheetPresented : Bool = false
-    @State var rotationInfiny : Bool = false
-    @State var selectedItems : String = ""
-    @AppStorage("selectedItems",store: .standard) var selectedItemsRaw : String = ""
-    @AppStorage("hour",store: .standard) var timerhour : Int = 0
-    @State var showMessage : Bool = false
-    @AppStorage("showMessage",store: .standard) var showMessageRaw : Bool = false
-    @State var elapseBeforPause : Int = 0
-    @AppStorage("elapseBeforPause",store: .standard) var elapseBeforPauseRaw : Int = 0
-    @State private var progress = 0.6
-    @AppStorage("buttonLabel") var buttonLabel : String = ""
+       @State var hydrationActivationViewModel = HydrationActivationViewModel()
+       @State var timeInterval: Int = 0
+       @AppStorage("timeInterval") var timeIntervalRaw: Int = 0
+       @State var cancellable: Cancellable?
+       @State var startDate: Date?
+       @AppStorage("startDate") var startDateRaw: Date?
+       @State var sheetPresented: Bool = false
+       @State var rotationInfiny: Bool = false
+       @State var selectedItems: String = ""
+       @AppStorage("selectedItems") var selectedItemsRaw: String = ""
+       @AppStorage("hour") var timerhour: Int = 0
+       @State var showMessage: Bool = false
+       @AppStorage("showMessage") var showMessageRaw: Bool = false
+       @State var elapseBeforPause: Int = 0
+       @AppStorage("elapseBeforPause") var elapseBeforPauseRaw: Int = 0
+       @AppStorage("buttonLabel") var buttonLabel: String = ""
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -150,27 +149,18 @@ struct Chronograph: View {
                     })
             }
             .onAppear {
-               
                 timeInterval = timeIntervalRaw
-                selectedItems = selectedItemsRaw
-                elapseBeforPause = elapseBeforPauseRaw
-                showMessage = showMessageRaw
-                startDate = startDateRaw
-//                buttonLabel = buttonLabel
-//                timerIsReading = timerIsReadingRaw
-                if timeInterval == 0 {
-                    hydrationActivationViewModel.notification()
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                }
-                showMessage = false
+                               selectedItems = selectedItemsRaw
+                               elapseBeforPause = elapseBeforPauseRaw
+                               showMessage = false
+                               startDate = startDateRaw
             }
             .onChange(of: timeInterval) {
                 timeIntervalRaw = timeInterval
-                selectedItemsRaw = selectedItems
-                elapseBeforPauseRaw = elapseBeforPause
-                showMessageRaw = showMessage
-                startDateRaw = startDate
-//                timerIsReadingRaw = timerIsReading
+                              selectedItemsRaw = selectedItems
+                              elapseBeforPauseRaw = elapseBeforPause
+                              showMessageRaw = showMessage
+                              startDateRaw = startDate
             }
         }
     }
