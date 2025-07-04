@@ -10,18 +10,17 @@ import Combine
 
 struct Start_timer: View {
     @Binding var showMessage: Bool
-        @Bindable var hydrationActivationViewModel: HydrationActivationViewModel
-        @Binding var timeInterval: Int
-        @Binding var timerIsReading: Bool
-        @AppStorage("hour") var timerhour: Int = 10
-        @Binding var cancellable: Cancellable?
-        @Binding var startDate: Date?
-        @Binding var elapseBeforPause: Int
-        @Binding var selectedItems: String
-        var nameBtm: String
-        @State private var animeFrame: CGFloat = 1.0
-        @AppStorage("buttonLabel") var buttonLabelRaw: String = ""
-    
+    @Bindable var hydrationActivationViewModel: HydrationActivationViewModel
+    @Binding var timeInterval: Int
+    @Binding var timerIsReading: Bool
+    @AppStorage("hour") var timerhour: Int = 10
+    @Binding var cancellable: Cancellable?
+    @Binding var startDate: Date?
+    @Binding var elapseBeforPause: Int
+    @Binding var selectedItems: String
+    var nameBtm: String
+    @State private var animeFrame: CGFloat = 1.0
+
     var body: some View {
         
         VStack {
@@ -29,9 +28,7 @@ struct Start_timer: View {
                 if  buttonLabel == "Démarrer" && buttonLabel != "Arrêter"  {
                     Button {
                         timeInterval = timerhour
-                        elapseBeforPause = UserDefaults.standard
-                            .integer(forKey: "elapseBeforPause")
-                        print("c'est le bon mec !")
+                        elapseBeforPause = 0
                         hydrationActivationViewModel.stopPlaying()
                         
                         if timerhour == 0 && timeInterval == 0 {
@@ -76,7 +73,7 @@ struct Start_timer: View {
                     Button {
                         showMessage = false
                         toggleTimer()
-                        print("c'est le bon mais aussi le faux")
+                        
                         if timerhour == 0 && timeInterval == 0 {
                             DispatchQueue.main
                                 .asyncAfter(deadline: .now() + 0.2, execute: {
@@ -114,11 +111,14 @@ struct Start_timer: View {
                                         withAnimation {
                                             animeFrame = 1.5
                                         }
+                                       
                                     }
                                     .onChange(of: animeFrame, {
                                         withAnimation {
                                             animeFrame = 1.0
                                         }
+                                        
+
                                     })
                             }
                             
@@ -170,7 +170,8 @@ struct Start_timer: View {
         if let start = startDate {
             let elapsedTime = Int(Date().timeIntervalSince(start))
             elapseBeforPause += elapsedTime
-            UserDefaults.standard.set(elapsedTime, forKey: "elapseBeforPause")
+            UserDefaults.standard.set(elapseBeforPause, forKey: "elapseBeforPause")
+            print("⏸️ elapseBeforPause: \(elapseBeforPause)")
         }
     }
     
@@ -186,17 +187,17 @@ struct Start_timer: View {
     func startTimer() {
         let now = Date()
         startDate = now
-        UserDefaults.standard.set(now, forKey: "startDate")
-
+        
         cancellable?.cancel()
         cancellable = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
                 guard let savedStart = startDate else { return }
                 let elapsedTime = elapseBeforPause + Int(Date().timeIntervalSince(savedStart))
-                UserDefaults.standard.set(savedStart, forKey: "savedStart")
                 let remainingTime = max(timerhour - elapsedTime, 0)
                 timeInterval = remainingTime
+                
+                print("⏱ Temps restant: \(remainingTime), Temps écoulé: \(elapsedTime)")
 
                 if remainingTime == 0 {
                     stopTimer()

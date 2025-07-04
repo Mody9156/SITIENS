@@ -150,17 +150,19 @@ struct Chronograph: View {
             }
             .onAppear {
                 timeInterval = timeIntervalRaw
-                               selectedItems = selectedItemsRaw
-                               elapseBeforPause = elapseBeforPauseRaw
-                               showMessage = false
-                               startDate = startDateRaw
+                selectedItems = selectedItemsRaw
+                showMessage = false
+                startDate = startDateRaw
+                elapseBeforPause = elapseBeforPauseRaw
+
+                print("elapseBeforPause après le appear -> \(elapseBeforPause)")
             }
             .onChange(of: timeInterval) {
                 timeIntervalRaw = timeInterval
                               selectedItemsRaw = selectedItems
-                              elapseBeforPauseRaw = elapseBeforPause
                               showMessageRaw = showMessage
                               startDateRaw = startDate
+                elapseBeforPauseRaw = elapseBeforPause
             }
         }
     }
