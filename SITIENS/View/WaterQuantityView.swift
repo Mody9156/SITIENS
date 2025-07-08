@@ -379,7 +379,7 @@ struct WaterWave: Shape {
             //Start
             path.move(to: .zero)
             
-            let waveAmplitude = waveHeight * rect.height
+//            let waveAmplitude = waveHeight * rect.height
             let progressHeight : CGFloat = (1 - progress) * rect.height
             let height = waveHeight * rect.height
             

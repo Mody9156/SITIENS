@@ -16,7 +16,7 @@ struct ShowHistory: View {
     
     var body: some View {
         ZStack {
-         
+            
             LinearGradient(
                 gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
                 startPoint: .topLeading,
@@ -25,12 +25,12 @@ struct ShowHistory: View {
             .ignoresSafeArea()
             
             VStack(alignment: .center, spacing: 16) {
-
+                
                 Text("Historique d'hydratation")
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundStyle(.blue)
                     .padding(.top, 10)
-
+                
                 List {
                     Section {
                         ForEach(search, id: \.self) { historyManager in
@@ -88,7 +88,7 @@ struct ShowHistory: View {
                 .searchable(text: $searchText)
                 .listStyle(.plain)
             }
-           
+            
             .padding()
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -107,7 +107,7 @@ struct ShowHistory: View {
                     }
                 }
                 
-               
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
                 }
@@ -124,15 +124,15 @@ struct ShowHistory: View {
     var search : [History]{
         
         if searchText.isEmpty {
-           return historyViewModel.history
+            return historyViewModel.history
         }else{
-           let water = historyViewModel.history
+            let water = historyViewModel.history
                 .filter{
                     $0.name?.localizedCaseInsensitiveContains(searchText) == true ||
                     $0.quantity?.localizedCaseInsensitiveContains(searchText) == true ||
                     $0.date?.localizedCaseInsensitiveContains(searchText) == true
                 }
-         
+            
             return  water
         }
         
