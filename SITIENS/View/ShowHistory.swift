@@ -122,12 +122,13 @@ struct ShowHistory: View {
     }
     
     var search : [History]{
+        
         if searchText.isEmpty {
            return historyViewModel.history
         }else{
            let water = historyViewModel.history
                 .filter{
-                    $0.name?.contains(searchText) == true ||
+                    $0.name?.localizedCaseInsensitiveContains(searchText) == true ||
                     $0.quantity?.contains(searchText) == true ||
                     $0.date?.contains(searchText) == true
                 }
