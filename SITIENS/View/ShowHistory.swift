@@ -129,8 +129,8 @@ struct ShowHistory: View {
            let water = historyViewModel.history
                 .filter{
                     $0.name?.localizedCaseInsensitiveContains(searchText) == true ||
-                    $0.quantity?.contains(searchText) == true ||
-                    $0.date?.contains(searchText) == true
+                    $0.quantity?.localizedCaseInsensitiveContains(searchText) == true ||
+                    $0.date?.localizedCaseInsensitiveContains(searchText) == true
                 }
          
             return  water
