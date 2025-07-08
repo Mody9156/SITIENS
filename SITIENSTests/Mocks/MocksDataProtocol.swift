@@ -32,12 +32,11 @@ class MocksDataProtocol : HistoryProtocol {
 
     func deleteHistory(history: SITIENS.History) {
         if throwError {
-            messageError = "Erreur lors de la suppresion du tableau"
+            messageError = "There are some errors"
         }else {
             historyManager.removeAll()
         }
     }
-
     
     func createInMemoryManagedObjectContext () -> NSManagedObjectContext {
         let persistentContainer = NSPersistentContainer(name: "SitiensModel")
