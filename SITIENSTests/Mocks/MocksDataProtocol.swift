@@ -21,6 +21,8 @@ enum HistoryError: Error {
 }
 
 class MocksDataProtocol : HistoryProtocol {
+    
+   
     var historyManager : [History] = []
     var throwError : Bool = false
     var messageError : String = ""
@@ -28,6 +30,15 @@ class MocksDataProtocol : HistoryProtocol {
     var quantity : String = ""
     var date : String = ""
 
+    func deleteHistory(history: SITIENS.History) {
+        if throwError {
+            messageError = "Erreur lors de la suppresion du tableau"
+        }else {
+            historyManager.removeAll()
+        }
+    }
+
+    
     func createInMemoryManagedObjectContext () -> NSManagedObjectContext {
         let persistentContainer = NSPersistentContainer(name: "SitiensModel")
         
