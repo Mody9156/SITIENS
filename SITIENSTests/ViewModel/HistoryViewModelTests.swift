@@ -128,4 +128,31 @@ struct HistoryViewModelTests {
         })
         
     }
+    
+    @Test func whenReloadFetchHistory() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        historyViewModel.name = "fakeName"
+        historyViewModel.quantity = "44"
+        
+        //when
+        let _ =  historyViewModel.reload()
+        
+        //Then
+        #expect(historyViewModel.errorMessage.isEmpty == true)
+    }
+    
+    @Test func whenReloadFetchHistoryThrowError() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        mocksDataProtocol.throwError = true
+        
+        //when
+        let _ =  historyViewModel.reload()
+        
+        //Then
+        #expect(historyViewModel.errorMessage.isEmpty == false)
+    }
 }
