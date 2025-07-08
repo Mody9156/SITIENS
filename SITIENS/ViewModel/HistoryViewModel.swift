@@ -12,8 +12,8 @@ import SwiftUICore
 
 @Observable class HistoryViewModel {
     var history = [History]()
-     var name: String
-     var quantity: String
+    var name: String
+    var quantity: String
     var errorMessage = ""
     
     var viewContext: NSManagedObjectContext
@@ -47,12 +47,12 @@ import SwiftUICore
     
     func addHistory() throws {
         if let erreor =  showMessageError(){
-             errorMessage = erreor
+            errorMessage = erreor
         }
-
+        
         do {
             
-           try historyRepository.addtHisoData(name: name, quantity: quantity)
+            try historyRepository.addtHisoData(name: name, quantity: quantity)
             print("result : \(name) \(quantity)")
         } catch {
             print("Fetching history failed: \(error)")
@@ -80,14 +80,14 @@ import SwiftUICore
         offsets.forEach { offset in
             guard offset < history.count else { return }
             let historyToDelete = history[offset]
-//            viewContext.delete(historyToDelete)
+            //            viewContext.delete(historyToDelete)
             historyRepository.deleteHistory(history: historyToDelete)
             print("historyToDelete : \(historyToDelete)")
         }
-      
-        do{             
-          try fetchHistory()
-                print("Greate job vous avez supprimer les elements du tableaux")
+        
+        do{
+            try fetchHistory()
+            print("Greate job vous avez supprimer les elements du tableaux")
         }catch{
             print("there are error ")
         }

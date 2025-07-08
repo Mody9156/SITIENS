@@ -14,7 +14,7 @@ import CoreData
 //    
 //    
 //    static func emptyHistory() -> [History] {
-//        return [historyManager]
+//        return [History]
 //        }
 //    }
 

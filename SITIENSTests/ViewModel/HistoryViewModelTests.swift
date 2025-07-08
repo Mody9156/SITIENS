@@ -7,6 +7,7 @@
 
 import Testing
 @testable import SITIENS
+import Foundation
 
 struct HistoryViewModelTests {
 
@@ -155,4 +156,49 @@ struct HistoryViewModelTests {
         //Then
         #expect(historyViewModel.errorMessage.isEmpty == false)
     }
+    
+  
+    
+    
+    @Test func whenDeleteElementsHistory() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+
+        historyViewModel.name = "fakeName"
+        historyViewModel.quantity = "44"
+        
+        func delet<T>(from array : [T]) -> [T] {
+            var result  = array
+            return result
+        }
+        
+        let index = IndexSet([2,4])
+        
+        //When
+        let result: () =  historyViewModel.deleteHistory(at: index)
+        
+        print("other result = \(result)")
+
+        //Then
+      
+    }
 }
+
+
+//func deleteHistory(at offsets: IndexSet) {
+//    offsets.forEach { offset in
+//        guard offset < history.count else { return }
+//        let historyToDelete = history[offset]
+//        //            viewContext.delete(historyToDelete)
+//        historyRepository.deleteHistory(history: historyToDelete)
+//        print("historyToDelete : \(historyToDelete)")
+//    }
+//    
+//    do{
+//        try fetchHistory()
+//        print("Greate job vous avez supprimer les elements du tableaux")
+//    }catch{
+//        print("there are error ")
+//    }
+//}
