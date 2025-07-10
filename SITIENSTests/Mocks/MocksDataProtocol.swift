@@ -34,6 +34,7 @@ class MocksDataProtocol : HistoryProtocol {
         if throwError {
             messageError = "There are some errors"
         }else {
+            messageError = ""
             historyManager.removeAll()
         }
     }

@@ -8,6 +8,7 @@
 import Testing
 @testable import SITIENS
 import Foundation
+import CoreData
 
 struct HistoryViewModelTests {
 
@@ -164,23 +165,78 @@ struct HistoryViewModelTests {
         //Given
         let mocksDataProtocol = MocksDataProtocol()
         let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
-
-        historyViewModel.name = "fakeName"
-        historyViewModel.quantity = "44"
+        let context: NSManagedObjectContext = PersistenceController.shared.newBackgroundContext()
         
-        func delet<T>(from array : [T]) -> [T] {
-            var result  = array
-            return result
-        }
+        let history1 = History(context: context)
+        history1.name = "Test1"
+        history1.date = "Janvier 2021"
+        history1.quantity = "100"
         
-        let index = IndexSet([2,4])
+        let history2 = History(context: context)
+        history2.name = "Test2"
+        history2.date = "Février 2021"
+        history2.quantity = "200"
+        
+        let history3 = History(context: context)
+        history3.name = "Test3"
+        history3.date = "Mars 2021"
+        history3.quantity = "300"
+        
+        mocksDataProtocol.throwError = false 
+        historyViewModel.history = [history1,history2,history3]
+        let indexSetToDelete = IndexSet(integer: 1)
         
         //When
-        let result: () =  historyViewModel.deleteHistory(at: index)
+        historyViewModel.deleteHistory(at: indexSetToDelete)
         
-        print("other result = \(result)")
-
         //Then
+        #expect(mocksDataProtocol.messageError == "")
+      
+    }
+    
+    
+    @Test func whenDeleteElementsHistoryThrowsError() async throws {
+        //Given
+        let mocksDataProtocol = MocksDataProtocol()
+        let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
+        let context: NSManagedObjectContext = PersistenceController.shared.newBackgroundContext()
+        
+        let history1 = History(context: context)
+        history1.name = "Test1"
+        history1.date = "Janvier 2021"
+        history1.quantity = "100"
+        
+        let history2 = History(context: context)
+        history2.name = "Test2"
+        history2.date = "Février 2021"
+        history2.quantity = "200"
+        
+        let history3 = History(context: context)
+        history3.name = "Test3"
+        history3.date = "Mars 2021"
+        history3.quantity = "300"
+        
+        mocksDataProtocol.throwError = true
+        historyViewModel.history = [history1,history2,history3]
+        let indexSetToDelete = IndexSet(integer: 1)
+        
+        //When
+        historyViewModel.deleteHistory(at: indexSetToDelete)
+        
+        //Then
+        #expect(historyViewModel.history.contains(where: { History in
+            History.name == "Test1"
+        }) == true)
+        
+        #expect(historyViewModel.history.contains(where: { History in
+            History.name == "Test3"
+        }) == true)
+        
+        #expect(historyViewModel.history.contains(where: { History in
+            History.name == "Test2"
+        }) == true)
+        
+        #expect(mocksDataProtocol.messageError == "There are some errors")
       
     }
 }
