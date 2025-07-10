@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 struct HistoryViewModelTests {
-
+    
     @Test func showMessageErrorWhenThere_areError() async throws {
         //Given
         let historyViewModel = HistoryViewModel()
@@ -91,18 +91,18 @@ struct HistoryViewModelTests {
         //Given
         let mocksDataProtocol = MocksDataProtocol()
         let historyViewModel = HistoryViewModel(historyRepository: mocksDataProtocol)
-
+        
         historyViewModel.name = "fakeName"
         historyViewModel.quantity = "44"
         
         //When
-         try historyViewModel.fetchHistory()
+        try historyViewModel.fetchHistory()
         
         //Then
         #expect(mocksDataProtocol.messageError.isEmpty == true)
         
     }
-
+    
     @Test func whenISfetchHistoryShowDataThrowErrorsWhenNameOrQuantityIsEMpty() async throws {
         //Given
         let mocksDataProtocol = MocksDataProtocol()
@@ -158,7 +158,7 @@ struct HistoryViewModelTests {
         #expect(historyViewModel.errorMessage.isEmpty == false)
     }
     
-  
+    
     
     
     @Test func whenDeleteElementsHistory() async throws {
@@ -182,7 +182,7 @@ struct HistoryViewModelTests {
         history3.date = "Mars 2021"
         history3.quantity = "300"
         
-        mocksDataProtocol.throwError = false 
+        mocksDataProtocol.throwError = false
         historyViewModel.history = [history1,history2,history3]
         let indexSetToDelete = IndexSet(integer: 1)
         
@@ -191,7 +191,6 @@ struct HistoryViewModelTests {
         
         //Then
         #expect(mocksDataProtocol.messageError == "")
-      
     }
     
     
@@ -237,24 +236,6 @@ struct HistoryViewModelTests {
         }) == true)
         
         #expect(mocksDataProtocol.messageError == "There are some errors")
-      
+        
     }
 }
-
-
-//func deleteHistory(at offsets: IndexSet) {
-//    offsets.forEach { offset in
-//        guard offset < history.count else { return }
-//        let historyToDelete = history[offset]
-//        //            viewContext.delete(historyToDelete)
-//        historyRepository.deleteHistory(history: historyToDelete)
-//        print("historyToDelete : \(historyToDelete)")
-//    }
-//    
-//    do{
-//        try fetchHistory()
-//        print("Greate job vous avez supprimer les elements du tableaux")
-//    }catch{
-//        print("there are error ")
-//    }
-//}
