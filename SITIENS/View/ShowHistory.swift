@@ -82,7 +82,9 @@ struct ShowHistory: View {
                                 .padding(.vertical, 4)
                             }
                         }
-                        .onDelete(perform: historyViewModel.deleteHistory)
+                        .onDelete(perform:
+                                   historyViewModel.deleteHistory
+                        )
                     }
                 }
                 .searchable(text: $searchText)

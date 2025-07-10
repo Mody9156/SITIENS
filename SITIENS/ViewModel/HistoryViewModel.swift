@@ -36,6 +36,7 @@ import SwiftUICore
     
     enum FetchError: Error {
         case fetchFailed
+        case deleteFailed
     }
     
     func showMessageError()  -> String? {
@@ -89,7 +90,7 @@ import SwiftUICore
             try fetchHistory()
             print("Greate job vous avez supprimer les elements du tableaux")
         }catch{
-            print("there are error ")
+            errorMessage = "Échec du rechargement des données : \(error.localizedDescription)"
         }
     }
 }
