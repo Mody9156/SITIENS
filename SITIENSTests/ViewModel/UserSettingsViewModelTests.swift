@@ -52,6 +52,66 @@ struct UserSettingsViewModelTests {
         #expect(user == 0.01)
     }
 
+    @Test func updateTypeWithChildsAndTeenagers() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Enfants et adolescents"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 0.00836)
+    }
+    
+    @Test func updateTypeWithHotEnvironment() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Travailleurs en environnement chaud"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 0.01)
+    }
+    
+    @Test func updateTypeWitPeopleWithChronicIllnesses() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Personnes souffrant de maladies chroniques"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 0.00666)
+    }
+
+    @Test func updateTypeWitPeopleWithOverweightOrObesePeople() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Personnes en surpoids ou obèses"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 0.01)
+    }
+    
+    @Test func updateTypeWitPeopleInHighAltitude() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Voyageurs ou personnes en altitude"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 0.01)
+    }
+
+    @Test func updateTypeWitPeopleOnMedication() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Personnes sous traitement médicamenteux"
+        //When
+        let user = userSettingsViewModel.updateType(name: name)
+        //Then
+        #expect(user == 0.00666)
+    }
+
     @Test func updateTypeWithNewName() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
@@ -62,6 +122,7 @@ struct UserSettingsViewModelTests {
         #expect(user == 0.0)
     }
     
+ 
     @Test func updateWaterWhenResultIsEgalToNourrissons() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
