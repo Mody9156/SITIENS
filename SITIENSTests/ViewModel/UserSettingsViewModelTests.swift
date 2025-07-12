@@ -131,6 +131,36 @@ struct UserSettingsViewModelTests {
         #expect(user == 2)
     }
     
+    @Test func updateWaterWhenResultIsEgalToPeopleWithOverweightOrObesePeople() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Personnes en surpoids ou obèses"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 3)
+    }
+    
+    @Test func updateWaterWhenResultIsEgalToPeopleInHighAltitude() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Voyageurs ou personnes en altitude"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 3)
+    }
+    
+    @Test func updateWaterWhenResultIsEgalToPeopleOnMedication() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Personnes sous traitement médicamenteux"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 2)
+    }
+    
     @Test func updateWater() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
@@ -140,11 +170,5 @@ struct UserSettingsViewModelTests {
         //Then
         #expect(user == 0)
     }
- 
-//case "Personnes en surpoids ou obèses":
-//    return 3
-//case "Voyageurs ou personnes en altitude":
-//    return 3
-//case "Personnes sous traitement médicamenteux":
-//    return 2
+
 }
