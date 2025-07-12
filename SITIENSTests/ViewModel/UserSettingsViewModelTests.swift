@@ -111,6 +111,16 @@ struct UserSettingsViewModelTests {
         #expect(user == 2.5)
     }
     
+    @Test func updateWaterWhenResultIsEgalToHotEnvironment() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Travailleurs en environnement chaud"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 3)
+    }
+    
     @Test func updateWater() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
@@ -122,5 +132,14 @@ struct UserSettingsViewModelTests {
     }
  
     
-    //"Enfants et adolescents"
+    // case "Travailleurs en environnement chaud":
+//    return 3
+//case "Personnes souffrant de maladies chroniques":
+//    return 2
+//case "Personnes en surpoids ou obèses":
+//    return 3
+//case "Voyageurs ou personnes en altitude":
+//    return 3
+//case "Personnes sous traitement médicamenteux":
+//    return 2
 }
