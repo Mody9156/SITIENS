@@ -121,6 +121,16 @@ struct UserSettingsViewModelTests {
         #expect(user == 3)
     }
     
+    @Test func updateWaterWhenResultIsEgalToPeopleWithChronicIllnesses() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Personnes souffrant de maladies chroniques"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 2)
+    }
+    
     @Test func updateWater() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
@@ -131,11 +141,6 @@ struct UserSettingsViewModelTests {
         #expect(user == 0)
     }
  
-    
-    // case "Travailleurs en environnement chaud":
-//    return 3
-//case "Personnes souffrant de maladies chroniques":
-//    return 2
 //case "Personnes en surpoids ou obèses":
 //    return 3
 //case "Voyageurs ou personnes en altitude":
