@@ -16,3 +16,4 @@ class ImageProcessor {
         
     }
 }
+//Pense à supprimer cette class 
