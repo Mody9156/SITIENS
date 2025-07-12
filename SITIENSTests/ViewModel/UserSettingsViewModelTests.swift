@@ -231,5 +231,75 @@ struct UserSettingsViewModelTests {
         //Then
         #expect(user == 0)
     }
+    
+    @Test func UpdateQuantityOfWater() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        
+        //When
+        let user = userSettingsViewModel.uptateQuanittyOfWater(
+            quantityWater: "Nourrissons",
+            chooseBottle: "Petit – 200 ml"
+        )
+        
+        //Then
+        
+    }
 
+    
+    
+    
+//    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Double {
+//        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
+//        let updatedProfile = updateWater(type :quantityWater)
+//        let totalMl = updatedProfile * 1000
+//        let result =  totalMl / CGFloat(waterQuantity)
+//        
+//        return result
+//    }
+    
+    
+    
+    
+//    func quantityWaterNumber(chooseBottle:String) -> Int {
+//        
+//        switch chooseBottle {
+//        case "Petit – 200 ml" :
+//            return  200
+//        case "Moyen – 300 ml" :
+//            return 300
+//        case "Grand – 500 ml" :
+//            return 500
+//        default :
+//            return  0
+//        }
+//    }
+    
+    
+//    func updateWater(type name:String) -> CGFloat{
+//        switch name  {
+//        case "Nourrissons":
+//            return 0.7
+//        case "Femmes enceintes":
+//            return 2.5
+//        case "Personnes âgées":
+//            return 2
+//        case "Sportifs":
+//            return 3
+//        case "Enfants et adolescents":
+//            return 2.5
+//        case "Travailleurs en environnement chaud":
+//            return 3
+//        case "Personnes souffrant de maladies chroniques":
+//            return 2
+//        case "Personnes en surpoids ou obèses":
+//            return 3
+//        case "Voyageurs ou personnes en altitude":
+//            return 3
+//        case "Personnes sous traitement médicamenteux":
+//            return 2
+//        default:
+//            return 0
+//        }
+//    }
 }
