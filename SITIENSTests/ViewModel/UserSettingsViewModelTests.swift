@@ -101,6 +101,15 @@ struct UserSettingsViewModelTests {
         #expect(user == 3)
     }
     
+    @Test func updateWaterWhenResultIsEgalToChildsAndTeenagers() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        let name = "Enfants et adolescents"
+        //When
+        let user = userSettingsViewModel.updateWater(type: name)
+        //Then
+        #expect(user == 2.5)
+    }
     
     @Test func updateWater() async throws {
         //Given
@@ -112,4 +121,6 @@ struct UserSettingsViewModelTests {
         #expect(user == 0)
     }
  
+    
+    //"Enfants et adolescents"
 }
