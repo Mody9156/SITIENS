@@ -14,7 +14,7 @@ struct UserSettingsViewModelTests {
     @Test func updateTypeWithNewNameIsEgaltoNourrissons() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
-        let name = "nourrissons"
+        let name = "Nourrissons"
         //When
         let user = userSettingsViewModel.updateType(name: name)
         //Then
@@ -25,7 +25,7 @@ struct UserSettingsViewModelTests {
     @Test func updateTypeWithNewNameIsEgaltoWomen() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
-        let name = "femmes enceintes"
+        let name = "Femmes enceintes"
         //When
         let user = userSettingsViewModel.updateType(name: name)
         //Then
@@ -35,7 +35,7 @@ struct UserSettingsViewModelTests {
     @Test func updateTypeWithNewNameIsEgaltoGrandFatherOrMother() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
-        let name = "personnes âgées"
+        let name = "Personnes âgées"
         //When
         let user = userSettingsViewModel.updateType(name: name)
         //Then
@@ -45,7 +45,7 @@ struct UserSettingsViewModelTests {
     @Test func updateTypeWithNewNameIsEgaltosportifs() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
-        let name = "sportifs"
+        let name = "Sportifs"
         //When
         let user = userSettingsViewModel.updateType(name: name)
         //Then
@@ -65,7 +65,7 @@ struct UserSettingsViewModelTests {
     @Test func updateWaterWhenResultIsEgalToNourrissons() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
-        let name = "nourrissons"
+        let name = "Nourrissons"
         //When
         let user = userSettingsViewModel.updateWater(type: name)
         //Then
@@ -75,7 +75,7 @@ struct UserSettingsViewModelTests {
     @Test func updateWaterWhenResultIsEgalToWomen() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
-        let name = "femmes enceintes"
+        let name = "Femmes enceintes"
         //When
         let user = userSettingsViewModel.updateWater(type: name)
         //Then
@@ -84,7 +84,7 @@ struct UserSettingsViewModelTests {
     @Test func updateWaterWhenResultIsEgalToGrandFatherOrMother() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
-        let name = "personnes âgées"
+        let name = "Personnes âgées"
         //When
         let user = userSettingsViewModel.updateWater(type: name)
         //Then
@@ -94,7 +94,7 @@ struct UserSettingsViewModelTests {
     @Test func updateWaterWhenResultIsEgalToSportifs() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
-        let name = "sportifs"
+        let name = "Sportifs"
         //When
         let user = userSettingsViewModel.updateWater(type: name)
         //Then
