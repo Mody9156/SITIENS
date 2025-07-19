@@ -278,13 +278,43 @@ struct UserSettingsViewModelTests {
     
     
     @Test func showNumberOfGlassForDrink() async throws {
-        //Gieven
+        //Given
         let userSettingsViewModel = UserSettingsViewModel()
         
         //When
         let user = userSettingsViewModel.showNumberOfGlass(chooseBottle: "Grand – 500 ml", name: "Nourrissons")
         //Then
         #expect(user == 0.7142857142857143)
+    }
+    
+    @Test func uptateQuanittyOfWaterAndWhenQuantityWaterIsEgalToZero() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        
+        //When
+        let user = userSettingsViewModel.uptateQuanittyOfWater2(
+            quantityWater:"Nil",
+            chooseBottle: "Grand – 500 ml"
+        )
+        
+        //Then
+        #expect(user == 0 )
+        
+    }
+    
+    @Test func uptateQuanittyOfWaterAndWhenBottleIsEmpty() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        
+        //When
+        let user = userSettingsViewModel.uptateQuanittyOfWater2(
+            quantityWater:"Nourrissons",
+            chooseBottle: "Nil"
+        )
+        
+        //Then
+        #expect(user == 0 )
+        
     }
 //    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Double {
 //        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
