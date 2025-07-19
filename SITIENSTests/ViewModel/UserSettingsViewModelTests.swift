@@ -241,11 +241,20 @@ struct UserSettingsViewModelTests {
             quantityWater: "Nourrissons",
             chooseBottle: "Petit – 200 ml"
         )
-        
+      
         //Then
-        
+        #expect(user == 3.5)
     }
 
+    @Test func uantityWaterNumberIsMiddleBottle() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        //When
+        let user = userSettingsViewModel.quantityWaterNumber(chooseBottle: "Moyen – 300 ml")
+        
+        //Then
+        #expect(user == 300)
+    }
     
     
     
