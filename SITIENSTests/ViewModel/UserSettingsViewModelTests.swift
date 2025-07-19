@@ -351,11 +351,11 @@ struct UserSettingsViewModelTests {
         
         //When
             let user = userSettingsViewModel.chooseBottleOfWater(
-                name: "MediumGlace"
+                name: "Moyen – 300 ml"
             )
         
         //Then
-        #expect(user == "Grand – 500 ml")
+        #expect(user == "MediumGlace")
             
         }
     
