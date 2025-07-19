@@ -256,7 +256,15 @@ struct UserSettingsViewModelTests {
         #expect(user == 300)
     }
     
-    
+    @Test func uantityWaterNumberIsLargeBottle() async throws {
+        //Given
+        let userSettingsViewModel = UserSettingsViewModel()
+        //When
+        let user = userSettingsViewModel.quantityWaterNumber(chooseBottle: "Grand – 500 ml")
+        
+        //Then
+        #expect(user == 500)
+    }
     
 //    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Double {
 //        let waterQuantity = quantityWaterNumber(chooseBottle:chooseBottle)
