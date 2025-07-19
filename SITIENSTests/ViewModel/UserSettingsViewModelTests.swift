@@ -317,18 +317,18 @@ struct UserSettingsViewModelTests {
         
     }
     
-    @Test func uptateQuanittyOfWaterAndWhenBottleIsEmptyAndQuantityWater() async throws {
+    @Test func uptateQuanittyOfWaterWhenNoThrowsErrors() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
         
         //When
-        let user = userSettingsViewModel.uptateQuanittyOfWater2(
-            quantityWater:"Nil",
-            chooseBottle: "Nil"
-        )
+        let user = Int(userSettingsViewModel.uptateQuanittyOfWater2(
+            quantityWater:"Nourrissons",
+            chooseBottle: "Grand – 500 ml"
+        )) 
         
         //Then
-        #expect(user == 0 )
+        #expect(user ==  420)
         
     }
 //    func uptateQuanittyOfWater(quantityWater  : String,chooseBottle:String) -> Double {

@@ -100,27 +100,26 @@ class UserSettingsViewModel{
     func uptateQuanittyOfWater2(quantityWater : String,chooseBottle:String) -> Double {
         let quantity = updateWater(type: quantityWater)//2_000
         
-        guard quantity > 0  else{
-            print("Error: Bottle size can't be zero")
-            return 0
-        }
-        
+      
         let update = CGFloat(quantity) * 1000
         let limit : CGFloat = 300
                 
         let bottle = CGFloat(quantityWaterNumber(chooseBottle: chooseBottle))// 200
+      
         
+        let waterUnits = update / bottle // 10
+        
+        
+        guard quantity > 0  else{
+            print("Error: Bottle size can't be zero")
+            return 0
+        }
+    
         guard bottle > 0 else{
             print("Error: Bottle size can't be zero")
             return 0
         }
         
-        let waterUnits = update / bottle // 10
-        
-        guard waterUnits > 0 else {
-            print("Error: Water units calculated as 0. Cannot divide.")
-            return 0
-        }
         let result = (limit / waterUnits) // 30
         
         
