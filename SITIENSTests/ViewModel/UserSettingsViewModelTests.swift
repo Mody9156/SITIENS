@@ -121,7 +121,6 @@ struct UserSettingsViewModelTests {
         //Then
         #expect(user == 0.0)
     }
-    
  
     @Test func updateWaterWhenResultIsEgalToNourrissons() async throws {
         //Given
@@ -142,6 +141,7 @@ struct UserSettingsViewModelTests {
         //Then
         #expect(user == 2.5)
     }
+    
     @Test func updateWaterWhenResultIsEgalToGrandFatherOrMother() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
@@ -276,7 +276,6 @@ struct UserSettingsViewModelTests {
         #expect(user == 0)
     }
     
-    
     @Test func showNumberOfGlassForDrink() async throws {
         //Given
         let userSettingsViewModel = UserSettingsViewModel()
@@ -331,7 +330,8 @@ struct UserSettingsViewModelTests {
         #expect(user ==  214)
         
     }
-@Test func chooseBottleOfWaterWhenYouWantToDrinkWithLargeBottle() async throws {
+    
+    @Test func chooseBottleOfWaterWhenYouWantToDrinkWithLargeBottle() async throws {
     //Given
         let userSettingsViewModel = UserSettingsViewModel()
     
@@ -355,7 +355,7 @@ struct UserSettingsViewModelTests {
             )
         
         //Then
-        #expect(user == " MediumGlace")
+        #expect(user == "MediumGlace")
             
         }
     
