@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Screenshots/icone.png" width="100" alt="Sitiens Logo">
+  <img src="Screen/Sitiens.png" width="100" alt="Sitiens Logo">
 </p>
 
 # Sitiens
