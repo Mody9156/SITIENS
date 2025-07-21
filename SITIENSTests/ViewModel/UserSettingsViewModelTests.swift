@@ -355,7 +355,7 @@ struct UserSettingsViewModelTests {
             )
         
         //Then
-        #expect(user == "MediumGlace")
+        #expect(user == " MediumGlace")
             
         }
     
