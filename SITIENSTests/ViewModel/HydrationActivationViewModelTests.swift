@@ -29,7 +29,7 @@ struct HydrationActivationViewModelTests {
         let fomatTimer = hydrationActivationViewModel.formatHour(hours)
         
         //Then
-        #expect(fomatTimer == " 2")
+        #expect(fomatTimer == "2")
     }
     
     @Test func whenPlayingSound() async throws {
