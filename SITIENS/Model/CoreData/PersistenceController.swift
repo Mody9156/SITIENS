@@ -8,10 +8,12 @@
 import Foundation
 import CoreData
 
-final class PersistenceController {
+final class PersistenceController : @unchecked Sendable{
     
     // MARK: - Properties
-    @MainActor static let shared = PersistenceController()
+    @preconcurrency
+    
+    static let shared = PersistenceController()
     
     let container: NSPersistentContainer
     private(set) var backgroundContext: NSManagedObjectContext?
