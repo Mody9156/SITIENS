@@ -46,6 +46,19 @@ struct HydrationActivationViewModelTests {
         #expect(fomatTimer == "\(minutes) \(minutes > 1 ? "minutes" : "minute")")
     }
     
+    @Test func formatTimerWhenHourIfNotegaltoZero() async throws {
+        //Gieven
+        let hydrationActivationViewModel = HydrationActivationViewModel()
+        let hours = 1
+        let secondes = hours / 3600
+
+        let minutes = (secondes % 3600) / 60
+        //When
+        let fomatTimer = hydrationActivationViewModel.formatHour(hours)
+        
+        //Then
+        #expect(fomatTimer == "\(minutes) \(minutes > 1 ? "minutes" : "minute")")
+    }
 
     @Test func whenPlayingSound() async throws {
         //Gieven
