@@ -11,7 +11,7 @@ import CoreData
 final class PersistenceController {
     
     // MARK: - Properties
-    nonisolated(unsafe) static let shared = PersistenceController()
+    @MainActor static let shared = PersistenceController()
     
     let container: NSPersistentContainer
     private(set) var backgroundContext: NSManagedObjectContext?
