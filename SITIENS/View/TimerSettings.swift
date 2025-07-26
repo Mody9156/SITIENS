@@ -86,6 +86,9 @@ struct TimerSettings: View {
                                 Text(item)
                             }
                         }
+                        .onTapGesture(perform: {
+                            <#code#>
+                        })
                         .pickerStyle(.navigationLink)
                         .padding()
                         .background(Color(uiColor: .secondarySystemBackground))
@@ -97,6 +100,7 @@ struct TimerSettings: View {
                         .accessibilityLabel("Sélectionner un son")
                         .accessibilityHint("Double-cliquez pour choisir un audio")
                     }
+                  
                     .padding()
                     .background(.ultraThinMaterial)
                     .cornerRadius(16)
@@ -113,6 +117,7 @@ struct TimerSettings: View {
                 }
                 .padding()
             }
+            .navigationTitle("ohh")
             
             Spacer()
             
