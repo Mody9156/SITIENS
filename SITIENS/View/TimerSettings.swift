@@ -24,6 +24,7 @@ struct TimerSettings: View {
     @State private var navigationTitle : String = "Configuration"
     @State private var slide : Double = 0.0
     @State private var activeSlide : Bool = false
+    @State private var pressureDetected : Bool = false 
     
     var body: some View {
         NavigationStack {
