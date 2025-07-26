@@ -114,7 +114,7 @@ struct TimerSettings: View {
                 }
                 .padding()
             }
-            .navigationTitle("Paramètre du chronmètre")
+            .navigationTitle("Paramètres")
             
             Spacer()
             
