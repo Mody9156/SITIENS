@@ -24,7 +24,8 @@ struct TimerSettings: View {
     @State private var navigationTitle : String = "Configuration"
     @State private var slide : Double = 0.0
     @State private var activeSlide : Bool = false
-    @State private var pressureDetected : Bool = false 
+    @State private var pressureDetectedForTime : Bool = false
+    @State private var pressureDetectedForAudio : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -55,6 +56,9 @@ struct TimerSettings: View {
                                     .lineLimit(1)
                             }
                         }
+                        .onTapGesture(perform: {
+                            pressureDetected = true
+                        })
                         .pickerStyle(.navigationLink)
                         .padding()
                         .background(Color(uiColor: .secondarySystemBackground))
@@ -88,7 +92,7 @@ struct TimerSettings: View {
                             }
                         }
                         .onTapGesture(perform: {
-                            <#code#>
+                            pressureDetected = true
                         })
                         .pickerStyle(.navigationLink)
                         .padding()
