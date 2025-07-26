@@ -103,7 +103,7 @@ struct TimerSettings: View {
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
-                    Text("Jouer l'audio")
+                    Text(isPlaying ? "Stopper l'audio" : "Jouer l'audio")
                         .font(.headline)
                         .fontWeight(.bold)
                     
@@ -114,7 +114,7 @@ struct TimerSettings: View {
                 }
                 .padding()
             }
-            .navigationTitle( "Paramètre du chronmètre")
+            .navigationTitle("Paramètre du chronmètre")
             
             Spacer()
             
