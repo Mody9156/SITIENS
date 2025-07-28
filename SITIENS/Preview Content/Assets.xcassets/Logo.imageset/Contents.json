@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "AnyAppearence.png",
+      "filename" : "goutte 3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "goutte 2.png",
+      "filename" : "goutte 6.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "AnyAppearence 1.png",
+      "filename" : "goutte 4.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "goutte.png",
+      "filename" : "goutte 7.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "AnyAppearence 2.png",
+      "filename" : "goutte 5.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "goutte 1.png",
+      "filename" : "goutte 8.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
