@@ -17,30 +17,18 @@ struct SITIENSApp: App {
                 Group {
                     if showMainApp {
                         TabView {
-                            Tab(
-                                "Chronomètre",
-                                systemImage: "stopwatch") {
-                                    Chronograph()
-                                        .transition(.opacity)
-                                }
-                            
-                            Tab(
-                                "Hydradation",
-                                systemImage: "drop.fill") {
-                                    WaterQuantityView(
-                                        historyViewModel: HistoryViewModel()
-                                    )
-                                    .transition(.opacity)
-                                }
-                            
-                            //                    Tab(
-                            //                        "Carte"
-                            //                         ,systemImage: "map"){
-                            //                             MapView(
-                            //                                waterAPIViewModel: WaterAPIViewModel()
-                            //                             )
-                            //                       }
-                        }
+                               Chronograph()
+                                   .transition(.opacity)
+                                   .tabItem {
+                                       Label("Chronomètre", systemImage: "stopwatch")
+                                   }
+
+                               WaterQuantityView(historyViewModel: HistoryViewModel())
+                                   .transition(.opacity)
+                                   .tabItem {
+                                       Label("Hydratation", systemImage: "drop.fill")
+                                   }
+                           }
                         
                     }else {
                         TabView{
