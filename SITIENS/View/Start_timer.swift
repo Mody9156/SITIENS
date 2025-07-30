@@ -65,6 +65,10 @@ struct Start_timer: View {
                     }
                     .buttonStyle(.plain)
                     .padding()
+                    .accessibilityLabel("Bouton Réinitialiser")
+                    .accessibilityHint("Remet à zéro le minuteur")
+                    .accessibilityAddTraits(.isButton)
+
                 }
                 
             }else{
@@ -135,6 +139,9 @@ struct Start_timer: View {
                     }
                     .buttonStyle(.plain)
                     .padding()
+                    .accessibilityLabel("Bouton \(buttonLabel)")
+                    .accessibilityHint(buttonLabel == "Démarrer" ? "Lance le minuteur" : "Met en pause le minuteur")
+                    .accessibilityAddTraits(.isButton)
                 }
             }
         }
