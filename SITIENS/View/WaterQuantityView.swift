@@ -66,7 +66,6 @@ struct WaterQuantityView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(.white)
                             
-                            
                             WaterWave(
                                 progress: progress,
                                 waveHeight:0.1,
@@ -151,6 +150,9 @@ struct WaterQuantityView: View {
                                                 })
                                         )
                                 }
+                                .accessibilityLabel("Ajouter un verre d'eau")
+                                .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
+                                .accessibilityAddTraits(.isButton)
                             }
                             
                             let percentFilled = (updateHeight / 300) * 100
