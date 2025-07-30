@@ -14,7 +14,7 @@ struct UserSettingsView: View {
     @Binding var profil : String
     @Binding var glace : String
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         VStack {
             List {
@@ -24,7 +24,7 @@ struct UserSettingsView: View {
                     }
                 }
                 .pickerStyle(.inline)
-              
+                
                 Picker("Type de récipient", selection: $glace) {
                     ForEach(sizeOfGlace,id: \.self) { profile in
                         Text(profile)
@@ -51,6 +51,9 @@ struct UserSettingsView: View {
             }
             .disabled(profil.isEmpty)
             .padding()
+            .accessibilityLabel("Bouton Valider")
+            .accessibilityHint("Valide vos préférences de profil et de récipient")
+            .accessibilityAddTraits(.isButton)
         }
     }
 }
