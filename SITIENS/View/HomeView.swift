@@ -45,6 +45,7 @@ struct HomeView: View {
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                         .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                        .accessibilityLabel("Image de présentation")
                     
                     VStack(alignment: .center, spacing: 16) {
                         
@@ -60,6 +61,8 @@ struct HomeView: View {
                                 .font(.body)
                                 .foregroundColor(.black)
                         }
+                        .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
+                        .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")                        
                         .padding(.horizontal)
 
                         Button(action: {
