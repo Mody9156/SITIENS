@@ -17,11 +17,18 @@ struct SITIENSApp: App {
             Group {
                 if showMainApp {
                     TabView {
-                        Chronograph()
-                            .transition(.opacity)
-                            .tabItem {
-                                Label("Chronomètre", systemImage: "stopwatch")
-                            }
+                        if #available(iOS 18.0, *) {
+                            Chronograph()
+                                .transition(.opacity)
+                                .tabItem {
+                                    Label(
+                                        "Chronomètre",
+                                        systemImage: "stopwatch"
+                                    )
+                                }
+                        } else {
+                            // Fallback on earlier versions
+                        }
 
                         WaterQuantityView(historyViewModel: HistoryViewModel())
                             .transition(.opacity)

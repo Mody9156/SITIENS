@@ -6,24 +6,25 @@ import CoreData
 
 // MARK: - HomeView : Chronomètre pour mesurer le temps restant avant une nouvelle hydradation
 
+@available(iOS 18.0, *)
 struct Chronograph: View {
     @State var timerIsReading = false
-       @State var hydrationActivationViewModel = HydrationActivationViewModel()
-       @State var timeInterval: Int = 0
-       @AppStorage("timeInterval") var timeIntervalRaw: Int = 0
-       @State var cancellable: Cancellable?
-       @State var startDate: Date?
-       @AppStorage("startDate") var startDateRaw: Date?
-       @State var sheetPresented: Bool = false
-       @State var rotationInfiny: Bool = false
-       @State var selectedItems: String = ""
-       @AppStorage("selectedItems") var selectedItemsRaw: String = ""
-       @AppStorage("hour") var timerhour: Int = 0
-       @State var showMessage: Bool = false
-       @AppStorage("showMessage") var showMessageRaw: Bool = false
-       @State var elapseBeforPause: Int = 0
-       @AppStorage("elapseBeforPause") var elapseBeforPauseRaw: Int = 0
-       @AppStorage("buttonLabel") var buttonLabel: String = ""
+    @State var hydrationActivationViewModel = HydrationActivationViewModel()
+    @State var timeInterval: Int = 0
+    @AppStorage("timeInterval") var timeIntervalRaw: Int = 0
+    @State var cancellable: Cancellable?
+    @State var startDate: Date?
+    @AppStorage("startDate") var startDateRaw: Date?
+    @State var sheetPresented: Bool = false
+    @State var rotationInfiny: Bool = false
+    @State var selectedItems: String = ""
+    @AppStorage("selectedItems") var selectedItemsRaw: String = ""
+    @AppStorage("hour") var timerhour: Int = 0
+    @State var showMessage: Bool = false
+    @AppStorage("showMessage") var showMessageRaw: Bool = false
+    @State var elapseBeforPause: Int = 0
+    @AppStorage("elapseBeforPause") var elapseBeforPauseRaw: Int = 0
+    @AppStorage("buttonLabel") var buttonLabel: String = ""
     
     var body: some View {
         NavigationStack {
@@ -43,10 +44,13 @@ struct Chronograph: View {
                             .font(.system(.largeTitle, design: .rounded))
                             .fontWeight(.bold)
                             .foregroundStyle(.primary)
+                            .accessibilityAddTraits(.isHeader)
+                            .accessibilityLabel("Titre: Hydradation")
                         
                         Text("Temps restant")
                             .font(.title3)
                             .foregroundStyle(.secondary)
+                            .accessibilityLabel("Indication : Temps restant")
                     }
                     
                     ZStack {
@@ -74,9 +78,12 @@ struct Chronograph: View {
                         Text(hydrationActivationViewModel.formatTimer(timeInterval))
                             .font(.system(size: 48, weight: .bold, design: .monospaced))
                             .foregroundStyle(.primary)
+                            .accessibilityLabel("Temps restant")
+                            .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
                         
                     }
-                    
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("Progression de l'hydratation")
                     // MARK: - Bouton du cercle principal
                     HStack {
                         Start_timer(
@@ -89,6 +96,7 @@ struct Chronograph: View {
                             selectedItems: $selectedItems,
                             nameBtm: "Start"
                         )
+                        .accessibilityLabel("Bouton démarrer le minuteur")
                         
                         Start_timer(
                             showMessage: $showMessage, hydrationActivationViewModel: hydrationActivationViewModel,
@@ -100,6 +108,7 @@ struct Chronograph: View {
                             selectedItems: $selectedItems,
                             nameBtm: "stop"
                         )
+                        .accessibilityLabel("Bouton arrêter le minuteur")
                     }
                     
                     if showMessage {
@@ -113,6 +122,8 @@ struct Chronograph: View {
                             .easeOut(duration: 1.0),value: showMessage
                         )
                         .padding()
+                        .accessibilityLabel("Avertissement")
+                        .accessibilityHint("Veuillez bien sélectionner l’horaire")
                     }
                 }
                 .toolbar(
@@ -136,6 +147,9 @@ struct Chronograph: View {
                                         rotationInfiny = true
                                     }
                             }
+                            .accessibilityLabel("Bouton des réglages")
+                            .accessibilityHint("Appuyez pour modifier les paramètres du minuteur")
+                            
                             .disabled(timerIsReading && timeInterval != 0 && timeInterval != timerhour)
                             .sheet(isPresented: $sheetPresented) {
                                 
@@ -154,14 +168,14 @@ struct Chronograph: View {
                 showMessage = false
                 startDate = startDateRaw
                 elapseBeforPause = elapseBeforPauseRaw
-
+                
                 print("elapseBeforPause après le appear -> \(elapseBeforPause)")
             }
             .onChange(of: timeInterval) {
                 timeIntervalRaw = timeInterval
-                              selectedItemsRaw = selectedItems
-                              showMessageRaw = showMessage
-                              startDateRaw = startDate
+                selectedItemsRaw = selectedItems
+                showMessageRaw = showMessage
+                startDateRaw = startDate
                 elapseBeforPauseRaw = elapseBeforPause
             }
         }
@@ -178,6 +192,10 @@ struct Chronograph: View {
 
 // MARK: - Preview
 #Preview {
-    Chronograph()
+    if #available(iOS 18.0, *) {
+        Chronograph()
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
