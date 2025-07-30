@@ -30,6 +30,7 @@ struct InformationView: View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                             .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                            .accessibilityLabel("Image de présentation")
                         
                         VStack(alignment: .center, spacing: 16){
                             
@@ -37,6 +38,7 @@ struct InformationView: View {
                             .font(.title3)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
+                            .accessibilityLabel("Titre de la page")
                         
                         Button {
                             withAnimation {
@@ -50,6 +52,8 @@ struct InformationView: View {
                                 .foregroundColor(.black)
                         }
                         .padding(.horizontal)
+                        .accessibilityLabel("Navigation vers le détail de la question")
+                        .accessibilityValue("Navigation vers le détail est : \(showSheet == true ? "active" : "incactive")")
                         
                         Button(action: {
                             withAnimation {hasSeenIntro = true }
@@ -64,6 +68,9 @@ struct InformationView: View {
                         }
                         .padding(.horizontal)
                         .accessibilityLabel("Ignorer l'introduction")
+                        .accessibilityValue(hasSeenIntro == true
+                            ? "Introduction ignoré":""
+                        )
                     }
                         Spacer()
                     }
@@ -87,6 +94,9 @@ struct InformationView: View {
     }
     
     // MARK: - Contenu à afficher dans la feuille
+    private var accebilityLbale: String {
+        return "n'avez pas encore ignor l'introduction"
+    }
     private var moreText: String {
         """
         Si vous buvez trop d’eau avant de dormir, vous risquez de vous réveiller fréquemment. En effet, cela empêche la sécrétion de l’hormone antidiurétique nécessaire à un sommeil profond.

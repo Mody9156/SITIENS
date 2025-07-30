@@ -53,6 +53,7 @@ struct HomeView: View {
                             .font(.title3)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
+                            .accessibilityLabel("Titre de la page")
                         
                         Button(action: {
                             withAnimation { showSheet = true }
