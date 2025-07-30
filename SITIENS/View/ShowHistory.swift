@@ -30,6 +30,7 @@ struct ShowHistory: View {
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundStyle(.blue)
                     .padding(.top, 10)
+                    .accessibilityLabel("Titre: Historique d'hydratation")
                 
                 List {
                     Section {
