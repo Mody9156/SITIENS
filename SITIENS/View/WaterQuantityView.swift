@@ -216,6 +216,9 @@ struct WaterQuantityView: View {
                             }
                         }
                         .padding()
+                        .accessibilityLabel("Réinitialiser le suivi")
+                        .accessibilityHint("Remet le niveau d'eau et la progression à zéro")
+                        .accessibilityAddTraits(.isButton)
                     }
                     
                     if throwError && profilType.isEmpty {
