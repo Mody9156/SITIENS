@@ -29,13 +29,14 @@
       "size" : "29x29"
     },
     {
-      "filename" : "iTunesArtwork@3x.png",
+      "filename" : "Icon-76.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "38x38"
     },
     {
+      "filename" : "Icon-114.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -70,6 +71,7 @@
       "size" : "60x60"
     },
     {
+      "filename" : "Icon-128.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -83,6 +85,7 @@
       "size" : "64x64"
     },
     {
+      "filename" : "Design sans titre (1).png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
