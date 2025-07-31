@@ -29,6 +29,7 @@
       "size" : "29x29"
     },
     {
+      "filename" : "iTunesArtwork@3x.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
@@ -75,6 +76,7 @@
       "size" : "64x64"
     },
     {
+      "filename" : "ic_launcher 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
