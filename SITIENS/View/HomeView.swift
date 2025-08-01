@@ -60,7 +60,7 @@ struct HomeView: View {
                         }) {
                             Text("Notre organisme est composé de 60 à 65 % d’eau. Cette eau assure de nombreuses fonctions vitales...")
                                 .font(.body)
-                                .foregroundColor(.black)
+                                .foregroundStyle(Color("TextBackground"))
                         }
                         .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
                         .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")                        
@@ -104,7 +104,7 @@ struct MoreInfoSheet: View {
                     Text(content)
                         .font(.body)
                         .multilineTextAlignment(.leading)
-                        .foregroundColor(.black)
+                        .foregroundStyle(Color("TextBackground"))
                         .padding()
                 }
                 .padding(.top)
