@@ -6,7 +6,6 @@ import CoreData
 
 // MARK: - HomeView : Chronomètre pour mesurer le temps restant avant une nouvelle hydradation
 
-@available(iOS 18.0, *)
 struct Chronograph: View {
     @State var timerIsReading = false
     @State var hydrationActivationViewModel = HydrationActivationViewModel()
@@ -192,10 +191,7 @@ struct Chronograph: View {
 
 // MARK: - Preview
 #Preview {
-    if #available(iOS 18.0, *) {
         Chronograph()
-    } else {
-        // Fallback on earlier versions
-    }
+    
 }
 
