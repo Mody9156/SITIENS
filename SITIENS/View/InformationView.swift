@@ -49,7 +49,7 @@ struct InformationView: View {
                                 Il est fortement déconseillé de boire plus de 5 litres d’eau par jour... 
                                 """)
                                 .font(.body)
-                                .foregroundColor(.black)
+                                .foregroundStyle(Color("TextBackground"))
                         }
                         .padding(.horizontal)
                         .accessibilityLabel("Navigation vers le détail de la question")
