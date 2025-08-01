@@ -159,9 +159,11 @@ struct InfoSection: View {
             Text(title)
                 .font(.title2)
                 .fontWeight(.bold)
+                .foregroundStyle(Color("TextBackground"))
             
             Text(text)
                 .font(.body)
+                .foregroundStyle(Color("TextBackground"))
         }
     }
 }
