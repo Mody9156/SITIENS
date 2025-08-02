@@ -38,6 +38,8 @@ struct AppClipApp: App {
                         AppClipHomeView(hasSeenIntro: $hasSeenIntro)
                             .transition(.opacity)
                         
+                        InformationViewToAppClip
+                            .transition(.opacity)
                  
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))
