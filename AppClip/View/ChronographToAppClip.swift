@@ -74,7 +74,7 @@ struct ChronographToAppClip: View {
                                     )
                             }
                         
-                        Text("00:00")
+                        Text("00:00:00")
                             .font(.system(size: 48, weight: .bold, design: .monospaced))
                             .foregroundStyle(.primary)
                           
@@ -84,7 +84,7 @@ struct ChronographToAppClip: View {
                     .accessibilityLabel("Progression de l'hydratation")
                     // MARK: - Bouton du cercle principal
                     HStack {
-                    //
+                        BouttonStopAndStart()
                     }
                     
                     if showMessage {
