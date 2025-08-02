@@ -38,7 +38,7 @@ struct AppClipApp: App {
                         AppClipHomeView(hasSeenIntro: $hasSeenIntro)
                             .transition(.opacity)
                         
-                        InformationViewToAppClip
+                        InformationViewToAppClip(hasSeenIntro: $hasSeenIntro)
                             .transition(.opacity)
                  
                     }

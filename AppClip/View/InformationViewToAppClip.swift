@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct InformationViewToAppClip: View {
+    @Binding var hasSeenIntro: Bool
+    @State private var showSheet: Bool = false
     var body: some View {
         Text("Hello, World!")
     }
 }
 
 #Preview {
-    InformationViewToAppClip()
+    @Previewable @State var hasSeenIntro: Bool = false
+    InformationViewToAppClip(hasSeenIntro: $hasSeenIntro)
 }
