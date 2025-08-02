@@ -34,6 +34,10 @@ struct AppClipApp: App {
                 } else {
                     TabView {
                         AppClipHomeView(hasSeenIntro: $hasSeenIntro)
+                            .transition(.opacity)
+                        
+                        ChronographToAppClip()
+                            .transition(.opacity)
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))
                     .background(Color.black)
