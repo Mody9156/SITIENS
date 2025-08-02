@@ -9,21 +9,13 @@ import SwiftUI
 
 struct ChronographToAppClip: View {
     @State var timerIsReading = false
-   
+    
     @State var timeInterval: Int = 0
-    @AppStorage("timeInterval") var timeIntervalRaw: Int = 0
-    @State var startDate: Date?
-    @AppStorage("startDate") var startDateRaw: Date?
     @State var sheetPresented: Bool = false
     @State var rotationInfiny: Bool = false
     @State var selectedItems: String = ""
-    @AppStorage("selectedItems") var selectedItemsRaw: String = ""
-    @AppStorage("hour") var timerhour: Int = 0
     @State var showMessage: Bool = false
-    @AppStorage("showMessage") var showMessageRaw: Bool = false
     @State var elapseBeforPause: Int = 0
-    @AppStorage("elapseBeforPause") var elapseBeforPauseRaw: Int = 0
-    @AppStorage("buttonLabel") var buttonLabel: String = ""
     
     var body: some View {
         NavigationStack {
@@ -59,7 +51,6 @@ struct ChronographToAppClip: View {
                             .frame(height: 300)
                             .overlay {
                                 Circle()
-                                    .trim(from: 0,to: progressWater())
                                     .stroke(
                                         style: StrokeStyle(
                                             lineWidth: 15,
@@ -67,17 +58,13 @@ struct ChronographToAppClip: View {
                                             lineJoin: .round,
                                         )
                                     )
-                                    .foregroundStyle(completed() ? .blue : .orange)
-                                    .animation(
-                                        .easeInOut(duration: 0.5),
-                                        value: progressWater()
-                                    )
+                                    .foregroundStyle(.orange)
                             }
                         
                         Text("00:00:00")
                             .font(.system(size: 48, weight: .bold, design: .monospaced))
                             .foregroundStyle(.primary)
-                          
+                        
                         
                     }
                     .accessibilityElement(children: .combine)
@@ -86,21 +73,7 @@ struct ChronographToAppClip: View {
                     HStack {
                         BouttonStopAndStart()
                     }
-                    
-                    if showMessage {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundStyle(Color.orange)
-                            Text("Veuillez bien selectionner l'horraire")
-                        }
-                        .opacity(showMessage ? 1 : 0)
-                        .animation(
-                            .easeOut(duration: 1.0),value: showMessage
-                        )
-                        .padding()
-                        .accessibilityLabel("Avertissement")
-                        .accessibilityHint("Veuillez bien sélectionner l’horaire")
-                    }
+                   
                 }
                 .toolbar(
                     content: {
@@ -126,42 +99,20 @@ struct ChronographToAppClip: View {
                             .accessibilityLabel("Bouton des réglages")
                             .accessibilityHint("Appuyez pour modifier les paramètres du minuteur")
                             
-                            .disabled(timerIsReading && timeInterval != 0 && timeInterval != timerhour)
+                            
                             .sheet(isPresented: $sheetPresented) {
                                 
                             } content: {
-                               
+                                
                             }
                         }
                     })
             }
-            .onAppear {
-                timeInterval = timeIntervalRaw
-                selectedItems = selectedItemsRaw
-                showMessage = false
-                startDate = startDateRaw
-                elapseBeforPause = elapseBeforPauseRaw
-                
-                print("elapseBeforPause après le appear -> \(elapseBeforPause)")
-            }
-            .onChange(of: timeInterval) {
-                timeIntervalRaw = timeInterval
-                selectedItemsRaw = selectedItems
-                showMessageRaw = showMessage
-                startDateRaw = startDate
-                elapseBeforPauseRaw = elapseBeforPause
-            }
+            
         }
     }
+   
     
-    func completed() -> Bool {
-        return progressWater() == 1
-    }
-    
-    func progressWater() -> CGFloat {
-        return  CGFloat(timeInterval) / CGFloat(timerhour)
-    }
-
 }
 
 #Preview {
