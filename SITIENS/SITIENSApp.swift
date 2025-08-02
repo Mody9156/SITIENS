@@ -17,7 +17,6 @@ struct SITIENSApp: App {
             Group {
                 if showMainApp {
                     TabView {
-                        if #available(iOS 18.0, *) {
                             Chronograph()
                                 .transition(.opacity)
                                 .tabItem {
@@ -26,23 +25,13 @@ struct SITIENSApp: App {
                                         systemImage: "stopwatch"
                                     )
                                 }
-                        } else {
-                            // Fallback on earlier versions
-                        }
-
+                    
                         WaterQuantityView(historyViewModel: HistoryViewModel())
                             .transition(.opacity)
                             .tabItem {
                                 Label("Hydratation", systemImage: "drop.fill")
                             }
 
-                        // Tu peux réactiver cette partie si MapView est prêt :
-                        /*
-                        MapView(waterAPIViewModel: WaterAPIViewModel())
-                            .tabItem {
-                                Label("Carte", systemImage: "map")
-                            }
-                        */
                     }
                 } else {
                     TabView {

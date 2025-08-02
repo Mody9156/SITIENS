@@ -16,28 +16,29 @@ struct AppClipApp: App {
             Group {
                 if hasSeenIntro {
                     TabView {
-                       
+                        ChronographToAppClip()
+                            .transition(.opacity)
+                            .transition(.opacity)
+                            .tabItem {
+                                Label(
+                                    "Chronomètre",
+                                    systemImage: "stopwatch"
+                                )
+                            }
+                        
                         WaterQuantityViewToAppClip()
                             .transition(.opacity)
                             .tabItem {
                                 Label("Hydratation", systemImage: "drop.fill")
                             }
 
-                        // Tu peux réactiver cette partie si MapView est prêt :
-                        /*
-                        MapView(waterAPIViewModel: WaterAPIViewModel())
-                            .tabItem {
-                                Label("Carte", systemImage: "map")
-                            }
-                        */
                     }
                 } else {
                     TabView {
                         AppClipHomeView(hasSeenIntro: $hasSeenIntro)
                             .transition(.opacity)
                         
-                        ChronographToAppClip()
-                            .transition(.opacity)
+                 
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))
                     .background(Color.black)
