@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct AppClipApp: App {
+    @State private var hasSeenIntro: Bool = false
     var body: some Scene {
         WindowGroup {
-            AppClipHomeView()
+            AppClipHomeView(hasSeenIntro: $hasSeenIntro)
         }
     }
 }
