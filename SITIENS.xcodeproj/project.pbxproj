@@ -390,11 +390,12 @@
 				};
 			};
 			buildConfigurationList = 4FA205902DA40CAF004C8CC4 /* Build configuration list for PBXProject "SITIENS" */;
-			developmentRegion = en;
+			developmentRegion = fr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 4FA2058C2DA40CAF004C8CC4;
 			minimizedProjectReferenceProxies = 1;
