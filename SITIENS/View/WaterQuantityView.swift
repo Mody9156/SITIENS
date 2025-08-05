@@ -167,7 +167,7 @@ struct WaterQuantityView: View {
                                 Text("\(Int(percentFilled)) %")
                                     .foregroundStyle(Int(percentFilled) > 40 ? .white: .blue)
                                     .font(.title)
-                                    .offset(y:75)
+                                    .offset(y:40)
                             }
                         }
                         .frame(
