@@ -5,7 +5,6 @@ import UIKit
 import CoreData
 
 // MARK: - HomeView : Chronomètre pour mesurer le temps restant avant une nouvelle hydradation
-
 struct Chronograph: View {
     @State var timerIsReading = false
     @State var hydrationActivationViewModel = HydrationActivationViewModel()

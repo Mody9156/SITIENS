@@ -13,7 +13,7 @@ struct Start_timer: View {
     @Bindable var hydrationActivationViewModel: HydrationActivationViewModel
     @Binding var timeInterval: Int
     @Binding var timerIsReading: Bool
-    @AppStorage("hour") var timerhour: Int = 10
+    @AppStorage("hour") var timerhour: Int = 0
     @Binding var cancellable: Cancellable?
     @Binding var startDate: Date?
     @Binding var elapseBeforPause: Int
