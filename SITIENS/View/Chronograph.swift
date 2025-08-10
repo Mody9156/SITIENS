@@ -16,6 +16,7 @@ struct Chronograph: View {
     @State var sheetPresented: Bool = false
     @State var rotationInfiny: Bool = false
     @State var selectedItems: String = ""
+    @State var selectedHour : Int = 0
     @AppStorage("selectedItems") var selectedItemsRaw: String = ""
     @AppStorage("hour") var timerhour: Int = 0
     @State var showMessage: Bool = false
@@ -94,6 +95,7 @@ struct Chronograph: View {
                             selectedItems: $selectedItems,
                             nameBtm: "Start"
                         )
+                        .disabled(selectedItems.isEmpty)
                         .accessibilityLabel("Bouton démarrer le minuteur")
                         
                         Start_timer(
@@ -106,6 +108,7 @@ struct Chronograph: View {
                             selectedItems: $selectedItems,
                             nameBtm: "stop"
                         )
+                        .disabled(selectedItems.isEmpty)
                         .accessibilityLabel("Bouton arrêter le minuteur")
                     }
                     
@@ -156,6 +159,7 @@ struct Chronograph: View {
                                     selectedItems: $selectedItems,
                                     selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
                                 )
+                                
                             }
                         }
                     })
