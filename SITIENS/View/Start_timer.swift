@@ -13,14 +13,14 @@ struct Start_timer: View {
     @Bindable var hydrationActivationViewModel: HydrationActivationViewModel
     @Binding var timeInterval: Int
     @Binding var timerIsReading: Bool
-    @AppStorage("hour") var timerhour: Int = 0
+    @AppStorage("hour") var timerhour: Int = 10
     @Binding var cancellable: Cancellable?
     @Binding var startDate: Date?
     @Binding var elapseBeforPause: Int
     @Binding var selectedItems: String
     var nameBtm: String
     @State private var animeFrame: CGFloat = 1.0
-
+    
     var body: some View {
         
         VStack {
@@ -68,7 +68,6 @@ struct Start_timer: View {
                     .accessibilityLabel("Bouton Réinitialiser")
                     .accessibilityHint("Remet à zéro le minuteur")
                     .accessibilityAddTraits(.isButton)
-
                 }
                 
             }else{
@@ -115,14 +114,11 @@ struct Start_timer: View {
                                         withAnimation {
                                             animeFrame = 1.5
                                         }
-                                       
                                     }
                                     .onChange(of: animeFrame, {
                                         withAnimation {
                                             animeFrame = 1.0
                                         }
-                                        
-
                                     })
                             }
                             
@@ -205,7 +201,7 @@ struct Start_timer: View {
                 timeInterval = remainingTime
                 
                 print("⏱ Temps restant: \(remainingTime), Temps écoulé: \(elapsedTime)")
-
+                
                 if remainingTime == 0 {
                     stopTimer()
                     hydrationActivationViewModel.notification()
