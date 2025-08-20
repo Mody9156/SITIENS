@@ -99,14 +99,21 @@ struct MoreInfoSheet: View {
     let dismissAction: () -> Void
   
     var body: some View {
-        NavigationStack {
             ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(content)
-                            .font(.body)
-                            .multilineTextAlignment(.leading)
-                            .foregroundStyle(Color("TextBackground"))
-                            .padding()
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .foregroundStyle(LinearGradient(
+                                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ))
+                            Text(content)
+                                .font(.body)
+                                .multilineTextAlignment(.leading)
+                                .foregroundStyle(Color("TextBackground"))
+                                .padding()
+                        }
                     }
                     .padding(.top)
             }
@@ -125,8 +132,7 @@ struct MoreInfoSheet: View {
                     .accessibilityLabel("Fermer")
                 }
             }
-        }
-    }
+            }
 }
 
 // MARK: - Preview
