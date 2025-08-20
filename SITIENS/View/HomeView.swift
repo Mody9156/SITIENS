@@ -54,6 +54,7 @@ struct HomeView: View {
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
                             .accessibilityLabel("Titre de la page")
+                            
                         
                         Button(action: {
                             withAnimation { showSheet = true }
@@ -100,15 +101,14 @@ struct MoreInfoSheet: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    Image("WaterWallaper")
-                    Text(content)
-                        .font(.body)
-                        .multilineTextAlignment(.leading)
-                        .foregroundStyle(Color("TextBackground"))
-                        .padding()
-                }
-                .padding(.top)
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text(content)
+                            .font(.body)
+                            .multilineTextAlignment(.leading)
+                            .foregroundStyle(Color("TextBackground"))
+                            .padding()
+                    }
+                    .padding(.top)
             }
             .navigationTitle("Pourquoi s'hydrater ?")
             .navigationBarTitleDisplayMode(.inline)
