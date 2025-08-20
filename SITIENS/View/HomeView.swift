@@ -101,6 +101,7 @@ struct MoreInfoSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
+                    Image("WaterWallaper")
                     Text(content)
                         .font(.body)
                         .multilineTextAlignment(.leading)
