@@ -99,40 +99,40 @@ struct MoreInfoSheet: View {
     let dismissAction: () -> Void
   
     var body: some View {
+        NavigationStack {
             ScrollView {
+                VStack {
+                    Image("WaterWallaper")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                     VStack(alignment: .leading, spacing: 16) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundStyle(LinearGradient(
-                                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ))
-                            Text(content)
-                                .font(.body)
-                                .multilineTextAlignment(.leading)
-                                .foregroundStyle(Color("TextBackground"))
-                                .padding()
-                        }
+                        
+                        Text(content)
+                            .font(.body)
+                            .multilineTextAlignment(.leading)
+                            .foregroundStyle(Color("TextBackground"))
+                            .padding()
                     }
                     .padding(.top)
+                }
             }
             .navigationTitle("Pourquoi s'hydrater ?")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: dismissAction) {
-                        Image(systemName: "xmark")
+                        Image(systemName: "xmark.circle.fill")
                             .imageScale(.medium)
                             .foregroundColor(.black)
                             .padding(8)
-                            .background(Color.gray.opacity(0.3))
+//                            .background(Color.gray.opacity(0.3))
                             .clipShape(Circle())
                     }
                     .accessibilityLabel("Fermer")
                 }
             }
-            }
+        }
+    }
 }
 
 // MARK: - Preview
