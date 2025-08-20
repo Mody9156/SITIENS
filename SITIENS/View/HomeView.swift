@@ -102,13 +102,11 @@ struct MoreInfoSheet: View {
         NavigationStack {
             ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
-                        ZStack {
-                            Text(content)
-                                .font(.body)
-                                .multilineTextAlignment(.leading)
-                                .foregroundStyle(Color("TextBackground"))
-                                .padding()
-                        }
+                        Text(content)
+                            .font(.body)
+                            .multilineTextAlignment(.leading)
+                            .foregroundStyle(Color("TextBackground"))
+                            .padding()
                     }
                     .padding(.top)
             }
