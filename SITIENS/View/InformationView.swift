@@ -124,12 +124,18 @@ struct InfoDetailSheet: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    ForEach(sections, id: \.0) { title, text in
-                        InfoSection(title: title, text: text)
+                VStack {
+                    Image("thirstyPicture")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                    
+                    VStack(alignment: .leading, spacing: 24) {
+                        ForEach(sections, id: \.0) { title, text in
+                            InfoSection(title: title, text: text)
+                        }
                     }
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle("Les risques d’une surhydratation")
             .navigationBarTitleDisplayMode(.inline)
