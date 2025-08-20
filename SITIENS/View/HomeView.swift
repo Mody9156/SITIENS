@@ -121,11 +121,11 @@ struct MoreInfoSheet: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: dismissAction) {
-                        Image(systemName: "xmark.circle.fill")
+                        Image(systemName: "xmark")
                             .imageScale(.medium)
                             .foregroundColor(.black)
                             .padding(8)
-//                            .background(Color.gray.opacity(0.3))
+                            .background(Color.gray.opacity(0.3))
                             .clipShape(Circle())
                     }
                     .accessibilityLabel("Fermer")
