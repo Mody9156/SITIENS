@@ -52,7 +52,7 @@ struct HomeView: View {
                         Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
                             .font(.title3)
                             .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
+                            .multilineTextAlignment(.leading)
                             .accessibilityLabel("Titre de la page")
                             
                         
@@ -97,16 +97,18 @@ struct HomeView: View {
 struct MoreInfoSheet: View {
     let content: String
     let dismissAction: () -> Void
-    
+  
     var body: some View {
         NavigationStack {
             ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(content)
-                            .font(.body)
-                            .multilineTextAlignment(.leading)
-                            .foregroundStyle(Color("TextBackground"))
-                            .padding()
+                        ZStack {
+                            Text(content)
+                                .font(.body)
+                                .multilineTextAlignment(.leading)
+                                .foregroundStyle(Color("TextBackground"))
+                                .padding()
+                        }
                     }
                     .padding(.top)
             }
@@ -125,6 +127,9 @@ struct MoreInfoSheet: View {
                     .accessibilityLabel("Fermer")
                 }
             }
+        }
+        .onAppear{
+            
         }
     }
 }
