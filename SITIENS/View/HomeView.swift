@@ -52,9 +52,8 @@ struct HomeView: View {
                         Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
                             .font(.title3)
                             .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
+                            .multilineTextAlignment(.center)
                             .accessibilityLabel("Titre de la page")
-                            
                         
                         Button(action: {
                             withAnimation { showSheet = true }
