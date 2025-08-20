@@ -126,9 +126,6 @@ struct MoreInfoSheet: View {
                 }
             }
         }
-        .onAppear{
-            
-        }
     }
 }
 
