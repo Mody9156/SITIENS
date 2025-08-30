@@ -17,7 +17,41 @@ struct MoreInformation: View {
             )
             .ignoresSafeArea()
             
-            Text("Hello, World!")
+            VStack {
+                
+                Spacer()
+                
+                Text("Pofils")
+                    .font(.largeTitle)
+                    .fontWeight(.thin)
+                
+                Spacer()
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Image(systemName: "drop.fill")
+                            .foregroundStyle(.blue)
+                        
+                        Text("3.0L")
+                            .fontWeight(.thin)
+                    }
+                    .padding()
+                    
+                    HStack {
+                        Image(systemName: "calendar")
+                            .foregroundStyle(.blue)
+                        
+                        Text("12/11:25 11:55")
+                            .fontWeight(.thin)
+                    }
+                    .padding()
+                }
+                
+               
+                
+                Spacer()
+            }
+            .padding()
         }
     }
 }
