@@ -27,6 +27,11 @@ struct MoreInformation: View {
                 
                 Spacer()
                 
+                Image("round")
+                    .resizable()
+                    .frame(width: 300,height: 300)
+                    .opacity(0.5)
+                    .shadow(color: .white,radius: 12)
                 VStack(alignment: .leading) {
                     HStack {
                         Image(systemName: "drop.fill")
