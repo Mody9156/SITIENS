@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MoreInformation: View {
-    @Bindable var historyViewModel : HistoryViewModel
     
     var body: some View {
         ZStack {
@@ -19,62 +18,63 @@ struct MoreInformation: View {
             )
             .ignoresSafeArea()
             
-            VStack {
-                
-                Spacer()
-                
-                Text("Pofils")
-                    .font(.largeTitle)
-                    .fontWeight(.thin)
-                
-                Spacer()
-                
-                Image("PictureForWater")
-                    .resizable()
-                    .frame(width: 300,height: 300)
-                    .opacity(0.5)
-                    .shadow(color: .black,radius: 12)
-                
-                VStack(alignment: .leading) {
+                VStack {
                     
+                    Spacer()
                     
-                    HStack {
-                        Image(systemName: "drop.fill")
-                            .resizable()
-                            .foregroundStyle(Color("waterColor"))
-                            .frame(width: 40,height: 50)
+                    Text("Pofils")
+                        .font(.largeTitle)
+                        .fontWeight(.thin)
+                    
+                    Spacer()
+                    
+                    Image("PictureForWater")
+                        .resizable()
+                        .frame(width: 300,height: 300)
+                        .opacity(0.5)
+                        .shadow(color: .black,radius: 12)
+                    
+                    VStack(alignment: .leading) {
                         
                         
-                        Spacer()
+                        HStack {
+                            Image(systemName: "drop.fill")
+                                .resizable()
+                                .foregroundStyle(Color("waterColor"))
+                                .frame(width: 40,height: 50)
+                            
+                            
+                            Spacer()
+                            
+                            Text("3.0L")
+                                .fontWeight(.thin)
+                                .font(.system(size: 30))
+                        }
                         
-                        Text("3.0L")
-                            .fontWeight(.thin)
-                            .font(.system(size: 30))
+                        .padding()
+                        
+                        HStack {
+                            Image(systemName: "calendar")
+                                .resizable()
+                                .foregroundStyle(Color("waterColor"))
+                                .frame(width: 50,height: 50)
+                            
+                            Spacer()
+                            
+                            Text("12/11:25 11:55")
+                                .fontWeight(.thin)
+                                .font(.system(size: 30))
+                            
+                        }
+                        .padding()
+                        
                     }
-                    
                     .padding()
                     
-                    HStack {
-                        Image(systemName: "calendar")
-                            .resizable()
-                            .foregroundStyle(Color("waterColor"))
-                            .frame(width: 50,height: 50)
-                        
-                        Spacer()
-                        
-                        Text("12/11:25 11:55")
-                            .fontWeight(.thin)
-                            .font(.system(size: 30))
-                        
-                    }
-                    .padding()
-                    
+                    Spacer()
                 }
                 .padding()
-                
-                Spacer()
-            }
-            .padding()
+           
         }
     }
 }

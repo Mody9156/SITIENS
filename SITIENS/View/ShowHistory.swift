@@ -44,7 +44,7 @@ struct ShowHistory: View {
                                     
                                     NavigationLink {
                                         
-                                        MoreInformation()
+                                        MoreInformation(historyViewModel:historyViewModel)
                                         
                                     } label: {
                                         ZStack {
