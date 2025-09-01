@@ -34,9 +34,13 @@ struct MoreInformation: View {
                     .shadow(color: .black,radius: 12)
                 
                 VStack(alignment: .leading) {
+                    
+                    
                     HStack {
                         Image(systemName: "drop.fill")
                             .foregroundStyle(.blue)
+                        
+                        Spacer()
                         
                         Text("3.0L")
                             .fontWeight(.thin)
@@ -47,11 +51,16 @@ struct MoreInformation: View {
                         Image(systemName: "calendar")
                             .foregroundStyle(.blue)
                         
+                        Spacer()
+                        
                         Text("12/11:25 11:55")
                             .fontWeight(.thin)
                     }
                     .padding()
+                    
+                  
                 }
+                .padding()
                 
                
                 
