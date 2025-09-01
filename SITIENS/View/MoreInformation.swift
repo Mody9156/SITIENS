@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MoreInformation: View {
+    @Bindable var historyViewModel : HistoryViewModel
     
     var body: some View {
         ZStack {

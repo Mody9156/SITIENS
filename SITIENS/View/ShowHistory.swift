@@ -42,46 +42,54 @@ struct ShowHistory: View {
                                    !name.isEmpty,
                                    !quantity.isEmpty {
                                     
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 16)
-                                            .fill(.ultraThinMaterial)
-                                            .background(
-                                                RoundedRectangle(cornerRadius: 16)
-                                                    .fill(Color.blue.opacity(0.05))
-                                            )
-                                            .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
+                                    NavigationLink {
                                         
-                                        VStack(alignment: .leading, spacing: 10) {
-                                            Text(date)
-                                                .font(.caption)
-                                                .foregroundColor(.gray)
+                                        MoreInformation()
+                                        
+                                    } label: {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .fill(.ultraThinMaterial)
+                                                .background(
+                                                    RoundedRectangle(cornerRadius: 16)
+                                                        .fill(Color.blue.opacity(0.05))
+                                                )
+                                                .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
                                             
-                                            HStack {
-                                                Text("\(name) :")
-                                                    .font(.headline)
-                                                    .foregroundStyle(.blue)
+                                            VStack(alignment: .leading, spacing: 10) {
+                                                Text(date)
+                                                    .font(.caption)
+                                                    .foregroundColor(.gray)
                                                 
-                                                Spacer()
-                                                
-                                                HStack(spacing: 6) {
-                                                    Image(systemName: "drop.fill")
-                                                        .foregroundColor(.white)
+                                                HStack {
+                                                    Text("\(name) :")
+                                                        .font(.headline)
+                                                        .foregroundStyle(.blue)
                                                     
-                                                    Text("\(quantity)")
-                                                        .foregroundColor(.white)
-                                                        .font(.subheadline.bold())
+                                                    Spacer()
+                                                    
+                                                    HStack(spacing: 6) {
+                                                        Image(systemName: "drop.fill")
+                                                            .foregroundColor(.white)
+                                                        
+                                                        Text("\(quantity)")
+                                                            .foregroundColor(.white)
+                                                            .font(.subheadline.bold())
+                                                    }
+                                                    .padding(.horizontal, 12)
+                                                    .padding(.vertical, 6)
+                                                    .background(Color.blue)
+                                                    .cornerRadius(10)
                                                 }
-                                                .padding(.horizontal, 12)
-                                                .padding(.vertical, 6)
-                                                .background(Color.blue)
-                                                .cornerRadius(10)
                                             }
+                                            .padding()
                                         }
-                                        .padding()
+                                        .listRowBackground(Color.clear)
+                                        .listRowSeparator(.hidden)
+                                        .padding(.vertical, 4)
                                     }
-                                    .listRowBackground(Color.clear)
-                                    .listRowSeparator(.hidden)
-                                    .padding(.vertical, 4)
+
+                                   
                                 }
                             }
                             .onDelete(perform:
