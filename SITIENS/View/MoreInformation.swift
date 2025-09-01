@@ -27,7 +27,7 @@ struct MoreInformation: View {
                 
                 Spacer()
                 
-                Image("round")
+                Image("PictureForWater")
                     .resizable()
                     .frame(width: 300,height: 300)
                     .opacity(0.5)
@@ -41,7 +41,7 @@ struct MoreInformation: View {
                             .resizable()
                             .foregroundStyle(Color("waterColor"))
                             .frame(width: 40,height: 50)
-                            
+                        
                         
                         Spacer()
                         
@@ -63,15 +63,12 @@ struct MoreInformation: View {
                         Text("12/11:25 11:55")
                             .fontWeight(.thin)
                             .font(.system(size: 30))
-                            
+                        
                     }
                     .padding()
                     
-                  
                 }
                 .padding()
-                
-               
                 
                 Spacer()
             }
