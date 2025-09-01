@@ -31,7 +31,8 @@ struct MoreInformation: View {
                     .resizable()
                     .frame(width: 300,height: 300)
                     .opacity(0.5)
-                    .shadow(color: .white,radius: 12)
+                    .shadow(color: .black,radius: 12)
+                
                 VStack(alignment: .leading) {
                     HStack {
                         Image(systemName: "drop.fill")
