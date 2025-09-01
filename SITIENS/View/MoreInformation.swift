@@ -38,7 +38,10 @@ struct MoreInformation: View {
                     
                     HStack {
                         Image(systemName: "drop.fill")
+                            .resizable()
                             .foregroundStyle(.blue)
+                            .frame(width: 50,height: 50)
+                            
                         
                         Spacer()
                         
@@ -49,7 +52,9 @@ struct MoreInformation: View {
                     
                     HStack {
                         Image(systemName: "calendar")
-                            .foregroundStyle(.blue)
+                            .resizable()
+                            .foregroundStyle(Color("waterColor"))
+                            .frame(width: 50,height: 50)
                         
                         Spacer()
                         
