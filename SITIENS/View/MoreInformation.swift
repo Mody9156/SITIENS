@@ -39,15 +39,17 @@ struct MoreInformation: View {
                     HStack {
                         Image(systemName: "drop.fill")
                             .resizable()
-                            .foregroundStyle(.blue)
-                            .frame(width: 50,height: 50)
+                            .foregroundStyle(Color("waterColor"))
+                            .frame(width: 40,height: 50)
                             
                         
                         Spacer()
                         
                         Text("3.0L")
                             .fontWeight(.thin)
+                            .font(.system(size: 30))
                     }
+                    
                     .padding()
                     
                     HStack {
@@ -60,6 +62,8 @@ struct MoreInformation: View {
                         
                         Text("12/11:25 11:55")
                             .fontWeight(.thin)
+                            .font(.system(size: 30))
+                            
                     }
                     .padding()
                     
