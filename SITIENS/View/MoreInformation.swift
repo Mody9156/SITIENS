@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MoreInformation: View {
-    let managementHistory : [ManagementHistory] = []
+    let managementHistory : [ManagementHistory]
     var body: some View {
         ZStack {
             LinearGradient(
@@ -83,5 +83,7 @@ struct MoreInformation: View {
 }
 
 #Preview {
-    MoreInformation()
+    MoreInformation(
+        managementHistory: [ManagementHistory(name: "Sports", quantity: "12.2L", date: "11/11/2029")]
+    )
 }
