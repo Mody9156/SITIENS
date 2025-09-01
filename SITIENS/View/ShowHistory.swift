@@ -13,7 +13,7 @@ struct ShowHistory: View {
     @Environment(\.dismiss) var dismiss
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
     @State private var searchText = ""
-    
+  
     var body: some View {
         NavigationStack {
             ZStack {
@@ -42,9 +42,14 @@ struct ShowHistory: View {
                                    !name.isEmpty,
                                    !quantity.isEmpty {
                                     
+                                    ManagementHistory.init(
+                                        name: name,
+                                        quantity: quantity,
+                                        date: date
+                                    )
                                     NavigationLink {
                                         
-                                        MoreInformation(historyViewModel:historyViewModel)
+                                        MoreInformation()
                                         
                                     } label: {
                                         ZStack {

@@ -7,6 +7,10 @@
 
 import Foundation
 
-struct ManagementHistory {
+struct ManagementHistory: Identifiable {
+    let id = UUID()
+    var name : String
+    var quantity : String
+    var date : String
     
 }
