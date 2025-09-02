@@ -43,7 +43,7 @@ struct ShowHistory: View {
                                     
                                     NavigationLink {
                                         
-                                    MoreInformation(managementHistory:[ManagementHistory(name: name,quantity: quantity,date: date)])
+                                        MoreInformation(managementHistory:[ManagementHistory(name: name,quantity: quantity,date: date)])
                                         
                                     } label: {
                                         ZStack {
@@ -83,18 +83,7 @@ struct ShowHistory: View {
                                             }
                                             .padding()
                                         }
-                                        .listRowBackground(Color.clear)
-                                        .listRowSeparator(.hidden)
-                                        .padding(.vertical, 4)
                                     }
-                                    .buttonStyle(.plain)
-                                    .scrollContentBackground(.hidden)
-                                    .background(LinearGradient(
-                                        gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                    .ignoresSafeArea())
                                     
                                 }
                             }
@@ -102,11 +91,17 @@ struct ShowHistory: View {
                                         historyViewModel.deleteHistory
                             )
                         }
+                        .listStyle(.plain)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .padding(.vertical, 4)
                         
                     }
                     .searchable(text: $searchText)
                     .listStyle(.plain)
-                    
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .padding(.vertical, 4)
                 }
                 
                 .padding()
@@ -136,10 +131,8 @@ struct ShowHistory: View {
                     Task {
                         try? historyViewModel.fetchHistory()
                     }
+                }
             }
-        }
-        
-        
     }
     
     var search : [History]{
@@ -161,8 +154,23 @@ struct ShowHistory: View {
 }
 
 #Preview {
-    
-    ShowHistory(
-        historyViewModel: HistoryViewModel()
-    )
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+          
+          // 2. Créer le ViewModel factice
+          let viewModel: HistoryViewModel = {
+              let vm = HistoryViewModel(viewContext: context)
+              
+              // Ajouter des objets factices
+              for i in 1...3 {
+                  let h = History(context: context)
+                  h.name = "Exemple \(i)"
+                  h.date = "12/12/1998"
+                  h.quantity = "3.0L"
+                  vm.history.append(h)
+              }
+              return vm
+          }()
+        ShowHistory(
+            historyViewModel: viewModel
+        )
 }
