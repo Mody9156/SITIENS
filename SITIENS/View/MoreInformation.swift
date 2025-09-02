@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MoreInformation: View {
     let managementHistory : [ManagementHistory]
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ZStack {
             LinearGradient(
@@ -86,17 +88,23 @@ struct MoreInformation: View {
                     
                     Spacer()
                 }
+                .toolbar(content: {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Image(systemName: "arrow.left")
+                            .foregroundStyle(.blue)
+                        Text("here man !")
+                            .foregroundStyle(.blue)
+                    }
+                })
+                .navigationBarBackButtonHidden()
                 .padding()
             }
-<<<<<<< HEAD
-            .navigationTitle(history.name)
+            
             .padding()
             
         }
            
-=======
->>>>>>> newView
-        }
+
         
     }
 }
