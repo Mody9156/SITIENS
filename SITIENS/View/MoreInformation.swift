@@ -19,66 +19,83 @@ struct MoreInformation: View {
             .ignoresSafeArea()
             ForEach(managementHistory) { history in
                 
-            VStack {
-                
-                Spacer()
-                
-                Text(history.name)
-                    .font(.largeTitle)
-                    .fontWeight(.thin)
-                
-                Spacer()
-                
-                Image("PictureForWater")
-                    .resizable()
-                    .frame(width: 300,height: 300)
-                    .opacity(0.5)
-                    .shadow(color: .black,radius: 12)
-                
-                VStack(alignment: .leading) {
+                VStack {
                     
+                    Spacer()
                     
-                    HStack {
-                        Image(systemName: "drop.fill")
+                    Text(history.name)
+                        .font(.largeTitle)
+                        .foregroundStyle(.blue)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
+                    ZStack {
+                        // Cercle de fond
+                        Circle()
+                            .fill(.blue.opacity(0.8))
+                            .frame(height: 300)
+                            .overlay( // ✅ contour arrondi noir
+                                Circle()
+                                    .stroke(.black, lineWidth: 4)
+                                    .blur(radius: 9)
+                            )
+                        
+                        // Image au centre
+                        Image("teste")
                             .resizable()
-                            .foregroundStyle(Color("waterColor"))
-                            .frame(width: 40,height: 50)
-                        
-                        
-                        Spacer()
-                        
-                        Text(history.quantity)
-                            .fontWeight(.thin)
-                            .font(.system(size: 30))
+                            .scaledToFit()
+                            .frame(width: 220, height: 220)
+                            .shadow(color: .blue.opacity(0.8), radius: 15)
                     }
                     
-                    .padding()
-                    
-                    HStack {
-                        Image(systemName: "calendar")
-                            .resizable()
-                            .foregroundStyle(Color("waterColor"))
-                            .frame(width: 50,height: 50)
+                    VStack(alignment: .leading) {
                         
-                        Spacer()
                         
-                        Text(history.date)
-                            .fontWeight(.thin)
-                            .font(.system(size: 30))
+                        HStack {
+                            Image(systemName: "drop.fill")
+                                .resizable()
+                                .foregroundStyle(.blue)
+                                .frame(width: 30,height: 40)
+                            
+                            Spacer()
+                            
+                            Text(history.quantity)
+                                .foregroundStyle(.blue)
+                                .fontWeight(.bold)
+                        }
+                        
+                        .padding()
+                        
+                        HStack {
+                            Image(systemName: "calendar")
+                                .resizable()
+                                .foregroundStyle(.blue)
+                                .frame(width: 40,height: 40)
+                            
+                            Spacer()
+                            
+                            Text(history.date)
+                                .foregroundStyle(.blue)
+                                .fontWeight(.bold)
+                        }
+                        .padding()
                         
                     }
                     .padding()
                     
+                    Spacer()
                 }
                 .padding()
-                
-                Spacer()
             }
+<<<<<<< HEAD
             .navigationTitle(history.name)
             .padding()
             
         }
            
+=======
+>>>>>>> newView
         }
         
     }
