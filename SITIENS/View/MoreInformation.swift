@@ -74,11 +74,13 @@ struct MoreInformation: View {
                 
                 Spacer()
             }
+            .navigationTitle(history.name)
             .padding()
             
         }
            
         }
+        
     }
 }
 
