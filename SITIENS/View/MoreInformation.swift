@@ -19,78 +19,75 @@ struct MoreInformation: View {
             .ignoresSafeArea()
             ForEach(managementHistory) { history in
                 
-            VStack {
-                
-                Spacer()
-                
-                Text(history.name)
-                    .font(.largeTitle)
-                
-                Spacer()
-                
-                ZStack {
-                    // Cercle de fond
-                    Circle()
-                        .fill(.blue.opacity(0.8))
-                        .frame(height: 300)
-                        .overlay( // ✅ contour arrondi noir
-                            Circle()
-                                .stroke(.black, lineWidth: 4)
-                                .blur(radius: 9)
-                        )
-
-                    // Image au centre
-                    Image("teste")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 220, height: 220)
-                        .shadow(color: .blue.opacity(0.8), radius: 15)
-                }
-
-
-                
-                VStack(alignment: .leading) {
+                VStack {
                     
+                    Spacer()
                     
-                    HStack {
-                        Image(systemName: "drop.fill")
+                    Text(history.name)
+                        .font(.largeTitle)
+                        .foregroundStyle(.blue)
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
+                    ZStack {
+                        // Cercle de fond
+                        Circle()
+                            .fill(.blue.opacity(0.8))
+                            .frame(height: 300)
+                            .overlay( // ✅ contour arrondi noir
+                                Circle()
+                                    .stroke(.black, lineWidth: 4)
+                                    .blur(radius: 9)
+                            )
+                        
+                        // Image au centre
+                        Image("teste")
                             .resizable()
-                            .foregroundStyle(.blue)
-                            .frame(width: 30,height: 40)
-                            
-                        
-                        
-                        Spacer()
-                        
-                        Text(history.quantity)
-                            .fontWeight(.bold)
+                            .scaledToFit()
+                            .frame(width: 220, height: 220)
+                            .shadow(color: .blue.opacity(0.8), radius: 15)
                     }
                     
-                    .padding()
-                    
-                    HStack {
-                        Image(systemName: "calendar")
-                            .resizable()
-                            .foregroundStyle(.blue)
-                            .frame(width: 40,height: 40)
+                    VStack(alignment: .leading) {
+                        
+                        
+                        HStack {
+                            Image(systemName: "drop.fill")
+                                .resizable()
+                                .foregroundStyle(.blue)
+                                .frame(width: 30,height: 40)
                             
+                            Spacer()
+                            
+                            Text(history.quantity)
+                                .foregroundStyle(.blue)
+                                .fontWeight(.bold)
+                        }
                         
-                        Spacer()
+                        .padding()
                         
-                        Text(history.date)
-                            .fontWeight(.bold)
+                        HStack {
+                            Image(systemName: "calendar")
+                                .resizable()
+                                .foregroundStyle(.blue)
+                                .frame(width: 40,height: 40)
+                            
+                            Spacer()
+                            
+                            Text(history.date)
+                                .foregroundStyle(.blue)
+                                .fontWeight(.bold)
+                        }
+                        .padding()
+                        
                     }
                     .padding()
                     
+                    Spacer()
                 }
                 .padding()
-                
-                Spacer()
             }
-            .padding()
-            
-        }
-           
         }
     }
 }
