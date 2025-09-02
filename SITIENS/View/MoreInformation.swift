@@ -25,15 +25,29 @@ struct MoreInformation: View {
                 
                 Text(history.name)
                     .font(.largeTitle)
-                    .fontWeight(.thin)
                 
                 Spacer()
                 
-                Image("PictureForWater")
-                    .resizable()
-                    .frame(width: 300,height: 300)
-                    .opacity(0.5)
-                    .shadow(color: .black,radius: 12)
+                ZStack {
+                    // Cercle de fond
+                    Circle()
+                        .fill(.blue.opacity(0.8))
+                        .frame(height: 300)
+                        .overlay( // ✅ contour arrondi noir
+                            Circle()
+                                .stroke(.black, lineWidth: 4)
+                                .blur(radius: 9)
+                        )
+
+                    // Image au centre
+                    Image("teste")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 220, height: 220)
+                        .shadow(color: .blue.opacity(0.8), radius: 15)
+                }
+
+
                 
                 VStack(alignment: .leading) {
                     
@@ -42,14 +56,14 @@ struct MoreInformation: View {
                         Image(systemName: "drop.fill")
                             .resizable()
                             .foregroundStyle(.blue)
-                            .frame(width: 40,height: 50)
+                            .frame(width: 30,height: 40)
+                            
                         
                         
                         Spacer()
                         
                         Text(history.quantity)
-                            .fontWeight(.thin)
-                            .font(.system(size: 30))
+                            .fontWeight(.bold)
                     }
                     
                     .padding()
@@ -58,14 +72,13 @@ struct MoreInformation: View {
                         Image(systemName: "calendar")
                             .resizable()
                             .foregroundStyle(.blue)
-                            .frame(width: 50,height: 50)
+                            .frame(width: 40,height: 40)
+                            
                         
                         Spacer()
                         
                         Text(history.date)
-                            .fontWeight(.thin)
-                            .font(.system(size: 30))
-                        
+                            .fontWeight(.bold)
                     }
                     .padding()
                     
