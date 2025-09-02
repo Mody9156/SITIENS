@@ -15,7 +15,6 @@ struct ShowHistory: View {
     @State private var searchText = ""
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 
                 LinearGradient(
@@ -44,13 +43,7 @@ struct ShowHistory: View {
                                     
                                     NavigationLink {
                                         
-                                        MoreInformation(
-                                            managementHistory:[ManagementHistory(
-                                                name: name,
-                                                quantity: quantity,
-                                                date: date
-                                            )]
-                                        )
+                                    MoreInformation(managementHistory:[ManagementHistory(name: name,quantity: quantity,date: date)])
                                         
                                     } label: {
                                         ZStack {
@@ -94,7 +87,14 @@ struct ShowHistory: View {
                                         .listRowSeparator(.hidden)
                                         .padding(.vertical, 4)
                                     }
-                                    
+                                    .buttonStyle(.plain)
+                                    .scrollContentBackground(.hidden)
+                                    .background(LinearGradient(
+                                        gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                    .ignoresSafeArea())
                                     
                                 }
                             }
@@ -102,9 +102,11 @@ struct ShowHistory: View {
                                         historyViewModel.deleteHistory
                             )
                         }
+                        
                     }
                     .searchable(text: $searchText)
                     .listStyle(.plain)
+                    
                 }
                 
                 .padding()
@@ -134,9 +136,9 @@ struct ShowHistory: View {
                     Task {
                         try? historyViewModel.fetchHistory()
                     }
-                }
             }
         }
+        
         
     }
     
