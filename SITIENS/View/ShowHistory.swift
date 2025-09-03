@@ -15,6 +15,7 @@ struct ShowHistory: View {
     @State private var searchText = ""
     
     var body: some View {
+        NavigationStack {
             ZStack {
                 
                 LinearGradient(
@@ -41,11 +42,8 @@ struct ShowHistory: View {
                                    !name.isEmpty,
                                    !quantity.isEmpty {
                                     
-                                    NavigationLink {
+                                    ZStack {
                                         
-                                        MoreInformation(managementHistory:[ManagementHistory(name: name,quantity: quantity,date: date)])
-                                        
-                                    } label: {
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 16)
                                                 .fill(.ultraThinMaterial)
@@ -83,6 +81,15 @@ struct ShowHistory: View {
                                             }
                                             .padding()
                                         }
+                                        //ici
+                                        NavigationLink {
+                                            
+                                            MoreInformation(managementHistory:[ManagementHistory(name: name,quantity: quantity,date: date)])
+                                            
+                                        } label: {
+                                            EmptyView()
+                                        }
+                                        .opacity(0)
                                     }
                                     
                                 }
@@ -95,7 +102,6 @@ struct ShowHistory: View {
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .padding(.vertical, 4)
-                        
                     }
                     .searchable(text: $searchText)
                     .listStyle(.plain)
@@ -133,6 +139,7 @@ struct ShowHistory: View {
                     }
                 }
             }
+        }
     }
     
     var search : [History]{
@@ -149,28 +156,27 @@ struct ShowHistory: View {
             
             return  water
         }
-        
     }
 }
 
 #Preview {
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-          
-          // 2. Créer le ViewModel factice
-          let viewModel: HistoryViewModel = {
-              let vm = HistoryViewModel(viewContext: context)
-              
-              // Ajouter des objets factices
-              for i in 1...3 {
-                  let h = History(context: context)
-                  h.name = "Exemple \(i)"
-                  h.date = "12/12/1998"
-                  h.quantity = "3.0L"
-                  vm.history.append(h)
-              }
-              return vm
-          }()
-        ShowHistory(
-            historyViewModel: viewModel
-        )
+    let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    
+    // 2. Créer le ViewModel factice
+    let viewModel: HistoryViewModel = {
+        let vm = HistoryViewModel(viewContext: context)
+        
+        // Ajouter des objets factices
+        for i in 1...3 {
+            let h = History(context: context)
+            h.name = "Exemple \(i)"
+            h.date = "12/12/1998"
+            h.quantity = "3.0L"
+            vm.history.append(h)
+        }
+        return vm
+    }()
+    ShowHistory(
+        historyViewModel: viewModel
+    )
 }
