@@ -97,7 +97,7 @@ struct MoreInformation: View {
                         } label: {
                             HStack(spacing: 4) {
                                 Image(systemName: "chevron.left")
-                                Text("Hydratation")
+                                Text("Historique d'hydratation")
                             }
                             .foregroundStyle(.blue)
                         }
