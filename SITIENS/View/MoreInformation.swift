@@ -90,10 +90,17 @@ struct MoreInformation: View {
                 }
                 .toolbar(content: {
                     ToolbarItem(placement: .topBarLeading) {
-                        Image(systemName: "arrow.left")
+                        Button {
+                            withAnimation {
+                                dismiss()
+                            }
+                        } label: {
+                            HStack(spacing: 4) {
+                                Image(systemName: "chevron.left")
+                                Text("Hydratation")
+                            }
                             .foregroundStyle(.blue)
-                        Text("here man !")
-                            .foregroundStyle(.blue)
+                        }
                     }
                 })
                 .navigationBarBackButtonHidden()
