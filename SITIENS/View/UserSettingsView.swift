@@ -21,16 +21,8 @@ struct UserSettingsView: View {
         NavigationStack {
             VStack {
                 List {
-                    Picker("Profile", selection: $profil) {
-                        ForEach(profileType,id: \.self) { profile in
-                            Text(profile)
-                                .lineLimit(1)
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray)
-                        }
-                    }
-                    .pickerStyle(.navigationLink)
+                 
+                    CustomPicker(glace: $profil, type: $profileType)
                     
                     CustomPicker(glace: $glace, type: $sizeOfGlace)
                     
@@ -81,5 +73,18 @@ struct CustomPicker: View {
             }
         }
         .pickerStyle(.navigationLink)
+        .padding()
+            .background(Color(uiColor: .secondarySystemBackground))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+            )
+            .accessibilityLabel("Sélection du temps")
+            .accessibilityHint("Appuyez pour choisir une durée")
+            .padding()
+            .background(.ultraThinMaterial)
+            .cornerRadius(16)
+            .shadow(radius: 5)
     }
 }
