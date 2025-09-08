@@ -19,17 +19,28 @@ struct UserSettingsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 30) {
-                Text("Paramètre de l'hydradation")
-                    .font(.headline)
-                    .padding(.horizontal, 4)
+            VStack(spacing: 30) {                
+                VStack (alignment: .leading, spacing: 12){
+                    Text("Sélectionner un profile")
+                        .font(.headline)
+                        .font(.largeTitle)
+                    CustomPicker(name: $profil, type: $profileType)
+                }
+                .padding()
+                .background(.ultraThinMaterial)
+                .cornerRadius(16)
+                .shadow(radius: 5)
                 
                 VStack (alignment: .leading, spacing: 12){
-                    CustomPicker(glace: $profil, type: $profileType, name: "Selectionner")
+                    Text("Sélectionner un récipient")
+                        .font(.headline)
+                        .font(.largeTitle)
+                    CustomPicker(name: $glace, type: $sizeOfGlace)
                 }
-                VStack (alignment: .leading, spacing: 12){
-                    CustomPicker(glace: $glace, type: $sizeOfGlace, name: "Selectionner")
-                }
+                .padding()
+                .background(.ultraThinMaterial)
+                .cornerRadius(16)
+                .shadow(radius: 5)
                 
                 Button {
                     withAnimation {
@@ -46,14 +57,13 @@ struct UserSettingsView: View {
                             .foregroundStyle(.white)
                     }
                 }
-                .disabled(profil.isEmpty)
+                .disabled(profil.isEmpty || glace.isEmpty)
                 .padding()
                 .accessibilityLabel("Bouton Valider")
                 .accessibilityHint("Valide vos préférences de profil et de récipient")
                 .accessibilityAddTraits(.isButton)
             }
-            .padding()
-            
+            .navigationTitle("Paramètres")
         }
     }
 }
@@ -65,26 +75,25 @@ struct UserSettingsView: View {
 }
 
 struct CustomPicker: View {
-    @Binding var glace : String
+    @Binding var name : String
     @Binding var type : [String]
-    var name : String
     
     var body: some View {
-        Picker(selection: $glace, label:
+        Picker(
+            selection: $name,
+            label:
                 HStack{
-            Text(glace.isEmpty ? "Seclectionner":glace)
-                .foregroundStyle(glace.isEmpty ? .gray:.primary)
-                .lineLimit(1)
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundColor(.gray)
-        }
-               
-               
+                    Text(name.isEmpty ? "Seclectionner":name)
+                        .foregroundStyle(name.isEmpty ? .gray:.primary)
+                        .lineLimit(1)
+                    
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
+                }
         ) {
             ForEach(type,id: \.self) { profile in
                 Text(profile)
-                
             }
         }
         .pickerStyle(.navigationLink)
@@ -95,8 +104,8 @@ struct CustomPicker: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.gray.opacity(0.15), lineWidth: 1)
         )
-        .accessibilityLabel("Sélection du temps")
-        .accessibilityHint("Appuyez pour choisir une durée")
+        .accessibilityLabel(name)
+        .accessibilityHint("Appuyez pour choisir une \(name.lowercased())")
         .padding()
         .background(.ultraThinMaterial)
         .cornerRadius(16)
