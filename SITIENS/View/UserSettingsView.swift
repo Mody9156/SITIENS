@@ -19,36 +19,43 @@ struct UserSettingsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                List {
-                 
-                    CustomPicker(glace: $profil, type: $profileType)
+            VStack(alignment: .leading, spacing: 12) {
+                        
+                Text("Paramètre de l'hydradation")
+                    .font(.headline)
+                    .padding(.horizontal, 4)
+                             
+                             
+                        CustomPicker(glace: $profil, type: $profileType)
+                        .padding(.bottom)
+                                        
+                        CustomPicker(glace: $glace, type: $sizeOfGlace)
+                        
+                    Spacer()
                     
-                    CustomPicker(glace: $glace, type: $sizeOfGlace)
-                    
-                }
-                
-                Button {
-                    withAnimation {
-                        if !profil.isEmpty && !glace.isEmpty{
-                            dismiss()
+                    Button {
+                        withAnimation {
+                            if !profil.isEmpty && !glace.isEmpty{
+                                dismiss()
+                            }
+                        }
+                        
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(height: 50)
+                            Text("Valider")
+                                .foregroundStyle(.white)
                         }
                     }
-                    
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(height: 50)
-                        Text("Valider")
-                            .foregroundStyle(.white)
-                    }
+                    .disabled(profil.isEmpty)
+                    .padding()
+                    .accessibilityLabel("Bouton Valider")
+                    .accessibilityHint("Valide vos préférences de profil et de récipient")
+                    .accessibilityAddTraits(.isButton)
                 }
-                .disabled(profil.isEmpty)
                 .padding()
-                .accessibilityLabel("Bouton Valider")
-                .accessibilityHint("Valide vos préférences de profil et de récipient")
-                .accessibilityAddTraits(.isButton)
-            }
+            
         }
     }
 }
