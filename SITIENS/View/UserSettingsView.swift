@@ -19,42 +19,40 @@ struct UserSettingsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 12) {
-                        
+            VStack(spacing: 30) {
                 Text("Paramètre de l'hydradation")
                     .font(.headline)
                     .padding(.horizontal, 4)
-                             
-                             
-                        CustomPicker(glace: $profil, type: $profileType)
-                        .padding(.bottom)
-                                        
-                        CustomPicker(glace: $glace, type: $sizeOfGlace)
-                        
-                    Spacer()
-                    
-                    Button {
-                        withAnimation {
-                            if !profil.isEmpty && !glace.isEmpty{
-                                dismiss()
-                            }
-                        }
-                        
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(height: 50)
-                            Text("Valider")
-                                .foregroundStyle(.white)
+                
+                VStack (alignment: .leading, spacing: 12){
+                    CustomPicker(glace: $profil, type: $profileType, name: "Selectionner")
+                }
+                VStack (alignment: .leading, spacing: 12){
+                    CustomPicker(glace: $glace, type: $sizeOfGlace, name: "Selectionner")
+                }
+                
+                Button {
+                    withAnimation {
+                        if !profil.isEmpty && !glace.isEmpty{
+                            dismiss()
                         }
                     }
-                    .disabled(profil.isEmpty)
-                    .padding()
-                    .accessibilityLabel("Bouton Valider")
-                    .accessibilityHint("Valide vos préférences de profil et de récipient")
-                    .accessibilityAddTraits(.isButton)
+                    
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(height: 50)
+                        Text("Valider")
+                            .foregroundStyle(.white)
+                    }
                 }
+                .disabled(profil.isEmpty)
                 .padding()
+                .accessibilityLabel("Bouton Valider")
+                .accessibilityHint("Valide vos préférences de profil et de récipient")
+                .accessibilityAddTraits(.isButton)
+            }
+            .padding()
             
         }
     }
@@ -69,29 +67,39 @@ struct UserSettingsView: View {
 struct CustomPicker: View {
     @Binding var glace : String
     @Binding var type : [String]
+    var name : String
+    
     var body: some View {
-        Picker("Type de récipient", selection: $glace) {
+        Picker(selection: $glace, label:
+                HStack{
+            Text(glace.isEmpty ? "Seclectionner":glace)
+                .foregroundStyle(glace.isEmpty ? .gray:.primary)
+                .lineLimit(1)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundColor(.gray)
+        }
+               
+               
+        ) {
             ForEach(type,id: \.self) { profile in
                 Text(profile)
-                    .lineLimit(1)
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
+                
             }
         }
         .pickerStyle(.navigationLink)
         .padding()
-            .background(Color(uiColor: .secondarySystemBackground))
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
-            )
-            .accessibilityLabel("Sélection du temps")
-            .accessibilityHint("Appuyez pour choisir une durée")
-            .padding()
-            .background(.ultraThinMaterial)
-            .cornerRadius(16)
-            .shadow(radius: 5)
+        .background(Color(uiColor: .secondarySystemBackground))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+        )
+        .accessibilityLabel("Sélection du temps")
+        .accessibilityHint("Appuyez pour choisir une durée")
+        .padding()
+        .background(.ultraThinMaterial)
+        .cornerRadius(16)
+        .shadow(radius: 5)
     }
 }
