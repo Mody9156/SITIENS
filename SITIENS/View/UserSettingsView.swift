@@ -27,7 +27,7 @@ struct UserSettingsView: View {
                     CustomPicker(name: $profil, type: $profileType)
                 }
                 .padding()
-                .background(.ultraThinMaterial)
+                .background(.blue.opacity(0.4))
                 .cornerRadius(16)
                 .shadow(radius: 5)
                 
@@ -38,9 +38,11 @@ struct UserSettingsView: View {
                     CustomPicker(name: $glace, type: $sizeOfGlace)
                 }
                 .padding()
-                .background(.ultraThinMaterial)
+                .background(.blue.opacity(0.4))
                 .cornerRadius(16)
                 .shadow(radius: 5)
+                
+                Spacer()
                 
                 Button {
                     withAnimation {
@@ -63,6 +65,7 @@ struct UserSettingsView: View {
                 .accessibilityHint("Valide vos préférences de profil et de récipient")
                 .accessibilityAddTraits(.isButton)
             }
+            .padding()
             .navigationTitle("Paramètres")
         }
     }
@@ -98,7 +101,7 @@ struct CustomPicker: View {
         }
         .pickerStyle(.navigationLink)
         .padding()
-        .background(Color(uiColor: .secondarySystemBackground))
+        .background(Color(.systemBlue))
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
@@ -106,9 +109,6 @@ struct CustomPicker: View {
         )
         .accessibilityLabel(name)
         .accessibilityHint("Appuyez pour choisir une \(name.lowercased())")
-        .padding()
-        .background(.ultraThinMaterial)
-        .cornerRadius(16)
-        .shadow(radius: 5)
+       
     }
 }
