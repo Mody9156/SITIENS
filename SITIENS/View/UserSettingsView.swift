@@ -24,6 +24,7 @@ struct UserSettingsView: View {
                     Text("Sélectionner un profile")
                         .font(.headline)
                         .font(.largeTitle)
+                    
                     CustomPicker(name: $profil, type: $profileType)
                 }
                 .padding()
@@ -87,12 +88,12 @@ struct CustomPicker: View {
             label:
                 HStack{
                     Text(name.isEmpty ? "Seclectionner":name)
-                        .foregroundStyle(name.isEmpty ? .gray:.primary)
+                        .foregroundStyle(name.isEmpty ? .white:.white)
                         .lineLimit(1)
                     
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
                 }
         ) {
             ForEach(type,id: \.self) { profile in

@@ -56,7 +56,7 @@ struct TimerSettings: View {
                         }
                         .pickerStyle(.navigationLink)
                         .padding()
-                        .background(Color(uiColor: .secondarySystemBackground))
+                        .background(Color(uiColor: .systemBlue))
                         .cornerRadius(12)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -66,7 +66,10 @@ struct TimerSettings: View {
                         .accessibilityHint("Appuyez pour choisir une durée")
                     }
                     .padding()
-                    .background(.ultraThinMaterial)
+                    .background(Color(
+                        .blue)
+                        .opacity(0.4)
+                    )
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
@@ -88,7 +91,7 @@ struct TimerSettings: View {
                         }
                         .pickerStyle(.navigationLink)
                         .padding()
-                        .background(Color(uiColor: .secondarySystemBackground))
+                        .background(Color(uiColor: .systemBlue))
                         .cornerRadius(12)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -99,7 +102,10 @@ struct TimerSettings: View {
                     }
                   
                     .padding()
-                    .background(.ultraThinMaterial)
+                    .background(Color(
+                        .blue)
+                        .opacity(0.4)
+                    )
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
