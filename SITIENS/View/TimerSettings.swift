@@ -99,7 +99,7 @@ struct TimerSettings: View {
                     }
                   
                     .padding()
-                    .background(ultraThinMaterial)
+                    .background(.ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
