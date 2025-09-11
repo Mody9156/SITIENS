@@ -56,7 +56,7 @@ struct TimerSettings: View {
                         }
                         .pickerStyle(.navigationLink)
                         .padding()
-                        .background(Color(uiColor: .systemBlue))
+                        .background(ultraThinMaterial)
                         .cornerRadius(12)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -66,10 +66,7 @@ struct TimerSettings: View {
                         .accessibilityHint("Appuyez pour choisir une durée")
                     }
                     .padding()
-                    .background(Color(
-                        .blue)
-                        .opacity(0.4)
-                    )
+                    .background(ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
@@ -91,7 +88,7 @@ struct TimerSettings: View {
                         }
                         .pickerStyle(.navigationLink)
                         .padding()
-                        .background(Color(uiColor: .systemBlue))
+                        .background(.ultraThinMaterial)
                         .cornerRadius(12)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -102,10 +99,7 @@ struct TimerSettings: View {
                     }
                   
                     .padding()
-                    .background(Color(
-                        .blue)
-                        .opacity(0.4)
-                    )
+                    .background(ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
@@ -167,7 +161,7 @@ struct CustomButton: View {
             } label: {
                 Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
                     .resizable()
-                    .frame(width: 80,height: 80)
+                    .frame(width: 80,height: 80)	
                     .padding()
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
             }
@@ -175,7 +169,7 @@ struct CustomButton: View {
                 isPlaying = false
             }
         }else{
-            Button {
+            Button {	
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
