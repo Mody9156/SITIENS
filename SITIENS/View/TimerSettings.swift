@@ -56,7 +56,7 @@ struct TimerSettings: View {
                         }
                         .pickerStyle(.navigationLink)
                         .padding()
-                        .background(ultraThinMaterial)
+                        .background(.ultraThinMaterial)
                         .cornerRadius(12)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -66,7 +66,7 @@ struct TimerSettings: View {
                         .accessibilityHint("Appuyez pour choisir une durée")
                     }
                     .padding()
-                    .background(ultraThinMaterial)
+                    .background(.ultraThinMaterial)
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
