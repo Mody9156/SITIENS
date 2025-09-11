@@ -28,7 +28,7 @@ struct UserSettingsView: View {
                     CustomPicker(name: $profil, type: $profileType)
                 }
                 .padding()
-                .background(.blue.opacity(0.4))
+                .background(.ultraThinMaterial)
                 .cornerRadius(16)
                 .shadow(radius: 5)
                 
@@ -39,7 +39,7 @@ struct UserSettingsView: View {
                     CustomPicker(name: $glace, type: $sizeOfGlace)
                 }
                 .padding()
-                .background(.blue.opacity(0.4))
+                .background(.ultraThinMaterial)
                 .cornerRadius(16)
                 .shadow(radius: 5)
                 
@@ -88,12 +88,12 @@ struct CustomPicker: View {
             label:
                 HStack{
                     Text(name.isEmpty ? "Seclectionner":name)
-                        .foregroundStyle(name.isEmpty ? .white:.white)
+                        .foregroundStyle(name.isEmpty ? .gray:.gray)
                         .lineLimit(1)
                     
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundColor(.white)
+                        .foregroundColor(.gray)
                 }
         ) {
             ForEach(type,id: \.self) { profile in
@@ -102,7 +102,7 @@ struct CustomPicker: View {
         }
         .pickerStyle(.navigationLink)
         .padding()
-        .background(Color(.systemBlue))
+        .background(.ultraThickMaterial)
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
