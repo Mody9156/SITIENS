@@ -27,96 +27,103 @@ struct TimerSettings: View {
  
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack (spacing: 30){
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Sélectionner le temps")
-                            .font(.headline)
-                            .padding(.horizontal, 4)
-                            .foregroundStyle(.white)
-
-                        Picker(
-                            selection: $selectedHour,
-                            label: HStack {
-                                Text(
-                                    selectedHour == 0
-                                    ? "Sélectionner"
-                                    : hydrationActivationViewModel.formatHour(selectedHour)
-                                )
-                                .foregroundColor(selectedHour == 0 ? .gray : .primary)
-                                .lineLimit(1)
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack (spacing: 30){
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Sélectionner le temps")
+                                .font(.headline)
+                                .padding(.horizontal, 4)
+                            
+                            Picker(
+                                selection: $selectedHour,
+                                label: HStack {
+                                    Text(
+                                        selectedHour == 0
+                                        ? "Sélectionner"
+                                        : hydrationActivationViewModel.formatHour(selectedHour)
+                                    )
+                                    .foregroundColor(selectedHour == 0 ? .gray : .primary)
+                                    .lineLimit(1)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.gray)
+                                }
+                            ) {
+                                ForEach(hour, id: \.self) { value in
+                                    Text(hydrationActivationViewModel.formatHour(value))
+                                        .lineLimit(1)
+                                }
+                            }
+                            .pickerStyle(.navigationLink)
+                            .padding()
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(12)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                            )
+                            .accessibilityLabel("Sélection du temps")
+                            .accessibilityHint("Appuyez pour choisir une durée")
+                        }
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(16)
+                        .shadow(radius: 5)
+                        
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Sélectionner l'audio")
+                                .font(.headline)
+                                .padding(.horizontal, 4)
+                            
+                            Picker(selection: $selectedItems, label: HStack {
+                                Text(selectedItems.isEmpty ? "Sélectionner" : selectedItems)
+                                    .foregroundColor(selectedItems.isEmpty ? .gray : .primary)
                                 Spacer()
                                 Image(systemName: "chevron.right")
                                     .foregroundColor(.gray)
+                            }) {
+                                ForEach(sound, id: \.self) { item in
+                                    Text(item)
+                                }
                             }
-                        ) {
-                            ForEach(hour, id: \.self) { value in
-                                Text(hydrationActivationViewModel.formatHour(value))
-                                    .lineLimit(1)
-                            }
+                            .pickerStyle(.navigationLink)
+                            .padding()
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(12)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                            )
+                            .accessibilityLabel("Sélectionner un son")
+                            .accessibilityHint("Double-cliquez pour choisir un audio")
                         }
-                        .pickerStyle(.navigationLink)
+                        
                         .padding()
                         .background(.ultraThinMaterial)
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
-                        )
-                        .accessibilityLabel("Sélection du temps")
-                        .accessibilityHint("Appuyez pour choisir une durée")
-                    }
-                    .padding()
-                    .background(Color.black)
-                    .cornerRadius(16)
-                    .shadow(radius: 5)
-                    
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Sélectionner l'audio")
+                        .cornerRadius(16)
+                        .shadow(radius: 5)
+                        
+                        Text(isPlaying ? "Stopper l'audio" : "Jouer l'audio")
                             .font(.headline)
-                            .padding(.horizontal, 4)
-                            .foregroundStyle(.white)
-
-                        Picker(selection: $selectedItems, label: HStack {
-                            Text(selectedItems.isEmpty ? "Sélectionner" : selectedItems)
-                                .foregroundColor(selectedItems.isEmpty ? .gray : .primary)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.gray)
-                        }) {
-                            ForEach(sound, id: \.self) { item in
-                                Text(item)
-                            }
-                        }
-                        .pickerStyle(.navigationLink)
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                            .fontWeight(.bold)
+                        
+                        CustomButton(
+                            isPlaying: $isPlaying,
+                            hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
                         )
-                        .accessibilityLabel("Sélectionner un son")
-                        .accessibilityHint("Double-cliquez pour choisir un audio")
                     }
-                  
                     .padding()
-                    .background(Color.black)
-                    .cornerRadius(16)
-                    .shadow(radius: 5)
-                    
-                    Text(isPlaying ? "Stopper l'audio" : "Jouer l'audio")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                    
-                    CustomButton(
-                        isPlaying: $isPlaying,
-                        hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
-                    )
                 }
-                .padding()
+                .navigationTitle("Paramètres")
             }
-            .navigationTitle("Paramètres")
             
             Spacer()
             
@@ -166,6 +173,7 @@ struct CustomButton: View {
                     .frame(width: 80,height: 80)	
                     .padding()
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
+                    .foregroundStyle(.blue)
             }
             .onAppear{
                 isPlaying = false
