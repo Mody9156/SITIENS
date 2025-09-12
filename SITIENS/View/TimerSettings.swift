@@ -33,6 +33,7 @@ struct TimerSettings: View {
                         Text("Sélectionner le temps")
                             .font(.headline)
                             .padding(.horizontal, 4)
+                            .foregroundStyle(.white)
 
                         Picker(
                             selection: $selectedHour,
@@ -66,7 +67,7 @@ struct TimerSettings: View {
                         .accessibilityHint("Appuyez pour choisir une durée")
                     }
                     .padding()
-                    .background(.ultraThinMaterial)
+                    .background(Color.black)
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
@@ -74,6 +75,7 @@ struct TimerSettings: View {
                         Text("Sélectionner l'audio")
                             .font(.headline)
                             .padding(.horizontal, 4)
+                            .foregroundStyle(.white)
 
                         Picker(selection: $selectedItems, label: HStack {
                             Text(selectedItems.isEmpty ? "Sélectionner" : selectedItems)
@@ -99,7 +101,7 @@ struct TimerSettings: View {
                     }
                   
                     .padding()
-                    .background(.ultraThinMaterial)
+                    .background(Color.black)
                     .cornerRadius(16)
                     .shadow(radius: 5)
                     
