@@ -19,55 +19,64 @@ struct UserSettingsView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 30) {                
-                VStack (alignment: .leading, spacing: 12){
-                    Text("Sélectionner un profile")
-                        .font(.headline)
-                        .font(.largeTitle)
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+                
+                VStack(spacing: 30) {
+                    VStack (alignment: .leading, spacing: 12){
+                        Text("Sélectionner un profile")
+                            .font(.headline)
+                            .font(.largeTitle)
+                        
+                        CustomPicker(name: $profil, type: $profileType)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(16)
+                    .shadow(radius: 5)
                     
-                    CustomPicker(name: $profil, type: $profileType)
-                }
-                .padding()
-                .background(.ultraThinMaterial)
-                .cornerRadius(16)
-                .shadow(radius: 5)
-                
-                VStack (alignment: .leading, spacing: 12){
-                    Text("Sélectionner un récipient")
-                        .font(.headline)
-                        .font(.largeTitle)
-                    CustomPicker(name: $glace, type: $sizeOfGlace)
-                }
-                .padding()
-                .background(.ultraThinMaterial)
-                .cornerRadius(16)
-                .shadow(radius: 5)
-                
-                Spacer()
-                
-                Button {
-                    withAnimation {
-                        if !profil.isEmpty && !glace.isEmpty{
-                            dismiss()
+                    VStack (alignment: .leading, spacing: 12){
+                        Text("Sélectionner un récipient")
+                            .font(.headline)
+                            .font(.largeTitle)
+                        CustomPicker(name: $glace, type: $sizeOfGlace)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(16)
+                    .shadow(radius: 5)
+                    
+                    Spacer()
+                    
+                    Button {
+                        withAnimation {
+                            if !profil.isEmpty && !glace.isEmpty{
+                                dismiss()
+                            }
+                        }
+                        
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(height: 50)
+                            Text("Valider")
+                                .foregroundStyle(.white)
                         }
                     }
-                    
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(height: 50)
-                        Text("Valider")
-                            .foregroundStyle(.white)
-                    }
+                    .disabled(profil.isEmpty || glace.isEmpty)
+                    .padding()
+                    .accessibilityLabel("Bouton Valider")
+                    .accessibilityHint("Valide vos préférences de profil et de récipient")
+                    .accessibilityAddTraits(.isButton)
                 }
-                .disabled(profil.isEmpty || glace.isEmpty)
                 .padding()
-                .accessibilityLabel("Bouton Valider")
-                .accessibilityHint("Valide vos préférences de profil et de récipient")
-                .accessibilityAddTraits(.isButton)
+                .navigationTitle("Paramètres")
             }
-            .padding()
-            .navigationTitle("Paramètres")
         }
     }
 }
