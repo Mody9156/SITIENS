@@ -107,11 +107,12 @@ struct CustomPicker: View {
         ) {
             ForEach(type,id: \.self) { profile in
                 Text(profile)
+                    .lineLimit(1)
             }
         }
         .pickerStyle(.navigationLink)
         .padding()
-        .background(.ultraThickMaterial)
+        .background(.ultraThinMaterial)
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)

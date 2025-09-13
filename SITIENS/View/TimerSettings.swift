@@ -44,14 +44,14 @@ struct TimerSettings: View {
                             
                             Picker(
                                 selection: $selectedHour,
-                                label: HStack {
-                                    Text(
-                                        selectedHour == 0
-                                        ? "Sélectionner"
+                                label:
+                                    HStack {
+                                    Text(selectedHour == 0 ? "Sélectionner"
                                         : hydrationActivationViewModel.formatHour(selectedHour)
                                     )
                                     .foregroundColor(selectedHour == 0 ? .gray : .primary)
                                     .lineLimit(1)
+                                        
                                     Spacer()
                                     Image(systemName: "chevron.right")
                                         .foregroundColor(.gray)
