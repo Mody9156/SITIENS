@@ -7,7 +7,7 @@
 
 import SwiftUI
 import CoreData
-
+import Combine
 @main
 struct SITIENSApp: App {
     @State var showMainApp: Bool = false
@@ -30,7 +30,9 @@ struct SITIENSApp: App {
                             .transition(.opacity)
                             .tabItem {
                                 Label("Hydratation", systemImage: "drop.fill")
+                                    
                             }
+                            
 
                     }
                 } else {

@@ -6,6 +6,7 @@
 //
 import SwiftUI
 
+
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
     @State private var showSheet: Bool = false
@@ -22,16 +23,15 @@ struct InformationView: View {
                 
                     VStack(spacing: 24) {
                         Spacer()
-                        
-                        Image("thirstyPicture")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 260, height: 260)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                            .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                            .accessibilityLabel("Image de présentation")
-                        
+                            Image("thirstyPicture")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 260, height: 260)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                                .accessibilityLabel("Image de présentation")
+                            
                         VStack(alignment: .center, spacing: 16){
                             
                         Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
@@ -67,6 +67,7 @@ struct InformationView: View {
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal)
+                            
                         .accessibilityLabel("Ignorer l'introduction")
                         .accessibilityValue(hasSeenIntro == true
                             ? "Introduction ignoré":""
@@ -75,6 +76,19 @@ struct InformationView: View {
                         Spacer()
                     }
             }
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarTrailing) {
+                    ZStack {
+                        Circle()
+                            .frame(height:50)
+                        
+                        Text("!")
+                            .foregroundStyle(.yellow)
+                            .animation(<#T##Animation?#>, value: <#T##V#>)
+                    }
+                    
+                }
+            })
             .sheet(isPresented: $showSheet) {
                 RoundedRectangle(cornerRadius: 3)
                     .frame(width: 40, height: 5)
@@ -114,6 +128,8 @@ struct InformationView: View {
         Boire plus de 5 litres d’eau par jour peut entraîner un déséquilibre en sodium, provoquant une intoxication à l’eau, maux de tête, voire un coma potentiellement mortel.
         """
     }
+    
+   
 }
 
 // MARK: - Vue de feuille d'information
@@ -179,3 +195,5 @@ struct InfoSection: View {
     @Previewable @State var seen = false
     return InformationView(hasSeenIntro: $seen)
 }
+
+
