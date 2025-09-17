@@ -76,17 +76,30 @@ struct InformationView: View {
                         Spacer()
                     }
             }
-            .toolbar(content: {
+            .toolbar(
+content: {
                 ToolbarItem(placement: .topBarTrailing) {
                     ZStack {
                         Circle()
-                            .frame(height:50)
-                        
+                            .fill(.ultraThinMaterial)
+                                                        .frame(width: 50, height: 50)
+                                                        .shadow(radius: 3)
+                            
                         Text("!")
                             .foregroundStyle(.yellow)
-                            .animation(<#T##Animation?#>, value: <#T##V#>)
+                                .fontWeight(.bold)
+                                .font(.largeTitle)
+                                .rotationEffect(Angle(degrees: showSheet ? 12 :-12))
+                                .scaleEffect(showSheet ? 1.2 : 1.1)
+                                .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
+                                           value: showSheet ? 12.2 :-12
+                                )
+                            
                     }
-                    
+                    .onAppear{
+                        showSheet = true
+                    }
+                  
                 }
             })
             .sheet(isPresented: $showSheet) {
