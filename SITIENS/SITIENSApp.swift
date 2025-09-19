@@ -18,13 +18,12 @@ struct SITIENSApp: App {
             Group {
                 if showMainApp {
                     TabView {
-                         
-                        Tab("Chronomètre", systemName: "stopwatch") {
+                        Tab("Chronomètre", systemImage: "stopwatch") {
                             Chronograph()
                                 .transition(.opacity)
                         }
                         
-                        Tab("Hydratation", systemName: "drop.fill") {
+                        Tab("Hydratation", systemImage: "drop.fill") {
                             WaterQuantityView(historyViewModel: HistoryViewModel())
                                 .transition(.opacity)
                         }
@@ -33,12 +32,12 @@ struct SITIENSApp: App {
                 } else {
                     TabView {
                        
-                        Tab("Hydratation", systemName: "drop.fill") {
+                        Tab("Hydratation", systemImage: "drop.fill") {
                             HomeView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
                         
-                        Tab("Hydratation", systemName: "drop.fill") {
+                        Tab("Hydratation", systemImage: "drop.fill") {
                             InformationView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
