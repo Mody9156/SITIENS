@@ -12,13 +12,14 @@ import Combine
 @main
 struct SITIENSApp: App {
     @State var showMainApp: Bool = false
-
+    
     var body: some Scene {
         WindowGroup {
             Group {
                 if showMainApp {
                     TabView {
-                        Tab("Chronomètre", systemImage: "stopwatch") {
+                        
+                        Tab("Chronomètre", systemImage : "stopwatch") {
                             Chronograph()
                                 .transition(.opacity)
                         }
@@ -31,7 +32,7 @@ struct SITIENSApp: App {
                     
                 } else {
                     TabView {
-                       
+                        
                         Tab("Hydratation", systemImage: "drop.fill") {
                             HomeView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
@@ -41,9 +42,9 @@ struct SITIENSApp: App {
                             InformationView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
-                            
+                        
                     }
-                    .background(Color.black)
+                    .tabViewStyle(.page(indexDisplayMode: .always))
                     .ignoresSafeArea()
                     .onAppear {
                         UIPageControl.appearance().pageIndicatorTintColor = .gray

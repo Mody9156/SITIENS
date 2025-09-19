@@ -41,21 +41,6 @@ struct InformationView: View {
                             .multilineTextAlignment(.center)
                             .accessibilityLabel("Titre de la page")
                         
-                        Button {
-                            withAnimation {
-                                showSheet.toggle()
-                            }
-                        } label: {
-                            Text("""
-                                Il est fortement déconseillé de boire plus de 5 litres d’eau par jour... 
-                                """)
-                            .font(.body)
-                            .foregroundStyle(Color("TextBackground"))
-                        }
-                        .padding(.horizontal)
-                        .accessibilityLabel("Navigation vers le détail de la question")
-                        .accessibilityValue("Navigation vers le détail est : \(showSheet == true ? "active" : "incactive")")
-                        
                         Button(action: {
                             withAnimation {hasSeenIntro = true }
                         }) {
@@ -80,6 +65,12 @@ struct InformationView: View {
             .toolbar(
                 content: {
                     ToolbarItem(placement: .confirmationAction) {
+                        
+                        Button {
+                            withAnimation {
+                                showSheet.toggle()
+                            }
+                        } label: {
                         ZStack {
                             Circle()
                                 .fill(.ultraThinMaterial)
@@ -96,10 +87,11 @@ struct InformationView: View {
                                            value: openIndicator ? 12.2 :-12
                                 )
                         }
+                        
                         .onAppear{
                             openIndicator = true
                         }
-                        
+                    }
                     }
                 })
             .sheet(isPresented: $showSheet) {
