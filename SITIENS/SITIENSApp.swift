@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreData
 import Combine
+
 @main
 struct SITIENSApp: App {
     @State var showMainApp: Bool = false
@@ -32,16 +33,20 @@ struct SITIENSApp: App {
                                 Label("Hydratation", systemImage: "drop.fill")
                                     
                             }
-                            
-
                     }
                 } else {
                     TabView {
-                        HomeView(hasSeenIntro: $showMainApp)
-                            .transition(.opacity)
-
-                        InformationView(hasSeenIntro: $showMainApp)
-                            .transition(.opacity)
+                       
+                        Tab("Hydratation", image: "drop.fill") {
+                            HomeView(hasSeenIntro: $showMainApp)
+                                .transition(.opacity)
+                        }
+                        
+                        Tab("Hydratation", image: "drop.fill") {
+                            InformationView(hasSeenIntro: $showMainApp)
+                                .transition(.opacity)
+                        }
+                            
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))
                     .background(Color.black)
