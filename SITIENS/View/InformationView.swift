@@ -21,19 +21,19 @@ struct InformationView: View {
                 )
                 .ignoresSafeArea()
                 
-                VStack(spacing: 24) {
-                    Spacer()
-                    Image("thirstyPicture")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 260, height: 260)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                        .accessibilityLabel("Image de présentation")
-                    
-                    VStack(alignment: .center, spacing: 16){
-                        
+                    VStack(spacing: 24) {
+                        Spacer()
+                            Image("thirstyPicture")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 260, height: 260)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                                .accessibilityLabel("Image de présentation")
+                            
+                        VStack(alignment: .center, spacing: 16){
+                            
                         Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                             .font(.title3)
                             .fontWeight(.bold)
@@ -45,11 +45,11 @@ struct InformationView: View {
                                 showSheet.toggle()
                             }
                         } label: {
-                            Text("""
+                                Text("""
                                 Il est fortement déconseillé de boire plus de 5 litres d’eau par jour... 
                                 """)
-                            .font(.body)
-                            .foregroundStyle(Color("TextBackground"))
+                                .font(.body)
+                                .foregroundStyle(Color("TextBackground"))
                         }
                         .padding(.horizontal)
                         .accessibilityLabel("Navigation vers le détail de la question")
@@ -67,26 +67,26 @@ struct InformationView: View {
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal)
-                        
+                            
                         .accessibilityLabel("Ignorer l'introduction")
                         .accessibilityValue(hasSeenIntro == true
-                                            ? "Introduction ignoré":""
+                            ? "Introduction ignoré":""
                         )
                     }
-                    Spacer()
-                }
+                        Spacer()
+                    }
             }
             .toolbar(
-                content: {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        ZStack {
-                            Circle()
-                                .fill(.ultraThinMaterial)
-                                .frame(width: 50, height: 50)
-                                .shadow(radius: 3)
+content: {
+                ToolbarItem(placement: .topBarTrailing) {
+                    ZStack {
+                        Circle()
+                            .fill(.ultraThinMaterial)
+                                                        .frame(width: 50, height: 50)
+                                                        .shadow(radius: 3)
                             
-                            Text("!")
-                                .foregroundStyle(.yellow)
+                        Text("!")
+                            .foregroundStyle(.yellow)
                                 .fontWeight(.bold)
                                 .font(.largeTitle)
                                 .rotationEffect(Angle(degrees: showSheet ? 12 :-12))
@@ -95,14 +95,14 @@ struct InformationView: View {
                                            value: showSheet ? 12.2 :-12
                                 )
                             
-                        }
-                        .onAppear{
-                            showSheet = true
-                        }
-                        
                     }
-                })
-            .fullScreenCover(isPresented: $showSheet,onDismiss: onDismiss) {
+                    .onAppear{
+                        showSheet = true
+                    }
+                  
+                }
+            })
+            .sheet(isPresented: $showSheet) {
                 RoundedRectangle(cornerRadius: 3)
                     .frame(width: 40, height: 5)
                     .foregroundColor(.gray.opacity(0.4))
@@ -119,8 +119,6 @@ struct InformationView: View {
             }
         }
     }
-    
-    func onDismiss(){}
     
     // MARK: - Contenu à afficher dans la feuille
     private var accebilityLbale: String {
@@ -144,7 +142,7 @@ struct InformationView: View {
         """
     }
     
-    
+   
 }
 
 // MARK: - Vue de feuille d'information
