@@ -102,7 +102,7 @@ content: {
                   
                 }
             })
-            .fullScreenCover(isPresented: $showSheet) {
+            .fullScreenCover(isPresented: $showSheet,onDismiss: onDismiss) {
                 RoundedRectangle(cornerRadius: 3)
                               .frame(width: 40, height: 5)
                               .foregroundColor(.gray.opacity(0.4))
@@ -134,6 +134,8 @@ content: {
 //            }
         }
     }
+    
+    func onDismiss(){}
     
     // MARK: - Contenu à afficher dans la feuille
     private var accebilityLbale: String {
