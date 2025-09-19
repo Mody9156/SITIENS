@@ -102,21 +102,36 @@ content: {
                   
                 }
             })
-            .sheet(isPresented: $showSheet) {
+            .fullScreenCover(isPresented: $showSheet) {
                 RoundedRectangle(cornerRadius: 3)
-                    .frame(width: 40, height: 5)
-                    .foregroundColor(.gray.opacity(0.4))
-                    .padding(.top, 8)
-                
-                InfoDetailSheet(
-                    sections: [
-                        ("Insomnies et réveils nocturnes", moreText),
-                        ("La potomanie : un trouble psychiatrique", potomanie),
-                        ("Le coma hydrique : boire trop d’eau, trop vite", hydrique)
-                    ],
-                    dismissAction: { showSheet = false }
-                )
+                              .frame(width: 40, height: 5)
+                              .foregroundColor(.gray.opacity(0.4))
+                              .padding(.top, 8)
+          
+                          InfoDetailSheet(
+                              sections: [
+                                  ("Insomnies et réveils nocturnes", moreText),
+                                  ("La potomanie : un trouble psychiatrique", potomanie),
+                                  ("Le coma hydrique : boire trop d’eau, trop vite", hydrique)
+                              ],
+                              dismissAction: { showSheet = false }
+                          )
             }
+//            .sheet(isPresented: $showSheet) {
+//                RoundedRectangle(cornerRadius: 3)
+//                    .frame(width: 40, height: 5)
+//                    .foregroundColor(.gray.opacity(0.4))
+//                    .padding(.top, 8)
+//                
+//                InfoDetailSheet(
+//                    sections: [
+//                        ("Insomnies et réveils nocturnes", moreText),
+//                        ("La potomanie : un trouble psychiatrique", potomanie),
+//                        ("Le coma hydrique : boire trop d’eau, trop vite", hydrique)
+//                    ],
+//                    dismissAction: { showSheet = false }
+//                )
+//            }
         }
     }
     
