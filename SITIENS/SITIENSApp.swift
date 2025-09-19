@@ -19,12 +19,12 @@ struct SITIENSApp: App {
                 if showMainApp {
                     TabView {
                          
-                        Tab("Chronomètre", image: "stopwatch") {
+                        Tab("Chronomètre", systemName: "stopwatch") {
                             Chronograph()
                                 .transition(.opacity)
                         }
                         
-                        Tab("Hydratation", image: "drop.fill") {
+                        Tab("Hydratation", systemName: "drop.fill") {
                             WaterQuantityView(historyViewModel: HistoryViewModel())
                                 .transition(.opacity)
                         }
@@ -33,23 +33,25 @@ struct SITIENSApp: App {
                 } else {
                     TabView {
                        
-                        Tab("Hydratation", image: "drop.fill") {
+                        Tab("Hydratation", systemName: "drop.fill") {
                             HomeView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
                         
-                        Tab("Hydratation", image: "drop.fill") {
+                        Tab("Hydratation", systemName: "drop.fill") {
                             InformationView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
                             
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .always))
                     .background(Color.black)
                     .ignoresSafeArea()
                     .onAppear {
                         UIPageControl.appearance().pageIndicatorTintColor = .gray
-                        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor.blue
+                        UIPageControl
+                            .appearance().currentPageIndicatorTintColor = UIColor(
+                                named: "BackgroundColor"
+                            )
                     }
                 }
             }
