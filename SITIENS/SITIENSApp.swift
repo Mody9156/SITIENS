@@ -18,22 +18,18 @@ struct SITIENSApp: App {
             Group {
                 if showMainApp {
                     TabView {
+                         
+                        Tab("Chronomètre", image: "stopwatch") {
                             Chronograph()
                                 .transition(.opacity)
-                                .tabItem {
-                                    Label(
-                                        "Chronomètre",
-                                        systemImage: "stopwatch"
-                                    )
-                                }
-                    
-                        WaterQuantityView(historyViewModel: HistoryViewModel())
-                            .transition(.opacity)
-                            .tabItem {
-                                Label("Hydratation", systemImage: "drop.fill")
-                                    
-                            }
+                        }
+                        
+                        Tab("Hydratation", image: "drop.fill") {
+                            WaterQuantityView(historyViewModel: HistoryViewModel())
+                                .transition(.opacity)
+                        }
                     }
+                    
                 } else {
                     TabView {
                        
