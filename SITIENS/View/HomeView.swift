@@ -84,12 +84,12 @@ struct HomeView: View {
                         } label: {
                             ZStack {
                                 Circle()
-                                    .fill(.ultraThinMaterial)
+                                    .fill(.blue.opacity(0.3))
                                     .frame(width: 50, height: 50)
                                     .shadow(radius: 3)
                                 
                                 Text("!")
-                                    .foregroundStyle(.yellow)
+                                    .foregroundStyle(.white)
                                     .fontWeight(.bold)
                                     .font(.largeTitle)
                                     .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
