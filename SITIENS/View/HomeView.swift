@@ -87,6 +87,7 @@ struct HomeView: View {
                                     .fill(.blue.opacity(0.3))
                                     .frame(width: 50, height: 50)
                                     .shadow(radius: 3)
+                                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                                 
                                 Text("!")
                                     .foregroundStyle(.white)
