@@ -14,6 +14,8 @@ struct SITIENSApp: App {
     @State var showMainApp: Bool = false
     @State private var hydrationActivationViewModel = HydrationActivationViewModel()
     
+    
+    
     var body: some Scene {
         WindowGroup {
             Group {
@@ -86,7 +88,7 @@ struct ShowTabView: View {
                 } else {
                     TabView {
                         
-                        Tab("Hydratation", systemImage: "drop.fill") {
+                        Tab("Hydratation", image:"water-svgrepo-com") {
                             HomeView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
@@ -105,6 +107,7 @@ struct ShowTabView: View {
                             .appearance().currentPageIndicatorTintColor = UIColor(
                                 named: "BackgroundColor"
                             )
+                        
                     }
                 }
             }
