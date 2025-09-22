@@ -11,7 +11,6 @@ struct HomeView: View {
     @State private var showSheet: Bool = false
     @Binding var hasSeenIntro: Bool
     @Environment(\.dismiss) var dismiss
-    @State private var activeBoutton: Bool = false
     @State private var openIndicator : Bool = false
     
     private var moreText: String {
@@ -91,7 +90,7 @@ struct HomeView: View {
                         
                         Button {
                             withAnimation {
-                                activeBoutton.toggle()
+                                showSheet.toggle()
                             }
                         } label: {
                             ZStack {
