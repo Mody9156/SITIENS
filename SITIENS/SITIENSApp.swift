@@ -20,7 +20,10 @@ struct SITIENSApp: App {
                     TabView {
                         
                         Tab("Chronomètre", systemImage : "stopwatch") {
-                            Chronograph()
+                            Chronograph(
+                                hydrationActivationViewModel: HydrationActivationViewModel()
+                                
+                            )
                                 .transition(.opacity)
                         }
                         
