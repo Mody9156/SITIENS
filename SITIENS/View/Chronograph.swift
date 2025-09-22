@@ -7,7 +7,7 @@ import CoreData
 // MARK: - HomeView : Chronomètre pour mesurer le temps restant avant une nouvelle hydradation
 struct Chronograph: View {
     @State var timerIsReading = false
-    @State var hydrationActivationViewModel = HydrationActivationViewModel()
+    @State var hydrationActivationViewModel : HydrationActivationViewModel
     @State var timeInterval: Int = 0
     @AppStorage("timeInterval") var timeIntervalRaw: Int = 0
     @State var cancellable: Cancellable?
@@ -181,6 +181,7 @@ struct Chronograph: View {
                 elapseBeforPauseRaw = elapseBeforPause
             }
         }
+        .environment(hydrationActivationViewModel.self)
     }
     
     func completed() -> Bool {
@@ -194,7 +195,7 @@ struct Chronograph: View {
 
 // MARK: - Preview
 #Preview {
-        Chronograph()
+    Chronograph(hydrationActivationViewModel: HydrationActivationViewModel())
     
 }
 

@@ -6,9 +6,11 @@
 //
 import SwiftUI
 
+
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
     @State private var showSheet: Bool = false
+    @State private var openIndicator : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -20,40 +22,24 @@ struct InformationView: View {
                 )
                 .ignoresSafeArea()
                 
-                    VStack(spacing: 24) {
-                        Spacer()
+                VStack(spacing: 24) {
+                    
+                    Image("thirstyPicture")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 260, height: 260)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                        .accessibilityLabel("Image de présentation")
+                    
+                    VStack(alignment: .center, spacing: 16){
                         
-                        Image("thirstyPicture")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 260, height: 260)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                            .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                            .accessibilityLabel("Image de présentation")
-                        
-                        VStack(alignment: .center, spacing: 16){
-                            
                         Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                             .font(.title3)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
                             .accessibilityLabel("Titre de la page")
-                        
-                        Button {
-                            withAnimation {
-                                showSheet.toggle()
-                            }
-                        } label: {
-                                Text("""
-                                Il est fortement déconseillé de boire plus de 5 litres d’eau par jour... 
-                                """)
-                                .font(.body)
-                                .foregroundStyle(Color("TextBackground"))
-                        }
-                        .padding(.horizontal)
-                        .accessibilityLabel("Navigation vers le détail de la question")
-                        .accessibilityValue("Navigation vers le détail est : \(showSheet == true ? "active" : "incactive")")
                         
                         Button(action: {
                             withAnimation {hasSeenIntro = true }
@@ -67,14 +53,48 @@ struct InformationView: View {
                                 .cornerRadius(16)
                         }
                         .padding(.horizontal)
+                        
                         .accessibilityLabel("Ignorer l'introduction")
                         .accessibilityValue(hasSeenIntro == true
-                            ? "Introduction ignoré":""
+                                            ? "Introduction ignoré":""
                         )
                     }
-                        Spacer()
-                    }
+                }
+                
             }
+            .toolbar(
+                content: {
+                    ToolbarItem(placement: .confirmationAction) {
+                        
+                        Button {
+                            withAnimation {
+                                showSheet.toggle()
+                            }
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(.blue.opacity(0.3))
+                                    .frame(width: 50, height: 50)
+                                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                                
+                                Text("!")
+                                    .foregroundStyle(.white)
+                                    .fontWeight(.bold)
+                                    .font(.largeTitle)
+                                    .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
+                                    .scaleEffect(openIndicator ? 1.2 : 1.1)
+                                    .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
+                                               value: openIndicator ? 12.2 :-12
+                                    )
+                            }
+                            
+                            .onAppear{
+                                openIndicator = true
+                            }
+                        }
+                        
+                    }
+                })
             .sheet(isPresented: $showSheet) {
                 RoundedRectangle(cornerRadius: 3)
                     .frame(width: 40, height: 5)
@@ -90,6 +110,8 @@ struct InformationView: View {
                     dismissAction: { showSheet = false }
                 )
             }
+            
+            
         }
     }
     
@@ -114,6 +136,8 @@ struct InformationView: View {
         Boire plus de 5 litres d’eau par jour peut entraîner un déséquilibre en sodium, provoquant une intoxication à l’eau, maux de tête, voire un coma potentiellement mortel.
         """
     }
+    
+    
 }
 
 // MARK: - Vue de feuille d'information
@@ -139,18 +163,6 @@ struct InfoDetailSheet: View {
             }
             .navigationTitle("Les risques d’une surhydratation")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: dismissAction) {
-                        Image(systemName: "xmark")
-                            .imageScale(.medium)
-                            .foregroundColor(.black)
-                            .padding(8)
-                            .background(Color.gray.opacity(0.3))
-                            .clipShape(Circle())
-                    }
-                }
-            }
         }
     }
 }
@@ -177,5 +189,5 @@ struct InfoSection: View {
 // MARK: - Preview
 #Preview {
     @Previewable @State var seen = false
-    return InformationView(hasSeenIntro: $seen)
+    InformationView(hasSeenIntro: $seen)
 }

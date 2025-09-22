@@ -11,6 +11,7 @@ struct HomeView: View {
     @State private var showSheet: Bool = false
     @Binding var hasSeenIntro: Bool
     @Environment(\.dismiss) var dismiss
+    @State private var openIndicator : Bool = false
     
     private var moreText: String {
         """
@@ -54,17 +55,6 @@ struct HomeView: View {
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
                             .accessibilityLabel("Titre de la page")
-                        
-                        Button(action: {
-                            withAnimation { showSheet = true }
-                        }) {
-                            Text("Notre organisme est composé de 60 à 65 % d’eau. Cette eau assure de nombreuses fonctions vitales...")
-                                .font(.body)
-                                .foregroundStyle(Color("TextBackground"))
-                        }
-                        .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
-                        .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")                        
-                        .padding(.horizontal)
 
                         Button(action: {
                             withAnimation { hasSeenIntro = true }
@@ -83,6 +73,42 @@ struct HomeView: View {
                         Spacer()
                 }
             }
+            .toolbar(
+                content: {
+                    ToolbarItem(placement: .confirmationAction) {
+                        
+                        Button {
+                            withAnimation {
+                                showSheet.toggle()
+                            }
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(.blue.opacity(0.3))
+                                    .frame(width: 50, height: 50)
+                                    .shadow(radius: 3)
+                                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                                
+                                Text("!")
+                                    .foregroundStyle(.white)
+                                    .fontWeight(.bold)
+                                    .font(.largeTitle)
+                                    .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
+                                    .scaleEffect(openIndicator ? 1.2 : 1.1)
+                                    .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
+                                               value: openIndicator ? 12.2 :-12
+                                    )
+                            }
+                            
+                            .onAppear{
+                                openIndicator = true
+                            }
+                        }
+                        .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
+                        .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
+                        
+                    }
+                })
             .sheet(isPresented: $showSheet) {
                 MoreInfoSheet(content: moreText) {
                     showSheet = false
