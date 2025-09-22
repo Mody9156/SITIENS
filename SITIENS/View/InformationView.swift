@@ -22,41 +22,43 @@ struct InformationView: View {
                 )
                 .ignoresSafeArea()
                 
-                VStack(spacing: 24) {
-                    Image("thirstyPicture")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 260, height: 260)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                        .accessibilityLabel("Image de présentation")
-                    
-                    VStack(alignment: .center, spacing: 16){
+                ScrollView {
+                    VStack(spacing: 24) {
+                        Image("thirstyPicture")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 260, height: 260)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                            .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                            .accessibilityLabel("Image de présentation")
                         
-                        Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .accessibilityLabel("Titre de la page")
-                        
-                        Button(action: {
-                            withAnimation {hasSeenIntro = true }
-                        }) {
-                            Text("Ignorer")
-                                .font(.headline)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color(.blue).opacity(0.4))
-                                .foregroundColor(.white)
-                                .cornerRadius(16)
+                        VStack(alignment: .center, spacing: 16){
+                            
+                            Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.center)
+                                .accessibilityLabel("Titre de la page")
+                            
+                            Button(action: {
+                                withAnimation {hasSeenIntro = true }
+                            }) {
+                                Text("Ignorer")
+                                    .font(.headline)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color(.blue).opacity(0.4))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(16)
+                            }
+                            .padding(.horizontal)
+                            
+                            .accessibilityLabel("Ignorer l'introduction")
+                            .accessibilityValue(hasSeenIntro == true
+                                                ? "Introduction ignoré":""
+                            )
                         }
-                        .padding(.horizontal)
-                        
-                        .accessibilityLabel("Ignorer l'introduction")
-                        .accessibilityValue(hasSeenIntro == true
-                                            ? "Introduction ignoré":""
-                        )
                     }
                 }
             }
@@ -105,7 +107,7 @@ struct InformationView: View {
                         ("Le coma hydrique : boire trop d’eau, trop vite", hydrique)
                     ],
                     dismissAction: { showSheet = false }
-                ) .presentationDetents([.medium,.large])
+                )
             }
            
             
