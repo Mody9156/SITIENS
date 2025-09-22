@@ -13,8 +13,7 @@ import Combine
 struct SITIENSApp: App {
     @State var showMainApp: Bool = false
     @State private var hydrationActivationViewModel = HydrationActivationViewModel()
-    
-    
+    @SceneStorage("selectedTab") var selectedTab = 0
     
     var body: some Scene {
         WindowGroup {
