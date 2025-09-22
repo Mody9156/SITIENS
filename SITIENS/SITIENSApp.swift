@@ -34,14 +34,14 @@ struct SITIENSApp: App {
                     }
                     
                 } else {
-                    TabView {
+                    TabView (selection: $selectedTab){
                         
-                        Tab("Hydratation", systemImage: "drop.fill") {
+                        Tab("Hydratation", image: "water-svgrepo-com",value:0) {
                             HomeView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
                         
-                        Tab("Hydratation", systemImage: "drop.fill") {
+                        Tab("Hydratation", image: "water-svgrepo-com",value:1) {
                             InformationView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
@@ -51,22 +51,32 @@ struct SITIENSApp: App {
                     .ignoresSafeArea()
                     .onAppear {
                         UIPageControl.appearance().pageIndicatorTintColor = .gray
-                        UIPageControl
-                            .appearance().currentPageIndicatorTintColor = UIColor(
-                                named: "BackgroundColor"
-                            )
+
+//                        UIPageControl
+//                            .appearance().currentPageIndicatorTintColor = UIColor(
+//                                named: "BackgroundColor"
+//                            )
+                 
+                        
                     }
                 }
             }
             .animation(.easeOut, value: showMainApp)
         }
     }
+    
+    func updateSelectedTab(){
+        
+    }
+  
 }
 
 struct ShowTabView: View {
     @State var showMainApp: Bool = false
     @State private var hydrationActivationViewModel = HydrationActivationViewModel()
+  
     
+  
     var body: some View {
             Group {
                 if showMainApp {
@@ -85,7 +95,7 @@ struct ShowTabView: View {
                     }
                     
                 } else {
-                    TabView {
+                    TabView{
                         
                         Tab("Hydratation", image:"water-svgrepo-com") {
                             HomeView(hasSeenIntro: $showMainApp)
@@ -96,7 +106,6 @@ struct ShowTabView: View {
                             InformationView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
-                        
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))
                     .ignoresSafeArea()
@@ -106,8 +115,8 @@ struct ShowTabView: View {
                             .appearance().currentPageIndicatorTintColor = UIColor(
                                 named: "BackgroundColor"
                             )
-                        
                     }
+                   
                 }
             }
             .animation(.easeOut, value: showMainApp)
