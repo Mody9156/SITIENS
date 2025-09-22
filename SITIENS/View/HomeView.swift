@@ -11,6 +11,8 @@ struct HomeView: View {
     @State private var showSheet: Bool = false
     @Binding var hasSeenIntro: Bool
     @Environment(\.dismiss) var dismiss
+    @State private var activeBoutton: Bool = false
+    @State private var openIndicator : Bool = false
     
     private var moreText: String {
         """
@@ -83,6 +85,39 @@ struct HomeView: View {
                         Spacer()
                 }
             }
+            .toolbar(
+                content: {
+                    ToolbarItem(placement: .confirmationAction) {
+                        
+                        Button {
+                            withAnimation {
+                                activeBoutton.toggle()
+                            }
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .fill(.ultraThinMaterial)
+                                    .frame(width: 50, height: 50)
+                                    .shadow(radius: 3)
+                                
+                                Text("!")
+                                    .foregroundStyle(.yellow)
+                                    .fontWeight(.bold)
+                                    .font(.largeTitle)
+                                    .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
+                                    .scaleEffect(openIndicator ? 1.2 : 1.1)
+                                    .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
+                                               value: openIndicator ? 12.2 :-12
+                                    )
+                            }
+                            
+                            .onAppear{
+                                openIndicator = true
+                            }
+                        }
+                        
+                    }
+                })
             .sheet(isPresented: $showSheet) {
                 MoreInfoSheet(content: moreText) {
                     showSheet = false

@@ -22,45 +22,45 @@ struct InformationView: View {
                 )
                 .ignoresSafeArea()
                 
-                ScrollView {
-                    VStack(spacing: 24) {
-                        Image("thirstyPicture")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 260, height: 260)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                            .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                            .accessibilityLabel("Image de présentation")
+                VStack(spacing: 24) {
+                    
+                    Image("thirstyPicture")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 260, height: 260)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                        .accessibilityLabel("Image de présentation")
+                    
+                    VStack(alignment: .center, spacing: 16){
                         
-                        VStack(alignment: .center, spacing: 16){
-                            
-                            Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.center)
-                                .accessibilityLabel("Titre de la page")
-                            
-                            Button(action: {
-                                withAnimation {hasSeenIntro = true }
-                            }) {
-                                Text("Ignorer")
-                                    .font(.headline)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color(.blue).opacity(0.4))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(16)
-                            }
-                            .padding(.horizontal)
-                            
-                            .accessibilityLabel("Ignorer l'introduction")
-                            .accessibilityValue(hasSeenIntro == true
-                                                ? "Introduction ignoré":""
-                            )
+                        Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .accessibilityLabel("Titre de la page")
+                        
+                        Button(action: {
+                            withAnimation {hasSeenIntro = true }
+                        }) {
+                            Text("Ignorer")
+                                .font(.headline)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color(.blue).opacity(0.4))
+                                .foregroundColor(.white)
+                                .cornerRadius(16)
                         }
+                        .padding(.horizontal)
+                        
+                        .accessibilityLabel("Ignorer l'introduction")
+                        .accessibilityValue(hasSeenIntro == true
+                                            ? "Introduction ignoré":""
+                        )
                     }
                 }
+                
             }
             .toolbar(
                 content: {
@@ -71,27 +71,28 @@ struct InformationView: View {
                                 showSheet.toggle()
                             }
                         } label: {
-                        ZStack {
-                            Circle()
-                                .fill(.ultraThinMaterial)
-                                .frame(width: 50, height: 50)
-                                .shadow(radius: 3)
+                            ZStack {
+                                Circle()
+                                    .fill(.ultraThinMaterial)
+                                    .frame(width: 50, height: 50)
+                                    .shadow(radius: 3)
+                                
+                                Text("!")
+                                    .foregroundStyle(.yellow)
+                                    .fontWeight(.bold)
+                                    .font(.largeTitle)
+                                    .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
+                                    .scaleEffect(openIndicator ? 1.2 : 1.1)
+                                    .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
+                                               value: openIndicator ? 12.2 :-12
+                                    )
+                            }
                             
-                            Text("!")
-                                .foregroundStyle(.yellow)
-                                .fontWeight(.bold)
-                                .font(.largeTitle)
-                                .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
-                                .scaleEffect(openIndicator ? 1.2 : 1.1)
-                                .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
-                                           value: openIndicator ? 12.2 :-12
-                                )
+                            .onAppear{
+                                openIndicator = true
+                            }
                         }
                         
-                        .onAppear{
-                            openIndicator = true
-                        }
-                    }
                     }
                 })
             .sheet(isPresented: $showSheet) {
@@ -109,7 +110,7 @@ struct InformationView: View {
                     dismissAction: { showSheet = false }
                 )
             }
-           
+            
             
         }
     }
@@ -188,5 +189,5 @@ struct InfoSection: View {
 // MARK: - Preview
 #Preview {
     @Previewable @State var seen = false
-     InformationView(hasSeenIntro: $seen)
+    InformationView(hasSeenIntro: $seen)
 }
