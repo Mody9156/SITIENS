@@ -55,17 +55,6 @@ struct HomeView: View {
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
                             .accessibilityLabel("Titre de la page")
-                        
-                        Button(action: {
-                            withAnimation { showSheet = true }
-                        }) {
-                            Text("Notre organisme est composé de 60 à 65 % d’eau. Cette eau assure de nombreuses fonctions vitales...")
-                                .font(.body)
-                                .foregroundStyle(Color("TextBackground"))
-                        }
-                        .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
-                        .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")                        
-                        .padding(.horizontal)
 
                         Button(action: {
                             withAnimation { hasSeenIntro = true }
@@ -114,6 +103,8 @@ struct HomeView: View {
                                 openIndicator = true
                             }
                         }
+                        .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
+                        .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
                         
                     }
                 })
