@@ -23,7 +23,6 @@ struct InformationView: View {
                 .ignoresSafeArea()
                 
                 VStack(spacing: 24) {
-                    Spacer()
                     Image("thirstyPicture")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -59,7 +58,6 @@ struct InformationView: View {
                                             ? "Introduction ignoré":""
                         )
                     }
-                    Spacer()
                 }
             }
             .toolbar(
@@ -107,8 +105,10 @@ struct InformationView: View {
                         ("Le coma hydrique : boire trop d’eau, trop vite", hydrique)
                     ],
                     dismissAction: { showSheet = false }
-                )
+                ) .presentationDetents([.medium,.large])
             }
+           
+            
         }
     }
     
@@ -198,7 +198,5 @@ struct InfoSection: View {
 // MARK: - Preview
 #Preview {
     @Previewable @State var seen = false
-    return InformationView(hasSeenIntro: $seen)
+     InformationView(hasSeenIntro: $seen)
 }
-
-
