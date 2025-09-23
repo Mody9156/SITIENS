@@ -13,7 +13,6 @@ import Combine
 struct SITIENSApp: App {
     @State var showMainApp: Bool = false
     @State private var hydrationActivationViewModel = HydrationActivationViewModel()
-    @SceneStorage("selectedTab") var selectedTab = 0
     
     var body: some Scene {
         WindowGroup {
@@ -34,14 +33,14 @@ struct SITIENSApp: App {
                     }
                     
                 } else {
-                    TabView (selection: $selectedTab){
+                    TabView {
                         
-                        Tab("Hydratation", image: "water-svgrepo-com",value:0) {
+                        Tab("Hydratation", systemImage: "drop.fill") {
                             HomeView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
                         
-                        Tab("Hydratation", image: "water-svgrepo-com",value:1) {
+                        Tab("Hydratation", systemImage: "drop.fill") {
                             InformationView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
@@ -50,26 +49,19 @@ struct SITIENSApp: App {
                     .tabViewStyle(.page(indexDisplayMode: .always))
                     .ignoresSafeArea()
                     .onAppear {
-                        
-                        
+                        UIPageControl.appearance().pageIndicatorTintColor = .gray
+                        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(.blue.opacity(0.4))
                     }
                 }
             }
             .animation(.easeOut, value: showMainApp)
         }
     }
-    
-    func updateSelectedTab(){
-        
-    }
-  
 }
 
 struct ShowTabView: View {
     @State var showMainApp: Bool = false
     @State private var hydrationActivationViewModel = HydrationActivationViewModel()
-    @State private var activeAnim : Bool = false
-    @SceneStorage("updateTab") private var updateTab : Int = 0
   
     var body: some View {
             Group {
@@ -91,27 +83,23 @@ struct ShowTabView: View {
                 } else {
                     TabView{
                         
-                        Tab("Hydratation",image: "drop.fill") {
+                        Tab("Hydratation",systemImage: "drop") {
                             HomeView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
-                        
                         Tab("Hydratation",   systemImage: "drop.fill") {
                             InformationView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
+                     
                     }
                     .tabViewStyle(.page(indexDisplayMode: .always))
                     .ignoresSafeArea()
                     .onAppear {
                         UIPageControl.appearance().pageIndicatorTintColor = .gray
                         UIPageControl
-                            .appearance().currentPageIndicatorTintColor = UIColor(
-                                named: "BackgroundColor"
-                            )
-                        activeAnim = true
+                            .appearance().currentPageIndicatorTintColor = UIColor(.blue.opacity(0.4))
                     }
-                   
                 }
             }
             .animation(.easeOut, value: showMainApp)
