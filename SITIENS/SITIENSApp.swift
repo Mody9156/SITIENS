@@ -50,13 +50,7 @@ struct SITIENSApp: App {
                     .tabViewStyle(.page(indexDisplayMode: .always))
                     .ignoresSafeArea()
                     .onAppear {
-                        UIPageControl.appearance().pageIndicatorTintColor = .gray
-
-//                        UIPageControl
-//                            .appearance().currentPageIndicatorTintColor = UIColor(
-//                                named: "BackgroundColor"
-//                            )
-                 
+                        
                         
                     }
                 }
@@ -74,8 +68,8 @@ struct SITIENSApp: App {
 struct ShowTabView: View {
     @State var showMainApp: Bool = false
     @State private var hydrationActivationViewModel = HydrationActivationViewModel()
-  
-    
+    @State private var activeAnim : Bool = false
+    @SceneStorage("updateTab") private var updateTab : Int = 0
   
     var body: some View {
             Group {
@@ -97,12 +91,12 @@ struct ShowTabView: View {
                 } else {
                     TabView{
                         
-                        Tab("Hydratation", image:"water-svgrepo-com") {
+                        Tab("Hydratation",image: "drop.fill") {
                             HomeView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
                         
-                        Tab("Hydratation", systemImage: "drop.fill") {
+                        Tab("Hydratation",   systemImage: "drop.fill") {
                             InformationView(hasSeenIntro: $showMainApp)
                                 .transition(.opacity)
                         }
@@ -115,6 +109,7 @@ struct ShowTabView: View {
                             .appearance().currentPageIndicatorTintColor = UIColor(
                                 named: "BackgroundColor"
                             )
+                        activeAnim = true
                     }
                    
                 }
