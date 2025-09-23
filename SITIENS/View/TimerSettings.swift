@@ -132,6 +132,7 @@ struct TimerSettings: View {
                 isPlaying: $isPlaying,
                 hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "Validate", selectedHour: $selectedHour
             )
+            
         }
     }
 }
@@ -177,6 +178,7 @@ struct CustomButton: View {
                     .foregroundStyle(.blue)
             }
             .onAppear{
+                hydrationActivationViewModel.stopPlaying()
                 isPlaying = false
             }
         }else{
