@@ -150,7 +150,6 @@ struct Chronograph: View {
                             }
                             .accessibilityLabel("Bouton des réglages")
                             .accessibilityHint("Appuyez pour modifier les paramètres du minuteur")
-                            
                             .disabled(timerIsReading && timeInterval != 0 && timeInterval != timerhour)
                             .sheet(isPresented: $sheetPresented) {
                                 
@@ -165,6 +164,7 @@ struct Chronograph: View {
                     })
             }
             .onAppear {
+                UserDefaults.standard.removeObject(forKey: "hour")
                 timeInterval = timeIntervalRaw
                 selectedItems = selectedItemsRaw
                 showMessage = false
