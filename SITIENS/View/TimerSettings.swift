@@ -24,7 +24,8 @@ struct TimerSettings: View {
     @State private var navigationTitle : String = "Configuration"
     @State private var slide : Double = 0.0
     @State private var activeSlide : Bool = false
- 
+    @Environment(\.scenePhase) var scenePhase
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -131,6 +132,11 @@ struct TimerSettings: View {
                 isPlaying: $isPlaying,
                 hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "Validate", selectedHour: $selectedHour
             )
+            
+        }
+        .onDisappear{
+            hydrationActivationViewModel.stopPlaying()
+            isPlaying = false
         }
     }
 }
@@ -175,9 +181,7 @@ struct CustomButton: View {
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
                     .foregroundStyle(.blue)
             }
-            .onAppear{
-                isPlaying = false
-            }
+           
         }else{
             Button {	
                 let generator = UIImpactFeedbackGenerator(style: .medium)

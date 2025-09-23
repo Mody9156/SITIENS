@@ -18,7 +18,13 @@ struct Chronograph: View {
     @State var selectedItems: String = ""
     @State var selectedHour : Int = 0
     @AppStorage("selectedItems") var selectedItemsRaw: String = ""
-    @AppStorage("hour") var timerhour: Int = 0
+    @AppStorage("hour") var timerhour : Int = 0 {
+        didSet{
+            if timerhour < 60 {
+                timerhour = 0
+            }
+        }
+    }
     @State var showMessage: Bool = false
     @AppStorage("showMessage") var showMessageRaw: Bool = false
     @State var elapseBeforPause: Int = 0
@@ -73,12 +79,12 @@ struct Chronograph: View {
                                         value: progressWater()
                                     )
                             }
-                        
-                        Text(hydrationActivationViewModel.formatTimer(timeInterval))
-                            .font(.system(size: 48, weight: .bold, design: .monospaced))
-                            .foregroundStyle(.primary)
-                            .accessibilityLabel("Temps restant")
-                            .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
+                     
+                            Text(hydrationActivationViewModel.formatTimer(timeInterval))
+                                .font(.system(size: 48, weight: .bold, design: .monospaced))
+                                .foregroundStyle(.primary)
+                                .accessibilityLabel("Temps restant")
+                                .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
                         
                     }
                     .accessibilityElement(children: .combine)
@@ -150,7 +156,6 @@ struct Chronograph: View {
                             }
                             .accessibilityLabel("Bouton des réglages")
                             .accessibilityHint("Appuyez pour modifier les paramètres du minuteur")
-                            
                             .disabled(timerIsReading && timeInterval != 0 && timeInterval != timerhour)
                             .sheet(isPresented: $sheetPresented) {
                                 
@@ -165,6 +170,7 @@ struct Chronograph: View {
                     })
             }
             .onAppear {
+//                UserDefaults.standard.removeObject(forKey: "hour")
                 timeInterval = timeIntervalRaw
                 selectedItems = selectedItemsRaw
                 showMessage = false

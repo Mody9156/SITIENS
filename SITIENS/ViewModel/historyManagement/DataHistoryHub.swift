@@ -59,6 +59,17 @@ class DataHistoryHub : HydrationProtocol {
         }
     }
     
+    func playSoundFotestTomusic(sound:String){
+        if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+                audioPlayer?.play()
+            } catch {
+                print("ERROR")
+            }
+        }
+    }
+    
     func authorization(){
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (success, error) in
             if let error = error {
