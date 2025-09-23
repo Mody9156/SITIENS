@@ -18,7 +18,13 @@ struct Chronograph: View {
     @State var selectedItems: String = ""
     @State var selectedHour : Int = 0
     @AppStorage("selectedItems") var selectedItemsRaw: String = ""
-    @AppStorage("hour") var timerhour: Int = 0
+    @AppStorage("hour") var timerhour : Int = 0 {
+        didSet{
+            if timerhour < 60 {
+                timerhour = 0
+            }
+        }
+    }
     @State var showMessage: Bool = false
     @AppStorage("showMessage") var showMessageRaw: Bool = false
     @State var elapseBeforPause: Int = 0
@@ -164,7 +170,7 @@ struct Chronograph: View {
                     })
             }
             .onAppear {
-                UserDefaults.standard.removeObject(forKey: "hour")
+//                UserDefaults.standard.removeObject(forKey: "hour")
                 timeInterval = timeIntervalRaw
                 selectedItems = selectedItemsRaw
                 showMessage = false
