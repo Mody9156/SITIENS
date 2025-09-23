@@ -134,6 +134,10 @@ struct TimerSettings: View {
             )
             
         }
+        .onDisappear{
+            hydrationActivationViewModel.stopPlaying()
+            isPlaying = false
+        }
     }
 }
 
@@ -177,10 +181,7 @@ struct CustomButton: View {
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
                     .foregroundStyle(.blue)
             }
-            .onAppear{
-                hydrationActivationViewModel.stopPlaying()
-                isPlaying = false
-            }
+           
         }else{
             Button {	
                 let generator = UIImpactFeedbackGenerator(style: .medium)
