@@ -79,12 +79,15 @@ struct Chronograph: View {
                                         value: progressWater()
                                     )
                             }
-                        
-                        Text(hydrationActivationViewModel.formatTimer(timeInterval))
-                            .font(.system(size: 48, weight: .bold, design: .monospaced))
-                            .foregroundStyle(.primary)
-                            .accessibilityLabel("Temps restant")
-                            .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
+                        if timerhour == 0 {
+                            Text("00:00:00")
+                        }else {
+                            Text(hydrationActivationViewModel.formatTimer(timeInterval))
+                                .font(.system(size: 48, weight: .bold, design: .monospaced))
+                                .foregroundStyle(.primary)
+                                .accessibilityLabel("Temps restant")
+                                .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
+                        }
                         
                     }
                     .accessibilityElement(children: .combine)
