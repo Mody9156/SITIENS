@@ -30,7 +30,6 @@ struct Chronograph: View {
     @State var elapseBeforPause: Int = 0
     @AppStorage("elapseBeforPause") var elapseBeforPauseRaw: Int = 0
     @AppStorage("buttonLabel") var buttonLabel: String = ""
-    @State var isPlaying : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -80,7 +79,7 @@ struct Chronograph: View {
                                         value: progressWater()
                                     )
                             }
-                        
+                     
                             Text(hydrationActivationViewModel.formatTimer(timeInterval))
                                 .font(.system(size: 48, weight: .bold, design: .monospaced))
                                 .foregroundStyle(.primary)
@@ -163,9 +162,7 @@ struct Chronograph: View {
                             } content: {
                                 TimerSettings(
                                     selectedItems: $selectedItems,
-                                    selectedHour: $timeInterval,
-                                    hydrationActivationViewModel: hydrationActivationViewModel,
-                                    isPlaying: $isPlaying
+                                    selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
                                 )
                                 
                             }
@@ -173,7 +170,6 @@ struct Chronograph: View {
                     })
             }
             .onAppear {
-                isPlaying = false
 //                UserDefaults.standard.removeObject(forKey: "hour")
                 timeInterval = timeIntervalRaw
                 selectedItems = selectedItemsRaw

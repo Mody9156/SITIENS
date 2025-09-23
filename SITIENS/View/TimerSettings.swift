@@ -19,12 +19,13 @@ struct TimerSettings: View {
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @State private var audio : AVAudioPlayer?
-    @Binding var isPlaying : Bool 
+    @State  var isPlaying : Bool = false
     @State private var cancellable: Cancellable?
     @State private var navigationTitle : String = "Configuration"
     @State private var slide : Double = 0.0
     @State private var activeSlide : Bool = false
- 
+    @Environment(\.scenePhase) var scenePhase
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -138,12 +139,10 @@ struct TimerSettings: View {
 #Preview {
     @Previewable @State var selectedItems : String = ""
     @Previewable @State var selectedHour : Int = 0
-    @Previewable @State var isPlaying : Bool = false
     TimerSettings(
         selectedItems: $selectedItems,
         selectedHour: $selectedHour,
-        hydrationActivationViewModel: HydrationActivationViewModel(),
-        isPlaying: $isPlaying
+        hydrationActivationViewModel: HydrationActivationViewModel()
     )
 }
 
