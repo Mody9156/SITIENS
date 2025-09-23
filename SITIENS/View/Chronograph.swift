@@ -30,6 +30,7 @@ struct Chronograph: View {
     @State var elapseBeforPause: Int = 0
     @AppStorage("elapseBeforPause") var elapseBeforPauseRaw: Int = 0
     @AppStorage("buttonLabel") var buttonLabel: String = ""
+    @State var isPlaying : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -162,7 +163,9 @@ struct Chronograph: View {
                             } content: {
                                 TimerSettings(
                                     selectedItems: $selectedItems,
-                                    selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
+                                    selectedHour: $timeInterval,
+                                    hydrationActivationViewModel: hydrationActivationViewModel,
+                                    isPlaying: $isPlaying
                                 )
                                 
                             }
@@ -170,6 +173,7 @@ struct Chronograph: View {
                     })
             }
             .onAppear {
+                isPlaying = false
 //                UserDefaults.standard.removeObject(forKey: "hour")
                 timeInterval = timeIntervalRaw
                 selectedItems = selectedItemsRaw
