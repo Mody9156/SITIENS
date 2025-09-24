@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreData
-import SwiftUICore
+import SwiftUI
 
 
 @Observable class HistoryViewModel {
