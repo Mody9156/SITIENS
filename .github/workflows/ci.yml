@@ -19,7 +19,7 @@ jobs:
         uses: sersoft-gmbh/xcodebuild-action@v3.2.0
         with:
           project: SITIENS.xcodeproj       # le projet Xcode
-          scheme: SITIENS.SITIENS          # le schéma à builder
+          scheme: SITIENS          # le schéma à builder
           destination: 'platform=iOS Simulator,name=iPhone 16e,OS=18.4'
           action: test                     # on exécute les tests
           result-bundle-path: 'TestResults/TestResults.xcresult'
