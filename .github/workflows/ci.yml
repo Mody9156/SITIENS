@@ -1,59 +1,32 @@
 name: iOS Build and Test
 
 on:
-  pull_request:
+    pull_request:
     branches:
-      - main
-
-permissions:
-  contents: read
-
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+        - main
 
 jobs:
-  build-and-test:
+    build-and-test:
     runs-on: macos-latest
-    timeout-minutes: 30
-
+    
     steps:
-      - name: Checkout repository
+        # 1️⃣ Récupérer le code
+        - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '16.x'
-
-      - name: Cache SwiftPM
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.swiftpm
-            ~/Library/Caches/org.swift.swiftpm
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
-
-      - name: Build and Test
+        
+        # 2️⃣ Build et tests via l’action xcodebuild
+        - name: Build and Test
         uses: sersoft-gmbh/xcodebuild-action@v3.2.0
         with:
-          project: SITIENS.xcodeproj
-          scheme: SITIENS.SITIENS
-          destination: 'platform=iOS Simulator,OS=latest,name=iPhone 15'
-          action: test
-          result-bundle-path: 'TestResults/TestResults.xcresult'
-
-      - name: Upload Test Results
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: TestResults
-          path: TestResults/TestResults.xcresult
-
-      - name: Process Test Results
-        if: ${{ always() }}
+            project: SITIENS.xcodeproj       # le projet Xcode
+            scheme: SITIENS.SITIENS                  # le schéma à builder
+            destination: 'platform=iOS Simulator,name=iPhone 16e,OS=18.4'
+            action: test                     # on exécute les tests
+            result-bundle-path: 'TestResults/TestResults.xcresult'
+        
+        # 3️⃣ Traiter les résultats des tests
+        - name: Process Test Results
         uses: kishikawakatsumi/xcresulttool@v1
         with:
-          path: TestResults/TestResults.xcresult
+            path: TestResults/TestResults.xcresult
+        if: ${{ success() || failure() }}
