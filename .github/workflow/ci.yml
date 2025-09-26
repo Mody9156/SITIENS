@@ -1,32 +1,32 @@
 name: iOS Build and Test
 
 on:
-  pull_request:
+    pull_request:
     branches:
-      - main
+        - main
 
 jobs:
-  build-and-test:
+    build-and-test:
     runs-on: macos-latest
-
+    
     steps:
-      # 1️⃣ Récupérer le code
-      - name: Checkout repository
+        # 1️⃣ Récupérer le code
+        - name: Checkout repository
         uses: actions/checkout@v4
-
-      # 2️⃣ Build et tests via l’action xcodebuild
-      - name: Build and Test
+        
+        # 2️⃣ Build et tests via l’action xcodebuild
+        - name: Build and Test
         uses: sersoft-gmbh/xcodebuild-action@v3.2.0
         with:
-          project: SITIENS.xcodeproj       # ton projet Xcode
-          scheme: SITIENS                  # le schéma à builder
-          destination: 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2'
-          action: test                     # on exécute les tests
-          result-bundle-path: 'TestResults/TestResults.xcresult'
-
-      # 3️⃣ Traiter les résultats des tests
-      - name: Process Test Results
+            project: SITIENS.xcodeproj       # le projet Xcode
+            scheme: SITIENS                  # le schéma à builder
+            destination: 'platform=iOS Simulator,name=iPhone 16e,OS=18.4'
+            action: test                     # on exécute les tests
+            result-bundle-path: 'TestResults/TestResults.xcresult'
+        
+        # 3️⃣ Traiter les résultats des tests
+        - name: Process Test Results
         uses: kishikawakatsumi/xcresulttool@v1
         with:
-          path: TestResults/TestResults.xcresult
+            path: TestResults/TestResults.xcresult
         if: ${{ success() || failure() }}
