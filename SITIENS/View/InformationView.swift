@@ -56,7 +56,7 @@ struct InformationView: View {
                         
                         .accessibilityLabel("Ignorer l'introduction")
                         .accessibilityValue(hasSeenIntro == true
-                                            ? "Introduction ignoré":""
+                                            ? "Introduction ignorée":""
                         )
                     }
                 }
