@@ -1,37 +1,28 @@
-name: CI-iOS
+name: iOS Build and Test
 
 on:
-    pull_request:
-    branches: [ main ] # ⚠️ Vérifie que ta branche par défaut est bien "main" et pas "master"
+  pull_request:
+    branches:
+      - main
 
 jobs:
-    build-and-test:
-    runs-on: macos-15-xlarge # plus rapide et compatible Xcode 16.x / iOS 18
-    timeout-minutes: 10
-    
-    steps:
-        - name: Checkout repository
-        uses: actions/checkout@v4
-        
-        - name: Select Xcode
-        run: sudo xcode-select -switch /Applications/Xcode_26.0.1.app
-        # Vérifie bien le chemin exact : souvent c'est /Applications/Xcode_16.4.app ou similaire
-        
-        - name: Xcode version
-        run: /usr/bin/xcodebuild -version
-        
-        - name: List Available Simulators
-        run: xcrun simctl list devices
-        
-        - name: Resolve Swift Package Dependencies
-        run: xcodebuild -resolvePackageDependencies -project MediStock.xcodeproj
-        
-        - name: Build and Test
-        run: |
-          xcodebuild clean build test \
-          -project MediStock.xcodeproj \
-          -scheme "pack" \
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-          -sdk iphonesimulator \
-          -destination "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2" \
-          ONLY_ACTIVE_ARCH=YES
+  build-and-test:
+    runs-on: macos-latest
+
+  steps:
+  - name: Checkout repository
+        uses: actions/checkout@v2
+  - name: Build and Test
+                uses: sersoft-gmbh/xcodebuild-action@v3.2.0
+            with:
+               project: SITIENS.xcodeproj
+               scheme: SITIENS
+               destination: 'platform=iOS Simulator,name=iPhone 16 Pro'
+               action: test
+               result-bundle-path: 'TestResults/TestResults.xcresult'
+               - name: Process Test Results
+
+  uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          path: TestResults/TestResults.xcresult
+  if: success() || failure() 
