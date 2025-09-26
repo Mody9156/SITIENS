@@ -4,7 +4,7 @@ name: CI-iOS
 # Triggers the workflow on pull request events but only for the master branch.
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -13,7 +13,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: macos-15-xlarge
 
-    timeout-minutes: 8
+    timeout-minutes: 10
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,4 +27,4 @@ jobs:
       run: /usr/bin/xcodebuild -version
       
     - name: Build and Test
-      run: xcodebuild clean build test -workspace SITIENS.xcodeproj -scheme "SITIENS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2" ONLY_ACTIVE_ARCH=YES
+      run: xcodebuild clean build test -project SITIENS.xcodeproj -scheme "SITIENS" CODE_SIGN_IDENTITY="SITIENS.SITIENS" CODE_SIGNING_REQUIRED=YES -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2" ONLY_ACTIVE_ARCH=YES
