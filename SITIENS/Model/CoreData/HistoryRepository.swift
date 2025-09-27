@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 struct HistoryRepository: HistoryProtocol {
     
@@ -17,14 +18,11 @@ struct HistoryRepository: HistoryProtocol {
     }
     
     func getHisoData()  throws -> [History] {
-        var result: [History] = []
-        
-        try context.performAndWait {
+        let result: [History] = try context.performAndWait {
             let request: NSFetchRequest<History> = History.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
-            result = try context.fetch(request)
+            return try context.fetch(request)
         }
-        
         return result
     }
 
@@ -41,7 +39,12 @@ struct HistoryRepository: HistoryProtocol {
     }
     
     func deleteHistory(history: History) {
-        context.delete(history)
-        try? context.save()
+        let objectID = history.objectID
+        context.performAndWait {
+            if let object = try? context.existingObject(with: objectID) {
+                context.delete(object)
+                try? context.save()
+            }
+        }
     }
 }
