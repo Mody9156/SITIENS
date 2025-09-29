@@ -144,13 +144,16 @@ struct Chronograph: View {
                                 Image(systemName: "gearshape.fill")
                                     .font(.title2)
                                     .foregroundStyle(.primary)
+                                    // Fix the layout by giving the symbol a constant square frame
+                                    .frame(width: 32, height: 32, alignment: .center)
+                                    .contentShape(Rectangle())
                                     .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
                                     .animation(
-                                        .linear(duration: 2.9)
-                                        .repeatForever(autoreverses: false),
+                                        .linear(duration: 1.9)
+                                            .repeatForever(autoreverses: false),
                                         value: rotationInfiny
                                     )
-                                    .onAppear{
+                                    .onAppear {
                                         rotationInfiny = true
                                     }
                             }
@@ -164,7 +167,6 @@ struct Chronograph: View {
                                     selectedItems: $selectedItems,
                                     selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
                                 )
-                                
                             }
                         }
                     })
@@ -204,4 +206,3 @@ struct Chronograph: View {
     Chronograph(hydrationActivationViewModel: HydrationActivationViewModel())
     
 }
-
