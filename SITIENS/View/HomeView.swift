@@ -20,7 +20,13 @@ struct HomeView: View {
         NavigationStack {
             
             if horizontalSizeClass == .compact {
-                
+                ScrollView {
+                    SettingNavigation(
+                        showSheet: $showSheet,
+                        hasSeenIntro: $hasSeenIntro,
+                        openIndicator: $openIndicator
+                    )
+                }
                 
             }
             
@@ -31,7 +37,7 @@ struct HomeView: View {
 
 
 struct SettingNavigation: View {
-    @Binding private var showSheet: Bool 
+    @Binding private var showSheet: Bool
     @Binding var hasSeenIntro: Bool
     @Binding private var openIndicator : Bool
     
