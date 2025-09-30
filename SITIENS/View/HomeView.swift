@@ -12,6 +12,29 @@ struct HomeView: View {
     @Binding var hasSeenIntro: Bool
     @Environment(\.dismiss) var dismiss
     @State private var openIndicator : Bool = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    
+    
+    var body: some View {
+        NavigationStack {
+            
+            if horizontalSizeClass == .compact {
+                
+                
+            }
+            
+            
+        }
+    }
+}
+
+
+struct SettingNavigation: View {
+    @Binding private var showSheet: Bool 
+    @Binding var hasSeenIntro: Bool
+    @Binding private var openIndicator : Bool
+    
     
     private var moreText: String {
         """
@@ -25,94 +48,93 @@ struct HomeView: View {
         """
     }
     
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                // Dégradé de fond
-                LinearGradient(
-                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+    
+    var body : some View {
+        ZStack {
+            // Dégradé de fond
+            LinearGradient(
+                gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+            
+            VStack(spacing: 24) {
+                Spacer()
+                // Image circulaire
+                Image("WaterWallaper")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 260, height: 260)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                    .accessibilityLabel("Image de présentation")
                 
-                VStack(spacing: 24) {
-                    Spacer()
-                    // Image circulaire
-                    Image("WaterWallaper")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 260, height: 260)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                        .accessibilityLabel("Image de présentation")
+                VStack(alignment: .center, spacing: 16) {
                     
-                    VStack(alignment: .center, spacing: 16) {
-                        
-                        Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .accessibilityLabel("Titre de la page")
+                    Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                        .accessibilityLabel("Titre de la page")
 
-                        Button(action: {
-                            withAnimation { hasSeenIntro = true }
-                        }) {
-                            Text("Ignorer")
-                                .font(.headline)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color(.blue).opacity(0.4))
-                                .foregroundColor(.white)
-                                .cornerRadius(16)
-                        }
-                        .padding(.horizontal)
-                        .accessibilityLabel("Ignorer l'introduction")
+                    Button(action: {
+                        withAnimation { hasSeenIntro = true }
+                    }) {
+                        Text("Ignorer")
+                            .font(.headline)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(.blue).opacity(0.4))
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
                     }
-                        Spacer()
+                    .padding(.horizontal)
+                    .accessibilityLabel("Ignorer l'introduction")
                 }
+                    Spacer()
             }
-            .toolbar(
-                content: {
-                    ToolbarItem(placement: .confirmationAction) {
-                        
-                        Button {
-                            withAnimation {
-                                showSheet.toggle()
-                            }
-                        } label: {
-                            ZStack {
-                                Circle()
-                                    .fill(.blue.opacity(0.3))
-                                    .frame(width: 50, height: 50)
-                                    .shadow(radius: 3)
-                                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                                
-                                Text("!")
-                                    .foregroundStyle(.white)
-                                    .fontWeight(.bold)
-                                    .font(.largeTitle)
-                                    .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
-                                    .scaleEffect(openIndicator ? 1.2 : 1.1)
-                                    .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
-                                               value: openIndicator ? 12.2 :-12
-                                    )
-                            }
-                            
-                            .onAppear{
-                                openIndicator = true
-                            }
+        }
+        .toolbar(
+            content: {
+                ToolbarItem(placement: .confirmationAction) {
+                    
+                    Button {
+                        withAnimation {
+                            showSheet.toggle()
                         }
-                        .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
-                        .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(.blue.opacity(0.3))
+                                .frame(width: 50, height: 50)
+                                .shadow(radius: 3)
+                                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                            
+                            Text("!")
+                                .foregroundStyle(.white)
+                                .fontWeight(.bold)
+                                .font(.largeTitle)
+                                .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
+                                .scaleEffect(openIndicator ? 1.2 : 1.1)
+                                .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
+                                           value: openIndicator ? 12.2 :-12
+                                )
+                        }
                         
+                        .onAppear{
+                            openIndicator = true
+                        }
                     }
-                })
-            .sheet(isPresented: $showSheet) {
-                MoreInfoSheet(content: moreText) {
-                    showSheet = false
+                    .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
+                    .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
+                    
                 }
+            })
+        .sheet(isPresented: $showSheet) {
+            MoreInfoSheet(content: moreText) {
+                showSheet = false
             }
         }
     }
