@@ -29,17 +29,15 @@ struct HomeView: View {
                 }
                 
             }
-            
-            
         }
     }
 }
 
 
 struct SettingNavigation: View {
-    @Binding private var showSheet: Bool
+    @Binding var showSheet: Bool
     @Binding var hasSeenIntro: Bool
-    @Binding private var openIndicator : Bool
+    @Binding var openIndicator : Bool
     
     
     private var moreText: String {
