@@ -16,11 +16,11 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-                    SettingNavigation(
-                        showSheet: $showSheet,
-                        hasSeenIntro: $hasSeenIntro,
-                        openIndicator: $openIndicator
-                    )
+            SettingNavigation(
+                showSheet: $showSheet,
+                hasSeenIntro: $hasSeenIntro,
+                openIndicator: $openIndicator
+            )
         }
     }
 }
@@ -58,7 +58,7 @@ struct SettingNavigation: View {
                 ScrollView {
                     optimisationdelaview()
                 }
-                    
+                
                 
             }else {
                 optimisationdelaview()
@@ -66,39 +66,7 @@ struct SettingNavigation: View {
         }
         .toolbar(
             content: {
-                ToolbarItem(placement: .confirmationAction) {
-                    
-                    Button {
-                        withAnimation {
-                            showSheet.toggle()
-                        }
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(.blue.opacity(0.3))
-                                .frame(width: 50, height: 50)
-                                .shadow(radius: 3)
-                                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                            
-                            Text("!")
-                                .foregroundStyle(.white)
-                                .fontWeight(.bold)
-                                .font(.largeTitle)
-                                .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
-                                .scaleEffect(openIndicator ? 1.2 : 1.1)
-                                .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
-                                           value: openIndicator ? 12.2 :-12
-                                )
-                        }
-                        
-                        .onAppear{
-                            openIndicator = true
-                        }
-                    }
-                    .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
-                    .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
-                    
-                }
+                
             })
         .sheet(isPresented: $showSheet) {
             MoreInfoSheet(content: moreText) {
@@ -146,13 +114,51 @@ struct SettingNavigation: View {
             Spacer()
         }
     }
+    
+    @ToolbarContentBuilder
+    func toolBarContent() -> some ToolbarContent{
+         ToolbarItem(placement: .confirmationAction) {
+            
+            Button {
+                withAnimation {
+                    showSheet.toggle()
+                }
+            } label: {
+                ZStack {
+                    Circle()
+                        .fill(.blue.opacity(0.3))
+                        .frame(width: 50, height: 50)
+                        .shadow(radius: 3)
+                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                    
+                    Text("!")
+                        .foregroundStyle(.white)
+                        .fontWeight(.bold)
+                        .font(.largeTitle)
+                        .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
+                        .scaleEffect(openIndicator ? 1.2 : 1.1)
+                        .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
+                                   value: openIndicator ? 12.2 :-12
+                        )
+                }
+                
+                .onAppear{
+                    openIndicator = true
+                }
+            }
+            .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
+            .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
+            
+        }
+    }
+    
 }
 
 // MARK: - Vue de la feuille modale
 struct MoreInfoSheet: View {
     let content: String
     let dismissAction: () -> Void
-  
+    
     var body: some View {
         NavigationStack {
             ScrollView {
