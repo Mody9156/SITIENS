@@ -34,10 +34,10 @@ struct SettingNavigation: View {
     
     private var moreText: String {
         """
-        \(ShowMoreInformation.first_paragraphe.rawValue)\n
-        \(ShowMoreInformation.second_paragraphe.rawValue)\n
-        \(ShowMoreInformation.third_paragraphe.rawValue)\n
-        \(ShowMoreInformation.last_paragraphe.rawValue)
+        \(ShowMoreInformation.first_paragraphe)\n
+        \(ShowMoreInformation.second_paragraphe)\n
+        \(ShowMoreInformation.third_paragraphe)\n
+        \(ShowMoreInformation.last_paragraphe)
         """
     }
     
@@ -203,9 +203,5 @@ extension SettingNavigation {
         
         case last_paragraphe = "N’attendez pas d’avoir soif : buvez régulièrement en petites quantités pour rester bien hydraté."
     }
-    
-    func selectParagraphe(element: ShowMoreInformation) -> String {
-       element.rawValue
-       }
 }
 
