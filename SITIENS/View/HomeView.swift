@@ -14,21 +14,13 @@ struct HomeView: View {
     @State private var openIndicator : Bool = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    
-    
     var body: some View {
         NavigationStack {
-            
-            if horizontalSizeClass == .compact {
-                ScrollView {
                     SettingNavigation(
                         showSheet: $showSheet,
                         hasSeenIntro: $hasSeenIntro,
                         openIndicator: $openIndicator
                     )
-                }
-                
-            }
         }
     }
 }
@@ -38,7 +30,7 @@ struct SettingNavigation: View {
     @Binding var showSheet: Bool
     @Binding var hasSeenIntro: Bool
     @Binding var openIndicator : Bool
-    
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     private var moreText: String {
         """
@@ -52,7 +44,6 @@ struct SettingNavigation: View {
         """
     }
     
-    
     var body : some View {
         ZStack {
             // Dégradé de fond
@@ -63,41 +54,14 @@ struct SettingNavigation: View {
             )
             .ignoresSafeArea()
             
-            VStack(spacing: 24) {
-                Spacer()
-                // Image circulaire
-                Image("WaterWallaper")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 260, height: 260)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                    .accessibilityLabel("Image de présentation")
-                
-                VStack(alignment: .center, spacing: 16) {
-                    
-                    Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                        .accessibilityLabel("Titre de la page")
-
-                    Button(action: {
-                        withAnimation { hasSeenIntro = true }
-                    }) {
-                        Text("Ignorer")
-                            .font(.headline)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color(.blue).opacity(0.4))
-                            .foregroundColor(.white)
-                            .cornerRadius(16)
-                    }
-                    .padding(.horizontal)
-                    .accessibilityLabel("Ignorer l'introduction")
+            if verticalSizeClass == .compact {
+                ScrollView {
+                    optimisationdelaview()
                 }
-                    Spacer()
+                    
+                
+            }else {
+                optimisationdelaview()
             }
         }
         .toolbar(
@@ -140,6 +104,46 @@ struct SettingNavigation: View {
             MoreInfoSheet(content: moreText) {
                 showSheet = false
             }
+        }
+    }
+    
+    @ViewBuilder
+    func optimisationdelaview() -> some View {
+        VStack(spacing: 24) {
+            Spacer()
+            // Image circulaire
+            Image("WaterWallaper")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 260, height: 260)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                .accessibilityLabel("Image de présentation")
+            
+            VStack(alignment: .center, spacing: 16) {
+                
+                Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .accessibilityLabel("Titre de la page")
+                
+                Button(action: {
+                    withAnimation { hasSeenIntro = true }
+                }) {
+                    Text("Ignorer")
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color(.blue).opacity(0.4))
+                        .foregroundColor(.white)
+                        .cornerRadius(16)
+                }
+                .padding(.horizontal)
+                .accessibilityLabel("Ignorer l'introduction")
+            }
+            Spacer()
         }
     }
 }
