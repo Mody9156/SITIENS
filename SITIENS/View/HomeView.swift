@@ -53,12 +53,10 @@ struct SettingNavigation: View {
             
             if verticalSizeClass == .compact {
                 ScrollView {
-                    optimisationdelaview()
+                    mainContent()
                 }
-                
-                
             }else {
-                optimisationdelaview()
+                mainContent()
             }
         }
         .toolbar(
@@ -73,7 +71,7 @@ struct SettingNavigation: View {
     }
     
     @ViewBuilder
-    func optimisationdelaview() -> some View {
+    func mainContent() -> some View {
         VStack(spacing: 24) {
             Spacer()
             // Image circulaire
@@ -101,9 +99,9 @@ struct SettingNavigation: View {
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color(.blue).opacity(0.4))
-                        .foregroundColor(.white)
+                        .foregroundColor(.blue)
                         .cornerRadius(16)
+                        .glassEffect()
                 }
                 .padding(.horizontal)
                 .accessibilityLabel("Ignorer l'introduction")
@@ -121,23 +119,11 @@ struct SettingNavigation: View {
                     showSheet.toggle()
                 }
             } label: {
-                ZStack {
-                    Circle()
-                        .fill(.blue.opacity(0.3))
-                        .frame(width: 50, height: 50)
-                        .shadow(radius: 3)
-                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                    
                     Text("!")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.blue)
                         .fontWeight(.bold)
                         .font(.largeTitle)
-                        .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
-                        .scaleEffect(openIndicator ? 1.2 : 1.1)
-                        .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
-                                   value: openIndicator ? 12.2 :-12
-                        )
-                }
+                        .glassEffect(.regular)
                 
                 .onAppear{
                     openIndicator = true
@@ -219,12 +205,7 @@ extension SettingNavigation {
     }
     
     func selectParagraphe(element: ShowMoreInformation) -> String {
-        var text = ""
-        for i in element.rawValue {
-            text = String(i)
-        }
-        return text
-    }
-    
+       element.rawValue
+       }
 }
 
