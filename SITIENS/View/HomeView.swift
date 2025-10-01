@@ -34,13 +34,10 @@ struct SettingNavigation: View {
     
     private var moreText: String {
         """
-        Notre organisme est composé de 60 à 65 % d’eau. Cette eau permet d’assurer de nombreuses fonctions vitales du corps. Il est donc crucial de boire régulièrement et en quantité suffisante.
-        
-        On recommande de boire entre 1,3 L et 2 L par jour, selon le poids et l’activité. Une perte de plus de 15 % du poids en eau met en jeu le pronostic vital.
-        
-        Chaque jour, nous perdons environ 2,6 L d’eau (urines, transpiration, respiration...). En consommant fruits et légumes, nous récupérons 1 L, et 30 cl sont produits par le métabolisme. Il reste donc à boire environ 1,5 L — soit 8 verres d’eau.
-        
-        N’attendez pas d’avoir soif : buvez régulièrement en petites quantités pour rester bien hydraté.
+        \(ShowMoreInformation.first_paragraphe.rawValue)\n
+        \(ShowMoreInformation.second_paragraphe.rawValue)\n
+        \(ShowMoreInformation.third_paragraphe.rawValue)\n
+        \(ShowMoreInformation.last_paragraphe.rawValue)
         """
     }
     
@@ -66,7 +63,7 @@ struct SettingNavigation: View {
         }
         .toolbar(
             content: {
-                
+                toolBarContent()
             })
         .sheet(isPresented: $showSheet) {
             MoreInfoSheet(content: moreText) {
@@ -117,7 +114,7 @@ struct SettingNavigation: View {
     
     @ToolbarContentBuilder
     func toolBarContent() -> some ToolbarContent{
-         ToolbarItem(placement: .confirmationAction) {
+        ToolbarItem(placement: .confirmationAction) {
             
             Button {
                 withAnimation {
@@ -148,10 +145,8 @@ struct SettingNavigation: View {
             }
             .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
             .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
-            
         }
     }
-    
 }
 
 // MARK: - Vue de la feuille modale
@@ -200,3 +195,36 @@ struct MoreInfoSheet: View {
 #Preview {
     HomeView(hasSeenIntro: .constant(false))
 }
+
+extension SettingNavigation {
+    
+    
+    enum ShowMoreInformation: String, CaseIterable {
+        
+        case first_paragraphe =
+            """
+            Notre organisme est composé de 60 à 65 % d’eau. Cette eau permet d’assurer de nombreuses fonctions vitales du corps.
+            Il est donc crucial de boire régulièrement et en quantité suffisante.
+            """
+        
+        case second_paragraphe = "On recommande de boire entre 1,3 L et 2 L par jour, selon le poids et l’activité. Une perte de plus de 15 % du poids en eau met en jeu le pronostic vital."
+        
+        case third_paragraphe =
+        """
+        Chaque jour, nous perdons environ 2,6 L d’eau (urines, transpiration, respiration...).
+        En consommant fruits et légumes, nous récupérons 1 L, et 30 cl sont produits par le métabolisme. Il reste donc à boire environ 1,5 L — soit 8 verres d’eau.
+        """
+        
+        case last_paragraphe = "N’attendez pas d’avoir soif : buvez régulièrement en petites quantités pour rester bien hydraté."
+    }
+    
+    func selectParagraphe(element: ShowMoreInformation) -> String {
+        var text = ""
+        for i in element.rawValue {
+            text = String(i)
+        }
+        return text
+    }
+    
+}
+
