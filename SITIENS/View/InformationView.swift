@@ -15,25 +15,19 @@ struct InformationView: View {
     
     var body: some View {
         NavigationStack {
-            if verticalSizeClass == .compact {
-                ScrollView {
-                    ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
-                }
-            }else {
                 ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
-            }
         }
     }
+    
 }
-
-
 struct ValueNavigationLink :View {
     @Binding var hasSeenIntro: Bool
     @Binding var showSheet: Bool
     @Binding var openIndicator : Bool
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     var body: some View {
-        ZStack {
+        ZStack{
             LinearGradient(
                 gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
                 startPoint: .topLeading,
@@ -41,48 +35,13 @@ struct ValueNavigationLink :View {
             )
             .ignoresSafeArea()
             
-            VStack(spacing: 24) {
-                
-                Image("thirstyPicture")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 260, height: 260)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                    .accessibilityLabel("Image de présentation")
-                
-                VStack(alignment: .center, spacing: 16){
-                    
-                    Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                        .accessibilityLabel("Titre de la page")
-                    
-                    Button(action: {
-                        withAnimation {hasSeenIntro = true }
-                    }) {
-                        Text("Ignorer")
-                            .foregroundStyle(Color("ForegroundColorForTheText"))
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                    }
-                    
-                    .background {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 26, style: .continuous)
-                                .fill(Color("TextBackground"))
-                                .glassEffect()
-                        }
-                    }
-                    .accessibilityLabel("Ignorer l'introduction")
-                    .accessibilityValue(hasSeenIntro == true
-                                        ? "Introduction ignorée":""
-                    )
-                    .padding(.horizontal)
+            if verticalSizeClass == .compact {
+                ScrollView {
+                    contentViewForShowNavigationLink()
                 }
+                
+            }else {
+                contentViewForShowNavigationLink()
             }
         }
         .toolbar(content :{toolBarContent()})
@@ -129,7 +88,6 @@ struct ValueNavigationLink :View {
     @ToolbarContentBuilder
     func toolBarContent() -> some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
-            
             Button {
                 withAnimation {
                     showSheet.toggle()
@@ -144,6 +102,52 @@ struct ValueNavigationLink :View {
                     .onAppear{
                         openIndicator = true
                     }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func contentViewForShowNavigationLink() -> some View {
+        VStack(spacing: 24) {
+            Image("thirstyPicture")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 260, height: 260)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                .accessibilityLabel("Image de présentation")
+            
+            VStack(alignment: .center, spacing: 16){
+                
+                Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .accessibilityLabel("Titre de la page")
+                
+                Button(action: {
+                    withAnimation {hasSeenIntro = true }
+                }) {
+                    Text("Ignorer")
+                        .foregroundStyle(Color("ForegroundColorForTheText"))
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                }
+                
+                .background {
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 26, style: .continuous)
+                            .fill(Color("TextBackground"))
+                            .glassEffect()
+                    }
+                }
+                .accessibilityLabel("Ignorer l'introduction")
+                .accessibilityValue(hasSeenIntro == true
+                                    ? "Introduction ignorée":""
+                )
+                .padding(.horizontal)
             }
         }
     }
