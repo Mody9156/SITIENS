@@ -127,10 +127,10 @@ struct SettingNavigation: View {
                 }
             } label: {
                 Text("!")
-                    .foregroundStyle(Color("BackgroundColor").opacity(0.7))
+                    .foregroundStyle(Color("TextBackground"))
                     .fontWeight(.bold)
                     .font(.largeTitle)
-                    .glassEffect(.regular)
+                    .glassEffect()
                     .onAppear{
                         openIndicator = true
                     }
