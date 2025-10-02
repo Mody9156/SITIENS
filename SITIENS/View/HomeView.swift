@@ -96,7 +96,7 @@ struct SettingNavigation: View {
                     withAnimation { hasSeenIntro = true }
                 }) {
                     Text("Ignorer")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color("ForegroundColorForTheText"))
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
