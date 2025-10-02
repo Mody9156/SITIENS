@@ -34,10 +34,10 @@ struct SettingNavigation: View {
     
     private var moreText: String {
         """
-        \(ShowMoreInformation.first_paragraphe)\n
-        \(ShowMoreInformation.second_paragraphe)\n
-        \(ShowMoreInformation.third_paragraphe)\n
-        \(ShowMoreInformation.last_paragraphe)
+        \(ShowMoreInformation.first_paragraphe.rawValue)\n
+        \(ShowMoreInformation.second_paragraphe.rawValue)\n
+        \(ShowMoreInformation.third_paragraphe.rawValue)\n
+        \(ShowMoreInformation.last_paragraphe.rawValue)
         """
     }
     
@@ -106,9 +106,6 @@ struct SettingNavigation: View {
                         RoundedRectangle(cornerRadius: 26, style: .continuous)
                             .fill(Color("TextBackground"))
                             .glassEffect()
-//                        RoundedRectangle(cornerRadius: 26, style: .continuous)
-//                            .fill(Color("BackgroundColor").opacity(0.3))
-//                            .glassEffect()
                     }
                 }
                 .padding(.horizontal)
@@ -189,7 +186,6 @@ struct MoreInfoSheet: View {
 }
 
 extension SettingNavigation {
-    
     
     enum ShowMoreInformation: String, CaseIterable {
         
