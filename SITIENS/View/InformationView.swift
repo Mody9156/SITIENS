@@ -50,7 +50,7 @@ struct InformationView: View {
                                 .frame(maxWidth: .infinity)
                                 .padding()
                         }
-                       
+                        
                         .background {
                             ZStack{
                                 RoundedRectangle(cornerRadius: 26, style: .continuous)
@@ -66,27 +66,7 @@ struct InformationView: View {
                     }
                 }
             }
-            .toolbar(
-                content: {
-                    ToolbarItem(placement: .confirmationAction) {
-                        
-                        Button {
-                            withAnimation {
-                                showSheet.toggle()
-                            }
-                        } label: {
-                            Text("!")
-                                .foregroundStyle(Color("TextBackground"))
-                                .fontWeight(.bold)
-                                .font(.largeTitle)
-                                .glassEffect()
-                            
-                                .onAppear{
-                                    openIndicator = true
-                                }
-                        }
-                    }
-                })
+            .toolbar(content :{toolBarContent()})
             .sheet(isPresented: $showSheet) {
                 RoundedRectangle(cornerRadius: 3)
                     .frame(width: 40, height: 5)
@@ -101,6 +81,28 @@ struct InformationView: View {
                     ],
                     dismissAction: { showSheet = false }
                 )
+            }
+        }
+    }
+    
+    @ToolbarContentBuilder
+    func toolBarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .confirmationAction) {
+            
+            Button {
+                withAnimation {
+                    showSheet.toggle()
+                }
+            } label: {
+                Text("!")
+                    .foregroundStyle(Color("TextBackground"))
+                    .fontWeight(.bold)
+                    .font(.largeTitle)
+                    .glassEffect()
+                
+                    .onAppear{
+                        openIndicator = true
+                    }
             }
         }
     }
