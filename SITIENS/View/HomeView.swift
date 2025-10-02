@@ -96,7 +96,7 @@ struct SettingNavigation: View {
                     withAnimation { hasSeenIntro = true }
                 }) {
                     Text("Ignorer")
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.white)
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -104,7 +104,7 @@ struct SettingNavigation: View {
                 .background {
                     ZStack{
                         RoundedRectangle(cornerRadius: 26, style: .continuous)
-                            .fill(Color("BackgroundColor"))
+                            .fill(Color("TextBackground"))
                             .glassEffect()
 //                        RoundedRectangle(cornerRadius: 26, style: .continuous)
 //                            .fill(Color("BackgroundColor").opacity(0.3))
