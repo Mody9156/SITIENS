@@ -45,22 +45,26 @@ struct InformationView: View {
                             withAnimation {hasSeenIntro = true }
                         }) {
                             Text("Ignorer")
+                                .foregroundStyle(Color("ForegroundColorForTheText"))
                                 .font(.headline)
-                                .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(Color(.blue).opacity(0.4))
-                                .foregroundColor(.white)
-                                .cornerRadius(16)
+                                .padding()
                         }
-                        .padding(.horizontal)
-                        
+                       
+                        .background {
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 26, style: .continuous)
+                                    .fill(Color("TextBackground"))
+                                    .glassEffect()
+                            }
+                        }
                         .accessibilityLabel("Ignorer l'introduction")
                         .accessibilityValue(hasSeenIntro == true
                                             ? "Introduction ignorée":""
                         )
+                        .padding(.horizontal)
                     }
                 }
-                
             }
             .toolbar(
                 content: {
@@ -81,7 +85,6 @@ struct InformationView: View {
                                     openIndicator = true
                                 }
                         }
-                        
                     }
                 })
             .sheet(isPresented: $showSheet) {
@@ -99,8 +102,6 @@ struct InformationView: View {
                     dismissAction: { showSheet = false }
                 )
             }
-            
-            
         }
     }
     
@@ -108,6 +109,7 @@ struct InformationView: View {
     private var accebilityLbale: String {
         return "n'avez pas encore ignor l'introduction"
     }
+    
     private var moreText: String {
         """
         Si vous buvez trop d’eau avant de dormir, vous risquez de vous réveiller fréquemment. En effet, cela empêche la sécrétion de l’hormone antidiurétique nécessaire à un sommeil profond.
@@ -125,8 +127,6 @@ struct InformationView: View {
         Boire plus de 5 litres d’eau par jour peut entraîner un déséquilibre en sodium, provoquant une intoxication à l’eau, maux de tête, voire un coma potentiellement mortel.
         """
     }
-    
-    
 }
 
 // MARK: - Vue de feuille d'information
