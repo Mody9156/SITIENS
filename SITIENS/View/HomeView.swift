@@ -163,19 +163,6 @@ struct MoreInfoSheet: View {
             }
             .navigationTitle("Pourquoi s'hydrater ?")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: dismissAction) {
-                        Image(systemName: "xmark")
-                            .imageScale(.medium)
-                            .foregroundColor(.black)
-                            .padding(8)
-                            .background(Color.gray.opacity(0.3))
-                            .clipShape(Circle())
-                    }
-                    .accessibilityLabel("Fermer")
-                }
-            }
         }
     }
 }
