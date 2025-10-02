@@ -5,7 +5,7 @@
 //  Created by Modibo on 07/04/2025.
 //
 import SwiftUI
-
+import Playgrounds
 
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
@@ -93,16 +93,10 @@ struct ValueNavigationLink :View {
                     showSheet.toggle()
                 }
             } label: {
-                Text("!")
+                Image(systemName: "info.circle")
                     .foregroundStyle(Color("TextBackground"))
-                    .fontWeight(.bold)
-                    .font(.largeTitle)
-                    .glassEffect()
-                
-                    .onAppear{
-                        openIndicator = true
-                    }
             }
+            .accessibilityLabel("Ouvrir la fiche d’information")
         }
     }
     

@@ -30,7 +30,7 @@ struct Chronograph: View {
     @State var elapseBeforPause: Int = 0
     @AppStorage("elapseBeforPause") var elapseBeforPauseRaw: Int = 0
     @AppStorage("buttonLabel") var buttonLabel: String = ""
-    
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     var body: some View {
         NavigationStack {
             ZStack {

@@ -122,11 +122,8 @@ struct SettingNavigation: View {
                     showSheet.toggle()
                 }
             } label: {
-                Text("!")
+                Image(systemName: "info.circle")
                     .foregroundStyle(Color("TextBackground"))
-                    .fontWeight(.bold)
-                    .font(.largeTitle)
-                    .glassEffect()
                     .onAppear{
                         openIndicator = true
                     }
