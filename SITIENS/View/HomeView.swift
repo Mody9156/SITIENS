@@ -12,7 +12,6 @@ struct HomeView: View {
     @Binding var hasSeenIntro: Bool
     @Environment(\.dismiss) var dismiss
     @State private var openIndicator : Bool = false
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         NavigationStack {

@@ -22,7 +22,6 @@ struct InformationView: View {
             }else {
                 ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
             }
-            
         }
     }
 }
@@ -32,6 +31,7 @@ struct ValueNavigationLink :View {
     @Binding var hasSeenIntro: Bool
     @Binding var showSheet: Bool
     @Binding var openIndicator : Bool
+    
     var body: some View {
         ZStack {
             LinearGradient(
@@ -147,9 +147,6 @@ struct ValueNavigationLink :View {
             }
         }
     }
-    
-    
-    
 }
 
 // MARK: - Vue de feuille d'information
