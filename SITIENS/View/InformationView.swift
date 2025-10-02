@@ -15,7 +15,14 @@ struct InformationView: View {
     
     var body: some View {
         NavigationStack {
-            ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
+            if verticalSizeClass == .compact {
+                ScrollView {
+                    ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
+                }
+            }else {
+                ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
+            }
+            
         }
     }
 }
