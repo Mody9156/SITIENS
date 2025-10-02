@@ -15,74 +15,7 @@ struct InformationView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-                
-                VStack(spacing: 24) {
-                    
-                    Image("thirstyPicture")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 260, height: 260)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                        .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                        .accessibilityLabel("Image de présentation")
-                    
-                    VStack(alignment: .center, spacing: 16){
-                        
-                        Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .accessibilityLabel("Titre de la page")
-                        
-                        Button(action: {
-                            withAnimation {hasSeenIntro = true }
-                        }) {
-                            Text("Ignorer")
-                                .foregroundStyle(Color("ForegroundColorForTheText"))
-                                .font(.headline)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                        }
-                        
-                        .background {
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 26, style: .continuous)
-                                    .fill(Color("TextBackground"))
-                                    .glassEffect()
-                            }
-                        }
-                        .accessibilityLabel("Ignorer l'introduction")
-                        .accessibilityValue(hasSeenIntro == true
-                                            ? "Introduction ignorée":""
-                        )
-                        .padding(.horizontal)
-                    }
-                }
-            }
-            .toolbar(content :{toolBarContent()})
-            .sheet(isPresented: $showSheet) {
-                RoundedRectangle(cornerRadius: 3)
-                    .frame(width: 40, height: 5)
-                    .foregroundColor(.gray.opacity(0.4))
-                    .padding(.top, 8)
-                
-                InfoDetailSheet(
-                    sections: [
-                        ("Insomnies et réveils nocturnes", moreText),
-                        ("La potomanie : un trouble psychiatrique", potomanie),
-                        ("Le coma hydrique : boire trop d’eau, trop vite", hydrique)
-                    ],
-                    dismissAction: { showSheet = false }
-                )
-            }
+           
         }
     }
     
@@ -129,6 +62,80 @@ struct InformationView: View {
         """
         Boire plus de 5 litres d’eau par jour peut entraîner un déséquilibre en sodium, provoquant une intoxication à l’eau, maux de tête, voire un coma potentiellement mortel.
         """
+    }
+}
+
+
+struct ValueNavigationLink :View {
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+            
+            VStack(spacing: 24) {
+                
+                Image("thirstyPicture")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 260, height: 260)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                    .accessibilityLabel("Image de présentation")
+                
+                VStack(alignment: .center, spacing: 16){
+                    
+                    Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                        .accessibilityLabel("Titre de la page")
+                    
+                    Button(action: {
+                        withAnimation {hasSeenIntro = true }
+                    }) {
+                        Text("Ignorer")
+                            .foregroundStyle(Color("ForegroundColorForTheText"))
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                    }
+                    
+                    .background {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 26, style: .continuous)
+                                .fill(Color("TextBackground"))
+                                .glassEffect()
+                        }
+                    }
+                    .accessibilityLabel("Ignorer l'introduction")
+                    .accessibilityValue(hasSeenIntro == true
+                                        ? "Introduction ignorée":""
+                    )
+                    .padding(.horizontal)
+                }
+            }
+        }
+        .toolbar(content :{toolBarContent()})
+        .sheet(isPresented: $showSheet) {
+            RoundedRectangle(cornerRadius: 3)
+                .frame(width: 40, height: 5)
+                .foregroundColor(.gray.opacity(0.4))
+                .padding(.top, 8)
+            
+            InfoDetailSheet(
+                sections: [
+                    ("Insomnies et réveils nocturnes", moreText),
+                    ("La potomanie : un trouble psychiatrique", potomanie),
+                    ("Le coma hydrique : boire trop d’eau, trop vite", hydrique)
+                ],
+                dismissAction: { showSheet = false }
+            )
+        }
     }
 }
 
