@@ -71,26 +71,15 @@ struct InformationView: View {
                                 showSheet.toggle()
                             }
                         } label: {
-                            ZStack {
-                                Circle()
-                                    .fill(.blue.opacity(0.3))
-                                    .frame(width: 50, height: 50)
-                                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5).shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                                
-                                Text("!")
-                                    .foregroundStyle(.white)
-                                    .fontWeight(.bold)
-                                    .font(.largeTitle)
-                                    .rotationEffect(Angle(degrees: openIndicator ? 12 :-12))
-                                    .scaleEffect(openIndicator ? 1.2 : 1.1)
-                                    .animation(.easeIn(duration: 1).repeatForever(autoreverses: true),
-                                               value: openIndicator ? 12.2 :-12
-                                    )
-                            }
+                            Text("!")
+                                .foregroundStyle(Color("TextBackground"))
+                                .fontWeight(.bold)
+                                .font(.largeTitle)
+                                .glassEffect()
                             
-                            .onAppear{
-                                openIndicator = true
-                            }
+                                .onAppear{
+                                    openIndicator = true
+                                }
                         }
                         
                     }
