@@ -15,58 +15,16 @@ struct InformationView: View {
     
     var body: some View {
         NavigationStack {
-           
+            ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
         }
-    }
-    
-    @ToolbarContentBuilder
-    func toolBarContent() -> some ToolbarContent {
-        ToolbarItem(placement: .confirmationAction) {
-            
-            Button {
-                withAnimation {
-                    showSheet.toggle()
-                }
-            } label: {
-                Text("!")
-                    .foregroundStyle(Color("TextBackground"))
-                    .fontWeight(.bold)
-                    .font(.largeTitle)
-                    .glassEffect()
-                
-                    .onAppear{
-                        openIndicator = true
-                    }
-            }
-        }
-    }
-    
-    // MARK: - Contenu à afficher dans la feuille
-    private var accebilityLbale: String {
-        return "n'avez pas encore ignor l'introduction"
-    }
-    
-    private var moreText: String {
-        """
-        Si vous buvez trop d’eau avant de dormir, vous risquez de vous réveiller fréquemment. En effet, cela empêche la sécrétion de l’hormone antidiurétique nécessaire à un sommeil profond.
-        """
-    }
-    
-    private var potomanie: String {
-        """
-        La potomanie est un trouble psychiatrique caractérisé par une consommation excessive d’eau. Elle peut mener à de graves complications, dont un œdème cérébral ou un coma.
-        """
-    }
-    
-    private var hydrique: String {
-        """
-        Boire plus de 5 litres d’eau par jour peut entraîner un déséquilibre en sodium, provoquant une intoxication à l’eau, maux de tête, voire un coma potentiellement mortel.
-        """
     }
 }
 
 
 struct ValueNavigationLink :View {
+    @Binding var hasSeenIntro: Bool
+    @Binding var showSheet: Bool
+    @Binding var openIndicator : Bool
     var body: some View {
         ZStack {
             LinearGradient(
@@ -137,6 +95,54 @@ struct ValueNavigationLink :View {
             )
         }
     }
+    
+    // MARK: - Contenu à afficher dans la feuille
+    private var accebilityLbale: String {
+        return "n'avez pas encore ignor l'introduction"
+    }
+    
+    private var moreText: String {
+        """
+        Si vous buvez trop d’eau avant de dormir, vous risquez de vous réveiller fréquemment. En effet, cela empêche la sécrétion de l’hormone antidiurétique nécessaire à un sommeil profond.
+        """
+    }
+    
+    private var potomanie: String {
+        """
+        La potomanie est un trouble psychiatrique caractérisé par une consommation excessive d’eau. Elle peut mener à de graves complications, dont un œdème cérébral ou un coma.
+        """
+    }
+    
+    private var hydrique: String {
+        """
+        Boire plus de 5 litres d’eau par jour peut entraîner un déséquilibre en sodium, provoquant une intoxication à l’eau, maux de tête, voire un coma potentiellement mortel.
+        """
+    }
+    
+    @ToolbarContentBuilder
+    func toolBarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .confirmationAction) {
+            
+            Button {
+                withAnimation {
+                    showSheet.toggle()
+                }
+            } label: {
+                Text("!")
+                    .foregroundStyle(Color("TextBackground"))
+                    .fontWeight(.bold)
+                    .font(.largeTitle)
+                    .glassEffect()
+                
+                    .onAppear{
+                        openIndicator = true
+                    }
+            }
+        }
+    }
+    
+    
+    
 }
 
 // MARK: - Vue de feuille d'information
