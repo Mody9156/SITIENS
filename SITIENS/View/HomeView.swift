@@ -96,15 +96,22 @@ struct SettingNavigation: View {
                     withAnimation { hasSeenIntro = true }
                 }) {
                     Text("Ignorer")
+                        .foregroundStyle(.black)
                         .font(.headline)
-                        .padding()
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(.blue)
-                        .cornerRadius(16)
-                        .glassEffect()
+                        .padding()
+                }
+                .background {
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 26, style: .continuous)
+                            .fill(Color("BackgroundColor"))
+                            .glassEffect()
+//                        RoundedRectangle(cornerRadius: 26, style: .continuous)
+//                            .fill(Color("BackgroundColor").opacity(0.3))
+//                            .glassEffect()
+                    }
                 }
                 .padding(.horizontal)
-                .accessibilityLabel("Ignorer l'introduction")
             }
             Spacer()
         }
@@ -119,15 +126,14 @@ struct SettingNavigation: View {
                     showSheet.toggle()
                 }
             } label: {
-                    Text("!")
-                        .foregroundStyle(.blue)
-                        .fontWeight(.bold)
-                        .font(.largeTitle)
-                        .glassEffect(.regular)
-                
-                .onAppear{
-                    openIndicator = true
-                }
+                Text("!")
+                    .foregroundStyle(Color("BackgroundColor").opacity(0.7))
+                    .fontWeight(.bold)
+                    .font(.largeTitle)
+                    .glassEffect(.regular)
+                    .onAppear{
+                        openIndicator = true
+                    }
             }
             .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
             .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
