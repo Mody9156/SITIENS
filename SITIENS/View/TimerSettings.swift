@@ -20,7 +20,7 @@ struct TimerSettings: View {
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @State private var audio : AVAudioPlayer?
     @State  var isPlaying : Bool = false
-    @State private var cancellable: Cancellable?
+    @State private var cancellable: AnyCancellable?
     @State private var navigationTitle : String = "Configuration"
     @State private var slide : Double = 0.0
     @State private var activeSlide : Bool = false

@@ -29,6 +29,8 @@ struct Start_timer: View {
                     Button {
                         timeInterval = timerhour
                         elapseBeforPause = 0
+                        startDate = nil
+                        timerIsReading = false
                         hydrationActivationViewModel.stopPlaying()
                         
                         if timerhour == 0 && timeInterval == 0 {
@@ -148,7 +150,7 @@ struct Start_timer: View {
             hydrationActivationViewModel.authorization()
             timerIsReading.toggle()
             
-            if  timerIsReading && timeInterval != 0 {
+            if timerIsReading && timeInterval != 0 {
                 startTimer()
             }else{
                 stopTimer()
