@@ -12,7 +12,7 @@ import Combine
 
 struct TimerSettings: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze","alone","kugelsicher-by-tremoxbeatz","gardens-stylish-chill","future-design","lofi-effect","lofi-sample-if-i-cant-have-you","mystical-music","music-box","meditation-music-sound-bite","ringtone","cool-guitar-loop","basique"]
-    @State var hour : [Int] = [3600,7200,5400,1800]
+    @State var hour : [Int] = [10,3600,7200,5400,1800]
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
@@ -132,12 +132,11 @@ struct TimerSettings: View {
                 isPlaying: $isPlaying,
                 hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "Validate", selectedHour: $selectedHour
             )
-            
         }
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
             isPlaying = false
-        }
+        }.environment(hydrationActivationViewModel.self)
     }
 }
 
@@ -149,6 +148,7 @@ struct TimerSettings: View {
         selectedHour: $selectedHour,
         hydrationActivationViewModel: HydrationActivationViewModel()
     )
+   
 }
 
 struct CustomButton: View {

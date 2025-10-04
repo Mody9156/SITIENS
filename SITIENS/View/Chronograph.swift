@@ -7,10 +7,10 @@ import CoreData
 // MARK: - HomeView : Chronomètre pour mesurer le temps restant avant une nouvelle hydradation
 struct Chronograph: View {
     @State var timerIsReading = false
-    @State var hydrationActivationViewModel : HydrationActivationViewModel
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @State var timeInterval: Int = 0
     @AppStorage("timeInterval") var timeIntervalRaw: Int = 0
-    @State var cancellable: Cancellable?
+    @State var cancellable: AnyCancellable?
     @State var startDate: Date?
     @AppStorage("startDate") var startDateRaw: Date?
     @State var sheetPresented: Bool = false
@@ -45,15 +45,18 @@ struct Chronograph: View {
                 .ignoresSafeArea()
                 
                 if verticalSizeClass == .compact {
-                    ScrollView {
+                    ScrollView([.vertical,.horizontal]) {
                         container()
                     }
                 }else {
                     container()
-                       
                 }
-                
             }
+            .toolbar(
+                content: {
+                    toolbarContent()
+                   }
+            )
             .onAppear {
 //                UserDefaults.standard.removeObject(forKey: "hour")
                 timeInterval = timeIntervalRaw
@@ -72,7 +75,6 @@ struct Chronograph: View {
                 elapseBeforPauseRaw = elapseBeforPause
             }
         }
-        
     }
     
     func completed() -> Bool {
@@ -101,7 +103,6 @@ struct Chronograph: View {
             }
             
             ZStack {
-                
                 Circle()
                     .stroke(Color.gray.opacity(0.2), lineWidth: 15)
                     .frame(height: 300)
@@ -110,7 +111,7 @@ struct Chronograph: View {
                             .trim(from: 0,to: progressWater())
                             .stroke(
                                 style: StrokeStyle(
-                                    lineWidth: 15,
+                                    lineWidth: verticalSizeClass == .compact ? 10 : 15,
                                     lineCap: .round,
                                     lineJoin: .round,
                                 )
@@ -177,7 +178,7 @@ struct Chronograph: View {
         }
     }
     
-    @ToolbarContent
+    @ToolbarContentBuilder
     func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
