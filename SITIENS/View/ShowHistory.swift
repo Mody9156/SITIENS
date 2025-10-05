@@ -13,6 +13,7 @@ struct ShowHistory: View {
     @Environment(\.dismiss) var dismiss
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
     @State private var searchText = ""
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     var body: some View {
         NavigationStack {
