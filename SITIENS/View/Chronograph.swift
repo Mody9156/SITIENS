@@ -14,7 +14,6 @@ struct Chronograph: View {
     @State var startDate: Date?
     @AppStorage("startDate") var startDateRaw: Date?
     @State var sheetPresented: Bool = false
-    @State var rotationInfiny: Bool = false
     @State var selectedItems: String = ""
     @State var selectedHour : Int = 0
     @AppStorage("selectedItems") var selectedItemsRaw: String = ""
@@ -180,6 +179,9 @@ struct Chronograph: View {
     
     @ToolbarContentBuilder
     func toolbarContent() -> some ToolbarContent {
+        var disableActive : Bool {
+            timerIsReading && timeInterval != 0 && timeInterval != timerhour
+        }
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 withAnimation {
@@ -192,19 +194,11 @@ struct Chronograph: View {
                     // Fix the layout by giving the symbol a constant square frame
                     .frame(width: 32, height: 32, alignment: .center)
                     .contentShape(Rectangle())
-                    .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
-                    .animation(
-                        .linear(duration: 1.9)
-                            .repeatForever(autoreverses: false),
-                        value: rotationInfiny
-                    )
-                    .onAppear {
-                        rotationInfiny = true
-                    }
+                    .foregroundStyle(disableActive ? .gray : .black)
             }
             .accessibilityLabel("Bouton des réglages")
             .accessibilityHint("Appuyez pour modifier les paramètres du minuteur")
-            .disabled(timerIsReading && timeInterval != 0 && timeInterval != timerhour)
+            .disabled(disableActive)
             .sheet(isPresented: $sheetPresented) {
                 
             } content: {
