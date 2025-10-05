@@ -18,7 +18,6 @@ struct ShowHistory: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                
                 LinearGradient(
                     gradient: Gradient(colors: [.blue.opacity(0.3), .cyan.opacity(0.2)]),
                     startPoint: .topLeading,
@@ -33,7 +32,6 @@ struct ShowHistory: View {
                 } else {
                     showContainer()
                 }
-                
             }
             .onAppear {
                 Task {
@@ -55,7 +53,6 @@ struct ShowHistory: View {
                         .foregroundStyle(.blue)
                     }
                 }
-                
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
