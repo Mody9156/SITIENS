@@ -26,121 +26,132 @@ struct ShowHistory: View {
                 )
                 .ignoresSafeArea()
                 
-                VStack(alignment: .center, spacing: 16) {
-                    
-                    Text("Historique d'hydratation")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .foregroundStyle(.blue)
-                        .padding(.top, 10)
-                        .accessibilityLabel("Titre: Historique d'hydratation")
-                    
-                    List {
-                        Section {
-                            ForEach(search, id: \.self) { historyManager in
-                                if let name = historyManager.name,
-                                   let quantity = historyManager.quantity,
-                                   let date = historyManager.date,
-                                   !name.isEmpty,
-                                   !quantity.isEmpty {
-                                    
-                                    ZStack {
-                                        
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .fill(.ultraThinMaterial)
-                                                .background(
-                                                    RoundedRectangle(cornerRadius: 16)
-                                                        .fill(Color.blue.opacity(0.05))
-                                                )
-                                                .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
-                                            
-                                            VStack(alignment: .leading, spacing: 10) {
-                                                Text(date)
-                                                    .font(.caption)
-                                                    .foregroundColor(.gray)
-                                                
-                                                HStack {
-                                                    Text("\(name) :")
-                                                        .font(.headline)
-                                                        .foregroundStyle(.blue)
-                                                    
-                                                    Spacer()
-                                                    
-                                                    HStack(spacing: 6) {
-                                                        Image(systemName: "drop.fill")
-                                                            .foregroundColor(.white)
-                                                        
-                                                        Text("\(quantity)")
-                                                            .foregroundColor(.white)
-                                                            .font(.subheadline.bold())
-                                                    }
-                                                    .padding(.horizontal, 12)
-                                                    .padding(.vertical, 6)
-                                                    .background(Color.blue)
-                                                    .cornerRadius(10)
-                                                }
-                                            }
-                                            .padding()
-                                        }
-                                        //ici
-                                        NavigationLink {
-                                            
-                                            MoreInformation(managementHistory:[ManagementHistory(name: name,quantity: quantity,date: date)])
-                                            
-                                        } label: {
-                                            EmptyView()
-                                        }
-                                        .opacity(0)
-                                    }
-                                    
-                                }
-                            }
-                            .onDelete(perform:
-                                        historyViewModel.deleteHistory
-                            )
-                        }
-                        .listStyle(.plain)
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .padding(.vertical, 4)
+                if verticalSizeClass == .compact {
+                    ScrollView {
+                        showContainer()
                     }
-                    .searchable(text: $searchText)
-                    .listStyle(.plain)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .padding(.vertical, 4)
+                } else {
+                    showContainer()
                 }
                 
-                .padding()
-                .navigationBarBackButtonHidden(true)
-                .toolbar {
-                    // 🔙 Bouton retour
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            withAnimation {
-                                dismiss()
-                            }
-                        } label: {
-                            HStack(spacing: 4) {
-                                Image(systemName: "chevron.left")
-                                Text("Hydratation")
-                            }
-                            .foregroundStyle(.blue)
+            }
+            .onAppear {
+                Task {
+                    try? historyViewModel.fetchHistory()
+                }
+            }
+            .toolbar {
+                // 🔙 Bouton retour
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        withAnimation {
+                            dismiss()
                         }
-                    }
-                    
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
-                        EditButton()
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                            Text("Hydratation")
+                        }
+                        .foregroundStyle(.blue)
                     }
                 }
-                .onAppear {
-                    Task {
-                        try? historyViewModel.fetchHistory()
-                    }
+                
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    func showContainer() -> some View {
+        VStack(alignment: .center, spacing: 16) {
+            
+            Text("Historique d'hydratation")
+                .font(.system(size: 28, weight: .bold, design: .rounded))
+                .foregroundStyle(.blue)
+                .padding(.top, 10)
+                .accessibilityLabel("Titre: Historique d'hydratation")
+            
+            List {
+                Section {
+                    ForEach(search, id: \.self) { historyManager in
+                        if let name = historyManager.name,
+                           let quantity = historyManager.quantity,
+                           let date = historyManager.date,
+                           !name.isEmpty,
+                           !quantity.isEmpty {
+                            
+                            ZStack {
+                                
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(.ultraThinMaterial)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .fill(Color.blue.opacity(0.05))
+                                        )
+                                        .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
+                                    
+                                    VStack(alignment: .leading, spacing: 10) {
+                                        Text(date)
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                        
+                                        HStack {
+                                            Text("\(name) :")
+                                                .font(.headline)
+                                                .foregroundStyle(.blue)
+                                            
+                                            Spacer()
+                                            
+                                            HStack(spacing: 6) {
+                                                Image(systemName: "drop.fill")
+                                                    .foregroundColor(.white)
+                                                
+                                                Text("\(quantity)")
+                                                    .foregroundColor(.white)
+                                                    .font(.subheadline.bold())
+                                            }
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 6)
+                                            .background(Color.blue)
+                                            .cornerRadius(10)
+                                        }
+                                    }
+                                    .padding()
+                                }
+                                //ici
+                                NavigationLink {
+                                    
+                                    MoreInformation(managementHistory:[ManagementHistory(name: name,quantity: quantity,date: date)])
+                                    
+                                } label: {
+                                    EmptyView()
+                                }
+                                .opacity(0)
+                            }
+                            
+                        }
+                    }
+                    .onDelete(perform:
+                                historyViewModel.deleteHistory
+                    )
+                }
+                .listStyle(.plain)
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .padding(.vertical, 4)
+            }
+            .searchable(text: $searchText)
+            .listStyle(.plain)
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+            .padding(.vertical, 4)
+        }
+        .padding()
+        .navigationBarBackButtonHidden(true)
     }
     
     var search : [History]{
@@ -181,3 +192,4 @@ struct ShowHistory: View {
         historyViewModel: viewModel
     )
 }
+
