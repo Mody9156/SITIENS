@@ -13,7 +13,6 @@ struct ShowHistory: View {
     @Environment(\.dismiss) var dismiss
     var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
     @State private var searchText = ""
-    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     var body: some View {
         NavigationStack {
@@ -24,14 +23,9 @@ struct ShowHistory: View {
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
+              
+               showContainer()
                 
-                if verticalSizeClass == .compact {
-                    ScrollView {
-                        showContainer()
-                    }
-                } else {
-                    showContainer()
-                }
             }
             .onAppear {
                 Task {

@@ -40,7 +40,12 @@ struct WaterQuantityView: View {
                 backgroundGradient
                 
                 if verticalSizeClass == .compact {
-                    container
+                    ScrollView(.vertical,showsIndicators: true) {
+                            container
+                        
+                    }
+                    
+                    
                 }else {
                     container
                 }
@@ -66,9 +71,6 @@ struct WaterQuantityView: View {
                 .foregroundStyle(.gray)
                 .font(.title2)
             
-            GeometryReader { GeometryProxy in
-                let height = GeometryProxy.size.height
-                let width  = GeometryProxy.size.width
                 
                 ZStack{
                     
@@ -131,8 +133,8 @@ struct WaterQuantityView: View {
                     }
                 }
                 .frame(
-                    width: width,
-                    height: height,
+                    maxWidth: verticalSizeClass == .compact ? 300 : .infinity,
+                    maxHeight: verticalSizeClass == .compact ? 300 : .infinity,
                     alignment: .center
                 )
                 .onAppear{
@@ -148,8 +150,7 @@ struct WaterQuantityView: View {
                             isScaledUp = true
                         }
                 }
-            }
-            .frame(width: 350)
+           
 
             if updateHeight != 0 {
                 
@@ -368,7 +369,6 @@ struct CircleView: View {
     }
 }
 
-
 struct increaseWaterAmount : View {
     @Binding var throwError : Bool
     @Binding var showMessage : Bool
@@ -377,6 +377,7 @@ struct increaseWaterAmount : View {
     @Binding var updateHeight : CGFloat
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @Binding var progress : CGFloat
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     var body: some View {
         Button {
             withAnimation {
@@ -423,16 +424,16 @@ struct increaseWaterAmount : View {
         } label: {
             
             Image(systemName: "plus")
-                .font(.system(size:45,weight:.bold))
+                .font(.system(size:verticalSizeClass == .compact ? 20 : 45,weight:.bold))
                 .foregroundStyle(.blue)
                 .shadow(radius: 2)
-                .padding(25)
+                .padding(verticalSizeClass == .compact ? 12 : 25)
                 .background(
                     Circle()
                         .foregroundStyle(.white)
                         .overlay(content: {
                             Circle()
-                                .stroke(.blue,lineWidth:6)
+                                .stroke(.blue,lineWidth:verticalSizeClass == .compact ? 3 : 6)
                         })
                 )
         }
