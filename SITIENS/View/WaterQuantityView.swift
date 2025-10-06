@@ -39,34 +39,13 @@ struct WaterQuantityView: View {
             ZStack {
                 backgroundGradient
                 
-                container
-                .toolbar {
-                    settingsToolbar
-                    historyToolbar
+                if verticalSizeClass == .compact {
+                    container
+                }else {
+                    container
                 }
-                .onChange(of: updateHeight) {
-                    updateHeightRaw = Double(updateHeight)
-                    progressRaw = Double(progress)
-                    profilTypeRaw = profilType
-                    glaceRaw = glace
-                    
-                    if updateHeight >= 300 {
-                        
-                        historyViewModel.name = profilType
-                       
-                        
-                        let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
-                        historyViewModel.quantity = formattedQuantity
-                        
-                        Task{
-                            do{
-                                try historyViewModel.addHistory()
-                            }catch{
-                                print("Erreur lors du test de l'ajout de l'historique : \(error)")
-                            }
-                        }
-                    }
-                }
+              
+              
             }
         }
         
@@ -295,6 +274,33 @@ struct WaterQuantityView: View {
                 }
             }
         }
+        .toolbar {
+            settingsToolbar
+            historyToolbar
+        }
+        .onChange(of: updateHeight) {
+            updateHeightRaw = Double(updateHeight)
+            progressRaw = Double(progress)
+            profilTypeRaw = profilType
+            glaceRaw = glace
+            
+            if updateHeight >= 300 {
+                
+                historyViewModel.name = profilType
+               
+                
+                let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
+                historyViewModel.quantity = formattedQuantity
+                
+                Task{
+                    do{
+                        try historyViewModel.addHistory()
+                    }catch{
+                        print("Erreur lors du test de l'ajout de l'historique : \(error)")
+                    }
+                }
+            }
+        }
 
     }
     
@@ -411,5 +417,12 @@ struct CircleView: View {
                 )
                 .offset(x: x, y: y)
         }
+    }
+}
+
+
+struct increaseWaterAmount : View {
+    var body: some View {
+        
     }
 }
