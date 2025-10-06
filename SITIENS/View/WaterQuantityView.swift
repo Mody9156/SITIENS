@@ -104,67 +104,15 @@ struct WaterQuantityView: View {
                     .overlay(
                         alignment:.bottom
                     ){
-                        Button {
-                            withAnimation {
-                                throwError = true
-                                showMessage = false
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                                    withAnimation {
-                                        showMessage = true
-                                    }
-                                })
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-                                    withAnimation {
-                                        showMessage = false
-                                        throwError = false
-                                    }
-                                })
-                                
-                                guard !profilType.isEmpty, !glace.isEmpty else { return }
-                                
-                                let isFull = updateHeight != 300
-                                let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
-                                
-                                if isFull && updateWater && progress < 1 {
-                                    
-                                    let result = userSettingsViewModel.showNumberOfGlass(
-                                        chooseBottle: glace,
-                                        name: profilType
-                                    )
-                                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
-                                    
-                                    withAnimation {
-                                        
-                                            updateHeight += water
-                                        
-                                        print("updateHeight: \(updateHeight)")
-                                        progress += result
-                                        print("progress: \(progress)")
-                                    }
-                                }
-                            }
-                            
-                        } label: {
-                            
-                            Image(systemName: "plus")
-                                .font(.system(size:45,weight:.bold))
-                                .foregroundStyle(.blue)
-                                .shadow(radius: 2)
-                                .padding(25)
-                                .background(
-                                    Circle()
-                                        .foregroundStyle(.white)
-                                        .overlay(content: {
-                                            Circle()
-                                                .stroke(.blue,lineWidth:6)
-                                        })
-                                )
-                        }
-                        .accessibilityLabel("Ajouter un verre d'eau")
-                        .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
-                        .accessibilityAddTraits(.isButton)
+                        increaseWaterAmount(
+                            throwError: $throwError,
+                            showMessage: $showMessage,
+                            profilType: $profilType,
+                            glace: $glace,
+                            updateHeight: $updateHeight,
+                            userSettingsViewModel: userSettingsViewModel,
+                            progress: $progress
+                        )
                     }
                     
                     let percentFilled = (updateHeight / 300) * 100
@@ -422,7 +370,74 @@ struct CircleView: View {
 
 
 struct increaseWaterAmount : View {
+    @Binding var throwError : Bool
+    @Binding var showMessage : Bool
+    @Binding var profilType : String
+    @Binding var glace : String
+    @Binding var updateHeight : CGFloat
+    @Bindable var userSettingsViewModel = UserSettingsViewModel()
+    @Binding var progress : CGFloat
     var body: some View {
-        
+        Button {
+            withAnimation {
+                throwError = true
+                showMessage = false
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                    withAnimation {
+                        showMessage = true
+                    }
+                })
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                    withAnimation {
+                        showMessage = false
+                        throwError = false
+                    }
+                })
+                
+                guard !profilType.isEmpty, !glace.isEmpty else { return }
+                
+                let isFull = updateHeight != 300
+                let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
+                
+                if isFull && updateWater && progress < 1 {
+                    
+                    let result = userSettingsViewModel.showNumberOfGlass(
+                        chooseBottle: glace,
+                        name: profilType
+                    )
+                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
+                    
+                    withAnimation {
+                        
+                            updateHeight += water
+                        
+                        print("updateHeight: \(updateHeight)")
+                        progress += result
+                        print("progress: \(progress)")
+                    }
+                }
+            }
+            
+        } label: {
+            
+            Image(systemName: "plus")
+                .font(.system(size:45,weight:.bold))
+                .foregroundStyle(.blue)
+                .shadow(radius: 2)
+                .padding(25)
+                .background(
+                    Circle()
+                        .foregroundStyle(.white)
+                        .overlay(content: {
+                            Circle()
+                                .stroke(.blue,lineWidth:6)
+                        })
+                )
+        }
+        .accessibilityLabel("Ajouter un verre d'eau")
+        .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
+        .accessibilityAddTraits(.isButton)
     }
 }
