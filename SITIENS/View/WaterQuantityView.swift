@@ -39,228 +39,7 @@ struct WaterQuantityView: View {
             ZStack {
                 backgroundGradient
                 
-                VStack{
-                    Text("Hydradation")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.blue)
-                        .padding()
-                    
-                    let currentWater = updateHeight * userSettingsViewModel.updateType(name:profilType)
-                    let targetWater = userSettingsViewModel.updateWater(type: profilType)
-                    
-                    Text("\(currentWater > targetWater ? targetWater : currentWater ,format: .number.precision(.fractionLength(1)))L / \(targetWater,format: .number.precision(.fractionLength(1)))L")
-                        .foregroundStyle(.gray)
-                        .font(.title2)
-                    
-                    GeometryReader { GeometryProxy in
-                        let height = GeometryProxy.size.height
-                        let width  = GeometryProxy.size.width
-                        
-                        ZStack{
-                            
-                            Image(systemName: "drop.fill")
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundStyle(.white)
-                            
-                            WaterWave(
-                                progress: progress,
-                                waveHeight:0.1,
-                                offset: startAnimation
-                            )
-                            .fill(Color.blue)
-                            .scaleEffect(x: isScaledUp ? 1.1:1,y:isScaledUp ? 1:1.1)
-                            .overlay(
-                                content: {
-                                    CircleView(width: 15, height: 15, x: -20, y: 0)
-                                    CircleView(width: 15, height: 15, x: 40, y: 30)
-                                    CircleView(width: 25, height: 25, x: -30, y: 80)
-                                    CircleView(width: 25, height: 25, x: 50, y: 70)
-                                    CircleView(width: 10, height: 10, x: 40, y: 100)
-                                    CircleView(width: 10, height: 10, x: -40, y: 50)
-                                    
-                                })
-                            .mask {
-                                Image(systemName: "drop.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .padding(20)
-                            }
-                            .overlay(
-                                alignment:.bottom
-                            ){
-                                Button {
-                                    withAnimation {
-                                        throwError = true
-                                        showMessage = false
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                                            withAnimation {
-                                                showMessage = true
-                                            }
-                                        })
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-                                            withAnimation {
-                                                showMessage = false
-                                                throwError = false
-                                            }
-                                        })
-                                        
-                                        guard !profilType.isEmpty, !glace.isEmpty else { return }
-                                        
-                                        let isFull = updateHeight != 300
-                                        let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
-                                        
-                                        if isFull && updateWater && progress < 1 {
-                                            
-                                            let result = userSettingsViewModel.showNumberOfGlass(
-                                                chooseBottle: glace,
-                                                name: profilType
-                                            )
-                                            let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
-                                            
-                                            withAnimation {
-                                                
-                                                    updateHeight += water
-                                                
-                                                print("updateHeight: \(updateHeight)")
-                                                progress += result
-                                                print("progress: \(progress)")
-                                            }
-                                        }
-                                    }
-                                    
-                                } label: {
-                                    
-                                    Image(systemName: "plus")
-                                        .font(.system(size:45,weight:.bold))
-                                        .foregroundStyle(.blue)
-                                        .shadow(radius: 2)
-                                        .padding(25)
-                                        .background(
-                                            Circle()
-                                                .foregroundStyle(.white)
-                                                .overlay(content: {
-                                                    Circle()
-                                                        .stroke(.blue,lineWidth:6)
-                                                })
-                                        )
-                                }
-                                .accessibilityLabel("Ajouter un verre d'eau")
-                                .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
-                                .accessibilityAddTraits(.isButton)
-                            }
-                            
-                            let percentFilled = (updateHeight / 300) * 100
-                            
-                            if progress > 1.0 {
-                                Text("100 %")
-                                    .foregroundStyle(updateHeight >= 150 ? .white: .blue)
-                                    .font(.title)
-                                    .offset(y:75)
-                                //attention
-                            }else {
-                                Text("\(Int(percentFilled)) %")
-                                    .foregroundStyle(Int(percentFilled) > 40 ? .white: .blue)
-                                    .font(.title)
-                                    .offset(y:40)
-                            }
-                        }
-                        .frame(
-                            width: width,
-                            height: height,
-                            alignment: .center
-                        )
-                        .onAppear{
-                            updateHeight = CGFloat(updateHeightRaw)
-                            progress = CGFloat(progressRaw)
-                            profilType = profilTypeRaw
-                            glace = glaceRaw
-                            
-                            withAnimation(
-                                .linear(duration: 0.8)
-                                .repeatForever(autoreverses: true)){
-                                    startAnimation = 300
-                                    isScaledUp = true
-                                }
-                        }
-                    }
-                    .frame(width: 350)
-
-                    if updateHeight != 0 {
-                        
-                        Button {
-                            withAnimation {
-                                updateHeight = 0
-                                progress = 0
-                            }
-                            
-                        } label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .frame(height: 50)
-                                    .foregroundStyle(.orange)
-                                    .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
-                                
-                                
-                                HStack {
-                                    Text("Reinitialiser")
-                                        .foregroundStyle(.white)
-                                    Image(systemName: "arrow.counterclockwise")
-                                        .foregroundStyle(.white)
-                                }
-                            }
-                        }
-                        .padding()
-                        .accessibilityLabel("Réinitialiser le suivi")
-                        .accessibilityHint("Remet le niveau d'eau et la progression à zéro")
-                        .accessibilityAddTraits(.isButton)
-                    }
-                    
-                    if throwError && profilType.isEmpty {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundStyle(Color.orange)
-                            Text("Veuillez bien selectionner un profil")
-                        }
-                        .opacity(showMessage ? 1 : 0)
-                        .animation(
-                            .easeOut(duration: 1.0),value: showMessage
-                        )
-                    }
-                    
-                    if !glace.isEmpty {
-                        VStack {
-                            HStack{
-                                ZStack {
-                                    Circle()
-                                        .frame(width: 70,height: 70)
-                                        .foregroundStyle(.blue)
-                                    
-                                    Circle()
-                                        .frame(width: 70,height: 60)
-                                        .foregroundStyle(.white)
-                                    Image(userSettingsViewModel.chooseBottleOfWater(name: glace))
-                                        .resizable()
-                                        .frame(width: 40, height: 40, alignment: .center)
-                                }
-                            }
-                            
-                            let type = userSettingsViewModel.uptateQuanittyOfWater(
-                                quantityWater : profilType,
-                                chooseBottle:glace
-                            )
-                            
-                            let rounded = ceil(type)
-                          
-                            Text("X \(Int(rounded))")
-                            
-                        }
-                    }
-                }
+                container
                 .toolbar {
                     settingsToolbar
                     historyToolbar
@@ -290,6 +69,233 @@ struct WaterQuantityView: View {
                 }
             }
         }
+        
+    }
+    
+    private var container : some View {
+        VStack{
+            Text("Hydradation")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.blue)
+                .padding()
+            
+            let currentWater = updateHeight * userSettingsViewModel.updateType(name:profilType)
+            let targetWater = userSettingsViewModel.updateWater(type: profilType)
+            
+            Text("\(currentWater > targetWater ? targetWater : currentWater ,format: .number.precision(.fractionLength(1)))L / \(targetWater,format: .number.precision(.fractionLength(1)))L")
+                .foregroundStyle(.gray)
+                .font(.title2)
+            
+            GeometryReader { GeometryProxy in
+                let height = GeometryProxy.size.height
+                let width  = GeometryProxy.size.width
+                
+                ZStack{
+                    
+                    Image(systemName: "drop.fill")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundStyle(.white)
+                    
+                    WaterWave(
+                        progress: progress,
+                        waveHeight:0.1,
+                        offset: startAnimation
+                    )
+                    .fill(Color.blue)
+                    .scaleEffect(x: isScaledUp ? 1.1:1,y:isScaledUp ? 1:1.1)
+                    .overlay(
+                        content: {
+                            CircleView(width: 15, height: 15, x: -20, y: 0)
+                            CircleView(width: 15, height: 15, x: 40, y: 30)
+                            CircleView(width: 25, height: 25, x: -30, y: 80)
+                            CircleView(width: 25, height: 25, x: 50, y: 70)
+                            CircleView(width: 10, height: 10, x: 40, y: 100)
+                            CircleView(width: 10, height: 10, x: -40, y: 50)
+                            
+                        })
+                    .mask {
+                        Image(systemName: "drop.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(20)
+                    }
+                    .overlay(
+                        alignment:.bottom
+                    ){
+                        Button {
+                            withAnimation {
+                                throwError = true
+                                showMessage = false
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                                    withAnimation {
+                                        showMessage = true
+                                    }
+                                })
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+                                    withAnimation {
+                                        showMessage = false
+                                        throwError = false
+                                    }
+                                })
+                                
+                                guard !profilType.isEmpty, !glace.isEmpty else { return }
+                                
+                                let isFull = updateHeight != 300
+                                let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
+                                
+                                if isFull && updateWater && progress < 1 {
+                                    
+                                    let result = userSettingsViewModel.showNumberOfGlass(
+                                        chooseBottle: glace,
+                                        name: profilType
+                                    )
+                                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
+                                    
+                                    withAnimation {
+                                        
+                                            updateHeight += water
+                                        
+                                        print("updateHeight: \(updateHeight)")
+                                        progress += result
+                                        print("progress: \(progress)")
+                                    }
+                                }
+                            }
+                            
+                        } label: {
+                            
+                            Image(systemName: "plus")
+                                .font(.system(size:45,weight:.bold))
+                                .foregroundStyle(.blue)
+                                .shadow(radius: 2)
+                                .padding(25)
+                                .background(
+                                    Circle()
+                                        .foregroundStyle(.white)
+                                        .overlay(content: {
+                                            Circle()
+                                                .stroke(.blue,lineWidth:6)
+                                        })
+                                )
+                        }
+                        .accessibilityLabel("Ajouter un verre d'eau")
+                        .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
+                        .accessibilityAddTraits(.isButton)
+                    }
+                    
+                    let percentFilled = (updateHeight / 300) * 100
+                    
+                    if progress > 1.0 {
+                        Text("100 %")
+                            .foregroundStyle(updateHeight >= 150 ? .white: .blue)
+                            .font(.title)
+                            .offset(y:75)
+                        //attention
+                    }else {
+                        Text("\(Int(percentFilled)) %")
+                            .foregroundStyle(Int(percentFilled) > 40 ? .white: .blue)
+                            .font(.title)
+                            .offset(y:40)
+                    }
+                }
+                .frame(
+                    width: width,
+                    height: height,
+                    alignment: .center
+                )
+                .onAppear{
+                    updateHeight = CGFloat(updateHeightRaw)
+                    progress = CGFloat(progressRaw)
+                    profilType = profilTypeRaw
+                    glace = glaceRaw
+                    
+                    withAnimation(
+                        .linear(duration: 0.8)
+                        .repeatForever(autoreverses: true)){
+                            startAnimation = 300
+                            isScaledUp = true
+                        }
+                }
+            }
+            .frame(width: 350)
+
+            if updateHeight != 0 {
+                
+                Button {
+                    withAnimation {
+                        updateHeight = 0
+                        progress = 0
+                    }
+                    
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(height: 50)
+                            .foregroundStyle(.orange)
+                            .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
+                        
+                        
+                        HStack {
+                            Text("Reinitialiser")
+                                .foregroundStyle(.white)
+                            Image(systemName: "arrow.counterclockwise")
+                                .foregroundStyle(.white)
+                        }
+                    }
+                }
+                .padding()
+                .accessibilityLabel("Réinitialiser le suivi")
+                .accessibilityHint("Remet le niveau d'eau et la progression à zéro")
+                .accessibilityAddTraits(.isButton)
+            }
+            
+            if throwError && profilType.isEmpty {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(Color.orange)
+                    Text("Veuillez bien selectionner un profil")
+                }
+                .opacity(showMessage ? 1 : 0)
+                .animation(
+                    .easeOut(duration: 1.0),value: showMessage
+                )
+            }
+            
+            if !glace.isEmpty {
+                VStack {
+                    HStack{
+                        ZStack {
+                            Circle()
+                                .frame(width: 70,height: 70)
+                                .foregroundStyle(.blue)
+                            
+                            Circle()
+                                .frame(width: 70,height: 60)
+                                .foregroundStyle(.white)
+                            Image(userSettingsViewModel.chooseBottleOfWater(name: glace))
+                                .resizable()
+                                .frame(width: 40, height: 40, alignment: .center)
+                        }
+                    }
+                    
+                    let type = userSettingsViewModel.uptateQuanittyOfWater(
+                        quantityWater : profilType,
+                        chooseBottle:glace
+                    )
+                    
+                    let rounded = ceil(type)
+                  
+                    Text("X \(Int(rounded))")
+                    
+                }
+            }
+        }
+
     }
     
     private var backgroundGradient: some View {
