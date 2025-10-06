@@ -21,90 +21,92 @@ struct MoreInformation: View {
             .ignoresSafeArea()
             ForEach(managementHistory) { history in
                 
-                VStack {
-                    
-                    Spacer()
-                    
-                    Text(history.name)
-                        .font(.largeTitle)
-                        .foregroundStyle(.blue)
-                        .fontWeight(.bold)
-                    
-                    Spacer()
-                    
-                    ZStack {
-                        // Cercle de fond
-                        Circle()
-                            .fill(.blue.opacity(0.8))
-                            .frame(height: 300)
-                            .overlay( // ✅ contour arrondi noir
-                                Circle()
-                                    .stroke(.black, lineWidth: 4)
-                                    .blur(radius: 9)
-                            )
+                ScrollView {
+                    VStack {
                         
-                        // Image au centre
-                        Image("teste")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 220, height: 220)
-                            .shadow(color: .blue.opacity(0.8), radius: 15)
-                    }
-                    
-                    VStack(alignment: .leading) {
+                        Spacer()
                         
-                        
-                        HStack {
-                            Image(systemName: "drop.fill")
-                                .resizable()
-                                .foregroundStyle(.blue)
-                                .frame(width: 30,height: 40)
-                            
-                            Spacer()
-                            
-                            Text(history.quantity)
-                                .foregroundStyle(.blue)
-                                .fontWeight(.bold)
-                        }
-                        
-                        .padding()
-                        
-                        HStack {
-                            Image(systemName: "calendar")
-                                .resizable()
-                                .foregroundStyle(.blue)
-                                .frame(width: 40,height: 40)
-                            
-                            Spacer()
-                            
-                            Text(history.date)
-                                .foregroundStyle(.blue)
-                                .fontWeight(.bold)
-                        }
-                        .padding()
-                        
-                    }
-                    .padding()
-                    
-                    Spacer()
-                }
-                .toolbar(content: {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            withAnimation {
-                                dismiss()
-                            }
-                        } label: {
-                            HStack(spacing: 4) {
-                                Image(systemName: "chevron.left")
-                                Text("Historique d'hydratation")
-                            }
+                        Text(history.name)
+                            .font(.largeTitle)
                             .foregroundStyle(.blue)
+                            .fontWeight(.bold)
+                        
+                        Spacer()
+                        
+                        ZStack {
+                            // Cercle de fond
+                            Circle()
+                                .fill(.blue.opacity(0.8))
+                                .frame(height: 300)
+                                .overlay( // ✅ contour arrondi noir
+                                    Circle()
+                                        .stroke(.black, lineWidth: 4)
+                                        .blur(radius: 9)
+                                )
+                            
+                            // Image au centre
+                            Image("teste")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 220, height: 220)
+                                .shadow(color: .blue.opacity(0.8), radius: 15)
                         }
+                        
+                        VStack(alignment: .leading) {
+                            
+                            
+                            HStack {
+                                Image(systemName: "drop.fill")
+                                    .resizable()
+                                    .foregroundStyle(.blue)
+                                    .frame(width: 30,height: 40)
+                                
+                                Spacer()
+                                
+                                Text(history.quantity)
+                                    .foregroundStyle(.blue)
+                                    .fontWeight(.bold)
+                            }
+                            
+                            .padding()
+                            
+                            HStack {
+                                Image(systemName: "calendar")
+                                    .resizable()
+                                    .foregroundStyle(.blue)
+                                    .frame(width: 40,height: 40)
+                                
+                                Spacer()
+                                
+                                Text(history.date)
+                                    .foregroundStyle(.blue)
+                                    .fontWeight(.bold)
+                            }
+                            .padding()
+                            
+                        }
+                        .padding()
+                        
+                        Spacer()
                     }
-                })
-                .navigationBarBackButtonHidden()
-                .padding()
+                    .toolbar(content: {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                withAnimation {
+                                    dismiss()
+                                }
+                            } label: {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "chevron.left")
+                                    Text("Historique d'hydratation")
+                                }
+                                .foregroundStyle(.blue)
+                            }
+                        }
+                    })
+                    .navigationBarBackButtonHidden()
+                    .padding()
+                }
             }
             
             .padding()
