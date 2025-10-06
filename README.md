@@ -1,6 +1,9 @@
-"<p align="center">
+<p align="center">
   <img src="Screen/Sitiens.png" width="100" alt="Sitiens Logo">
 </p>
+
+
+[![CI](https://github.com/KMIOS91/SITIENS/actions/workflows/ci.yml/badge.svg)](https://github.com/KMIOS91/SITIENS/actions/workflows/ci.yml)
 
 # Sitiens
 ## Application iOS – Suivi de l'hydratation avec Xcode, Swift, SwiftUI & Core Data
