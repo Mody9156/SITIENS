@@ -16,7 +16,6 @@ struct WaterQuantityView: View {
     @AppStorage("glace") var glaceRaw: String = ""
     @State var updateHeight : CGFloat = 0
     @State var sheetPresented : Bool = false
-    @State var rotationInfiny : Bool = false
     @State var profilType : String = ""
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @State var throwError : Bool = false
@@ -315,15 +314,7 @@ struct WaterQuantityView: View {
                     Image(systemName: "gearshape.fill")
                         .font(.title2)
                         .foregroundStyle(.primary)
-                        .rotationEffect(.degrees(rotationInfiny ? 360 : 0))
-                        .animation(
-                            .linear(duration: 2.9)
-                            .repeatForever(autoreverses: false),
-                            value: rotationInfiny
-                        )
-                        .onAppear{
-                            rotationInfiny = true
-                        }
+                        
                 }
                 
                 .sheet(isPresented: $sheetPresented) {
@@ -360,8 +351,6 @@ struct WaterQuantityView: View {
         }
     }
 }
-
-
 
 #Preview {
     WaterQuantityView(historyViewModel: HistoryViewModel())
