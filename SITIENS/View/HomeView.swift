@@ -104,7 +104,7 @@ struct SettingNavigation: View {
                     ZStack{
                         RoundedRectangle(cornerRadius: 26, style: .continuous)
                             .fill(Color("TextBackground"))
-                            .glassEffect()
+                            
                     }
                 }
                 .padding(.horizontal)

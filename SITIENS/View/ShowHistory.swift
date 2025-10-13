@@ -113,7 +113,7 @@ struct ShowHistory: View {
                                     }
                                     .padding()
                                 }
-                                //ici
+
                                 NavigationLink {
                                     
                                     MoreInformation(managementHistory:[ManagementHistory(name: name,quantity: quantity,date: date)])

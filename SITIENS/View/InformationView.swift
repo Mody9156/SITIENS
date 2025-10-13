@@ -134,7 +134,7 @@ struct ValueNavigationLink :View {
                     ZStack{
                         RoundedRectangle(cornerRadius: 26, style: .continuous)
                             .fill(Color("TextBackground"))
-                            .glassEffect()
+                           
                     }
                 }
                 .accessibilityLabel("Ignorer l'introduction")

@@ -30,6 +30,7 @@ struct Chronograph: View {
     @AppStorage("elapseBeforPause") var elapseBeforPauseRaw: Int = 0
     @AppStorage("buttonLabel") var buttonLabel: String = ""
     @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         NavigationStack {
@@ -182,6 +183,11 @@ struct Chronograph: View {
         var disableActive : Bool {
             timerIsReading && timeInterval != 0 && timeInterval != timerhour
         }
+        var toogleEditMode : Bool  {
+            colorScheme == .light
+        }
+        
+        
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 withAnimation {
@@ -190,11 +196,12 @@ struct Chronograph: View {
             } label: {
                 Image(systemName: "gearshape.fill")
                     .font(.title2)
-                    .foregroundStyle(.primary)
-                    // Fix the layout by giving the symbol a constant square frame
                     .frame(width: 32, height: 32, alignment: .center)
                     .contentShape(Rectangle())
-                    .foregroundStyle(disableActive ? .gray : .black)
+                    .foregroundStyle(
+                        (disableActive ? (toogleEditMode ? .gray :  .black)
+                         :
+                        (toogleEditMode ? Color("TextBackground") : .gray )) )
             }
             .accessibilityLabel("Bouton des réglages")
             .accessibilityHint("Appuyez pour modifier les paramètres du minuteur")
