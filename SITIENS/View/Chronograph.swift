@@ -55,10 +55,10 @@ struct Chronograph: View {
             .toolbar(
                 content: {
                     toolbarContent()
-                   }
+                }
             )
             .onAppear {
-//                UserDefaults.standard.removeObject(forKey: "hour")
+                //                UserDefaults.standard.removeObject(forKey: "hour")
                 timeInterval = timeIntervalRaw
                 selectedItems = selectedItemsRaw
                 showMessage = false
@@ -122,12 +122,12 @@ struct Chronograph: View {
                                 value: progressWater()
                             )
                     }
-             
-                    Text(hydrationActivationViewModel.formatTimer(timeInterval))
-                        .font(.system(size: 48, weight: .bold, design: .monospaced))
-                        .foregroundStyle(.primary)
-                        .accessibilityLabel("Temps restant")
-                        .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
+                
+                Text(hydrationActivationViewModel.formatTimer(timeInterval))
+                    .font(.system(size: 48, weight: .bold, design: .monospaced))
+                    .foregroundStyle(.primary)
+                    .accessibilityLabel("Temps restant")
+                    .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
                 
             }
             .accessibilityElement(children: .combine)
@@ -183,10 +183,9 @@ struct Chronograph: View {
         var disableActive : Bool {
             timerIsReading && timeInterval != 0 && timeInterval != timerhour
         }
-        var toogleEditMode : Bool  {
+        var toogleEditMode : Bool  {
             colorScheme == .light
         }
-        
         
         ToolbarItem(placement: .topBarTrailing) {
             Button {
@@ -201,7 +200,7 @@ struct Chronograph: View {
                     .foregroundStyle(
                         (disableActive ? (toogleEditMode ? .gray :  .black)
                          :
-                        (toogleEditMode ? Color("TextBackground") : .gray )) )
+                            (toogleEditMode ? Color("TextBackground") : .gray )) )
             }
             .accessibilityLabel("Bouton des réglages")
             .accessibilityHint("Appuyez pour modifier les paramètres du minuteur")
@@ -215,7 +214,6 @@ struct Chronograph: View {
                 )
             }
         }
-    
     }
 }
 

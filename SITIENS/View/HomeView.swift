@@ -60,7 +60,7 @@ struct SettingNavigation: View {
         }
         .toolbar(
             content: {
-                toolBarContent()
+//                toolBarContent()
             })
         .sheet(isPresented: $showSheet) {
             MoreInfoSheet(content: moreText) {
@@ -74,22 +74,45 @@ struct SettingNavigation: View {
         VStack(spacing: 24) {
             Spacer()
             // Image circulaire
-            Image("WaterWallaper")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 260, height: 260)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
-                .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
-                .accessibilityLabel("Image de présentation")
+            ZStack(alignment: .topTrailing) {
+                Image("WaterWallaper")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 260, height: 260)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                    .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
+                    .accessibilityLabel("Image de présentation")
+                
+                Button {
+                    withAnimation {
+                        showSheet.toggle()
+                    }
+                } label: {
+                    Image(systemName: "info.circle")
+                        .foregroundStyle(Color("TextBackground"))
+                        .onAppear{
+                            openIndicator = true
+                        }
+                        
+                }
+                .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
+                .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
+            }
             
             VStack(alignment: .center, spacing: 16) {
                 
-                Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .accessibilityLabel("Titre de la page")
+//                Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
+//                    .font(.title3)
+//                    .fontWeight(.bold)
+//                    .multilineTextAlignment(.center)
+//                    .accessibilityLabel("Titre de la page")
+                
+                Text("L'eau, un allié essentiel pour vvotre vien-être.")
+                    .font(.subheadline)
+                    .italic()
+                    .foregroundStyle(.secondary)
+                
                 
                 Button(action: {
                     withAnimation { hasSeenIntro = true }
