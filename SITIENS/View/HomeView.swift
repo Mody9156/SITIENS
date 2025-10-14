@@ -60,7 +60,7 @@ struct SettingNavigation: View {
         }
         .toolbar(
             content: {
-//                toolBarContent()
+                toolBarContent()
             })
         .sheet(isPresented: $showSheet) {
             MoreInfoSheet(content: moreText) {
@@ -74,7 +74,7 @@ struct SettingNavigation: View {
         VStack(spacing: 24) {
             Spacer()
             // Image circulaire
-            ZStack(alignment: .topTrailing) {
+                
                 Image("WaterWallaper")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -84,21 +84,6 @@ struct SettingNavigation: View {
                     .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                     .accessibilityLabel("Image de présentation")
                 
-                Button {
-                    withAnimation {
-                        showSheet.toggle()
-                    }
-                } label: {
-                    Image(systemName: "info.circle")
-                        .foregroundStyle(Color("TextBackground"))
-                        .onAppear{
-                            openIndicator = true
-                        }
-                        
-                }
-                .accessibilityLabel("Activation de la navigation vers l'information complémentaire")
-                .accessibilityValue("Activation de la navigation est :\(showSheet == true ? "active" : "inactive")")
-            }
             
             VStack(alignment: .center, spacing: 16) {
                 
