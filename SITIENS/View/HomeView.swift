@@ -86,13 +86,7 @@ struct SettingNavigation: View {
                 
             
             VStack(alignment: .center, spacing: 16) {
-                
-//                Text("Comprendre l’impact de l’eau sur votre santé mentale et physique")
-//                    .font(.title3)
-//                    .fontWeight(.bold)
-//                    .multilineTextAlignment(.center)
-//                    .accessibilityLabel("Titre de la page")
-                
+
                 Text("L'eau, un allié essentiel pour vvotre vien-être.")
                     .font(.subheadline)
                     .italic()
@@ -102,7 +96,7 @@ struct SettingNavigation: View {
                 Button(action: {
                     withAnimation { hasSeenIntro = true }
                 }) {
-                    Text("Ignorer")
+                    Label("Ignorer", systemImage: "arrowshape.turn.up.left")
                         .foregroundStyle(Color("ForegroundColorForTheText"))
                         .font(.headline)
                         .frame(maxWidth: .infinity)
