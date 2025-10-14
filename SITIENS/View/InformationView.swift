@@ -110,7 +110,7 @@ struct ValueNavigationLink :View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 260, height: 260)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 2))
+                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                 .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                 .accessibilityLabel("Image de présentation")
             
