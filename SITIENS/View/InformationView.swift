@@ -10,6 +10,7 @@ import Playgrounds
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
     @State private var showSheet: Bool = false
+   
     @State private var openIndicator : Bool = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
@@ -25,6 +26,7 @@ struct ValueNavigationLink :View {
     @Binding var showSheet: Bool
     @Binding var openIndicator : Bool
     @Environment(\.verticalSizeClass) var verticalSizeClass
+    @State  var isPressed : Bool = false
     
     var body: some View {
         ZStack{
@@ -108,22 +110,21 @@ struct ValueNavigationLink :View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 260, height: 260)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
+                .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 2))
                 .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                 .accessibilityLabel("Image de présentation")
             
             VStack(alignment: .center, spacing: 16){
-                
+             
                 Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .accessibilityLabel("Titre de la page")
+                    .font(.subheadline)
+                    .italic()
+                    .foregroundStyle(.secondary)
                 
                 Button(action: {
                     withAnimation {hasSeenIntro = true }
                 }) {
-                    Text("Ignorer")
+                    Label("Ignorer", systemImage: "arrowshape.turn.up.left")
                         .foregroundStyle(Color("ForegroundColorForTheText"))
                         .font(.headline)
                         .frame(maxWidth: .infinity)
@@ -131,12 +132,11 @@ struct ValueNavigationLink :View {
                 }
                 
                 .background {
-                    ZStack{
                         RoundedRectangle(cornerRadius: 26, style: .continuous)
                             .fill(Color("TextBackground"))
-                           
-                    }
                 }
+                .scaleEffect(isPressed ? 0.95 : 1.0)
+                .animation(.spring(), value: isPressed)
                 .accessibilityLabel("Ignorer l'introduction")
                 .accessibilityValue(hasSeenIntro == true
                                     ? "Introduction ignorée":""
