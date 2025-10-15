@@ -27,6 +27,10 @@ struct TimerSettings: View {
     @Environment(\.scenePhase) var scenePhase
     @State private var updateSlide : Double = 0.0
     
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var progress: Double = 0.0
+    @State private var isUserScrubbing = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -107,7 +111,6 @@ struct TimerSettings: View {
                             .accessibilityLabel("Sélectionner un son")
                             .accessibilityHint("Double-cliquez pour choisir un audio")
                         }
-                        
                         .padding()
                         .background(.ultraThinMaterial)
                         .cornerRadius(16)
@@ -123,8 +126,11 @@ struct TimerSettings: View {
                             updateSlide : $updateSlide
                         )
                         
-                        Slider(value: $updateSlide)
-                        
+                        // Dans TimerSettings
+                        Rectangle()
+                            .trim(from: updateSlide, to: 30)
+                            .frame(height: 1)
+                            .gesture(DragGesture())
                     }
                     .padding()
                 }
@@ -171,6 +177,14 @@ struct CustomButton: View {
     @Environment(\.dismiss) var dismiss
     @Binding var updateSlide : Double
     
+//    func completed() -> Bool {
+//        return progressWater() == 1
+//    }
+//    
+//    func progressWater() -> CGFloat {
+//        return  CGFloat(timeInterval) / CGFloat(timerhour)
+//    }
+    
     var body: some View {
         if type == "LoadingSong" {
             Button {
@@ -179,7 +193,7 @@ struct CustomButton: View {
                     
                     if isPlaying {
                         hydrationActivationViewModel.playSound(sound: selectedItems)
-                        updateSlide = Double(timerhour)
+                        
                     }else{
                         hydrationActivationViewModel.stopPlaying()
                     }
@@ -226,3 +240,4 @@ struct CustomButton: View {
         return false
     }
 }
+

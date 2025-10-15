@@ -18,7 +18,10 @@ class HydrationActivationViewModel  {
     var avAudioPlayerNode = AVAudioPlayerNode()
     let hydrationProtocol : HydrationProtocol
     
-    init(audioPlayer: AVAudioPlayer? = nil, hydrationProtocol : HydrationProtocol = DataHistoryHub() ) {
+    init(
+        audioPlayer: AVAudioPlayer? = DataHistoryHub().audioPlayer,
+        hydrationProtocol : HydrationProtocol = DataHistoryHub()
+    ) {
         self.audioPlayer = audioPlayer
         self.hydrationProtocol = hydrationProtocol
     }
