@@ -120,6 +120,7 @@ struct TimerSettings: View {
                             isPlaying: $isPlaying,
                             hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
                         )
+                        
                     }
                     .padding()
                 }
@@ -179,7 +180,7 @@ struct CustomButton: View {
                     .frame(width: 80,height: 80)	
                     .padding()
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.black)
             }
            
         }else{
@@ -197,6 +198,7 @@ struct CustomButton: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(height: 50)
+                        .foregroundStyle(.black)
                     Text("Valider")
                         .foregroundStyle(.white)
                 }
