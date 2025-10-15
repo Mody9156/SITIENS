@@ -112,10 +112,6 @@ struct TimerSettings: View {
                         .cornerRadius(16)
                         .shadow(radius: 5)
                         
-                        Text(isPlaying ? "Stopper l'audio" : "Jouer l'audio")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                        
                         CustomButton(
                             isPlaying: $isPlaying,
                             hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
