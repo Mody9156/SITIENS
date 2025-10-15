@@ -25,6 +25,7 @@ struct TimerSettings: View {
     @State private var slide : Double = 0.0
     @State private var activeSlide : Bool = false
     @Environment(\.scenePhase) var scenePhase
+    @State private var updateSlide : Double = 0.0
     
     var body: some View {
         NavigationStack {
@@ -114,8 +115,15 @@ struct TimerSettings: View {
                         
                         CustomButton(
                             isPlaying: $isPlaying,
-                            hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "LoadingSong", selectedHour: $selectedHour
+                            hydrationActivationViewModel:
+                            hydrationActivationViewModel,
+                            selectedItems: $selectedItems,
+                            type: "LoadingSong",
+                            selectedHour: $selectedHour,
+                            updateSlide : $updateSlide
                         )
+                        
+                        Slider(value: $updateSlide)
                         
                     }
                     .padding()
@@ -127,7 +135,12 @@ struct TimerSettings: View {
             
             CustomButton(
                 isPlaying: $isPlaying,
-                hydrationActivationViewModel: hydrationActivationViewModel, selectedItems: $selectedItems, type: "Validate", selectedHour: $selectedHour
+                hydrationActivationViewModel:
+                hydrationActivationViewModel,
+                selectedItems: $selectedItems,
+                type: "Validate",
+                selectedHour: $selectedHour,
+                updateSlide : $updateSlide
             )
         }
         .onDisappear{
@@ -156,6 +169,7 @@ struct CustomButton: View {
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
+    @Binding var updateSlide : Double
     
     var body: some View {
         if type == "LoadingSong" {
@@ -165,6 +179,7 @@ struct CustomButton: View {
                     
                     if isPlaying {
                         hydrationActivationViewModel.playSound(sound: selectedItems)
+                        updateSlide = Double(timerhour)
                     }else{
                         hydrationActivationViewModel.stopPlaying()
                     }
@@ -173,7 +188,7 @@ struct CustomButton: View {
             } label: {
                 Image(systemName:isPlaying ? "pause.circle.fill" : "play.circle.fill")
                     .resizable()
-                    .frame(width: 80,height: 80)	
+                    .frame(width: 100,height: 100)
                     .padding()
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
                     .foregroundStyle(.black)
