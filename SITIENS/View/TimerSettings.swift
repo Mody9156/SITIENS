@@ -128,9 +128,12 @@ struct TimerSettings: View {
                         
                         // Dans TimerSettings
                         Rectangle()
-                            .trim(from: updateSlide, to: 30)
+                            .trim(from: 0, to: 0.8)
                             .frame(height: 1)
                             .gesture(DragGesture())
+//                            .onChange(of: <#T##Equatable#>) { oldValue, newValue in
+//                                <#code#>
+//                            }
                     }
                     .padding()
                 }

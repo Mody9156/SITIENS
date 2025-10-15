@@ -9,6 +9,7 @@ import Foundation
 import UserNotifications
 import AVFoundation
 import AVKit
+import SwiftUI
 
 @Observable
 class HydrationActivationViewModel  {
@@ -66,6 +67,23 @@ class HydrationActivationViewModel  {
     
     func notification(){
         hydrationProtocol.notification()
+    }
+    
+    func onTapGesture(value : DragGesture.Value){
+        let vector = CGVector(dx: value.location.x, dy: value.location.y)
+        let radians = atan2(vector.dy - 12.5, vector.dx - 12.5)
+        let temAngle = radians * 180 / .pi
+        var angle = temAngle < 0 ? 360 + temAngle : temAngle
+        
+        if angle <= 200 {
+            
+            let progresse = angle / 288
+            guard let audioPlayer else {return }
+            let time = TimeInterval(progresse) * audioPlayer.duration
+            audioPlayer.currentTime = time
+            audioPlayer.play()
+            withAnimation(Animation.linear(duration: 0.1)){angle = Double(angle)}
+        }
     }
 }
 
