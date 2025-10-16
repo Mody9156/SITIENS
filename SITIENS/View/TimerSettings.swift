@@ -125,15 +125,8 @@ struct TimerSettings: View {
                             selectedHour: $selectedHour,
                             updateSlide : $updateSlide
                         )
-                        
-                        // Dans TimerSettings
-                        Rectangle()
-                            .trim(from: 0, to: 0.8)
-                            .frame(height: 1)
-                            .gesture(DragGesture())
-//                            .onChange(of: <#T##Equatable#>) { oldValue, newValue in
-//                                <#code#>
-//                            }
+                  
+                            
                     }
                     .padding()
                 }
