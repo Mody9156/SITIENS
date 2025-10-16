@@ -15,8 +15,6 @@ struct UserSettingsView: View {
     @Binding var glace : String
     @Environment(\.dismiss) var dismiss
     
-    
-    
     var body: some View {
         NavigationStack {
             ZStack {
