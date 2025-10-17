@@ -115,7 +115,8 @@ struct TimerSettings: View {
                         .cornerRadius(16)
                         .shadow(radius: 5)
                         
-//                        
+                        ActiveAudio()
+//
 //                        CustomButton(
 //                            isPlaying: $isPlaying,
 //                            hydrationActivationViewModel:
@@ -251,6 +252,12 @@ struct CustomButton: View {
 
 struct ActiveAudio : View {
     var body: some View {
-        Rectangle()
+        ZStack {
+            RoundedRectangle(cornerRadius: 12)
+                .frame(height:200)
+                .glassEffect()
+            
+            
+        }
     }
 }
