@@ -29,6 +29,7 @@ struct TimerSettings: View {
     @State private var progress: Double = 0.0
     @State private var isUserScrubbing = false
     @State private var time = 0
+    @State private var isVisualizing : Bool = false
     
     var body: some View {
         NavigationStack {
@@ -115,7 +116,7 @@ struct TimerSettings: View {
                         .cornerRadius(16)
                         .shadow(radius: 5)
                         
-                        ActiveAudio()
+                        ActiveAudio(selectedItems: $selectedItems,isVisualizing:$isVisualizing)
 //
 //                        CustomButton(
 //                            isPlaying: $isPlaying,
@@ -251,20 +252,60 @@ struct CustomButton: View {
 
 
 struct ActiveAudio : View {
+    @Binding var selectedItems : String
+    @Binding var isVisualizing : Bool
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
-                .frame(height:200)
+                .frame(height:150)
             
-            VStack {
-                
-                Rectangle()
-                    .frame(width: 50,height: 50)
+            VStack(alignment: .center) {
                 
                 HStack {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 50,height: 50)
+                            .foregroundStyle(.blue)
+                            .padding()
+                        
+                        Text(
+                            selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
+                                )
+                            .padding()
+                            .foregroundStyle(.white)
+                            .font(Font.system(size: 15, design: .default))
+                    }
+                    
+                    Text(selectedItems.isEmpty ? "?" : selectedItems)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                    
+                    Spacer()
+                    
+                    HStack(spacing: 1) {
+                        ForEach(0..<6) { _ in
+                            RoundedRectangle(cornerRadius: 2)
+                                .frame(
+                                    width: 3,
+                                    height: 
+                                            .random(
+                                                in: isVisualizing ? 8...16 : 4...12
+                                            )
+                                )
+                                .foregroundStyle(.white)
+                                .onAppear{
+                                    isVisualizing = false
+                                }
+                        }
+                    }
+                }
+                
+                HStack {
+                    Spacer()
                     
                     Button {
-                        
+                        isVisualizing.toggle()
                     } label: {
                         HStack(spacing: -35) {
                             Image(systemName: "arrowtriangle.backward.fill")
@@ -303,6 +344,7 @@ struct ActiveAudio : View {
                         
                     }
                 }
+                
             }
         }
     }
