@@ -255,9 +255,65 @@ struct ActiveAudio : View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .frame(height:200)
-                .glassEffect()
             
+            HStack {
+                
+                Button {
+                    
+                } label: {
+                    HStack(spacing: -35) {
+                        Image(systemName: "arrowtriangle.backward.fill")
+                            .resizable()
+                            .foregroundStyle(.gray)
+                            .frame(width: 20,height: 20)
+                            .padding()
+                        
+                        Image(systemName: "arrowtriangle.backward.fill")
+                            .resizable()
+                            .foregroundStyle(.gray)
+                            .frame(width: 20,height: 20)
+                            .padding()
+                    }
+                    
+                }
             
+                CustomSystemName(name: "play.fill")
+                
+                Button {
+                    
+                } label: {
+                    HStack(spacing: -35) {
+                        Image(systemName: "arrowtriangle.forward.fill")
+                            .resizable()
+                            .foregroundStyle(.gray)
+                            .frame(width: 20,height: 20)
+                            .padding()
+                        
+                        Image(systemName: "arrowtriangle.forward.fill")
+                            .resizable()
+                            .foregroundStyle(.gray)
+                            .frame(width: 20,height: 20)
+                            .padding()
+                    }
+                    
+                }
+            }
         }
     }
+}
+
+struct CustomSystemName: View {
+    let name : String
+    var body: some View {
+        
+        Button {
+            
+        } label: {
+            Image(systemName: name)
+                .resizable()
+                .foregroundStyle(.white)
+                .frame(width: 20,height: 20)
+                .padding()
+        }
+        }
 }
