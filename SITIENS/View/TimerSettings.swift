@@ -256,46 +256,52 @@ struct ActiveAudio : View {
             RoundedRectangle(cornerRadius: 12)
                 .frame(height:200)
             
-            HStack {
+            VStack {
                 
-                Button {
+                Rectangle()
+                    .frame(width: 50,height: 50)
+                
+                HStack {
                     
-                } label: {
-                    HStack(spacing: -35) {
-                        Image(systemName: "arrowtriangle.backward.fill")
-                            .resizable()
-                            .foregroundStyle(.gray)
-                            .frame(width: 20,height: 20)
-                            .padding()
+                    Button {
                         
-                        Image(systemName: "arrowtriangle.backward.fill")
-                            .resizable()
-                            .foregroundStyle(.gray)
-                            .frame(width: 20,height: 20)
-                            .padding()
+                    } label: {
+                        HStack(spacing: -35) {
+                            Image(systemName: "arrowtriangle.backward.fill")
+                                .resizable()
+                                .foregroundStyle(.gray)
+                                .frame(width: 20,height: 20)
+                                .padding()
+                            
+                            Image(systemName: "arrowtriangle.backward.fill")
+                                .resizable()
+                                .foregroundStyle(.gray)
+                                .frame(width: 20,height: 20)
+                                .padding()
+                        }
+                        
                     }
                     
-                }
-            
-                CustomSystemName(name: "play.fill")
-                
-                Button {
+                    CustomSystemName(name: "play.fill")
                     
-                } label: {
-                    HStack(spacing: -35) {
-                        Image(systemName: "arrowtriangle.forward.fill")
-                            .resizable()
-                            .foregroundStyle(.gray)
-                            .frame(width: 20,height: 20)
-                            .padding()
+                    Button {
                         
-                        Image(systemName: "arrowtriangle.forward.fill")
-                            .resizable()
-                            .foregroundStyle(.gray)
-                            .frame(width: 20,height: 20)
-                            .padding()
+                    } label: {
+                        HStack(spacing: -35) {
+                            Image(systemName: "arrowtriangle.forward.fill")
+                                .resizable()
+                                .foregroundStyle(.gray)
+                                .frame(width: 20,height: 20)
+                                .padding()
+                            
+                            Image(systemName: "arrowtriangle.forward.fill")
+                                .resizable()
+                                .foregroundStyle(.gray)
+                                .frame(width: 20,height: 20)
+                                .padding()
+                        }
+                        
                     }
-                    
                 }
             }
         }
