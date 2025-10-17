@@ -21,15 +21,14 @@ struct TimerSettings: View {
     @State private var audio : AVAudioPlayer?
     @State  var isPlaying : Bool = false
     @State private var cancellable: AnyCancellable?
-    @State private var navigationTitle : String = "Configuration"
     @State private var slide : Double = 0.0
     @State private var activeSlide : Bool = false
     @Environment(\.scenePhase) var scenePhase
     @State private var updateSlide : Double = 0.0
-    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var progress: Double = 0.0
     @State private var isUserScrubbing = false
+    @State private var time = 0
     
     var body: some View {
         NavigationStack {
@@ -116,24 +115,33 @@ struct TimerSettings: View {
                         .cornerRadius(16)
                         .shadow(radius: 5)
                         
-                        CustomButton(
-                            isPlaying: $isPlaying,
-                            hydrationActivationViewModel:
-                            hydrationActivationViewModel,
-                            selectedItems: $selectedItems,
-                            type: "LoadingSong",
-                            selectedHour: $selectedHour,
-                            updateSlide : $updateSlide
-                        )
+//                        
+//                        CustomButton(
+//                            isPlaying: $isPlaying,
+//                            hydrationActivationViewModel:
+//                            hydrationActivationViewModel,
+//                            selectedItems: $selectedItems,
+//                            type: "LoadingSong",
+//                            selectedHour: $selectedHour,
+//                            updateSlide : $updateSlide
+//                        )
                   
-                            
+//                        Text("\(time)")
+//                            .onReceive(timer) {_ in
+//                                
+//                                if isPlaying {
+//                                    time += 1
+//                                    
+//                                }else if time == 30  {
+//                                    isPlaying = false
+//                                   
+//                                }
+//                            }
                     }
                     .padding()
                 }
                 .navigationTitle("Paramètres")
             }
-            
-            Spacer()
             
             CustomButton(
                 isPlaying: $isPlaying,
@@ -205,7 +213,9 @@ struct CustomButton: View {
             }
            
         }else{
-            Button {	
+            
+            
+            Button {
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
@@ -237,3 +247,10 @@ struct CustomButton: View {
     }
 }
 
+
+
+struct ActiveAudio : View {
+    var body: some View {
+        Rectangle()
+    }
+}
