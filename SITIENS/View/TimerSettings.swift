@@ -422,33 +422,39 @@ struct ActiveAudio : View {
                         
                         Spacer()
                         
-                        HStack(spacing: 1) {
-                            ForEach(0..<6) { _ in
-                                RoundedRectangle(cornerRadius: 2)
-                                    .frame(
-                                        width: 3,
-                                        height:
-                                                .random(
-                                                    in: isVisualizing ? 8...16 : 4...12
-                                                )
-                                    )
-                                    .foregroundStyle(.black)
-                                    .animation(
-                                        .easeOut(duration: 0.25)
-                                        .repeatForever(autoreverses: true),
-                                        value: isVisualizing
-                                    )
-                                    .onAppear{
-                                        isVisualizing = false
-                                    }
-                            }
-                        }.padding()
+//                        HStack(spacing: 1) {
+//                            ForEach(0..<6) { _ in
+//                                RoundedRectangle(cornerRadius: 2)
+//                                    .frame(
+//                                        width: 3,
+//                                        height:
+//                                                .random(
+//                                                    in: isVisualizing ? 8...16 : 4...12
+//                                                )
+//                                    )
+//                                    .foregroundStyle(.black)
+//                                    .animation(
+//                                        .easeOut(duration: 0.25)
+//                                        .repeatForever(autoreverses: true),
+//                                        value: isVisualizing
+//                                    )
+//                                    .onAppear{
+//                                        isVisualizing = false
+//                                    }
+//                            }
+//                        }.padding()
                     }
                     .padding()
                     
                     
                     
-                    HStack {
+                    HStack{
+                        
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "15.arrow.trianglehead.counterclockwise")
+                        }
                         
                         CustomSystemName(
                             name: "play.fill",
@@ -456,29 +462,10 @@ struct ActiveAudio : View {
                             isVisualizing: $isVisualizing
                         )
                         
-                        Spacer()
-                        
                         Button {
-                            let randomElement = sound.randomElement()!
                             
-                            if !selectedItems.isEmpty {
-                                isPlaying = true
-                                hydrationActivationViewModel.playSound(sound: randomElement)
-                            }
                         } label: {
-                            HStack(spacing: -35) {
-                                    Image(systemName: "arrowtriangle.forward.fill")
-                                        .resizable()
-                                        .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
-                                        .frame(width: 20,height: 20)
-                                        .padding()
-                                    
-                                    Image(systemName: "arrowtriangle.forward.fill")
-                                        .resizable()
-                                        .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
-                                        .frame(width: 20,height: 20)
-                                        .padding()
-                                }
+                            Image(systemName: "30.arrow.trianglehead.clockwise")
                         }
                     }
                 }
