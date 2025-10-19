@@ -154,8 +154,12 @@ struct TimerSettings: View {
                 ShowTheButton(
                     activeBoutton: $activeBoutton,
                     selectedItems: $selectedItems,
-                    isVisualizing: $isVisualizing
+                    isVisualizing: $isVisualizing,
+                    hydrationActivationViewModel: hydrationActivationViewModel, isPlaying: isPlaying
                 )
+                
+                Divider()
+                    .frame(height: 2)
                 
                 CustomButton(
                     isPlaying: $isPlaying,
@@ -267,6 +271,8 @@ struct ShowTheButton :View {
     @Binding var activeBoutton: Bool
     @Binding var selectedItems : String
     @Binding var isVisualizing : Bool
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
+    @State var isPlaying : Bool
     
     var body: some View {
         
@@ -300,17 +306,30 @@ struct ShowTheButton :View {
                 Spacer()
              
 //                CustomSystemName(name: "play.fill", isVisualizing: $isVisualizing)
-                
+             
                 Button {
-                    isVisualizing.toggle()
+                    withAnimation {
+                        isPlaying.toggle()
+                        isVisualizing.toggle()
+                        
+                        if isPlaying  {
+                            hydrationActivationViewModel.playSound(sound: selectedItems)
+                            
+                        }else{
+                            hydrationActivationViewModel.stopPlaying()
+                        }
+                    }
+                    
                 } label: {
-                    Image(systemName: "play.fill")
+                    Image(systemName:isPlaying ? "pause.fill" : "play.fill")
                         .resizable()
-                        .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
-                        .frame(width: 20,height: 20)
+                        .frame(width: 30,height: 30)
                         .padding()
+                        .scaleEffect(isPlaying ? 1.1 : 1.0)
+                        .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
                 }
-
+                .disabled(selectedItems.isEmpty)
+                
                 HStack(spacing: -35) {
                         Image(systemName: "arrowtriangle.forward.fill")
                             .resizable()
@@ -399,44 +418,11 @@ struct ActiveAudio : View {
                 HStack {
                     Spacer()
                     
-                    Button {
-                        
-                    } label: {
-                        HStack(spacing: -35) {
-                            Image(systemName: "arrowtriangle.backward.fill")
-                                .resizable()
-                                .foregroundStyle(.black)
-                                .frame(width: 20,height: 20)
-                                .padding()
-                            
-                            Image(systemName: "arrowtriangle.backward.fill")
-                                .resizable()
-                                .foregroundStyle(.black)
-                                .frame(width: 20,height: 20)
-                                .padding()
-                        }
-                    }
-                    
-                    CustomSystemName(name: "play.fill", isVisualizing: $isVisualizing)
-                    
-                    Button {
-                        
-                    } label: {
-                        HStack(spacing: -35) {
-                            Image(systemName: "arrowtriangle.forward.fill")
-                                .resizable()
-                                .foregroundStyle(.black)
-                                .frame(width: 20,height: 20)
-                                .padding()
-                            
-                            Image(systemName: "arrowtriangle.forward.fill")
-                                .resizable()
-                                .foregroundStyle(.black)
-                                .frame(width: 20,height: 20)
-                                .padding()
-                        }
-                        
-                    }
+                    CustomSystemName(
+                        name: "play.fill",
+                        selectedItems: $selectedItems,
+                        isVisualizing: $isVisualizing
+                    )
                 }
                 
             }
@@ -446,6 +432,7 @@ struct ActiveAudio : View {
 
 struct CustomSystemName: View {
     let name : String
+    @Binding var selectedItems : String
     @Binding var isVisualizing : Bool
     var body: some View {
         
@@ -454,7 +441,7 @@ struct CustomSystemName: View {
         } label: {
             Image(systemName: name)
                 .resizable()
-                .foregroundStyle(.white)
+                .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
                 .frame(width: 20,height: 20)
                 .padding()
         }
