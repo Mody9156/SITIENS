@@ -259,6 +259,7 @@ struct ActiveAudio : View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .frame(height:150)
+                .foregroundStyle(Color.gray.opacity(0.15))
             
             VStack(alignment: .center) {
                 
@@ -294,18 +295,25 @@ struct ActiveAudio : View {
                                             )
                                 )
                                 .foregroundStyle(.white)
+                                .animation(
+                                    .easeOut(duration: 0.25)
+                                    .repeatForever(autoreverses: true),
+                                    value: isVisualizing
+                                )
                                 .onAppear{
                                     isVisualizing = false
                                 }
+                                
                         }
-                    }
+                    }.padding()
+                    
                 }
                 
                 HStack {
                     Spacer()
                     
                     Button {
-                        isVisualizing.toggle()
+
                     } label: {
                         HStack(spacing: -35) {
                             Image(systemName: "arrowtriangle.backward.fill")
@@ -320,10 +328,9 @@ struct ActiveAudio : View {
                                 .frame(width: 20,height: 20)
                                 .padding()
                         }
-                        
                     }
-                    
-                    CustomSystemName(name: "play.fill")
+                   
+                    CustomSystemName(name: "play.fill", isVisualizing: $isVisualizing)
                     
                     Button {
                         
@@ -352,10 +359,11 @@ struct ActiveAudio : View {
 
 struct CustomSystemName: View {
     let name : String
+    @Binding var isVisualizing : Bool
     var body: some View {
         
         Button {
-            
+            isVisualizing.toggle()
         } label: {
             Image(systemName: name)
                 .resizable()
