@@ -155,7 +155,9 @@ struct TimerSettings: View {
                     activeBoutton: $activeBoutton,
                     selectedItems: $selectedItems,
                     isVisualizing: $isVisualizing,
-                    hydrationActivationViewModel: hydrationActivationViewModel, isPlaying: isPlaying
+                    hydrationActivationViewModel: hydrationActivationViewModel,
+                    isPlaying: isPlaying,
+                    sound: $sound
                 )
                 
                 Divider()
@@ -233,7 +235,6 @@ struct CustomButton: View {
             
         }else{
             
-            
             Button {
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
@@ -248,7 +249,6 @@ struct CustomButton: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(height: 50)
-                        .foregroundStyle(.black)
                     Text("Valider")
                         .foregroundStyle(.white)
                 }
@@ -273,9 +273,9 @@ struct ShowTheButton :View {
     @Binding var isVisualizing : Bool
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @State var isPlaying : Bool
+    @Binding var sound : [String]
     
     var body: some View {
-        
         
         ZStack {
            Rectangle()
@@ -329,20 +329,28 @@ struct ShowTheButton :View {
                         .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
                 }
                 .disabled(selectedItems.isEmpty)
-                
-                HStack(spacing: -35) {
-                        Image(systemName: "arrowtriangle.forward.fill")
-                            .resizable()
-                            .foregroundStyle(.gray)
-                            .frame(width: 20,height: 20)
-                            .padding()
-                        
-                        Image(systemName: "arrowtriangle.forward.fill")
-                            .resizable()
-                            .foregroundStyle(.gray)
-                            .frame(width: 20,height: 20)
-                            .padding()
+
+                Button {
+                    var randomElement = sound.randomElement()!
+                    
+                    if !selectedItems.isEmpty {
+                        hydrationActivationViewModel.playSound(sound: randomElement)
                     }
+                } label: {
+                    HStack(spacing: -35) {
+                            Image(systemName: "arrowtriangle.forward.fill")
+                                .resizable()
+                                .foregroundStyle(!selectedItems.isEmpty ? .black :.gray)
+                                .frame(width: 20,height: 20)
+                                .padding()
+                            
+                            Image(systemName: "arrowtriangle.forward.fill")
+                                .resizable()
+                                .foregroundStyle(!selectedItems.isEmpty ? .black :.gray)
+                                .frame(width: 20,height: 20)
+                                .padding()
+                        }
+                }
             }
         }
         .onTapGesture {
