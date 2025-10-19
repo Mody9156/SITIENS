@@ -182,14 +182,26 @@ struct TimerSettings: View {
 }
 
 #Preview {
-    @Previewable @State var selectedItems : String = ""
-    @Previewable @State var selectedHour : Int = 0
-    TimerSettings(
+//    @Previewable @State var selectedItems : String = ""
+//    @Previewable @State var selectedHour : Int = 0
+//    TimerSettings(
+//        selectedItems: $selectedItems,
+//        selectedHour: $selectedHour,
+//        hydrationActivationViewModel: HydrationActivationViewModel()
+//    )
+        @Previewable @State var selectedItems : String = ""
+        @Previewable @State var isVisualizing : Bool = false
+    @Previewable @State var sound : [String] = [""]
+    @Previewable @State var hydrationActivationViewModel =  HydrationActivationViewModel()
+    @Previewable @State var isPlaying : Bool = false
+        
+    ActiveAudio(
         selectedItems: $selectedItems,
-        selectedHour: $selectedHour,
-        hydrationActivationViewModel: HydrationActivationViewModel()
+        isVisualizing:$isVisualizing,
+        sound:$sound,
+        hydrationActivationViewModel: HydrationActivationViewModel(),
+        isPlaying: $isPlaying
     )
-    
 }
 
 struct CustomButton: View {
@@ -329,9 +341,11 @@ struct ShowTheButton :View {
                         .frame(width: 30,height: 30)
                         .padding()
                         .scaleEffect(isPlaying ? 1.1 : 1.0)
-                        .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
+                        .foregroundStyle(selectedItems.isEmpty ? .gray : Color("TextBackground"))
                 }
 
+               
+                
                 Button {
                     let randomElement = sound.randomElement()!
                     
@@ -343,13 +357,13 @@ struct ShowTheButton :View {
                     HStack(spacing: -35) {
                             Image(systemName: "arrowtriangle.forward.fill")
                                 .resizable()
-                                .foregroundStyle(!selectedItems.isEmpty ? .black :.gray)
+                                .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
                                 .frame(width: 20,height: 20)
                                 .padding()
                             
                             Image(systemName: "arrowtriangle.forward.fill")
                                 .resizable()
-                                .foregroundStyle(!selectedItems.isEmpty ? .black :.gray)
+                                .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
                                 .frame(width: 20,height: 20)
                                 .padding()
                         }
@@ -362,7 +376,13 @@ struct ShowTheButton :View {
         .sheet(isPresented: $activeBoutton) {
             
         } content: {
-            ActiveAudio(selectedItems: $selectedItems,isVisualizing:$isVisualizing)
+            ActiveAudio(
+                selectedItems: $selectedItems,
+                isVisualizing:$isVisualizing,
+                sound: $sound,
+                hydrationActivationViewModel: hydrationActivationViewModel,
+                isPlaying: $isPlaying
+            )
         }
     }
 }
@@ -371,73 +391,98 @@ struct ShowTheButton :View {
 struct ActiveAudio : View {
     @Binding var selectedItems : String
     @Binding var isVisualizing : Bool
+    @Binding var sound : [String]
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
+    @Binding var isPlaying : Bool
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 12)
-                .frame(height:150)
-                .foregroundStyle(Color.gray.opacity(0.5))
-            
+       
             VStack(alignment: .center) {
-                
-                HStack {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(width: 50,height: 50)
-                            .foregroundStyle(.white)
-                            .padding()
-                        
-                        Text(
-                            selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
-                        )
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(width: 200,height: 200)
+                        .foregroundStyle(Color("TextBackground"))
                         .padding()
-                        .foregroundStyle(.black)
-                        .font(Font.system(size: 15, design: .default))
-                    }
                     
-                    Text(selectedItems.isEmpty ? "?" : selectedItems)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.black)
-                    
-                    Spacer()
-                    
-                    HStack(spacing: 1) {
-                        ForEach(0..<6) { _ in
-                            RoundedRectangle(cornerRadius: 2)
-                                .frame(
-                                    width: 3,
-                                    height:
-                                            .random(
-                                                in: isVisualizing ? 8...16 : 4...12
-                                            )
-                                )
-                                .foregroundStyle(.black)
-                                .animation(
-                                    .easeOut(duration: 0.25)
-                                    .repeatForever(autoreverses: true),
-                                    value: isVisualizing
-                                )
-                                .onAppear{
-                                    isVisualizing = false
-                                }
-                            
-                        }
-                    }.padding()
-                    
-                }
-                
-                HStack {
-                    Spacer()
-                    
-                    CustomSystemName(
-                        name: "play.fill",
-                        selectedItems: $selectedItems,
-                        isVisualizing: $isVisualizing
+                    Text(
+                        selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
                     )
+                    .padding()
+                    .foregroundStyle(Color("ForegroundColorForTheText"))
+                    .font(.largeTitle)
                 }
                 
+                VStack {
+                    HStack {
+                        
+                        Text(selectedItems.isEmpty ? "?" : selectedItems)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.black)
+                            .font(.title2)
+                        
+                        Spacer()
+                        
+                        HStack(spacing: 1) {
+                            ForEach(0..<6) { _ in
+                                RoundedRectangle(cornerRadius: 2)
+                                    .frame(
+                                        width: 3,
+                                        height:
+                                                .random(
+                                                    in: isVisualizing ? 8...16 : 4...12
+                                                )
+                                    )
+                                    .foregroundStyle(.black)
+                                    .animation(
+                                        .easeOut(duration: 0.25)
+                                        .repeatForever(autoreverses: true),
+                                        value: isVisualizing
+                                    )
+                                    .onAppear{
+                                        isVisualizing = false
+                                    }
+                            }
+                        }.padding()
+                    }
+                    .padding()
+                    
+                    
+                    
+                    HStack {
+                        
+                        CustomSystemName(
+                            name: "play.fill",
+                            selectedItems: $selectedItems,
+                            isVisualizing: $isVisualizing
+                        )
+                        
+                        Spacer()
+                        
+                        Button {
+                            let randomElement = sound.randomElement()!
+                            
+                            if !selectedItems.isEmpty {
+                                isPlaying = true
+                                hydrationActivationViewModel.playSound(sound: randomElement)
+                            }
+                        } label: {
+                            HStack(spacing: -35) {
+                                    Image(systemName: "arrowtriangle.forward.fill")
+                                        .resizable()
+                                        .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
+                                        .frame(width: 20,height: 20)
+                                        .padding()
+                                    
+                                    Image(systemName: "arrowtriangle.forward.fill")
+                                        .resizable()
+                                        .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
+                                        .frame(width: 20,height: 20)
+                                        .padding()
+                                }
+                        }
+                    }
+                }
             }
-        }
     }
 }
 
@@ -453,7 +498,7 @@ struct CustomSystemName: View {
             Image(systemName: name)
                 .resizable()
                 .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
-                .frame(width: 20,height: 20)
+                .frame(width: 50,height: 50)
                 .padding()
         }
     }
