@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 import AVFAudio
 import Combine
+import MediaPlayer
 
 struct TimerSettings: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze","alone","kugelsicher-by-tremoxbeatz","gardens-stylish-chill","future-design","lofi-effect","lofi-sample-if-i-cant-have-you","mystical-music","music-box","meditation-music-sound-bite","ringtone","cool-guitar-loop","basique"]
@@ -394,6 +395,7 @@ struct ActiveAudio : View {
     @Binding var sound : [String]
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @Binding var isPlaying : Bool
+    let volum = AVAudioSession.sharedInstance().outputVolume
     
     var body: some View {
        
@@ -454,6 +456,10 @@ struct ActiveAudio : View {
                             
                         } label: {
                             Image(systemName: "15.arrow.trianglehead.counterclockwise")
+                                .resizable()
+                                .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
+                                .frame(width: 50,height: 50)
+                                .padding()
                         }
                         
                         CustomSystemName(
@@ -466,6 +472,10 @@ struct ActiveAudio : View {
                             
                         } label: {
                             Image(systemName: "30.arrow.trianglehead.clockwise")
+                                .resizable()
+                                .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
+                                .frame(width: 50,height: 50)
+                                .padding()
                         }
                     }
                 }
@@ -490,3 +500,4 @@ struct CustomSystemName: View {
         }
     }
 }
+
