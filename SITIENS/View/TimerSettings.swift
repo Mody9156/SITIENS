@@ -280,20 +280,20 @@ struct ShowTheButton :View {
         ZStack {
            Rectangle()
                 .frame(height:80)
-                .foregroundStyle(.white)
+                .foregroundStyle(Color("ForegroundColorForTheText"))
             
             HStack {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
                             .frame(width: 50,height: 50)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color("TextBackground"))
                             .padding()
                         
                         Text(
                             selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
                         )
                         .padding()
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color("ForegroundColorForTheText"))
                         .font(Font.system(size: 15, design: .default))
                     }
                 
@@ -301,7 +301,7 @@ struct ShowTheButton :View {
                     selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
                 )
                 .padding()
-                .foregroundStyle(.black)
+                .foregroundStyle(Color("TextBackground"))
                 .font(Font.system(size: 25, design: .default))
                 
                 Spacer()
@@ -333,7 +333,7 @@ struct ShowTheButton :View {
                 }
 
                 Button {
-                    var randomElement = sound.randomElement()!
+                    let randomElement = sound.randomElement()!
                     
                     if !selectedItems.isEmpty {
                         isPlaying = true
