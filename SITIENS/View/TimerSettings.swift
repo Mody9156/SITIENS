@@ -296,6 +296,7 @@ struct ShowTheButton :View {
                         .foregroundStyle(.white)
                         .font(Font.system(size: 15, design: .default))
                     }
+                
                 Text(
                     selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
                 )
@@ -309,7 +310,9 @@ struct ShowTheButton :View {
              
                 Button {
                     withAnimation {
-                        isPlaying.toggle()
+                        if !selectedItems.isEmpty {
+                            isPlaying.toggle()
+                        }
                         isVisualizing.toggle()
                         
                         if isPlaying  {
@@ -328,12 +331,12 @@ struct ShowTheButton :View {
                         .scaleEffect(isPlaying ? 1.1 : 1.0)
                         .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
                 }
-                .disabled(selectedItems.isEmpty)
 
                 Button {
                     var randomElement = sound.randomElement()!
                     
                     if !selectedItems.isEmpty {
+                        isPlaying = true
                         hydrationActivationViewModel.playSound(sound: randomElement)
                     }
                 } label: {
