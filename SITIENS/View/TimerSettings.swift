@@ -478,6 +478,8 @@ struct ActiveAudio : View {
                                 .padding()
                         }
                     }
+                    
+                    
                 }
             }
     }
@@ -501,3 +503,14 @@ struct CustomSystemName: View {
     }
 }
 
+
+extension MPVolumeView {
+    static func setVolume(_ volume: Float){
+        let volumeView = MPVolumeView()
+        let slider = volumeView.subviews.first { $0 is UISlider } as? UISlider
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
+                    slider?.value = volume
+                }
+    }
+}
