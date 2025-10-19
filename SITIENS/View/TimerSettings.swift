@@ -30,6 +30,7 @@ struct TimerSettings: View {
     @State private var isUserScrubbing = false
     @State private var time = 0
     @State private var isVisualizing : Bool = false
+    @State var activeBoutton: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -52,16 +53,16 @@ struct TimerSettings: View {
                                 selection: $selectedHour,
                                 label:
                                     HStack {
-                                    Text(selectedHour == 0 ? "Sélectionner"
-                                        : hydrationActivationViewModel.formatHour(selectedHour)
-                                    )
-                                    .foregroundColor(selectedHour == 0 ? .gray : .primary)
-                                    .lineLimit(1)
+                                        Text(selectedHour == 0 ? "Sélectionner"
+                                             : hydrationActivationViewModel.formatHour(selectedHour)
+                                        )
+                                        .foregroundColor(selectedHour == 0 ? .gray : .primary)
+                                        .lineLimit(1)
                                         
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.gray)
-                                }
+                                        Spacer()
+                                        Image(systemName: "chevron.right")
+                                            .foregroundColor(.gray)
+                                    }
                             ) {
                                 ForEach(hour, id: \.self) { value in
                                     Text(hydrationActivationViewModel.formatHour(value))
@@ -116,44 +117,56 @@ struct TimerSettings: View {
                         .cornerRadius(16)
                         .shadow(radius: 5)
                         
-                        ActiveAudio(selectedItems: $selectedItems,isVisualizing:$isVisualizing)
-//
-//                        CustomButton(
-//                            isPlaying: $isPlaying,
-//                            hydrationActivationViewModel:
-//                            hydrationActivationViewModel,
-//                            selectedItems: $selectedItems,
-//                            type: "LoadingSong",
-//                            selectedHour: $selectedHour,
-//                            updateSlide : $updateSlide
-//                        )
-                  
-//                        Text("\(time)")
-//                            .onReceive(timer) {_ in
-//                                
-//                                if isPlaying {
-//                                    time += 1
-//                                    
-//                                }else if time == 30  {
-//                                    isPlaying = false
-//                                   
-//                                }
-//                            }
+                        //                        ActiveAudio(selectedItems: $selectedItems,isVisualizing:$isVisualizing)
+                        
+                        
+                       
+                        
+                        //
+                        //                        CustomButton(
+                        //                            isPlaying: $isPlaying,
+                        //                            hydrationActivationViewModel:
+                        //                            hydrationActivationViewModel,
+                        //                            selectedItems: $selectedItems,
+                        //                            type: "LoadingSong",
+                        //                            selectedHour: $selectedHour,
+                        //                            updateSlide : $updateSlide
+                        //                        )
+                        
+                        //                        Text("\(time)")
+                        //                            .onReceive(timer) {_ in
+                        //
+                        //                                if isPlaying {
+                        //                                    time += 1
+                        //
+                        //                                }else if time == 30  {
+                        //                                    isPlaying = false
+                        //
+                        //                                }
+                        //                            }
                     }
                     .padding()
                 }
                 .navigationTitle("Paramètres")
             }
             
-            CustomButton(
-                isPlaying: $isPlaying,
-                hydrationActivationViewModel:
-                hydrationActivationViewModel,
-                selectedItems: $selectedItems,
-                type: "Validate",
-                selectedHour: $selectedHour,
-                updateSlide : $updateSlide
-            )
+            VStack {
+                ShowTheButton(
+                    activeBoutton: $activeBoutton,
+                    selectedItems: $selectedItems,
+                    isVisualizing: $isVisualizing
+                )
+                
+                CustomButton(
+                    isPlaying: $isPlaying,
+                    hydrationActivationViewModel:
+                        hydrationActivationViewModel,
+                    selectedItems: $selectedItems,
+                    type: "Validate",
+                    selectedHour: $selectedHour,
+                    updateSlide : $updateSlide
+                )
+            }
         }
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
@@ -170,7 +183,7 @@ struct TimerSettings: View {
         selectedHour: $selectedHour,
         hydrationActivationViewModel: HydrationActivationViewModel()
     )
-   
+    
 }
 
 struct CustomButton: View {
@@ -183,13 +196,13 @@ struct CustomButton: View {
     @Environment(\.dismiss) var dismiss
     @Binding var updateSlide : Double
     
-//    func completed() -> Bool {
-//        return progressWater() == 1
-//    }
-//    
-//    func progressWater() -> CGFloat {
-//        return  CGFloat(timeInterval) / CGFloat(timerhour)
-//    }
+    //    func completed() -> Bool {
+    //        return progressWater() == 1
+    //    }
+    //
+    //    func progressWater() -> CGFloat {
+    //        return  CGFloat(timeInterval) / CGFloat(timerhour)
+    //    }
     
     var body: some View {
         if type == "LoadingSong" {
@@ -213,7 +226,7 @@ struct CustomButton: View {
                     .scaleEffect(isPlaying ? 1.1 : 1.0)
                     .foregroundStyle(.black)
             }
-           
+            
         }else{
             
             
@@ -250,6 +263,80 @@ struct CustomButton: View {
 }
 
 
+struct ShowTheButton :View {
+    @Binding var activeBoutton: Bool
+    @Binding var selectedItems : String
+    @Binding var isVisualizing : Bool
+    
+    var body: some View {
+        
+        
+        ZStack {
+           Rectangle()
+                .frame(height:80)
+                .foregroundStyle(.white)
+            
+            HStack {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 50,height: 50)
+                            .foregroundStyle(.black)
+                            .padding()
+                        
+                        Text(
+                            selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
+                        )
+                        .padding()
+                        .foregroundStyle(.white)
+                        .font(Font.system(size: 15, design: .default))
+                    }
+                Text(
+                    selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
+                )
+                .padding()
+                .foregroundStyle(.black)
+                .font(Font.system(size: 25, design: .default))
+                
+                Spacer()
+             
+//                CustomSystemName(name: "play.fill", isVisualizing: $isVisualizing)
+                
+                Button {
+                    isVisualizing.toggle()
+                } label: {
+                    Image(systemName: "play.fill")
+                        .resizable()
+                        .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
+                        .frame(width: 20,height: 20)
+                        .padding()
+                }
+
+                HStack(spacing: -35) {
+                        Image(systemName: "arrowtriangle.forward.fill")
+                            .resizable()
+                            .foregroundStyle(.gray)
+                            .frame(width: 20,height: 20)
+                            .padding()
+                        
+                        Image(systemName: "arrowtriangle.forward.fill")
+                            .resizable()
+                            .foregroundStyle(.gray)
+                            .frame(width: 20,height: 20)
+                            .padding()
+                    }
+            }
+        }
+        .onTapGesture {
+            activeBoutton.toggle()
+        }
+        .sheet(isPresented: $activeBoutton) {
+            
+        } content: {
+            ActiveAudio(selectedItems: $selectedItems,isVisualizing:$isVisualizing)
+        }
+    }
+}
+
 
 struct ActiveAudio : View {
     @Binding var selectedItems : String
@@ -259,7 +346,7 @@ struct ActiveAudio : View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .frame(height:150)
-                .foregroundStyle(Color.gray.opacity(0.15))
+                .foregroundStyle(Color.gray.opacity(0.5))
             
             VStack(alignment: .center) {
                 
@@ -267,20 +354,20 @@ struct ActiveAudio : View {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
                             .frame(width: 50,height: 50)
-                            .foregroundStyle(.blue)
+                            .foregroundStyle(.white)
                             .padding()
                         
                         Text(
                             selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
-                                )
-                            .padding()
-                            .foregroundStyle(.white)
-                            .font(Font.system(size: 15, design: .default))
+                        )
+                        .padding()
+                        .foregroundStyle(.black)
+                        .font(Font.system(size: 15, design: .default))
                     }
                     
                     Text(selectedItems.isEmpty ? "?" : selectedItems)
                         .fontWeight(.bold)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.black)
                     
                     Spacer()
                     
@@ -289,12 +376,12 @@ struct ActiveAudio : View {
                             RoundedRectangle(cornerRadius: 2)
                                 .frame(
                                     width: 3,
-                                    height: 
+                                    height:
                                             .random(
                                                 in: isVisualizing ? 8...16 : 4...12
                                             )
                                 )
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.black)
                                 .animation(
                                     .easeOut(duration: 0.25)
                                     .repeatForever(autoreverses: true),
@@ -303,7 +390,7 @@ struct ActiveAudio : View {
                                 .onAppear{
                                     isVisualizing = false
                                 }
-                                
+                            
                         }
                     }.padding()
                     
@@ -313,23 +400,23 @@ struct ActiveAudio : View {
                     Spacer()
                     
                     Button {
-
+                        
                     } label: {
                         HStack(spacing: -35) {
                             Image(systemName: "arrowtriangle.backward.fill")
                                 .resizable()
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.black)
                                 .frame(width: 20,height: 20)
                                 .padding()
                             
                             Image(systemName: "arrowtriangle.backward.fill")
                                 .resizable()
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.black)
                                 .frame(width: 20,height: 20)
                                 .padding()
                         }
                     }
-                   
+                    
                     CustomSystemName(name: "play.fill", isVisualizing: $isVisualizing)
                     
                     Button {
@@ -338,13 +425,13 @@ struct ActiveAudio : View {
                         HStack(spacing: -35) {
                             Image(systemName: "arrowtriangle.forward.fill")
                                 .resizable()
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.black)
                                 .frame(width: 20,height: 20)
                                 .padding()
                             
                             Image(systemName: "arrowtriangle.forward.fill")
                                 .resizable()
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.black)
                                 .frame(width: 20,height: 20)
                                 .padding()
                         }
@@ -371,5 +458,5 @@ struct CustomSystemName: View {
                 .frame(width: 20,height: 20)
                 .padding()
         }
-        }
+    }
 }
