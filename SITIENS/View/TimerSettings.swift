@@ -375,8 +375,6 @@ struct ShowTheButton :View {
             activeBoutton.toggle()
         }
         .sheet(isPresented: $activeBoutton) {
-            
-        } content: {
             ActiveAudio(
                 selectedItems: $selectedItems,
                 isVisualizing:$isVisualizing,
@@ -479,7 +477,10 @@ struct ActiveAudio : View {
                         }
                     }
                     
-                    
+                    VolumeSlider()
+                        .frame(height: 40)
+                        .foregroundStyle(.blue)
+                        .padding()
                 }
             }
     }
@@ -513,4 +514,14 @@ extension MPVolumeView {
                     slider?.value = volume
                 }
     }
+}
+
+struct VolumeSlider: UIViewRepresentable {
+    func makeUIView(context: Context) -> MPVolumeView {
+        let volumeView = MPVolumeView()
+//        volumeView.showsRouteButton = true // Affiche le bouton AirPlay
+        volumeView.showsVolumeSlider = true
+        return volumeView
+    }
+    func updateUIView(_ uiView: MPVolumeView, context: Context) {}
 }
