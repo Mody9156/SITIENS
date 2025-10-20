@@ -14,6 +14,10 @@ import MediaPlayer
 struct TimerSettings: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze","alone","kugelsicher-by-tremoxbeatz","gardens-stylish-chill","future-design","lofi-effect","lofi-sample-if-i-cant-have-you","mystical-music","music-box","meditation-music-sound-bite","ringtone","cool-guitar-loop","basique"]
     @State var hour : [Int] = [10,600,3600,7200,5400,1800]
+    @State var inserTimerHour = Array(0..<24)
+    @State var inserTimerMinutes = Array(0..<61)
+    @State var inserHour = 0
+    @State var inserMinutes = 0
     @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
@@ -33,7 +37,10 @@ struct TimerSettings: View {
     @State private var isVisualizing : Bool = false
     @State var activeBoutton: Bool = false
 
-    
+    func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
+        let a = (hour * 3600) + (minutes * 60)
+      return a
+    }
     var body: some View {
         NavigationStack {
             ZStack {
@@ -46,12 +53,35 @@ struct TimerSettings: View {
                 
                 ScrollView {
                     VStack{
+                        HStack {
+                            Picker("",selection: $inserHour) {
+                                ForEach(inserTimerHour, id: \.self) { value in
+                                    Text("\(value)")
+                                    
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                            
+                            Picker("",selection: $inserMinutes) {
+                                ForEach(inserTimerMinutes, id: \.self) { value in
+                                            Text("\(value)")
+                                        
+                                }
+                            }
+                            .pickerStyle(.wheel)
+                            
+                        }
+                        .onChange(of: inserHour) {
+                            let result = formatTime(inserHour, inserMinutes)
+                           let _ = hydrationActivationViewModel.formatHour(result)
+                        }
+                        
 //                        VStack(alignment: .leading, spacing: 12) {
 //                            Text("Sélectionner le temps")
 //                                .font(.headline)
 //                                .padding(.horizontal, 4)
                             
-                            Picker("",selection: $selectedHour
+//                            Picker("",selection: $selectedHour
 //                                label:
 //                                    HStack {
 //                                        Text(selectedHour == 0 ? "Sélectionner"
@@ -64,22 +94,23 @@ struct TimerSettings: View {
 //                                        Image(systemName: "chevron.right")
 //                                            .foregroundColor(.gray)
 //                                    }
-                            ) {
-                                ForEach(hour, id: \.self) { value in
-                                    Text(hydrationActivationViewModel.formatHour(value))
-                                        .lineLimit(1)
-                                }
-                            }
-                            .pickerStyle(.wheel)
-                            .padding()
+//                            ) {
+//                                ForEach(hour, id: \.self) { value in
+//                                    Text(hydrationActivationViewModel.formatHour(value))
+//                                        .lineLimit(1)
+//                                }
+//                            }
+//                            .pickerStyle(.wheel)
+//                            .frame( height: 200)
+//                            .padding()
 //                            .background(.ultraThinMaterial)
 //                            .cornerRadius(12)
 //                            .overlay(
 //                                RoundedRectangle(cornerRadius: 12)
 //                                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
 //                            )
-                            .accessibilityLabel("Sélection du temps")
-                            .accessibilityHint("Appuyez pour choisir une durée")
+//                            .accessibilityLabel("Sélection du temps")
+//                            .accessibilityHint("Appuyez pour choisir une durée")
 //                        }
 //                        .padding()
 //                        .background(.ultraThinMaterial)
@@ -127,17 +158,17 @@ struct TimerSettings: View {
             }
             
             VStack {
-                ShowTheButton(
-                    activeBoutton: $activeBoutton,
-                    selectedItems: $selectedItems,
-                    isVisualizing: $isVisualizing,
-                    hydrationActivationViewModel: hydrationActivationViewModel,
-                    isPlaying: isPlaying,
-                    sound: $sound
-                )
-                
-                Divider()
-                    .frame(height: 2)
+//                ShowTheButton(
+//                    activeBoutton: $activeBoutton,
+//                    selectedItems: $selectedItems,
+//                    isVisualizing: $isVisualizing,
+//                    hydrationActivationViewModel: hydrationActivationViewModel,
+//                    isPlaying: isPlaying,
+//                    sound: $sound
+//                )
+//                
+//                Divider()
+//                    .frame(height: 2)
                 
                 CustomButton(
                     isPlaying: $isPlaying,
@@ -193,6 +224,10 @@ struct TimerSettings: View {
                     .font(.headline)
                     .padding()
             }
+        }
+        
+        ToolbarItem(placement: .principal) {
+            Text("Paramètres")
         }
     }
     
