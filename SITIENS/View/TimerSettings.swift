@@ -149,6 +149,9 @@ struct TimerSettings: View {
                     .padding()
                 }
                 .navigationTitle("Paramètres")
+                .toolbar {
+                    ToolBarItem()
+                    }
             }
             
             VStack {
@@ -180,22 +183,51 @@ struct TimerSettings: View {
             isPlaying = false
         }
         .environment(hydrationActivationViewModel.self)
-        .toolbar {
-                
-            }
+       
     }
-    
     
     @ToolbarContentBuilder
     func ToolBarItem() -> some ToolbarContent {
         
         ToolbarItem(placement: .topBarTrailing) {
             Button(action: {
-                
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                    timerhour = selectedHour
+                    hydrationActivationViewModel.stopPlaying()
+                    if selectedHour != 0  {
+                        dismiss()
+                    }
+                }
+
             }) {
                 Text("Valider")
+                    .foregroundStyle(.black)
+                    .font(.headline)
+                    .padding()
+            }
+            .disabled(test() == true)
+        }
+        
+        ToolbarItem(placement: .topBarLeading) {
+            Button(action: {
+              
+
+            }) {
+                Text("Fermer")
+                    .foregroundStyle(.black)
+                    .font(.headline)
+                    .padding()
             }
         }
+    }
+    
+    func test () -> Bool {
+        if selectedHour == 0 || selectedItems.isEmpty {
+            return true
+        }
+        return false
     }
 }
 
