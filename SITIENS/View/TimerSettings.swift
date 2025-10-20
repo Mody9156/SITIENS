@@ -178,31 +178,48 @@ struct TimerSettings: View {
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
             isPlaying = false
-        }.environment(hydrationActivationViewModel.self)
+        }
+        .environment(hydrationActivationViewModel.self)
+        .toolbar {
+                
+            }
+    }
+    
+    
+    @ToolbarContentBuilder
+    func ToolBarItem() -> some ToolbarContent {
+        
+        ToolbarItem(placement: .topBarTrailing) {
+            Button(action: {
+                
+            }) {
+                Text("Valider")
+            }
+        }
     }
 }
 
 #Preview {
-//    @Previewable @State var selectedItems : String = ""
-//    @Previewable @State var selectedHour : Int = 0
-//    TimerSettings(
-//        selectedItems: $selectedItems,
-//        selectedHour: $selectedHour,
-//        hydrationActivationViewModel: HydrationActivationViewModel()
-//    )
-        @Previewable @State var selectedItems : String = ""
-        @Previewable @State var isVisualizing : Bool = false
-    @Previewable @State var sound : [String] = [""]
-    @Previewable @State var hydrationActivationViewModel =  HydrationActivationViewModel()
-    @Previewable @State var isPlaying : Bool = false
-        
-    ActiveAudio(
+    @Previewable @State var selectedItems : String = ""
+    @Previewable @State var selectedHour : Int = 0
+    TimerSettings(
         selectedItems: $selectedItems,
-        isVisualizing:$isVisualizing,
-        sound:$sound,
-        hydrationActivationViewModel: HydrationActivationViewModel(),
-        isPlaying: $isPlaying
+        selectedHour: $selectedHour,
+        hydrationActivationViewModel: HydrationActivationViewModel()
     )
+//        @Previewable @State var selectedItems : String = ""
+//        @Previewable @State var isVisualizing : Bool = false
+//    @Previewable @State var sound : [String] = [""]
+//    @Previewable @State var hydrationActivationViewModel =  HydrationActivationViewModel()
+//    @Previewable @State var isPlaying : Bool = false
+//        
+//    ActiveAudio(
+//        selectedItems: $selectedItems,
+//        isVisualizing:$isVisualizing,
+//        sound:$sound,
+//        hydrationActivationViewModel: HydrationActivationViewModel(),
+//        isPlaying: $isPlaying
+//    )
 }
 
 struct CustomButton: View {
