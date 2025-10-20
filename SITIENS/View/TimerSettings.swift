@@ -32,6 +32,7 @@ struct TimerSettings: View {
     @State private var time = 0
     @State private var isVisualizing : Bool = false
     @State var activeBoutton: Bool = false
+
     
     var body: some View {
         NavigationStack {
@@ -44,47 +45,46 @@ struct TimerSettings: View {
                 .ignoresSafeArea()
                 
                 ScrollView {
-                    VStack (spacing: 30){
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Sélectionner le temps")
-                                .font(.headline)
-                                .padding(.horizontal, 4)
+                    VStack{
+//                        VStack(alignment: .leading, spacing: 12) {
+//                            Text("Sélectionner le temps")
+//                                .font(.headline)
+//                                .padding(.horizontal, 4)
                             
-                            Picker(
-                                selection: $selectedHour,
-                                label:
-                                    HStack {
-                                        Text(selectedHour == 0 ? "Sélectionner"
-                                             : hydrationActivationViewModel.formatHour(selectedHour)
-                                        )
-                                        .foregroundColor(selectedHour == 0 ? .gray : .primary)
-                                        .lineLimit(1)
-                                        
-                                        Spacer()
-                                        Image(systemName: "chevron.right")
-                                            .foregroundColor(.gray)
-                                    }
+                            Picker("",selection: $selectedHour
+//                                label:
+//                                    HStack {
+//                                        Text(selectedHour == 0 ? "Sélectionner"
+//                                             : hydrationActivationViewModel.formatHour(selectedHour)
+//                                        )
+//                                        .foregroundColor(selectedHour == 0 ? .gray : .primary)
+//                                        .lineLimit(1)
+//                                        
+//                                        Spacer()
+//                                        Image(systemName: "chevron.right")
+//                                            .foregroundColor(.gray)
+//                                    }
                             ) {
                                 ForEach(hour, id: \.self) { value in
                                     Text(hydrationActivationViewModel.formatHour(value))
                                         .lineLimit(1)
                                 }
                             }
-                            .pickerStyle(.navigationLink)
+                            .pickerStyle(.wheel)
                             .padding()
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(12)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
-                            )
+//                            .background(.ultraThinMaterial)
+//                            .cornerRadius(12)
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 12)
+//                                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+//                            )
                             .accessibilityLabel("Sélection du temps")
                             .accessibilityHint("Appuyez pour choisir une durée")
-                        }
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(16)
-                        .shadow(radius: 5)
+//                        }
+//                        .padding()
+//                        .background(.ultraThinMaterial)
+//                        .cornerRadius(16)
+//                        .shadow(radius: 5)
                         
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Sélectionner l'audio")
@@ -117,38 +117,10 @@ struct TimerSettings: View {
                         .background(.ultraThinMaterial)
                         .cornerRadius(16)
                         .shadow(radius: 5)
-                        
-                        //                        ActiveAudio(selectedItems: $selectedItems,isVisualizing:$isVisualizing)
-                        
-                        
-                       
-                        
-                        //
-                        //                        CustomButton(
-                        //                            isPlaying: $isPlaying,
-                        //                            hydrationActivationViewModel:
-                        //                            hydrationActivationViewModel,
-                        //                            selectedItems: $selectedItems,
-                        //                            type: "LoadingSong",
-                        //                            selectedHour: $selectedHour,
-                        //                            updateSlide : $updateSlide
-                        //                        )
-                        
-                        //                        Text("\(time)")
-                        //                            .onReceive(timer) {_ in
-                        //
-                        //                                if isPlaying {
-                        //                                    time += 1
-                        //
-                        //                                }else if time == 30  {
-                        //                                    isPlaying = false
-                        //
-                        //                                }
-                        //                            }
+                     
                     }
                     .padding()
                 }
-                .navigationTitle("Paramètres")
                 .toolbar {
                     ToolBarItem()
                     }
@@ -211,8 +183,9 @@ struct TimerSettings: View {
         }
         
         ToolbarItem(placement: .topBarLeading) {
+            
             Button(action: {
-              
+                dismiss()
 
             }) {
                 Text("Fermer")
