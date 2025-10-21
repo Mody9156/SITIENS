@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F4B18E72E3D610F00ADD5B4 /* AppClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 4F4B18C52E3D610D00ADD5B4 /* AppClip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4F62949D2EA8342D0085EF20 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 4F62949C2EA8342D0085EF20 /* SwiftUIIntrospect */; };
-		4F62949F2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 4F62949E2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic */; };
-		4F6294A12EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 4F62949E2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		4F6294A32EA8342D0085EF20 /* SwiftUIIntrospect-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 4F6294A22EA8342D0085EF20 /* SwiftUIIntrospect-Static */; };
+		4F6295BC2EA8438B0085EF20 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 4F6295BB2EA8438B0085EF20 /* SwiftUIIntrospect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -84,7 +81,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4F6294A12EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,9 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F62949D2EA8342D0085EF20 /* SwiftUIIntrospect in Frameworks */,
-				4F62949F2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic in Frameworks */,
-				4F6294A32EA8342D0085EF20 /* SwiftUIIntrospect-Static in Frameworks */,
+				4F6295BC2EA8438B0085EF20 /* SwiftUIIntrospect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,9 +325,7 @@
 			);
 			name = SITIENS;
 			packageProductDependencies = (
-				4F62949C2EA8342D0085EF20 /* SwiftUIIntrospect */,
-				4F62949E2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic */,
-				4F6294A22EA8342D0085EF20 /* SwiftUIIntrospect-Static */,
+				4F6295BB2EA8438B0085EF20 /* SwiftUIIntrospect */,
 			);
 			productName = SITIENS;
 			productReference = 4FA205952DA40CAF004C8CC4 /* SITIENS.app */;
@@ -430,7 +422,7 @@
 			mainGroup = 4FA2058C2DA40CAF004C8CC4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+				4F6295BA2EA842C40085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4FA205962DA40CAF004C8CC4 /* Products */;
@@ -1040,7 +1032,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+		4F6295BA2EA842C40085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/swiftui-introspect";
 			requirement = {
@@ -1051,20 +1043,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4F62949C2EA8342D0085EF20 /* SwiftUIIntrospect */ = {
+		4F6295BB2EA8438B0085EF20 /* SwiftUIIntrospect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			package = 4F6295BA2EA842C40085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = SwiftUIIntrospect;
-		};
-		4F62949E2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
-			productName = "SwiftUIIntrospect-Dynamic";
-		};
-		4F6294A22EA8342D0085EF20 /* SwiftUIIntrospect-Static */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
-			productName = "SwiftUIIntrospect-Static";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

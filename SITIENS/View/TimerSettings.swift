@@ -57,26 +57,30 @@ struct TimerSettings: View {
                         HStack {
                             Picker("",selection: $inserHour) {
                                 ForEach(inserTimerHour, id: \.self) { value in
-                                    HStack {
-                                        Text("\(value)")
-                                        Text("\(value)")
+                                    ForEach(inserTimerMinutes, id: \.self) { values in
+                                               
+                                            Text("\(value)")
                                     }
-                                    
                                 }
                             }
                             .pickerStyle(.wheel)
-                            .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
-                                // do something with UIScrollView
+                                       .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { picker in
+                                           picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
+                                        
+                                       }
+                            
+                            Picker("",selection: $inserMinutes) {
+                                ForEach(inserTimerMinutes, id: \.self) { value in
+                                            Text("\(value)")
+                                        
+                                }
                             }
-                            
-//                            Picker("",selection: $inserMinutes) {
-//                                ForEach(inserTimerMinutes, id: \.self) { value in
-//                                            Text("\(value)")
-//                                        
-//                                }
-//                            }
-//                            .pickerStyle(.wheel)
-                            
+                            .pickerStyle(.wheel)
+                                        .padding(.leading, -15)
+                                        .clipped()
+                                        .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { picker in
+                                            picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
+                                        }
                         }
                         .onChange(of: inserHour) {
                             let result = formatTime(inserHour, inserMinutes)
