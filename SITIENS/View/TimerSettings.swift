@@ -10,6 +10,7 @@ import UIKit
 import AVFAudio
 import Combine
 import MediaPlayer
+import SwiftUIIntrospect
 
 struct TimerSettings: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze","alone","kugelsicher-by-tremoxbeatz","gardens-stylish-chill","future-design","lofi-effect","lofi-sample-if-i-cant-have-you","mystical-music","music-box","meditation-music-sound-bite","ringtone","cool-guitar-loop","basique"]
@@ -56,19 +57,25 @@ struct TimerSettings: View {
                         HStack {
                             Picker("",selection: $inserHour) {
                                 ForEach(inserTimerHour, id: \.self) { value in
-                                    Text("\(value)")
+                                    HStack {
+                                        Text("\(value)")
+                                        Text("\(value)")
+                                    }
                                     
                                 }
                             }
                             .pickerStyle(.wheel)
-                            
-                            Picker("",selection: $inserMinutes) {
-                                ForEach(inserTimerMinutes, id: \.self) { value in
-                                            Text("\(value)")
-                                        
-                                }
+                            .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
+                                // do something with UIScrollView
                             }
-                            .pickerStyle(.wheel)
+                            
+//                            Picker("",selection: $inserMinutes) {
+//                                ForEach(inserTimerMinutes, id: \.self) { value in
+//                                            Text("\(value)")
+//                                        
+//                                }
+//                            }
+//                            .pickerStyle(.wheel)
                             
                         }
                         .onChange(of: inserHour) {

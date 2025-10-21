@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4F4B18E72E3D610F00ADD5B4 /* AppClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 4F4B18C52E3D610D00ADD5B4 /* AppClip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4F62949D2EA8342D0085EF20 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 4F62949C2EA8342D0085EF20 /* SwiftUIIntrospect */; };
+		4F62949F2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 4F62949E2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic */; };
+		4F6294A12EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 4F62949E2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4F6294A32EA8342D0085EF20 /* SwiftUIIntrospect-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 4F6294A22EA8342D0085EF20 /* SwiftUIIntrospect-Static */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -72,6 +76,17 @@
 				4F4B18E72E3D610F00ADD5B4 /* AppClip.app in Embed App Clips */,
 			);
 			name = "Embed App Clips";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F6294A02EA8342D0085EF20 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4F6294A12EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -167,6 +182,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F62949D2EA8342D0085EF20 /* SwiftUIIntrospect in Frameworks */,
+				4F62949F2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic in Frameworks */,
+				4F6294A32EA8342D0085EF20 /* SwiftUIIntrospect-Static in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +205,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F62949B2EA8342D0085EF20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4FA2058C2DA40CAF004C8CC4 = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +221,7 @@
 				4F4B18C62E3D610D00ADD5B4 /* AppClip */,
 				4F4B18D62E3D610F00ADD5B4 /* AppClipTests */,
 				4F4B18E02E3D610F00ADD5B4 /* AppClipUITests */,
+				4F62949B2EA8342D0085EF20 /* Frameworks */,
 				4FA205962DA40CAF004C8CC4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -292,6 +318,7 @@
 				4FA205922DA40CAF004C8CC4 /* Frameworks */,
 				4FA205932DA40CAF004C8CC4 /* Resources */,
 				4F4B18E82E3D610F00ADD5B4 /* Embed App Clips */,
+				4F6294A02EA8342D0085EF20 /* Embed Frameworks */,
 			);
 			buildRules = (
 				4F7E7ACB2E3D19CD009073D6 /* PBXBuildRule */,
@@ -304,6 +331,9 @@
 			);
 			name = SITIENS;
 			packageProductDependencies = (
+				4F62949C2EA8342D0085EF20 /* SwiftUIIntrospect */,
+				4F62949E2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic */,
+				4F6294A22EA8342D0085EF20 /* SwiftUIIntrospect-Static */,
 			);
 			productName = SITIENS;
 			productReference = 4FA205952DA40CAF004C8CC4 /* SITIENS.app */;
@@ -399,6 +429,9 @@
 			);
 			mainGroup = 4FA2058C2DA40CAF004C8CC4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4FA205962DA40CAF004C8CC4 /* Products */;
 			projectDirPath = "";
@@ -1005,6 +1038,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/swiftui-introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 26.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4F62949C2EA8342D0085EF20 /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = SwiftUIIntrospect;
+		};
+		4F62949E2EA8342D0085EF20 /* SwiftUIIntrospect-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = "SwiftUIIntrospect-Dynamic";
+		};
+		4F6294A22EA8342D0085EF20 /* SwiftUIIntrospect-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F62949A2EA8337D0085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = "SwiftUIIntrospect-Static";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4FA2058D2DA40CAF004C8CC4 /* Project object */;
 }
