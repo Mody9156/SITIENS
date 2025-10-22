@@ -57,10 +57,7 @@ struct TimerSettings: View {
                         HStack {
                             Picker("",selection: $inserHour) {
                                 ForEach(inserTimerHour, id: \.self) { value in
-                                    ForEach(inserTimerMinutes, id: \.self) { values in
-                                               
-                                            Text("\(value)")
-                                    }
+                                     Text("\(value)")
                                 }
                             }
                             .pickerStyle(.wheel)
@@ -72,7 +69,6 @@ struct TimerSettings: View {
                             Picker("",selection: $inserMinutes) {
                                 ForEach(inserTimerMinutes, id: \.self) { value in
                                             Text("\(value)")
-                                        
                                 }
                             }
                             .pickerStyle(.wheel)
