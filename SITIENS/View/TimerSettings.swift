@@ -80,9 +80,9 @@ struct TimerSettings: View {
                         }
                         .onChange(of: inserHour) {
                             let result = formatTime(inserHour, inserMinutes)
-                           let _ = hydrationActivationViewModel.formatHour(result)
-                        }
-                        
+                                 selectedHour = result
+                                 hydrationActivationViewModel.formatHour(result)
+                             }
 //                        VStack(alignment: .leading, spacing: 12) {
 //                            Text("Sélectionner le temps")
 //                                .font(.headline)
