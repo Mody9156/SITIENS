@@ -55,7 +55,8 @@ class HydrationActivationViewModel  {
             } else {
                 return "\(hours) \(hours > 1 ? "heures" : "heure") et \(minutes) \(minutes > 1 ? "minutes" : "minute")"
             }
-    }
+        
+    }//Modifier la fonction
   
     func playSound(sound:String) {
         hydrationProtocol.playSound(sound: sound)

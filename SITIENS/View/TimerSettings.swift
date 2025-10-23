@@ -176,7 +176,7 @@ struct TimerSettings: View {
 //                
 //                Divider()
 //                    .frame(height: 2)
-                
+              
                 CustomButton(
                     isPlaying: $isPlaying,
                     hydrationActivationViewModel:
@@ -184,7 +184,9 @@ struct TimerSettings: View {
                     selectedItems: $selectedItems,
                     type: "Validate",
                     selectedHour: $selectedHour,
-                    updateSlide : $updateSlide
+                    updateSlide : $updateSlide,
+                    inserHour: $inserHour,
+                    inserMinutes: $inserMinutes
                 )
             }
         }
@@ -278,7 +280,8 @@ struct CustomButton: View {
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
     @Binding var updateSlide : Double
-    
+    @Binding var inserMinutes : Int
+    @Binding var inserHour : Int
     //    func completed() -> Bool {
     //        return progressWater() == 1
     //    }
@@ -334,9 +337,9 @@ struct CustomButton: View {
             .padding()
         }
     }
-    
+//    inserMinutes
     func test () -> Bool {
-        if selectedHour == 0 || selectedItems.isEmpty {
+        if inserHour == 0 || inserMinutes == 0 {
             return true
         }
         return false
