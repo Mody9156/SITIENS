@@ -40,7 +40,6 @@ struct TimerSettings: View {
 
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
-        print("minutes : \(minutes)")
       return a
     }
     
@@ -182,17 +181,17 @@ struct TimerSettings: View {
 //                Divider()
 //                    .frame(height: 2)
               
-                CustomButton(
-                    isPlaying: $isPlaying,
-                    hydrationActivationViewModel:
-                        hydrationActivationViewModel,
-                    selectedItems: $selectedItems,
-                    type: "Validate",
-                    selectedHour: $selectedHour,
-                    updateSlide : $updateSlide,
-                    inserMinutes: $inserMinutes,
-                    inserHour: $inserHour
-                )
+//                CustomButton(
+//                    isPlaying: $isPlaying,
+//                    hydrationActivationViewModel:
+//                        hydrationActivationViewModel,
+//                    selectedItems: $selectedItems,
+//                    type: "Validate",
+//                    selectedHour: $selectedHour,
+//                    updateSlide : $updateSlide,
+//                    inserMinutes: $inserMinutes,
+//                    inserHour: $inserHour
+//                )
             }
         }
         .onDisappear{
@@ -220,7 +219,7 @@ struct TimerSettings: View {
 
             }) {
                 Text("Valider")
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color("TextBackground"))
                     .font(.headline)
                     .padding()
             }
@@ -234,7 +233,7 @@ struct TimerSettings: View {
 
             }) {
                 Text("Fermer")
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color("TextBackground"))
                     .font(.headline)
                     .padding()
             }
