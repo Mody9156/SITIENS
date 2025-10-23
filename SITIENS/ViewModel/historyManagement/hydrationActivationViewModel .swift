@@ -41,6 +41,7 @@ class HydrationActivationViewModel  {
         let hours = secondes / 3600
         let minutes = (secondes % 3600) / 60
         let seconds = (secondes % 3600) % 60
+        
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
     

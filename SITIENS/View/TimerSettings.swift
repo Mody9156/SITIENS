@@ -40,7 +40,12 @@ struct TimerSettings: View {
 
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
+        print("minutes : \(minutes)")
       return a
+    }
+    
+    private func CombienEquatableTime() -> CombienEquatable {
+        return CombienEquatable(inserHour: inserHour, inserMinutes: inserMinutes)
     }
     var body: some View {
         NavigationStack {
@@ -78,10 +83,10 @@ struct TimerSettings: View {
                                             picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
                                         }
                         }
-                        .onChange(of: inserHour) {
+                        .onChange(of: CombienEquatableTime()) {
                             let result = formatTime(inserHour, inserMinutes)
                                  selectedHour = result
-                                 hydrationActivationViewModel.formatHour(result)
+                                 let _ = hydrationActivationViewModel.formatHour(result)
                              }
 //                        VStack(alignment: .leading, spacing: 12) {
 //                            Text("Sélectionner le temps")
@@ -185,8 +190,8 @@ struct TimerSettings: View {
                     type: "Validate",
                     selectedHour: $selectedHour,
                     updateSlide : $updateSlide,
-                    inserHour: $inserHour,
-                    inserMinutes: $inserMinutes
+                    inserMinutes: $inserMinutes,
+                    inserHour: $inserHour
                 )
             }
         }
@@ -241,11 +246,18 @@ struct TimerSettings: View {
     }
     
     func test () -> Bool {
-        if selectedHour == 0 || selectedItems.isEmpty {
+        if inserHour == 0 && inserMinutes == 0 {
             return true
         }
         return false
     }
+    
+    
+}
+
+struct CombienEquatable : Equatable {
+   let inserHour : Int
+    let inserMinutes : Int
 }
 
 #Preview {
@@ -339,7 +351,7 @@ struct CustomButton: View {
     }
 //    inserMinutes
     func test () -> Bool {
-        if inserHour == 0 || inserMinutes == 0 {
+        if inserHour == 0 && inserMinutes == 0 {
             return true
         }
         return false

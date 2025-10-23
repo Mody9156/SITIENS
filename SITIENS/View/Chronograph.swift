@@ -183,6 +183,7 @@ struct Chronograph: View {
         var disableActive : Bool {
             timerIsReading && timeInterval != 0 && timeInterval != timerhour
         }
+        
         var toogleEditMode : Bool  {
             colorScheme == .light
         }
