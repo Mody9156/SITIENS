@@ -90,10 +90,6 @@ struct TimerSettings: View {
 
                         
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("Sélectionner l'audio")
-                                .font(.headline)
-                                .padding(.horizontal, 4)
-                            
                             Picker(selection: $selectedItems, label: HStack {
                                 Text(selectedItems.isEmpty ? "Sélectionner" : selectedItems)
                                     .foregroundColor(selectedItems.isEmpty ? .gray : .primary)
@@ -116,10 +112,7 @@ struct TimerSettings: View {
                             .accessibilityLabel("Sélectionner un son")
                             .accessibilityHint("Double-cliquez pour choisir un audio")
                         }
-                        .padding()
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(16)
-                        .shadow(radius: 5)
+                       
                      
                     }
                     .padding()
