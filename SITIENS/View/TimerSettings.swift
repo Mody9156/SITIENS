@@ -37,10 +37,10 @@ struct TimerSettings: View {
     @State private var time = 0
     @State private var isVisualizing : Bool = false
     @State var activeBoutton: Bool = false
-
+    
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
-      return a
+        return a
     }
     
     private func CombienEquatableTime() -> CombienEquatable {
@@ -58,42 +58,46 @@ struct TimerSettings: View {
                 
                 ScrollView {
                     VStack{
-                        HStack {
+                        HStack{
                             Picker("",selection: $inserHour) {
                                 ForEach(inserTimerHour, id: \.self) { value in
-                                     Text("\(value)")
+                                      Text("\(value)")
+                                        
                                 }
                             }
+                            
                             .pickerStyle(.wheel)
-                                       .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { picker in
-                                           picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
-                                        
-                                       }
+                            .padding()
+                            .clipped()
+                            .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+//                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
+                                print(type(of: $0))
+                            }
                             
                             Picker("",selection: $inserMinutes) {
                                 ForEach(inserTimerMinutes, id: \.self) { value in
-                                            Text("\(value)")
+                                    Text("\(value)")
                                 }
                             }
                             .pickerStyle(.wheel)
-                                        .padding(.leading, -15)
-                                        .clipped()
-                                        .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { picker in
-                                            picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
-                                        }
+                            .padding()
+                            .clipped()
+                            .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { picker in
+                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
+                            }
                         }
                         .onChange(of: CombienEquatableTime()) {
                             let result = formatTime(inserHour, inserMinutes)
-                                 selectedHour = result
-                                 let _ = hydrationActivationViewModel.formatHour(result)
-                             }
-
+                            selectedHour = result
+                            let _ = hydrationActivationViewModel.formatHour(result)
+                        }
+                        
                         
                         VStack(alignment: .leading, spacing: 12) {
                             Picker(selection: $selectedItems, label: HStack {
                                 Text("Sélectionner")
                                     .foregroundColor(Color("TextBackground"))
-                                
+                                    .padding()
                                 Spacer()
                                 
                                 Image(systemName: "chevron.right")
@@ -105,7 +109,7 @@ struct TimerSettings: View {
                                 }
                             }
                             .pickerStyle(.navigationLink)
-                            .padding()
+                            
                             .background(.gray.opacity(0.7))
                             .cornerRadius(12)
                             .overlay(
@@ -120,7 +124,7 @@ struct TimerSettings: View {
                 }
                 .toolbar {
                     ToolBarItem()
-                    }
+                }
             }
         }
         .onDisappear{
@@ -128,7 +132,7 @@ struct TimerSettings: View {
             isPlaying = false
         }
         .environment(hydrationActivationViewModel.self)
-       
+        
     }
     
     @ToolbarContentBuilder
@@ -145,7 +149,7 @@ struct TimerSettings: View {
                         dismiss()
                     }
                 }
-
+                
             }) {
                 Text("Valider")
                     .foregroundStyle(Color("TextBackground"))
@@ -159,7 +163,7 @@ struct TimerSettings: View {
             
             Button(action: {
                 dismiss()
-
+                
             }) {
                 Text("Fermer")
                     .foregroundStyle(Color("TextBackground"))
@@ -184,7 +188,7 @@ struct TimerSettings: View {
 }
 
 struct CombienEquatable : Equatable {
-   let inserHour : Int
+    let inserHour : Int
     let inserMinutes : Int
 }
 
@@ -196,19 +200,19 @@ struct CombienEquatable : Equatable {
         selectedHour: $selectedHour,
         hydrationActivationViewModel: HydrationActivationViewModel()
     )
-//        @Previewable @State var selectedItems : String = ""
-//        @Previewable @State var isVisualizing : Bool = false
-//    @Previewable @State var sound : [String] = [""]
-//    @Previewable @State var hydrationActivationViewModel =  HydrationActivationViewModel()
-//    @Previewable @State var isPlaying : Bool = false
-//        
-//    ActiveAudio(
-//        selectedItems: $selectedItems,
-//        isVisualizing:$isVisualizing,
-//        sound:$sound,
-//        hydrationActivationViewModel: HydrationActivationViewModel(),
-//        isPlaying: $isPlaying
-//    )
+    //        @Previewable @State var selectedItems : String = ""
+    //        @Previewable @State var isVisualizing : Bool = false
+    //    @Previewable @State var sound : [String] = [""]
+    //    @Previewable @State var hydrationActivationViewModel =  HydrationActivationViewModel()
+    //    @Previewable @State var isPlaying : Bool = false
+    //
+    //    ActiveAudio(
+    //        selectedItems: $selectedItems,
+    //        isVisualizing:$isVisualizing,
+    //        sound:$sound,
+    //        hydrationActivationViewModel: HydrationActivationViewModel(),
+    //        isPlaying: $isPlaying
+    //    )
 }
 
 struct CustomButton: View {
@@ -277,7 +281,7 @@ struct CustomButton: View {
             .padding()
         }
     }
-//    inserMinutes
+    //    inserMinutes
     func test () -> Bool {
         if inserHour == 0 && inserMinutes == 0 {
             return true
@@ -298,24 +302,24 @@ struct ShowTheButton :View {
     var body: some View {
         
         ZStack {
-           Rectangle()
+            Rectangle()
                 .frame(height:80)
                 .foregroundStyle(Color("ForegroundColorForTheText"))
             
             HStack {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(width: 50,height: 50)
-                            .foregroundStyle(Color("TextBackground"))
-                            .padding()
-                        
-                        Text(
-                            selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
-                        )
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(width: 50,height: 50)
+                        .foregroundStyle(Color("TextBackground"))
                         .padding()
-                        .foregroundStyle(Color("ForegroundColorForTheText"))
-                        .font(Font.system(size: 15, design: .default))
-                    }
+                    
+                    Text(
+                        selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
+                    )
+                    .padding()
+                    .foregroundStyle(Color("ForegroundColorForTheText"))
+                    .font(Font.system(size: 15, design: .default))
+                }
                 
                 Text(
                     selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
@@ -325,9 +329,9 @@ struct ShowTheButton :View {
                 .font(Font.system(size: 25, design: .default))
                 
                 Spacer()
-             
-//                CustomSystemName(name: "play.fill", isVisualizing: $isVisualizing)
-             
+                
+                //                CustomSystemName(name: "play.fill", isVisualizing: $isVisualizing)
+                
                 Button {
                     withAnimation {
                         if !selectedItems.isEmpty {
@@ -351,8 +355,8 @@ struct ShowTheButton :View {
                         .scaleEffect(isPlaying ? 1.1 : 1.0)
                         .foregroundStyle(selectedItems.isEmpty ? .gray : Color("TextBackground"))
                 }
-
-               
+                
+                
                 
                 Button {
                     let randomElement = sound.randomElement()!
@@ -363,18 +367,18 @@ struct ShowTheButton :View {
                     }
                 } label: {
                     HStack(spacing: -35) {
-                            Image(systemName: "arrowtriangle.forward.fill")
-                                .resizable()
-                                .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
-                                .frame(width: 20,height: 20)
-                                .padding()
-                            
-                            Image(systemName: "arrowtriangle.forward.fill")
-                                .resizable()
-                                .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
-                                .frame(width: 20,height: 20)
-                                .padding()
-                        }
+                        Image(systemName: "arrowtriangle.forward.fill")
+                            .resizable()
+                            .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
+                            .frame(width: 20,height: 20)
+                            .padding()
+                        
+                        Image(systemName: "arrowtriangle.forward.fill")
+                            .resizable()
+                            .foregroundStyle(!selectedItems.isEmpty ? Color("TextBackground") :.gray)
+                            .frame(width: 20,height: 20)
+                            .padding()
+                    }
                 }
             }
         }
@@ -403,93 +407,93 @@ struct ActiveAudio : View {
     let volum = AVAudioSession.sharedInstance().outputVolume
     
     var body: some View {
-       
-            VStack(alignment: .center) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .frame(width: 200,height: 200)
-                        .foregroundStyle(Color("TextBackground"))
-                        .padding()
-                    
-                    Text(
-                        selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
-                    )
+        
+        VStack(alignment: .center) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .frame(width: 200,height: 200)
+                    .foregroundStyle(Color("TextBackground"))
                     .padding()
-                    .foregroundStyle(Color("ForegroundColorForTheText"))
-                    .font(.largeTitle)
+                
+                Text(
+                    selectedItems.isEmpty ? "?" : selectedItems.prefix(3).uppercased()
+                )
+                .padding()
+                .foregroundStyle(Color("ForegroundColorForTheText"))
+                .font(.largeTitle)
+            }
+            
+            VStack {
+                HStack {
+                    
+                    Text(selectedItems.isEmpty ? "?" : selectedItems)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.black)
+                        .font(.title2)
+                    
+                    Spacer()
+                    
+                    //                        HStack(spacing: 1) {
+                    //                            ForEach(0..<6) { _ in
+                    //                                RoundedRectangle(cornerRadius: 2)
+                    //                                    .frame(
+                    //                                        width: 3,
+                    //                                        height:
+                    //                                                .random(
+                    //                                                    in: isVisualizing ? 8...16 : 4...12
+                    //                                                )
+                    //                                    )
+                    //                                    .foregroundStyle(.black)
+                    //                                    .animation(
+                    //                                        .easeOut(duration: 0.25)
+                    //                                        .repeatForever(autoreverses: true),
+                    //                                        value: isVisualizing
+                    //                                    )
+                    //                                    .onAppear{
+                    //                                        isVisualizing = false
+                    //                                    }
+                    //                            }
+                    //                        }.padding()
+                }
+                .padding()
+                
+                
+                
+                HStack{
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "15.arrow.trianglehead.counterclockwise")
+                            .resizable()
+                            .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
+                            .frame(width: 50,height: 50)
+                            .padding()
+                    }
+                    
+                    CustomSystemName(
+                        name: "play.fill",
+                        selectedItems: $selectedItems,
+                        isVisualizing: $isVisualizing
+                    )
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "30.arrow.trianglehead.clockwise")
+                            .resizable()
+                            .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
+                            .frame(width: 50,height: 50)
+                            .padding()
+                    }
                 }
                 
-                VStack {
-                    HStack {
-                        
-                        Text(selectedItems.isEmpty ? "?" : selectedItems)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.black)
-                            .font(.title2)
-                        
-                        Spacer()
-                        
-//                        HStack(spacing: 1) {
-//                            ForEach(0..<6) { _ in
-//                                RoundedRectangle(cornerRadius: 2)
-//                                    .frame(
-//                                        width: 3,
-//                                        height:
-//                                                .random(
-//                                                    in: isVisualizing ? 8...16 : 4...12
-//                                                )
-//                                    )
-//                                    .foregroundStyle(.black)
-//                                    .animation(
-//                                        .easeOut(duration: 0.25)
-//                                        .repeatForever(autoreverses: true),
-//                                        value: isVisualizing
-//                                    )
-//                                    .onAppear{
-//                                        isVisualizing = false
-//                                    }
-//                            }
-//                        }.padding()
-                    }
+                VolumeSlider()
+                    .frame(height: 40)
+                    .foregroundStyle(.blue)
                     .padding()
-                    
-                    
-                    
-                    HStack{
-                        
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "15.arrow.trianglehead.counterclockwise")
-                                .resizable()
-                                .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
-                                .frame(width: 50,height: 50)
-                                .padding()
-                        }
-                        
-                        CustomSystemName(
-                            name: "play.fill",
-                            selectedItems: $selectedItems,
-                            isVisualizing: $isVisualizing
-                        )
-                        
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "30.arrow.trianglehead.clockwise")
-                                .resizable()
-                                .foregroundStyle(selectedItems.isEmpty ? .gray : .black)
-                                .frame(width: 50,height: 50)
-                                .padding()
-                        }
-                    }
-                    
-                    VolumeSlider()
-                        .frame(height: 40)
-                        .foregroundStyle(.blue)
-                        .padding()
-                }
             }
+        }
     }
 }
 
@@ -518,15 +522,15 @@ extension MPVolumeView {
         let slider = volumeView.subviews.first { $0 is UISlider } as? UISlider
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-                    slider?.value = volume
-                }
+            slider?.value = volume
+        }
     }
 }
 
 struct VolumeSlider: UIViewRepresentable {
     func makeUIView(context: Context) -> MPVolumeView {
         let volumeView = MPVolumeView()
-//        volumeView.showsRouteButton = true // Affiche le bouton AirPlay
+        //        volumeView.showsRouteButton = true // Affiche le bouton AirPlay
         volumeView.showsVolumeSlider = true
         return volumeView
     }
