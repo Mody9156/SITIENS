@@ -92,7 +92,7 @@ struct TimerSettings: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Picker(selection: $selectedItems, label: HStack {
                                 Text(selectedItems.isEmpty ? "Sélectionner" : selectedItems)
-                                    .foregroundColor(selectedItems.isEmpty ? .gray : .primary)
+                                    .foregroundColor(Color("TextBackground"))
                                 Spacer()
                                 Image(systemName: "chevron.right")
                                     .foregroundColor(.gray)
