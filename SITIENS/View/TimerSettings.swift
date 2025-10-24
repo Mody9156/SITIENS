@@ -87,46 +87,7 @@ struct TimerSettings: View {
                                  selectedHour = result
                                  let _ = hydrationActivationViewModel.formatHour(result)
                              }
-//                        VStack(alignment: .leading, spacing: 12) {
-//                            Text("Sélectionner le temps")
-//                                .font(.headline)
-//                                .padding(.horizontal, 4)
-                            
-//                            Picker("",selection: $selectedHour
-//                                label:
-//                                    HStack {
-//                                        Text(selectedHour == 0 ? "Sélectionner"
-//                                             : hydrationActivationViewModel.formatHour(selectedHour)
-//                                        )
-//                                        .foregroundColor(selectedHour == 0 ? .gray : .primary)
-//                                        .lineLimit(1)
-//                                        
-//                                        Spacer()
-//                                        Image(systemName: "chevron.right")
-//                                            .foregroundColor(.gray)
-//                                    }
-//                            ) {
-//                                ForEach(hour, id: \.self) { value in
-//                                    Text(hydrationActivationViewModel.formatHour(value))
-//                                        .lineLimit(1)
-//                                }
-//                            }
-//                            .pickerStyle(.wheel)
-//                            .frame( height: 200)
-//                            .padding()
-//                            .background(.ultraThinMaterial)
-//                            .cornerRadius(12)
-//                            .overlay(
-//                                RoundedRectangle(cornerRadius: 12)
-//                                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
-//                            )
-//                            .accessibilityLabel("Sélection du temps")
-//                            .accessibilityHint("Appuyez pour choisir une durée")
-//                        }
-//                        .padding()
-//                        .background(.ultraThinMaterial)
-//                        .cornerRadius(16)
-//                        .shadow(radius: 5)
+
                         
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Sélectionner l'audio")
