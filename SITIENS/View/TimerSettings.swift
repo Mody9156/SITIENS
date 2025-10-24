@@ -93,9 +93,12 @@ struct TimerSettings: View {
                             Picker(selection: $selectedItems, label: HStack {
                                 Text("Sélectionner")
                                     .foregroundColor(Color("TextBackground"))
+                                
                                 Spacer()
+                                
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Color("TextBackground"))
+                                    .padding()
                             }) {
                                 ForEach(sound, id: \.self) { item in
                                     Text(item)
@@ -103,49 +106,21 @@ struct TimerSettings: View {
                             }
                             .pickerStyle(.navigationLink)
                             .padding()
-                            .background(.ultraThinMaterial)
+                            .background(.gray.opacity(0.7))
                             .cornerRadius(12)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                                    .stroke(.gray, lineWidth: 1)
                             )
                             .accessibilityLabel("Sélectionner un son")
                             .accessibilityHint("Double-cliquez pour choisir un audio")
                         }
-                       
-                     
                     }
                     .padding()
                 }
                 .toolbar {
                     ToolBarItem()
                     }
-            }
-            
-            VStack {
-//                ShowTheButton(
-//                    activeBoutton: $activeBoutton,
-//                    selectedItems: $selectedItems,
-//                    isVisualizing: $isVisualizing,
-//                    hydrationActivationViewModel: hydrationActivationViewModel,
-//                    isPlaying: isPlaying,
-//                    sound: $sound
-//                )
-//                
-//                Divider()
-//                    .frame(height: 2)
-              
-//                CustomButton(
-//                    isPlaying: $isPlaying,
-//                    hydrationActivationViewModel:
-//                        hydrationActivationViewModel,
-//                    selectedItems: $selectedItems,
-//                    type: "Validate",
-//                    selectedHour: $selectedHour,
-//                    updateSlide : $updateSlide,
-//                    inserMinutes: $inserMinutes,
-//                    inserHour: $inserHour
-//                )
             }
         }
         .onDisappear{
