@@ -226,14 +226,7 @@ struct CustomButton: View {
     @Binding var updateSlide : Double
     @Binding var inserMinutes : Int
     @Binding var inserHour : Int
-    //    func completed() -> Bool {
-    //        return progressWater() == 1
-    //    }
-    //
-    //    func progressWater() -> CGFloat {
-    //        return  CGFloat(timeInterval) / CGFloat(timerhour)
-    //    }
-    
+   
     var body: some View {
         if type == "LoadingSong" {
             Button {
