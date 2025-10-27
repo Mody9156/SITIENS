@@ -61,8 +61,8 @@ struct TimerSettings: View {
                         HStack{
                             Picker("",selection: $inserHour) {
                                 ForEach(inserTimerHour, id: \.self) { value in
-                                      Text("\(value)")
-                                        
+                                    Text("\(value)")
+                                    
                                 }
                             }
                             
@@ -70,7 +70,7 @@ struct TimerSettings: View {
                             .padding()
                             .clipped()
                             .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-//                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
+                                //                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
                                 print(type(of: $0))
                             }
                             
@@ -94,30 +94,54 @@ struct TimerSettings: View {
                         
                         
                         VStack(alignment: .leading, spacing: 12) {
-                            Picker(selection: $selectedItems, label: HStack {
-                                Text("Sélectionner")
-                                    .foregroundColor(Color("TextBackground"))
-                                    .padding()
-                                Spacer()
+                            //                            Picker(selection: $selectedItems, label: HStack {
+                            //                                Text("Sélectionner")
+                            //                                    .foregroundColor(Color("TextBackground"))
+                            //                                    .padding()
+                            //                                Spacer()
+                            //
+                            //                                Image(systemName: "chevron.right")
+                            //                                    .foregroundColor(Color("TextBackground"))
+                            //                                    .padding()
+                            //                            }) {
+                            //                                ForEach(sound, id: \.self) { item in
+                            //                                    Text(item)
+                            //                                        }
+                            //                                }
+                            //                            }
+                            //                            .pickerStyle(.navigationLink)
+                            //                            .background(.gray.opacity(0.7))
+                            //                            .cornerRadius(12)
+                            //                            .overlay(
+                            //                                RoundedRectangle(cornerRadius: 12)
+                            //                                    .stroke(.gray, lineWidth: 1)
+                            //                            )
+                            //                            .accessibilityLabel("Sélectionner un son")
+                            //                            .accessibilityHint("Double-cliquez pour choisir un audio")
+                            NavigationLink {
                                 
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(Color("TextBackground"))
-                                    .padding()
-                            }) {
-                                ForEach(sound, id: \.self) { item in
-                                    Text(item)
+                            } label: {
+                                HStack {
+                                    Text("Sélectionner")
+                                        .foregroundColor(Color("TextBackground"))
+                                        .padding()
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                       .foregroundColor(Color("TextBackground"))
+                                       .padding()
                                 }
+                                .background(.gray.opacity(0.7))
+                                .cornerRadius(12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(.gray, lineWidth: 1)
+                                )
+                                .accessibilityLabel("Sélectionner un son")
+                                .accessibilityHint("Double-cliquez pour choisir un audio")
                             }
-                            .pickerStyle(.navigationLink)
                             
-                            .background(.gray.opacity(0.7))
-                            .cornerRadius(12)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(.gray, lineWidth: 1)
-                            )
-                            .accessibilityLabel("Sélectionner un son")
-                            .accessibilityHint("Double-cliquez pour choisir un audio")
                         }
                     }
                     .padding()
@@ -192,6 +216,12 @@ struct CombienEquatable : Equatable {
     let inserMinutes : Int
 }
 
+struct ChoosSong: View {
+    var body : some View {
+        
+    }
+}
+
 #Preview {
     @Previewable @State var selectedItems : String = ""
     @Previewable @State var selectedHour : Int = 0
@@ -213,7 +243,7 @@ struct CustomButton: View {
     @Binding var updateSlide : Double
     @Binding var inserMinutes : Int
     @Binding var inserHour : Int
-   
+    
     var body: some View {
         if type == "LoadingSong" {
             Button {
