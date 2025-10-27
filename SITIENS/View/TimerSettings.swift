@@ -37,6 +37,7 @@ struct TimerSettings: View {
     @State private var time = 0
     @State private var isVisualizing : Bool = false
     @State var activeBoutton: Bool = false
+    @State var activeTogg: Bool = false
     
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
@@ -121,7 +122,7 @@ struct TimerSettings: View {
                             NavigationLink {
                                 ChoosSong(
                                     sound: $sound,
-                                    hydrationActivationViewModel: hydrationActivationViewModel
+                                    hydrationActivationViewModel: hydrationActivationViewModel, activeTogg: $activeTogg
                                 )
                             } label: {
                                 HStack {
@@ -222,16 +223,27 @@ struct CombienEquatable : Equatable {
 struct ChoosSong: View {
     @Binding var sound : [String]
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
-    var selectedItems : String = ""
+    @Binding var activeTogg: Bool
+    
     var body : some View {
         VStack {
             List(sound,id:\.self) { items in
-
-                Button(items){
+                Button {
+                    activeTogg.toggle()
                     
-                hydrationActivationViewModel.playSound(sound: items)
+                        hydrationActivationViewModel.playSound(sound: items)
+                                        
+                } label: {
+                    HStack {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(.yellow)
+                            
+                        Text(items)
+                            .foregroundStyle(.black)
+                    }
+                        
+//                        hydrationActivationViewModel.stopPlaying()
                 }
-                .foregroundStyle(.black)
             }
         }
     }
