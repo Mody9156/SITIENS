@@ -200,19 +200,6 @@ struct CombienEquatable : Equatable {
         selectedHour: $selectedHour,
         hydrationActivationViewModel: HydrationActivationViewModel()
     )
-    //        @Previewable @State var selectedItems : String = ""
-    //        @Previewable @State var isVisualizing : Bool = false
-    //    @Previewable @State var sound : [String] = [""]
-    //    @Previewable @State var hydrationActivationViewModel =  HydrationActivationViewModel()
-    //    @Previewable @State var isPlaying : Bool = false
-    //
-    //    ActiveAudio(
-    //        selectedItems: $selectedItems,
-    //        isVisualizing:$isVisualizing,
-    //        sound:$sound,
-    //        hydrationActivationViewModel: HydrationActivationViewModel(),
-    //        isPlaying: $isPlaying
-    //    )
 }
 
 struct CustomButton: View {
