@@ -119,7 +119,10 @@ struct TimerSettings: View {
                             //                            .accessibilityLabel("Sélectionner un son")
                             //                            .accessibilityHint("Double-cliquez pour choisir un audio")
                             NavigationLink {
-                                ChoosSong(sound: $sound)
+                                ChoosSong(
+                                    sound: $sound,
+                                    hydrationActivationViewModel: hydrationActivationViewModel
+                                )
                             } label: {
                                 HStack {
                                     Text("Sélectionner")
@@ -218,12 +221,15 @@ struct CombienEquatable : Equatable {
 
 struct ChoosSong: View {
     @Binding var sound : [String]
+    @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
+    var selectedItems : String = ""
     var body : some View {
         VStack {
-//            ForEach(sound, id: \.self) { item in
-            List(sound,id:\.self) {
-                Button($0){
+            List(sound,id:\.self) { items in
+
+                Button(items){
                     
+                hydrationActivationViewModel.playSound(sound: items)
                 }
                 .foregroundStyle(.black)
             }
