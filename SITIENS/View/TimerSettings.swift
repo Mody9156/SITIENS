@@ -95,30 +95,6 @@ struct TimerSettings: View {
                         
                         
                         VStack(alignment: .leading, spacing: 12) {
-                            //                            Picker(selection: $selectedItems, label: HStack {
-                            //                                Text("Sélectionner")
-                            //                                    .foregroundColor(Color("TextBackground"))
-                            //                                    .padding()
-                            //                                Spacer()
-                            //
-                            //                                Image(systemName: "chevron.right")
-                            //                                    .foregroundColor(Color("TextBackground"))
-                            //                                    .padding()
-                            //                            }) {
-                            //                                ForEach(sound, id: \.self) { item in
-                            //                                    Text(item)
-                            //                                        }
-                            //                                }
-                            //                            }
-                            //                            .pickerStyle(.navigationLink)
-                            //                            .background(.gray.opacity(0.7))
-                            //                            .cornerRadius(12)
-                            //                            .overlay(
-                            //                                RoundedRectangle(cornerRadius: 12)
-                            //                                    .stroke(.gray, lineWidth: 1)
-                            //                            )
-                            //                            .accessibilityLabel("Sélectionner un son")
-                            //                            .accessibilityHint("Double-cliquez pour choisir un audio")
                             NavigationLink {
                                 ChoosSong(
                                     sound: $sound,
@@ -133,8 +109,8 @@ struct TimerSettings: View {
                                     Spacer()
                                     
                                     Image(systemName: "chevron.right")
-                                       .foregroundColor(Color("TextBackground"))
-                                       .padding()
+                                        .foregroundColor(Color("TextBackground"))
+                                        .padding()
                                 }
                                 .background(.gray.opacity(0.7))
                                 .cornerRadius(12)
@@ -231,18 +207,18 @@ struct ChoosSong: View {
                 Button {
                     activeTogg.toggle()
                     
-                        hydrationActivationViewModel.playSound(sound: items)
-                                        
+                    hydrationActivationViewModel.playSound(sound: items)
+                    
                 } label: {
                     HStack {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(.yellow)
-                            
+                        Image(systemName: "checkmark")
+                            .foregroundStyle(.yellow)
+                        
                         Text(items)
                             .foregroundStyle(.black)
                     }
-                        
-//                        hydrationActivationViewModel.stopPlaying()
+                    
+                    //                        hydrationActivationViewModel.stopPlaying()
                 }
             }
         }
@@ -366,9 +342,7 @@ struct ShowTheButton :View {
                 .font(Font.system(size: 25, design: .default))
                 
                 Spacer()
-                
-                //                CustomSystemName(name: "play.fill", isVisualizing: $isVisualizing)
-                
+        
                 Button {
                     withAnimation {
                         if !selectedItems.isEmpty {
@@ -470,31 +444,8 @@ struct ActiveAudio : View {
                     
                     Spacer()
                     
-                    //                        HStack(spacing: 1) {
-                    //                            ForEach(0..<6) { _ in
-                    //                                RoundedRectangle(cornerRadius: 2)
-                    //                                    .frame(
-                    //                                        width: 3,
-                    //                                        height:
-                    //                                                .random(
-                    //                                                    in: isVisualizing ? 8...16 : 4...12
-                    //                                                )
-                    //                                    )
-                    //                                    .foregroundStyle(.black)
-                    //                                    .animation(
-                    //                                        .easeOut(duration: 0.25)
-                    //                                        .repeatForever(autoreverses: true),
-                    //                                        value: isVisualizing
-                    //                                    )
-                    //                                    .onAppear{
-                    //                                        isVisualizing = false
-                    //                                    }
-                    //                            }
-                    //                        }.padding()
                 }
                 .padding()
-                
-                
                 
                 HStack{
                     
@@ -567,7 +518,6 @@ extension MPVolumeView {
 struct VolumeSlider: UIViewRepresentable {
     func makeUIView(context: Context) -> MPVolumeView {
         let volumeView = MPVolumeView()
-        //        volumeView.showsRouteButton = true // Affiche le bouton AirPlay
         volumeView.showsVolumeSlider = true
         return volumeView
     }
