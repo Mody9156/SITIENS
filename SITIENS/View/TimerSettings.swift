@@ -97,10 +97,10 @@ struct TimerSettings: View {
                         VStack(alignment: .leading, spacing: 12) {
                             NavigationLink {
                                 
-                                    ChoosSong(
-                                        sound: $sound,
-                                        hydrationActivationViewModel: hydrationActivationViewModel, activeTogg: $selectedSound
-                                    )
+                                ChoosSong(
+                                    sound: $sound,
+                                    hydrationActivationViewModel: hydrationActivationViewModel, selectedSound: $selectedSound
+                                )
                             } label: {
                                 HStack {
                                     Text("Sélectionner")
@@ -203,28 +203,27 @@ struct ChoosSong: View {
     @Binding var selectedSound: String?
     
     var body : some View {
-           
-            List(sound,id:\.self) { items in
-                HStack {
-                        Image(systemName: "checkmark")
-                                   .foregroundStyle(.yellow)
-                                   .opacity(selectedSound == items ? 1 : 0)
-                       
-                    Button {
-                        
-                        if selectedSound == items {
-                            selectedSound = nil
-                            hydrationActivationViewModel.stopPlaying()
-                        }else {
-                            selectedSound = items
-                            hydrationActivationViewModel.playSound(sound: items)
-                        }
-                        
-                    } label: {
-                        
-                            Text(items)
-                                .foregroundStyle(.black)
+        
+        List(sound,id:\.self) { items in
+            HStack {
+                Image(systemName: "checkmark")
+                    .foregroundStyle(.yellow)
+                    .opacity(selectedSound == items ? 1 : 0)
+                Button {
+                    
+                    if selectedSound == items {
+                        selectedSound = nil
+                        hydrationActivationViewModel.stopPlaying()
+                    }else {
+                        selectedSound = items
+                        hydrationActivationViewModel.playSound(sound: items)
                     }
+                    
+                } label: {
+                    
+                    Text(items)
+                        .foregroundStyle(.black)
+                }
             }
         }
     }
@@ -347,7 +346,7 @@ struct ShowTheButton :View {
                 .font(Font.system(size: 25, design: .default))
                 
                 Spacer()
-        
+                
                 Button {
                     withAnimation {
                         if !selectedItems.isEmpty {
