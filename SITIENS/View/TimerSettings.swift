@@ -157,7 +157,6 @@ struct TimerSettings: View {
                     hydrationActivationViewModel.stopPlaying()
                     if selectedHour != 0  {
                         dismiss()
-                        selectedSound = nil
                     }
                 }
                 
@@ -174,7 +173,6 @@ struct TimerSettings: View {
             
             Button(action: {
                 dismiss()
-                selectedSound = nil
             }) {
                 Text("Fermer")
                     .foregroundStyle(Color("TextBackground"))
