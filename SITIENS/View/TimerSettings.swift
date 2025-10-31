@@ -92,7 +92,6 @@ struct TimerSettings: View {
                             let result = formatTime(inserHour, inserMinutes)
                             selectedHour = result
                             let _ = hydrationActivationViewModel.formatHour(result)
-                            
                         }
                         
                         VStack(alignment: .leading, spacing: 12) {
@@ -102,6 +101,9 @@ struct TimerSettings: View {
                                     sound: $sound,
                                     hydrationActivationViewModel: hydrationActivationViewModel, selectedSound: $selectedSound
                                 )
+                                .onDisappear{
+                                    selectedSound = nil
+                                }
                             } label: {
                                 HStack {
                                     Text("Sélectionner")
@@ -123,7 +125,7 @@ struct TimerSettings: View {
                                 .accessibilityLabel("Sélectionner un son")
                                 .accessibilityHint("Double-cliquez pour choisir un audio")
                             }
-                            .isDetailLink($isDetailLink)
+                           
                         }
                     }
                     .padding()
