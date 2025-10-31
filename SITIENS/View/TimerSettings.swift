@@ -95,7 +95,7 @@ struct TimerSettings: View {
                         }
                         
                         Button {
-                            isActive = true
+                            isActive.toggle()
                         } label: {
                             HStack {
                                 Text("Sélectionner")
@@ -131,6 +131,12 @@ struct TimerSettings: View {
                 }
             }
         }
+        .onChange(of: isActive, {
+            if !isActive {
+                hydrationActivationViewModel.stopPlaying()
+            }
+            
+        })
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
             
