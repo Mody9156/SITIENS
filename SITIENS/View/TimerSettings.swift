@@ -91,8 +91,8 @@ struct TimerSettings: View {
                             let result = formatTime(inserHour, inserMinutes)
                             selectedHour = result
                             let _ = hydrationActivationViewModel.formatHour(result)
+                            
                         }
-                        
                         
                         VStack(alignment: .leading, spacing: 12) {
                             NavigationLink {
@@ -132,6 +132,9 @@ struct TimerSettings: View {
                 }
             }
         }
+        .onAppear{
+            selectedSound = nil
+        }
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
             isPlaying = false
@@ -152,6 +155,7 @@ struct TimerSettings: View {
                     hydrationActivationViewModel.stopPlaying()
                     if selectedHour != 0  {
                         dismiss()
+                        selectedSound = nil
                     }
                 }
                 
@@ -168,7 +172,7 @@ struct TimerSettings: View {
             
             Button(action: {
                 dismiss()
-                
+                selectedSound = nil
             }) {
                 Text("Fermer")
                     .foregroundStyle(Color("TextBackground"))
