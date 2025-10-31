@@ -38,7 +38,7 @@ struct TimerSettings: View {
     @State var activeBoutton: Bool = false
     @State var selectedSound: String? = nil
     @State var isDetailLink : Bool = false
-    
+    @State var isActive : Bool = false
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
         return a
@@ -91,38 +91,38 @@ struct TimerSettings: View {
                             let result = formatTime(inserHour, inserMinutes)
                             selectedHour = result
                             let _ = hydrationActivationViewModel.formatHour(result)
+                            selectedSound = nil
                         }
                         
-                            NavigationLink {
+                        Button {
+                            isActive = true
+                        } label: {
+                            HStack {
+                                Text("Sélectionner")
+                                    .foregroundColor(Color("TextBackground"))
+                                    .padding()
                                 
-                                ChoosSong(
-                                    sound: $sound,
-                                    hydrationActivationViewModel: hydrationActivationViewModel, selectedSound: $selectedSound
-                                )
-                               
-                            } label: {
-                                HStack {
-                                    Text("Sélectionner")
-                                        .foregroundColor(Color("TextBackground"))
-                                        .padding()
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(Color("TextBackground"))
-                                        .padding()
-                                }
-                                .background(.gray.opacity(0.7))
-                                .cornerRadius(12)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(.gray, lineWidth: 1)
-                                )
-                                .accessibilityLabel("Sélectionner un son")
-                                .accessibilityHint("Double-cliquez pour choisir un audio")
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color("TextBackground"))
+                                    .padding()
                             }
-                            
-                        
+                            .background(.gray.opacity(0.7))
+                            .cornerRadius(12)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.gray, lineWidth: 1)
+                            )
+                            .accessibilityLabel("Sélectionner un son")
+                            .accessibilityHint("Double-cliquez pour choisir un audio")
+                        }
+                        .navigationDestination(isPresented: $isActive) {
+                            ChoosSong(
+                                sound: $sound,
+                                hydrationActivationViewModel: hydrationActivationViewModel, selectedSound: $selectedSound
+                            )
+                        }
                     }
                     .padding()
                 }
