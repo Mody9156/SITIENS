@@ -25,7 +25,6 @@ struct TimerSettings: View {
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
     @State private var audio : AVAudioPlayer?
-    @State  var isPlaying : Bool = false
     @State private var cancellable: AnyCancellable?
     @State private var slide : Double = 0.0
     @State private var activeSlide : Bool = false
@@ -94,7 +93,6 @@ struct TimerSettings: View {
                             let _ = hydrationActivationViewModel.formatHour(result)
                         }
                         
-                        VStack(alignment: .leading, spacing: 12) {
                             NavigationLink {
                                 
                                 ChoosSong(
@@ -123,8 +121,8 @@ struct TimerSettings: View {
                                 .accessibilityLabel("Sélectionner un son")
                                 .accessibilityHint("Double-cliquez pour choisir un audio")
                             }
-                           
-                        }
+                            
+                        
                     }
                     .padding()
                 }
@@ -135,7 +133,7 @@ struct TimerSettings: View {
         }
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
-            isPlaying = false
+            
         }
         .environment(hydrationActivationViewModel.self)
         
