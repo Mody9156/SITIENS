@@ -101,9 +101,7 @@ struct TimerSettings: View {
                                     sound: $sound,
                                     hydrationActivationViewModel: hydrationActivationViewModel, selectedSound: $selectedSound
                                 )
-                                .onDisappear{
-                                    selectedSound = nil
-                                }
+                               
                             } label: {
                                 HStack {
                                     Text("Sélectionner")
