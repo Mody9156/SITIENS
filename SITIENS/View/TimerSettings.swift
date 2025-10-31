@@ -38,6 +38,7 @@ struct TimerSettings: View {
     @State private var isVisualizing : Bool = false
     @State var activeBoutton: Bool = false
     @State var selectedSound: String? = nil
+    @State var isDetailLink : Bool = false
     
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
@@ -122,7 +123,7 @@ struct TimerSettings: View {
                                 .accessibilityLabel("Sélectionner un son")
                                 .accessibilityHint("Double-cliquez pour choisir un audio")
                             }
-                            
+                            .isDetailLink($isDetailLink)
                         }
                     }
                     .padding()
@@ -131,9 +132,6 @@ struct TimerSettings: View {
                     ToolBarItem()
                 }
             }
-        }
-        .onAppear{
-            selectedSound = nil
         }
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
