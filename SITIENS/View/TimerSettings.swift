@@ -77,15 +77,20 @@ struct TimerSettings: View {
                             
                             Picker("",selection: $inserMinutes) {
                                 ForEach(inserTimerMinutes, id: \.self) { value in
-                                    Text("\(value)")
+                                    Text(value % 60, format:.number).tag(value)
+                                        
                                 }
                             }
                             .pickerStyle(.wheel)
                             .padding()
                             .clipped()
-                            .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { picker in
-                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
-                            }
+//                            
+//                            .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { picker in
+//                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
+//                            }
+                            .onReceive(Just(inserMinutes), perform: { newValue in
+                                print("value:\(newValue)")
+                            })
                         }
                         .onChange(of: CombienEquatableTime()) {
                             let result = formatTime(inserHour, inserMinutes)
