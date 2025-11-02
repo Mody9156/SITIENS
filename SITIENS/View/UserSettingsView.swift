@@ -110,20 +110,20 @@ struct CustomPicker: View {
             isActive.toggle()
         } label: {
             HStack {
-                Text("Sélectionner")
+                Text("Audio")
                     .foregroundColor(Color("TextBackground"))
                     .padding()
                 
-                Spacer()
+                    Spacer()
                 
                 Image(systemName: "chevron.right")
                     .foregroundColor(Color("TextBackground"))
                     .padding()
                 
+                    Text(selectedSound ?? "")
+                        .foregroundColor(Color("TextBackground"))
+                        .padding()
                 
-                Text(selectedSound ?? "")
-                    .foregroundColor(Color("TextBackground"))
-                    .padding()
             }
             .background(.gray.opacity(0.7))
             .cornerRadius(12)
@@ -202,3 +202,4 @@ struct ChoosElement: View {
         }
     }
 }
+
