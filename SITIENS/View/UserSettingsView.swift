@@ -32,7 +32,10 @@ struct UserSettingsView: View {
                             .font(.headline)
                             .font(.largeTitle)
                         
-                        CustomPicker(name: $profil, type: $profileType)
+                        CustomPicker(
+                            type: $profileType,
+                            isActive: $isActive, profileType: $profileType, selectedSound: $selectedSound
+                        )
                     }
                     .padding()
                     .background(.ultraThinMaterial)
@@ -43,7 +46,12 @@ struct UserSettingsView: View {
                         Text("Sélectionner un récipient")
                             .font(.headline)
                             .font(.largeTitle)
-                        CustomPicker(name: $glace, type: $sizeOfGlace)
+
+                        CustomPicker(
+                            type: $sizeOfGlace,
+                            isActive: $isActive, profileType: $profileType, selectedSound: $selectedSound
+                        )
+                        
                     }
                     .padding()
                     .background(.ultraThinMaterial)
@@ -87,11 +95,10 @@ struct UserSettingsView: View {
 }
 
 struct CustomPicker: View {
-    @Binding var name : String
     @Binding var type : [String]
     @Binding var isActive : Bool
-    @State var profileType : [String]
-    
+    @Binding var profileType : [String]
+    @Binding var selectedSound: String?
     var body: some View {
         
         Button {
@@ -118,37 +125,37 @@ struct CustomPicker: View {
             .accessibilityHint("Double-cliquez pour choisir un audio")
         }
         .navigationDestination(isPresented: $isActive) {
-            ChoosElement(sound: $profileType, selectedSound: $name)
+            ChoosElement(sound: $profileType, selectedSound: $selectedSound)
         }
-        
-        Picker(
-            selection: $name,
-            label:
-                HStack{
-                    Text(name.isEmpty ? "Seclectionner":name)
-                        .foregroundStyle(name.isEmpty ? .gray:.gray)
-                        .lineLimit(1)
-                    
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.gray)
-                }
-        ) {
-            ForEach(type,id: \.self) { profile in
-                Text(profile)
-                    .lineLimit(1)
-            }
-        }
-        .pickerStyle(.navigationLink)
-        .padding()
-        .background(.ultraThinMaterial)
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
-        )
-        .accessibilityLabel(name)
-        .accessibilityHint("Appuyez pour choisir une \(name.lowercased())")
+//        
+//        Picker(
+//            selection: $name,
+//            label:
+//                HStack{
+//                    Text(name.isEmpty ? "Seclectionner":name)
+//                        .foregroundStyle(name.isEmpty ? .gray:.gray)
+//                        .lineLimit(1)
+//                    
+//                    Spacer()
+//                    Image(systemName: "chevron.right")
+//                        .foregroundColor(.gray)
+//                }
+//        ) {
+//            ForEach(type,id: \.self) { profile in
+//                Text(profile)
+//                    .lineLimit(1)
+//            }
+//        }
+//        .pickerStyle(.navigationLink)
+//        .padding()
+//        .background(.ultraThinMaterial)
+//        .cornerRadius(12)
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 12)
+//                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+//        )
+//        .accessibilityLabel(name)
+//        .accessibilityHint("Appuyez pour choisir une \(name.lowercased())")
        
     }
 }
@@ -169,12 +176,12 @@ struct ChoosElement: View {
                     .foregroundStyle(.yellow)
                     .opacity(selectedSound == items ? 1 : 0)
                 Button {
-                    if selectedSound == items {
-                        selectedSound = nil
-                    }else {
-                        selectedSound = items
-                       
-                    }
+//                    if selectedSound == items {
+//                        selectedSound = nil
+//                    }else {
+//                        selectedSound = items
+//                       
+//                    }
                     
                 } label: {
                     
