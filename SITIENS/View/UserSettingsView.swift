@@ -17,6 +17,7 @@ struct UserSettingsView: View {
     @State var isActive : Bool = false
     @State var isActiveForGlace : Bool = false
     @State var selectedSound: String? = nil
+    @State var selectedGlace: String? = nil
     
     var body: some View {
         NavigationStack {
@@ -53,7 +54,7 @@ struct UserSettingsView: View {
                         CustomPicker(
                             type: $sizeOfGlace,
                             isActive: $isActiveForGlace,
-                            selectedSound: $selectedSound
+                            selectedSound: $selectedGlace
                         )
                         
                     }
@@ -104,7 +105,7 @@ struct CustomPicker: View {
     @Binding var selectedSound: String?
     
     var body: some View {
-        
+       
         Button {
             isActive.toggle()
         } label: {
@@ -116,6 +117,11 @@ struct CustomPicker: View {
                 Spacer()
                 
                 Image(systemName: "chevron.right")
+                    .foregroundColor(Color("TextBackground"))
+                    .padding()
+                
+                
+                Text(selectedSound ?? "")
                     .foregroundColor(Color("TextBackground"))
                     .padding()
             }
@@ -180,12 +186,12 @@ struct ChoosElement: View {
                     .foregroundStyle(.yellow)
                     .opacity(selectedSound == items ? 1 : 0)
                 Button {
-//                    if selectedSound == items {
-//                        selectedSound = nil
-//                    }else {
-//                        selectedSound = items
-//                       
-//                    }
+                    if selectedSound == items {
+                        selectedSound = nil
+                    }else {
+                        selectedSound = items
+                       
+                    }
                     
                 } label: {
                     
