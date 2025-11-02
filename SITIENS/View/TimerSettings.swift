@@ -76,18 +76,23 @@ struct TimerSettings: View {
                             }
                             
                             Picker("",selection: $inserMinutes) {
-                                ForEach(inserTimerMinutes, id: \.self) { value in
-                                    Text(value % 60, format:.number).tag(value)
-                                        
+                                ForEach(
+                                    0 ..< inserTimerMinutes.count,
+                                    id: \.self
+                                ) { value in
+                                        Text("\(value)")
+                                                //Modifier la ligne
+                                            .transition(
+                                                .asymmetric(
+                                                    insertion: .move(edge: .top),
+                                                    removal: .move(edge: .bottom)
+                                                )
+                                                )
                                 }
                             }
-                            .pickerStyle(.wheel)
+                            .pickerStyle(.inline)
                             .padding()
                             .clipped()
-//                            
-//                            .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { picker in
-//                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
-//                            }
                             .onReceive(Just(inserMinutes), perform: { newValue in
                                 print("value:\(newValue)")
                             })

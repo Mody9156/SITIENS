@@ -14,7 +14,8 @@ struct UserSettingsView: View {
     @Binding var profil : String
     @Binding var glace : String
     @Environment(\.dismiss) var dismiss
-    
+    @State var isActive : Bool = false
+    @State var selectedSound: String? = nil
     var body: some View {
         NavigationStack {
             ZStack {
@@ -88,8 +89,38 @@ struct UserSettingsView: View {
 struct CustomPicker: View {
     @Binding var name : String
     @Binding var type : [String]
+    @Binding var isActive : Bool
+    @State var profileType : [String]
     
     var body: some View {
+        
+        Button {
+            isActive.toggle()
+        } label: {
+            HStack {
+                Text("Sélectionner")
+                    .foregroundColor(Color("TextBackground"))
+                    .padding()
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .foregroundColor(Color("TextBackground"))
+                    .padding()
+            }
+            .background(.gray.opacity(0.7))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(.gray, lineWidth: 1)
+            )
+            .accessibilityLabel("Sélectionner un son")
+            .accessibilityHint("Double-cliquez pour choisir un audio")
+        }
+        .navigationDestination(isPresented: $isActive) {
+            ChoosElement(sound: $profileType, selectedSound: $name)
+        }
+        
         Picker(
             selection: $name,
             label:
@@ -119,5 +150,38 @@ struct CustomPicker: View {
         .accessibilityLabel(name)
         .accessibilityHint("Appuyez pour choisir une \(name.lowercased())")
        
+    }
+}
+
+
+
+
+
+struct ChoosElement: View {
+    @Binding var sound : [String]
+    @Binding var selectedSound: String?
+    
+    var body : some View {
+        
+        List(sound,id:\.self) { items in
+            HStack {
+                Image(systemName: "checkmark")
+                    .foregroundStyle(.yellow)
+                    .opacity(selectedSound == items ? 1 : 0)
+                Button {
+                    if selectedSound == items {
+                        selectedSound = nil
+                    }else {
+                        selectedSound = items
+                       
+                    }
+                    
+                } label: {
+                    
+                    Text(items)
+                        .foregroundStyle(.black)
+                }
+            }
+        }
     }
 }
