@@ -29,65 +29,46 @@ struct UserSettingsView: View {
                 )
                 .ignoresSafeArea()
                 
-                VStack(spacing: 30) {
-                    VStack (alignment: .leading, spacing: 12){
-                        Text("Sélectionner un profile")
-                            .font(.headline)
-                            .font(.largeTitle)
+                Section {
+                    VStack {
+                   
+                                CustomPicker(
+                                       type: $profileType,
+                                       isActive: $isActive,
+                                       selectedSound: $selectedSound, name: "Profile"
+                                   )
+                                CustomPicker(
+                                    type: $sizeOfGlace,
+                                    isActive: $isActiveForGlace,
+                                    selectedSound: $selectedGlace, name: "Recipient"
+                                )
                         
-                        CustomPicker(
-                            type: $profileType,
-                            isActive: $isActive,
-                            selectedSound: $selectedSound
-                        )
-                    }
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(16)
-                    .shadow(radius: 5)
-                    
-                    VStack (alignment: .leading, spacing: 12){
-                        Text("Sélectionner un récipient")
-                            .font(.headline)
-                            .font(.largeTitle)
-
-                        CustomPicker(
-                            type: $sizeOfGlace,
-                            isActive: $isActiveForGlace,
-                            selectedSound: $selectedGlace
-                        )
                         
-                    }
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(16)
-                    .shadow(radius: 5)
-                    
-                    Spacer()
-                    
-                    Button {
-                        withAnimation {
-                            if !profil.isEmpty && !glace.isEmpty{
-                                dismiss()
+                        Spacer()
+                        
+                        Button {
+                            withAnimation {
+                                if !profil.isEmpty && !glace.isEmpty{
+                                    dismiss()
+                                }
+                            }
+                            
+                        } label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .frame(height: 50)
+                                Text("Valider")
+                                    .foregroundStyle(.white)
                             }
                         }
-                        
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(height: 50)
-                            Text("Valider")
-                                .foregroundStyle(.white)
-                        }
+                        .disabled(profil.isEmpty || glace.isEmpty)
+                        .accessibilityLabel("Bouton Valider")
+                        .accessibilityHint("Valide vos préférences de profil et de récipient")
+                        .accessibilityAddTraits(.isButton)
                     }
-                    .disabled(profil.isEmpty || glace.isEmpty)
                     .padding()
-                    .accessibilityLabel("Bouton Valider")
-                    .accessibilityHint("Valide vos préférences de profil et de récipient")
-                    .accessibilityAddTraits(.isButton)
+                    .navigationTitle("Paramètres")
                 }
-                .padding()
-                .navigationTitle("Paramètres")
             }
         }
     }
@@ -103,6 +84,7 @@ struct CustomPicker: View {
     @Binding var type : [String]
     @Binding var isActive : Bool
     @Binding var selectedSound: String?
+    var name : String
     
     var body: some View {
        
@@ -110,7 +92,7 @@ struct CustomPicker: View {
             isActive.toggle()
         } label: {
             HStack {
-                Text("Audio")
+                Text(name)
                     .foregroundColor(Color("TextBackground"))
                     .padding()
                 
