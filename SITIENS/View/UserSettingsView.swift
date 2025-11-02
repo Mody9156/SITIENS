@@ -15,7 +15,9 @@ struct UserSettingsView: View {
     @Binding var glace : String
     @Environment(\.dismiss) var dismiss
     @State var isActive : Bool = false
+    @State var isActiveForGlace : Bool = false
     @State var selectedSound: String? = nil
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -34,7 +36,8 @@ struct UserSettingsView: View {
                         
                         CustomPicker(
                             type: $profileType,
-                            isActive: $isActive, profileType: $profileType, selectedSound: $selectedSound
+                            isActive: $isActive,
+                            selectedSound: $selectedSound
                         )
                     }
                     .padding()
@@ -49,7 +52,8 @@ struct UserSettingsView: View {
 
                         CustomPicker(
                             type: $sizeOfGlace,
-                            isActive: $isActive, profileType: $profileType, selectedSound: $selectedSound
+                            isActive: $isActiveForGlace,
+                            selectedSound: $selectedSound
                         )
                         
                     }
@@ -97,8 +101,8 @@ struct UserSettingsView: View {
 struct CustomPicker: View {
     @Binding var type : [String]
     @Binding var isActive : Bool
-    @Binding var profileType : [String]
     @Binding var selectedSound: String?
+    
     var body: some View {
         
         Button {
@@ -125,7 +129,7 @@ struct CustomPicker: View {
             .accessibilityHint("Double-cliquez pour choisir un audio")
         }
         .navigationDestination(isPresented: $isActive) {
-            ChoosElement(sound: $profileType, selectedSound: $selectedSound)
+            ChoosElement(sound: $type, selectedSound: $selectedSound)
         }
 //        
 //        Picker(
