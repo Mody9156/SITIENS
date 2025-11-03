@@ -19,6 +19,13 @@ struct UserSettingsView: View {
     @State var selectedSound: String? = nil
     @State var selectedGlace: String? = nil
     
+    var emptyElement :  Bool  {
+        let selectedSound = selectedSound != nil
+        let selectedGlace = selectedGlace != nil
+        let result = selectedSound && selectedGlace
+        return result
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -52,13 +59,13 @@ struct UserSettingsView: View {
                                     )
                             }
                         }
-                               
+                         
                         
                         Spacer()
                         
                         Button {
                             withAnimation {
-                                if !profil.isEmpty && !glace.isEmpty{
+                                if !emptyElement {
                                     dismiss()
                                 }
                             }
@@ -71,7 +78,7 @@ struct UserSettingsView: View {
                                     .foregroundStyle(.white)
                             }
                         }
-                        .disabled(profil.isEmpty || glace.isEmpty)
+                        .disabled(!emptyElement)
                         .accessibilityLabel("Bouton Valider")
                         .accessibilityHint("Valide vos préférences de profil et de récipient")
                         .accessibilityAddTraits(.isButton)
