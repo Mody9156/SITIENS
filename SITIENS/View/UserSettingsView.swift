@@ -124,7 +124,7 @@ struct CustomPicker: View {
                     .padding()
                 
             }
-            .background(.gray.opacity(0.7))
+            .background(.gray)
             .cornerRadius(12)
             .accessibilityLabel("Sélectionner un son")
             .accessibilityHint("Double-cliquez pour choisir un audio")
