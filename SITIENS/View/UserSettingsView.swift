@@ -29,24 +29,30 @@ struct UserSettingsView: View {
                 )
                 .ignoresSafeArea()
                 
-                Section {
                     VStack {
-                        List{
-                            Section{
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(height: 120)
+                                .foregroundStyle(.gray)
+                            
+                            VStack {
                                 CustomPicker(
-                                    type: $profileType,
-                                    isActive: $isActive,
-                                    selectedSound: $selectedSound, name: "Profile"
-                                )
-                                CustomPicker(
-                                    type: $sizeOfGlace,
-                                    isActive: $isActiveForGlace,
-                                    selectedSound: $selectedGlace, name: "Recipient"
-                                )
+                                        type: $profileType,
+                                        isActive: $isActive,
+                                        selectedSound: $selectedSound, name: "Profile"
+                                    )
+                                
+                                Divider()
+                                    .formStyle(.white)
+                                
+                                    CustomPicker(
+                                        type: $sizeOfGlace,
+                                        isActive: $isActiveForGlace,
+                                        selectedSound: $selectedGlace, name: "Recipient"
+                                    )
                             }
-                          
                         }
-                        .background(.clear)
+                               
                         
                         Spacer()
                         
@@ -72,7 +78,7 @@ struct UserSettingsView: View {
                     }
                     .padding()
                     .navigationTitle("Paramètres")
-                }
+                
             }
         }
     }
