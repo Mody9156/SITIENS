@@ -31,17 +31,17 @@ struct UserSettingsView: View {
                 
                 Section {
                     VStack {
-                   
-                                CustomPicker(
-                                       type: $profileType,
-                                       isActive: $isActive,
-                                       selectedSound: $selectedSound, name: "Profile"
-                                   )
-                                CustomPicker(
-                                    type: $sizeOfGlace,
-                                    isActive: $isActiveForGlace,
-                                    selectedSound: $selectedGlace, name: "Recipient"
-                                )
+                        
+                        CustomPicker(
+                            type: $profileType,
+                            isActive: $isActive,
+                            selectedSound: $selectedSound, name: "Profile"
+                        )
+                        CustomPicker(
+                            type: $sizeOfGlace,
+                            isActive: $isActiveForGlace,
+                            selectedSound: $selectedGlace, name: "Recipient"
+                        )
                         
                         
                         Spacer()
@@ -87,7 +87,7 @@ struct CustomPicker: View {
     var name : String
     
     var body: some View {
-       
+        
         Button {
             isActive.toggle()
         } label: {
@@ -96,15 +96,15 @@ struct CustomPicker: View {
                     .foregroundColor(Color("TextBackground"))
                     .padding()
                 
-                    Spacer()
+                Spacer()
                 
                 Image(systemName: "chevron.right")
                     .foregroundColor(Color("TextBackground"))
                     .padding()
                 
-                    Text(selectedSound ?? "")
-                        .foregroundColor(Color("TextBackground"))
-                        .padding()
+                Text(selectedSound ?? "")
+                    .foregroundColor(Color("TextBackground"))
+                    .padding()
                 
             }
             .background(.gray.opacity(0.7))
@@ -119,42 +119,38 @@ struct CustomPicker: View {
         .navigationDestination(isPresented: $isActive) {
             ChoosElement(sound: $type, selectedSound: $selectedSound)
         }
-//        
-//        Picker(
-//            selection: $name,
-//            label:
-//                HStack{
-//                    Text(name.isEmpty ? "Seclectionner":name)
-//                        .foregroundStyle(name.isEmpty ? .gray:.gray)
-//                        .lineLimit(1)
-//                    
-//                    Spacer()
-//                    Image(systemName: "chevron.right")
-//                        .foregroundColor(.gray)
-//                }
-//        ) {
-//            ForEach(type,id: \.self) { profile in
-//                Text(profile)
-//                    .lineLimit(1)
-//            }
-//        }
-//        .pickerStyle(.navigationLink)
-//        .padding()
-//        .background(.ultraThinMaterial)
-//        .cornerRadius(12)
-//        .overlay(
-//            RoundedRectangle(cornerRadius: 12)
-//                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
-//        )
-//        .accessibilityLabel(name)
-//        .accessibilityHint("Appuyez pour choisir une \(name.lowercased())")
-       
+        //
+        //        Picker(
+        //            selection: $name,
+        //            label:
+        //                HStack{
+        //                    Text(name.isEmpty ? "Seclectionner":name)
+        //                        .foregroundStyle(name.isEmpty ? .gray:.gray)
+        //                        .lineLimit(1)
+        //
+        //                    Spacer()
+        //                    Image(systemName: "chevron.right")
+        //                        .foregroundColor(.gray)
+        //                }
+        //        ) {
+        //            ForEach(type,id: \.self) { profile in
+        //                Text(profile)
+        //                    .lineLimit(1)
+        //            }
+        //        }
+        //        .pickerStyle(.navigationLink)
+        //        .padding()
+        //        .background(.ultraThinMaterial)
+        //        .cornerRadius(12)
+        //        .overlay(
+        //            RoundedRectangle(cornerRadius: 12)
+        //                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+        //        )
+        //        .accessibilityLabel(name)
+        //        .accessibilityHint("Appuyez pour choisir une \(name.lowercased())")
+        
     }
 }
-
-
-
-
 
 struct ChoosElement: View {
     @Binding var sound : [String]
@@ -172,7 +168,7 @@ struct ChoosElement: View {
                         selectedSound = nil
                     }else {
                         selectedSound = items
-                       
+                        
                     }
                     
                 } label: {
