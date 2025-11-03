@@ -31,18 +31,22 @@ struct UserSettingsView: View {
                 
                 Section {
                     VStack {
-                        
-                        CustomPicker(
-                            type: $profileType,
-                            isActive: $isActive,
-                            selectedSound: $selectedSound, name: "Profile"
-                        )
-                        CustomPicker(
-                            type: $sizeOfGlace,
-                            isActive: $isActiveForGlace,
-                            selectedSound: $selectedGlace, name: "Recipient"
-                        )
-                        
+                        List{
+                            Section{
+                                CustomPicker(
+                                    type: $profileType,
+                                    isActive: $isActive,
+                                    selectedSound: $selectedSound, name: "Profile"
+                                )
+                                CustomPicker(
+                                    type: $sizeOfGlace,
+                                    isActive: $isActiveForGlace,
+                                    selectedSound: $selectedGlace, name: "Recipient"
+                                )
+                            }
+                          
+                        }
+                        .background(.clear)
                         
                         Spacer()
                         
