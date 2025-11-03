@@ -116,6 +116,23 @@ struct UserSettingsView: View {
             .accessibilityHint("Valide vos préférences de profil et de récipient")
             .accessibilityAddTraits(.isButton)
         }
+        
+        
+        ToolbarItem(placement: .topBarLeading) {
+            
+            Button(action: {
+                dismiss()
+            }) {
+                Text("Fermer")
+                    .foregroundStyle(Color("TextBackground"))
+                    .font(.headline)
+                    .padding()
+            }
+        }
+        
+        ToolbarItem(placement: .principal) {
+            Text("Paramètres")
+        }
     }
 }
 
