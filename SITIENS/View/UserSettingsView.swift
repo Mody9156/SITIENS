@@ -32,7 +32,7 @@ struct UserSettingsView: View {
                     VStack {
                         ZStack{
                             RoundedRectangle(cornerRadius: 12)
-                                .frame(height: 120)
+                                .frame(height: 130)
                                 .foregroundStyle(.gray)
                             
                             VStack {
@@ -43,7 +43,7 @@ struct UserSettingsView: View {
                                     )
                                 
                                 Divider()
-                                    .formStyle(.white)
+                                    .foregroundStyle(.white)
                                 
                                     CustomPicker(
                                         type: $sizeOfGlace,
@@ -119,10 +119,6 @@ struct CustomPicker: View {
             }
             .background(.gray.opacity(0.7))
             .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(.gray, lineWidth: 1)
-            )
             .accessibilityLabel("Sélectionner un son")
             .accessibilityHint("Double-cliquez pour choisir un audio")
         }
