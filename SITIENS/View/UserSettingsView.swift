@@ -86,8 +86,6 @@ struct UserSettingsView: View {
                     toolbar()
                 })
                 .padding()
-                .navigationTitle("Paramètres")
-                
             }
             
         }
