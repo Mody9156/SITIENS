@@ -16,11 +16,12 @@ struct UserSettingsView: View {
     @Environment(\.dismiss) var dismiss
     @State var isActive : Bool = false
     @State var isActiveForGlace : Bool = false
-    @State var selectedSound: String? = nil
-    @State var selectedGlace: String? = nil
+    @Binding var selectedSound: String?
+    @Binding var selectedGlace: String?
+    
     var emptyElement :  Bool  {
-        let selectedSound = profil.isEmpty
-        let selectedGlace = glace.isEmpty
+        let selectedSound = selectedSound != nil
+        let selectedGlace = selectedGlace != nil
         let result = selectedSound && selectedGlace
         return result
     }
@@ -46,9 +47,9 @@ struct UserSettingsView: View {
                                 type: $profileType,
                                 isActive: $isActive,
                                 selectedSound: $selectedSound, name: "Profile"
-                            ){
-                                    profil = selectedSound ?? ""
-                               
+                            )
+                            .onChange(of: selectedSound) {
+                                profil = selectedSound ?? ""
                             }
                             
                             Divider()
@@ -58,7 +59,8 @@ struct UserSettingsView: View {
                                 type: $sizeOfGlace,
                                 isActive: $isActiveForGlace,
                                 selectedSound: $selectedGlace, name: "Recipient"
-                            ){
+                            )
+                            .onChange(of: selectedSound) {
                                 glace = selectedGlace ?? ""
                             }
                         }
@@ -101,7 +103,7 @@ struct UserSettingsView: View {
         ToolbarItem(placement: .confirmationAction) {
             Button {
                 withAnimation {
-                    if !emptyElement {
+                    if emptyElement {
                         dismiss()
                     }
                 }
@@ -140,7 +142,14 @@ struct UserSettingsView: View {
 #Preview {
     @Previewable @State var profilType : String = ""
     @Previewable @State var glace : String = ""
-    UserSettingsView(profil: $profilType, glace: $glace)
+    @Previewable @State var selectedSound : String? = nil
+    @Previewable @State var selectedGlace : String? = nil
+    UserSettingsView(
+        profil: $profilType,
+        glace: $glace,
+        selectedSound:$selectedSound,
+        selectedGlace: $selectedGlace
+    )
 }
 
 struct CustomPicker: View {
@@ -148,7 +157,7 @@ struct CustomPicker: View {
     @Binding var isActive : Bool
     @Binding var selectedSound: String?
     var name : String
-    let callBack : () -> ()
+
     var body: some View {
         
         Button {
@@ -184,7 +193,7 @@ struct CustomPicker: View {
 struct ChoosElement: View {
     @Binding var sound : [String]
     @Binding var selectedSound: String?
-    
+   
     var body : some View {
         
         List(sound,id:\.self) { items in
@@ -197,7 +206,6 @@ struct ChoosElement: View {
                         selectedSound = nil
                     }else {
                         selectedSound = items
-                        
                     }
                     
                 } label: {
