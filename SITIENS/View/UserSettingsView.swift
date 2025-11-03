@@ -119,36 +119,6 @@ struct CustomPicker: View {
         .navigationDestination(isPresented: $isActive) {
             ChoosElement(sound: $type, selectedSound: $selectedSound)
         }
-        //
-        //        Picker(
-        //            selection: $name,
-        //            label:
-        //                HStack{
-        //                    Text(name.isEmpty ? "Seclectionner":name)
-        //                        .foregroundStyle(name.isEmpty ? .gray:.gray)
-        //                        .lineLimit(1)
-        //
-        //                    Spacer()
-        //                    Image(systemName: "chevron.right")
-        //                        .foregroundColor(.gray)
-        //                }
-        //        ) {
-        //            ForEach(type,id: \.self) { profile in
-        //                Text(profile)
-        //                    .lineLimit(1)
-        //            }
-        //        }
-        //        .pickerStyle(.navigationLink)
-        //        .padding()
-        //        .background(.ultraThinMaterial)
-        //        .cornerRadius(12)
-        //        .overlay(
-        //            RoundedRectangle(cornerRadius: 12)
-        //                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
-        //        )
-        //        .accessibilityLabel(name)
-        //        .accessibilityHint("Appuyez pour choisir une \(name.lowercased())")
-        
     }
 }
 
