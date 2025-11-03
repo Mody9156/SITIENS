@@ -36,58 +36,58 @@ struct UserSettingsView: View {
                 )
                 .ignoresSafeArea()
                 
-                    VStack {
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 12)
-                                .frame(height: 130)
-                                .foregroundStyle(.gray)
+                VStack {
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(height: 130)
+                            .foregroundStyle(.gray)
+                        
+                        VStack {
+                            CustomPicker(
+                                type: $profileType,
+                                isActive: $isActive,
+                                selectedSound: $selectedSound, name: "Profile"
+                            )
                             
-                            VStack {
-                                CustomPicker(
-                                        type: $profileType,
-                                        isActive: $isActive,
-                                        selectedSound: $selectedSound, name: "Profile"
-                                    )
-                                
-                                Divider()
-                                    .foregroundStyle(.white)
-                                
-                                    CustomPicker(
-                                        type: $sizeOfGlace,
-                                        isActive: $isActiveForGlace,
-                                        selectedSound: $selectedGlace, name: "Recipient"
-                                    )
-                            }
+                            Divider()
+                                .foregroundStyle(.white)
+                            
+                            CustomPicker(
+                                type: $sizeOfGlace,
+                                isActive: $isActiveForGlace,
+                                selectedSound: $selectedGlace, name: "Recipient"
+                            )
                         }
-//                         
-//                        
-//                        Spacer()
-//                        
-//                        Button {
-//                            withAnimation {
-//                                if !emptyElement {
-//                                    dismiss()
-//                                }
-//                            }
-//                            
-//                        } label: {
-//                            ZStack {
-//                                RoundedRectangle(cornerRadius: 12)
-//                                    .frame(height: 50)
-//                                Text("Valider")
-//                                    .foregroundStyle(.white)
-//                            }
-//                        }
-//                        .disabled(!emptyElement)
-//                        .accessibilityLabel("Bouton Valider")
-//                        .accessibilityHint("Valide vos préférences de profil et de récipient")
-//                        .accessibilityAddTraits(.isButton)
                     }
-                    .toolbar(content: {
-                        toolbar()
-                    })
-                    .padding()
-                    .navigationTitle("Paramètres")
+                    
+                    
+                    Spacer()
+                    //
+                    //                        Button {
+                    //                            withAnimation {
+                    //                                if !emptyElement {
+                    //                                    dismiss()
+                    //                                }
+                    //                            }
+                    //
+                    //                        } label: {
+                    //                            ZStack {
+                    //                                RoundedRectangle(cornerRadius: 12)
+                    //                                    .frame(height: 50)
+                    //                                Text("Valider")
+                    //                                    .foregroundStyle(.white)
+                    //                            }
+                    //                        }
+                    //                        .disabled(!emptyElement)
+                    //                        .accessibilityLabel("Bouton Valider")
+                    //                        .accessibilityHint("Valide vos préférences de profil et de récipient")
+                    //                        .accessibilityAddTraits(.isButton)
+                }
+                .toolbar(content: {
+                    toolbar()
+                })
+                .padding()
+                .navigationTitle("Paramètres")
                 
             }
             
@@ -98,24 +98,23 @@ struct UserSettingsView: View {
     func toolbar() -> some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
             Button {
-                                       withAnimation {
-                                           if !emptyElement {
-                                               dismiss()
-                                           }
-                                       }
-           
-                                   } label: {
-                                       ZStack {
-                                           RoundedRectangle(cornerRadius: 12)
-                                               .frame(height: 50)
-                                           Text("Valider")
-                                               .foregroundStyle(.white)
-                                       }
-                                   }
-                                   .disabled(!emptyElement)
-                                   .accessibilityLabel("Bouton Valider")
-                                   .accessibilityHint("Valide vos préférences de profil et de récipient")
-                                   .accessibilityAddTraits(.isButton)
+                withAnimation {
+                    if !emptyElement {
+                        dismiss()
+                    }
+                }
+                
+            } label: {
+                
+                Text("Valider")
+                    .foregroundStyle(Color("TextBackground"))
+                    .font(.headline)
+                    .padding()
+            }
+            .disabled(!emptyElement)
+            .accessibilityLabel("Bouton Valider")
+            .accessibilityHint("Valide vos préférences de profil et de récipient")
+            .accessibilityAddTraits(.isButton)
         }
     }
 }
