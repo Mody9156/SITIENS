@@ -19,8 +19,8 @@ struct UserSettingsView: View {
     @State var selectedSound: String? = nil
     @State var selectedGlace: String? = nil
     var emptyElement :  Bool  {
-        let selectedSound = selectedSound != nil
-        let selectedGlace = selectedGlace != nil
+        let selectedSound = profil.isEmpty
+        let selectedGlace = glace.isEmpty
         let result = selectedSound && selectedGlace
         return result
     }
@@ -46,7 +46,10 @@ struct UserSettingsView: View {
                                 type: $profileType,
                                 isActive: $isActive,
                                 selectedSound: $selectedSound, name: "Profile"
-                            )
+                            ){
+                                    profil = selectedSound ?? ""
+                               
+                            }
                             
                             Divider()
                                 .foregroundStyle(.white)
@@ -55,7 +58,9 @@ struct UserSettingsView: View {
                                 type: $sizeOfGlace,
                                 isActive: $isActiveForGlace,
                                 selectedSound: $selectedGlace, name: "Recipient"
-                            )
+                            ){
+                                glace = selectedGlace ?? ""
+                            }
                         }
                     }
                     
@@ -143,7 +148,7 @@ struct CustomPicker: View {
     @Binding var isActive : Bool
     @Binding var selectedSound: String?
     var name : String
-    
+    let callBack : () -> ()
     var body: some View {
         
         Button {
