@@ -18,7 +18,6 @@ struct UserSettingsView: View {
     @State var isActiveForGlace : Bool = false
     @State var selectedSound: String? = nil
     @State var selectedGlace: String? = nil
-    
     var emptyElement :  Bool  {
         let selectedSound = selectedSound != nil
         let selectedGlace = selectedGlace != nil
@@ -116,7 +115,6 @@ struct UserSettingsView: View {
             .accessibilityHint("Valide vos préférences de profil et de récipient")
             .accessibilityAddTraits(.isButton)
         }
-        
         
         ToolbarItem(placement: .topBarLeading) {
             
