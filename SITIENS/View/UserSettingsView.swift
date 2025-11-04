@@ -48,9 +48,6 @@ struct UserSettingsView: View {
                                 isActive: $isActive,
                                 selectedSound: $selectedSound, name: "Profile"
                             )
-                            .onChange(of: selectedSound) {
-                                profil = selectedSound
-                            }
                             
                             Divider()
                                 .foregroundStyle(.white)
@@ -60,9 +57,6 @@ struct UserSettingsView: View {
                                 isActive: $isActiveForGlace,
                                 selectedSound: $selectedGlace, name: "Recipient"
                             )
-                            .onChange(of: selectedSound) {
-                                glace = selectedGlace
-                            }
                         }
                     }
                     

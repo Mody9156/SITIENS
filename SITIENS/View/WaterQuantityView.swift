@@ -26,6 +26,9 @@ struct WaterQuantityView: View {
     @State private var isScaledUp = false
     @State var glace : String = ""
     @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Binding var selectedSound: String
+    @Binding var selectedGlace: String
+    
     var currentWater : CGFloat {
         updateHeight * userSettingsViewModel.updateType(name:profilType)
     }
