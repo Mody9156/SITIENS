@@ -10,10 +10,10 @@ import CoreData
 import Combine
 
 struct WaterQuantityView: View {
-    @AppStorage("updateHeight") var updateHeightRaw : Double = 0
-    @AppStorage("progress")  var progressRaw: Double = 0
-    @AppStorage("profilTypeRaw") var profilTypeRaw: String = ""
-    @AppStorage("glaceRaw") var glaceRaw: String = ""
+    @AppStorage("updateHeight") private var updateHeightRaw: Double = 0
+    @AppStorage("progress") private var progressRaw: Double = 0
+    @AppStorage("profilTypeRaw") private var selectedSound: String = ""
+    @AppStorage("glaceRaw") private var selectedGlace: String = ""
     @State var updateHeight : CGFloat = 0
     @State var sheetPresented : Bool = false
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
@@ -24,8 +24,6 @@ struct WaterQuantityView: View {
     @State var startAnimation : CGFloat = 0
     @State private var isScaledUp = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    @State var selectedSound: String = ""
-    @State var selectedGlace: String = ""
     
     var currentWater : CGFloat {
         updateHeight * userSettingsViewModel.updateType(name:selectedSound)
@@ -34,6 +32,7 @@ struct WaterQuantityView: View {
     var targetWater : CGFloat {
         userSettingsViewModel.updateWater(type: selectedSound)
     }
+    
     
     var body: some View {
         NavigationStack {
@@ -59,9 +58,6 @@ struct WaterQuantityView: View {
                 .fontWeight(.bold)
                 .foregroundStyle(Color.blue)
                 .padding()
-            
-            let currentWater = updateHeight * userSettingsViewModel.updateType(name:selectedSound)
-            let targetWater = userSettingsViewModel.updateWater(type: selectedSound)
             
             Text("\(currentWater > targetWater ? targetWater : currentWater ,format: .number.precision(.fractionLength(1)))L / \(targetWater,format: .number.precision(.fractionLength(1)))L")
                 .foregroundStyle(.gray)
@@ -135,10 +131,6 @@ struct WaterQuantityView: View {
                 .onAppear{
                     updateHeight = CGFloat(updateHeightRaw)
                     progress = CGFloat(progressRaw)
-                    profilTypeRaw = selectedSound
-                    glaceRaw = selectedGlace
-                    selectedSound = profilTypeRaw
-                    selectedGlace = glaceRaw
                     
                     withAnimation(
                         .linear(duration: 0.8)
@@ -227,8 +219,9 @@ struct WaterQuantityView: View {
         .onChange(of: updateHeight) {
             updateHeightRaw = Double(updateHeight)
             progressRaw = Double(progress)
-            profilTypeRaw = selectedSound
-            glaceRaw = selectedGlace
+            
+            updateHeight = min(max(updateHeight, 0), 300)
+            progress = min(max(progress, 0), 1.0)
             
             if updateHeight >= 300 {
                 
@@ -246,6 +239,10 @@ struct WaterQuantityView: View {
                     }
                 }
             }
+        }
+        .onChange(of: progress) {
+            progress = min(max(progress, 0), 1.0)
+            progressRaw = Double(progress)
         }
     }
     
@@ -443,3 +440,4 @@ struct increaseWaterAmount : View {
         .accessibilityAddTraits(.isButton)
     }
 }
+
