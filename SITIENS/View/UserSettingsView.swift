@@ -11,8 +11,6 @@ struct UserSettingsView: View {
     @State var profileType : [String] = ["Nourrissons","Femmes enceintes", "Personnes âgées","Sportifs","Enfants et adolescents","Travailleurs en environnement chaud","Personnes souffrant de maladies chroniques","Personnes en surpoids ou obèses","Voyageurs ou personnes en altitude","Personnes sous traitement médicamenteux"]
     @State var sizeOfGlace : [String] = ["Petit – 200 ml","Moyen – 300 ml",  "Grand – 500 ml"]
     @State var selectedProfileType : String = "nourrissons"
-    @Binding var profil : String
-    @Binding var glace : String
     @Environment(\.dismiss) var dismiss
     @State var isActive : Bool = false
     @State var isActiveForGlace : Bool = false
@@ -134,13 +132,9 @@ struct UserSettingsView: View {
 }
 
 #Preview {
-    @Previewable @State var profilType : String = ""
-    @Previewable @State var glace : String = ""
     @Previewable @State var selectedSound : String = ""
     @Previewable @State var selectedGlace : String = ""
     UserSettingsView(
-        profil: $profilType,
-        glace: $glace,
         selectedSound:$selectedSound,
         selectedGlace: $selectedGlace
     )
@@ -198,10 +192,12 @@ struct ChoosElement: View {
                 Button {
                     if selectedSound == items {
                         selectedSound = ""
+                        print(selectedSound)
                     }else {
                         selectedSound = items
+                        print(selectedSound)
                     }
-                    
+                   
                 } label: {
                     
                     Text(items)

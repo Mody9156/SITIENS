@@ -12,11 +12,10 @@ import Combine
 struct WaterQuantityView: View {
     @AppStorage("updateHeight") var updateHeightRaw : Double = 0
     @AppStorage("progress")  var progressRaw: Double = 0
-    @AppStorage("profilType") var profilTypeRaw: String = ""
-    @AppStorage("glace") var glaceRaw: String = ""
+    @AppStorage("selectedSound") var profilTypeRaw: String = ""
+    @AppStorage("selectedGlace") var glaceRaw: String = ""
     @State var updateHeight : CGFloat = 0
     @State var sheetPresented : Bool = false
-    @State var profilType : String = ""
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @State var throwError : Bool = false
     @State var showMessage : Bool = false
@@ -24,17 +23,16 @@ struct WaterQuantityView: View {
     @State var progress : CGFloat = 0.0
     @State var startAnimation : CGFloat = 0
     @State private var isScaledUp = false
-    @State var glace : String = ""
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    @Binding var selectedSound: String
-    @Binding var selectedGlace: String
+    @State var selectedSound: String = ""
+    @State var selectedGlace: String = ""
     
     var currentWater : CGFloat {
-        updateHeight * userSettingsViewModel.updateType(name:profilType)
+        updateHeight * userSettingsViewModel.updateType(name:selectedSound)
     }
     
     var targetWater : CGFloat {
-        userSettingsViewModel.updateWater(type: profilType)
+        userSettingsViewModel.updateWater(type: selectedSound)
     }
     
     var body: some View {
@@ -45,18 +43,13 @@ struct WaterQuantityView: View {
                 if verticalSizeClass == .compact {
                     ScrollView(.vertical,showsIndicators: true) {
                             container
-                        
                     }
-                    
                     
                 }else {
                     container
                 }
-              
-              
             }
         }
-        
     }
     
     private var container : some View {
@@ -67,13 +60,12 @@ struct WaterQuantityView: View {
                 .foregroundStyle(Color.blue)
                 .padding()
             
-            let currentWater = updateHeight * userSettingsViewModel.updateType(name:profilType)
-            let targetWater = userSettingsViewModel.updateWater(type: profilType)
+            let currentWater = updateHeight * userSettingsViewModel.updateType(name:selectedSound)
+            let targetWater = userSettingsViewModel.updateWater(type: selectedSound)
             
             Text("\(currentWater > targetWater ? targetWater : currentWater ,format: .number.precision(.fractionLength(1)))L / \(targetWater,format: .number.precision(.fractionLength(1)))L")
                 .foregroundStyle(.gray)
                 .font(.title2)
-            
                 
                 ZStack{
                     
@@ -112,8 +104,8 @@ struct WaterQuantityView: View {
                         increaseWaterAmount(
                             throwError: $throwError,
                             showMessage: $showMessage,
-                            profilType: $profilType,
-                            glace: $glace,
+                            selectedSound: $selectedSound,
+                            selectedGlace: $selectedGlace,
                             updateHeight: $updateHeight,
                             userSettingsViewModel: userSettingsViewModel,
                             progress: $progress
@@ -143,8 +135,8 @@ struct WaterQuantityView: View {
                 .onAppear{
                     updateHeight = CGFloat(updateHeightRaw)
                     progress = CGFloat(progressRaw)
-                    profilType = profilTypeRaw
-                    glace = glaceRaw
+                    selectedSound = profilTypeRaw
+                    selectedGlace = glaceRaw
                     
                     withAnimation(
                         .linear(duration: 0.8)
@@ -185,7 +177,7 @@ struct WaterQuantityView: View {
                 .accessibilityAddTraits(.isButton)
             }
             
-            if throwError && profilType.isEmpty {
+            if throwError && selectedSound.isEmpty {
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(Color.orange)
@@ -197,7 +189,7 @@ struct WaterQuantityView: View {
                 )
             }
             
-            if !glace.isEmpty {
+            if !selectedGlace.isEmpty {
                 VStack {
                     HStack{
                         ZStack {
@@ -208,15 +200,15 @@ struct WaterQuantityView: View {
                             Circle()
                                 .frame(width: 70,height: 60)
                                 .foregroundStyle(.white)
-                            Image(userSettingsViewModel.chooseBottleOfWater(name: glace))
+                            Image(userSettingsViewModel.chooseBottleOfWater(name: selectedGlace))
                                 .resizable()
                                 .frame(width: 40, height: 40, alignment: .center)
                         }
                     }
                     
                     let type = userSettingsViewModel.uptateQuanittyOfWater(
-                        quantityWater : profilType,
-                        chooseBottle:glace
+                        quantityWater : selectedSound,
+                        chooseBottle:selectedGlace
                     )
                     
                     let rounded = ceil(type)
@@ -233,15 +225,15 @@ struct WaterQuantityView: View {
         .onChange(of: updateHeight) {
             updateHeightRaw = Double(updateHeight)
             progressRaw = Double(progress)
-            profilTypeRaw = profilType
-            glaceRaw = glace
+            profilTypeRaw = selectedSound
+            glaceRaw = selectedGlace
             
             if updateHeight >= 300 {
                 
-                historyViewModel.name = profilType
+                historyViewModel.name = selectedSound
                
                 
-                let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
+                let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: selectedSound))
                 historyViewModel.quantity = formattedQuantity
                 
                 Task{
@@ -284,7 +276,10 @@ struct WaterQuantityView: View {
                 .sheet(isPresented: $sheetPresented) {
                     
                 } content: {
-                    UserSettingsView(profil:$profilType,glace:$glace)
+                    UserSettingsView(
+                        selectedSound: $selectedSound,
+                        selectedGlace: $selectedGlace
+                    )
                 }
                 
             }else{
@@ -317,7 +312,9 @@ struct WaterQuantityView: View {
 }
 
 #Preview {
-    WaterQuantityView(historyViewModel: HistoryViewModel())
+    WaterQuantityView(
+        historyViewModel: HistoryViewModel()
+    )
 }
 
 struct WaterWave: Shape {
@@ -375,8 +372,8 @@ struct CircleView: View {
 struct increaseWaterAmount : View {
     @Binding var throwError : Bool
     @Binding var showMessage : Bool
-    @Binding var profilType : String
-    @Binding var glace : String
+    @Binding var selectedSound : String
+    @Binding var selectedGlace : String
     @Binding var updateHeight : CGFloat
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @Binding var progress : CGFloat
@@ -400,18 +397,18 @@ struct increaseWaterAmount : View {
                     }
                 })
                 
-                guard !profilType.isEmpty, !glace.isEmpty else { return }
+                guard !selectedSound.isEmpty, !selectedGlace.isEmpty else { return }
                 
                 let isFull = updateHeight != 300
-                let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
+                let updateWater = userSettingsViewModel.updateWater(type:selectedSound) != 0
                 
                 if isFull && updateWater && progress < 1 {
                     
                     let result = userSettingsViewModel.showNumberOfGlass(
-                        chooseBottle: glace,
-                        name: profilType
+                        chooseBottle: selectedGlace,
+                        name: selectedSound
                     )
-                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
+                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: selectedSound,chooseBottle: selectedGlace)
                     
                     withAnimation {
                         
