@@ -16,12 +16,12 @@ struct UserSettingsView: View {
     @Environment(\.dismiss) var dismiss
     @State var isActive : Bool = false
     @State var isActiveForGlace : Bool = false
-    @Binding var selectedSound: String?
-    @Binding var selectedGlace: String?
+    @Binding var selectedSound: String
+    @Binding var selectedGlace: String
     
     var emptyElement :  Bool  {
-        let selectedSound = selectedSound != nil
-        let selectedGlace = selectedGlace != nil
+        let selectedSound = selectedSound.isEmpty
+        let selectedGlace = selectedGlace.isEmpty
         let result = selectedSound && selectedGlace
         return result
     }
@@ -49,7 +49,7 @@ struct UserSettingsView: View {
                                 selectedSound: $selectedSound, name: "Profile"
                             )
                             .onChange(of: selectedSound) {
-                                profil = selectedSound ?? ""
+                                profil = selectedSound
                             }
                             
                             Divider()
@@ -61,7 +61,7 @@ struct UserSettingsView: View {
                                 selectedSound: $selectedGlace, name: "Recipient"
                             )
                             .onChange(of: selectedSound) {
-                                glace = selectedGlace ?? ""
+                                glace = selectedGlace
                             }
                         }
                     }
@@ -142,8 +142,8 @@ struct UserSettingsView: View {
 #Preview {
     @Previewable @State var profilType : String = ""
     @Previewable @State var glace : String = ""
-    @Previewable @State var selectedSound : String? = nil
-    @Previewable @State var selectedGlace : String? = nil
+    @Previewable @State var selectedSound : String = ""
+    @Previewable @State var selectedGlace : String = ""
     UserSettingsView(
         profil: $profilType,
         glace: $glace,
@@ -155,7 +155,7 @@ struct UserSettingsView: View {
 struct CustomPicker: View {
     @Binding var type : [String]
     @Binding var isActive : Bool
-    @Binding var selectedSound: String?
+    @Binding var selectedSound: String
     var name : String
 
     var body: some View {
@@ -174,7 +174,7 @@ struct CustomPicker: View {
                     .foregroundColor(Color("TextBackground"))
                     .padding()
                 
-                Text(selectedSound ?? "")
+                Text(selectedSound)
                     .foregroundColor(Color("TextBackground"))
                     .padding()
                 
@@ -192,7 +192,7 @@ struct CustomPicker: View {
 
 struct ChoosElement: View {
     @Binding var sound : [String]
-    @Binding var selectedSound: String?
+    @Binding var selectedSound: String
    
     var body : some View {
         
@@ -203,7 +203,7 @@ struct ChoosElement: View {
                     .opacity(selectedSound == items ? 1 : 0)
                 Button {
                     if selectedSound == items {
-                        selectedSound = nil
+                        selectedSound = ""
                     }else {
                         selectedSound = items
                     }

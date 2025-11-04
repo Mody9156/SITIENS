@@ -25,16 +25,16 @@ struct WaterQuantityView: View {
     @State var startAnimation : CGFloat = 0
     @State private var isScaledUp = false
     @State var glace : String = ""
-    @State var selectedSound: String? = nil
-    @State var selectedGlace: String? = nil
+    @State var selectedSound: String = ""
+    @State var selectedGlace: String = ""
     
     @Environment(\.verticalSizeClass) var verticalSizeClass
     var currentWater : CGFloat {
-        updateHeight * userSettingsViewModel.updateType(name:selectedSound ?? "")
+        updateHeight * userSettingsViewModel.updateType(name:selectedSound)
     }
     
     var targetWater : CGFloat {
-        userSettingsViewModel.updateWater(type: selectedSound ?? "")
+        userSettingsViewModel.updateWater(type: selectedSound)
     }
     
     var body: some View {
@@ -380,8 +380,8 @@ struct CircleView: View {
 struct increaseWaterAmount : View {
     @Binding var throwError : Bool
     @Binding var showMessage : Bool
-    @Binding var profilType : String?
-    @Binding var glace : String?
+    @Binding var profilType : String
+    @Binding var glace : String
     @Binding var updateHeight : CGFloat
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
     @Binding var progress : CGFloat
@@ -405,18 +405,18 @@ struct increaseWaterAmount : View {
                     }
                 })
                 
-                guard profilType != nil, glace  != nil else { return }
+                guard profilType.isEmpty && glace.isEmpty else { return }
                 
                 let isFull = updateHeight != 300
-                let updateWater = userSettingsViewModel.updateWater(type:profilType ?? "") != 0
+                let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
                 
                 if isFull && updateWater && progress < 1 {
                     
                     let result = userSettingsViewModel.showNumberOfGlass(
-                        chooseBottle: glace ?? "",
-                        name: profilType ?? ""
+                        chooseBottle: glace,
+                        name: profilType
                     )
-                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType ?? "" ,chooseBottle: glace ?? "" )
+                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace )
                     
                     withAnimation {
                         
