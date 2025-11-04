@@ -12,8 +12,8 @@ import Combine
 struct WaterQuantityView: View {
     @AppStorage("updateHeight") var updateHeightRaw : Double = 0
     @AppStorage("progress")  var progressRaw: Double = 0
-    @AppStorage("selectedSound") var profilTypeRaw: String = ""
-    @AppStorage("selectedGlace") var glaceRaw: String = ""
+    @AppStorage("profilTypeRaw") var profilTypeRaw: String = ""
+    @AppStorage("glaceRaw") var glaceRaw: String = ""
     @State var updateHeight : CGFloat = 0
     @State var sheetPresented : Bool = false
     @Bindable var userSettingsViewModel = UserSettingsViewModel()
@@ -135,6 +135,8 @@ struct WaterQuantityView: View {
                 .onAppear{
                     updateHeight = CGFloat(updateHeightRaw)
                     progress = CGFloat(progressRaw)
+                    profilTypeRaw = selectedSound
+                    glaceRaw = selectedGlace
                     selectedSound = profilTypeRaw
                     selectedGlace = glaceRaw
                     
@@ -145,7 +147,6 @@ struct WaterQuantityView: View {
                             isScaledUp = true
                         }
                 }
-           
 
             if updateHeight != 0 {
                 
@@ -218,6 +219,7 @@ struct WaterQuantityView: View {
                 }
             }
         }
+       
         .toolbar {
             settingsToolbar
             historyToolbar
@@ -232,8 +234,8 @@ struct WaterQuantityView: View {
                 
                 historyViewModel.name = selectedSound
                
-                
                 let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: selectedSound))
+                
                 historyViewModel.quantity = formattedQuantity
                 
                 Task{
@@ -245,7 +247,6 @@ struct WaterQuantityView: View {
                 }
             }
         }
-
     }
     
     private var backgroundGradient: some View {
