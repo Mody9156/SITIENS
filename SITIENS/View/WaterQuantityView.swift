@@ -25,16 +25,13 @@ struct WaterQuantityView: View {
     @State var startAnimation : CGFloat = 0
     @State private var isScaledUp = false
     @State var glace : String = ""
-    @State var selectedSound: String = ""
-    @State var selectedGlace: String = ""
-    
     @Environment(\.verticalSizeClass) var verticalSizeClass
     var currentWater : CGFloat {
-        updateHeight * userSettingsViewModel.updateType(name:selectedSound)
+        updateHeight * userSettingsViewModel.updateType(name:profilType)
     }
     
     var targetWater : CGFloat {
-        userSettingsViewModel.updateWater(type: selectedSound)
+        userSettingsViewModel.updateWater(type: profilType)
     }
     
     var body: some View {
@@ -112,8 +109,8 @@ struct WaterQuantityView: View {
                         increaseWaterAmount(
                             throwError: $throwError,
                             showMessage: $showMessage,
-                            profilType: $selectedSound,
-                            glace: $selectedGlace,
+                            profilType: $profilType,
+                            glace: $glace,
                             updateHeight: $updateHeight,
                             userSettingsViewModel: userSettingsViewModel,
                             progress: $progress
@@ -143,8 +140,8 @@ struct WaterQuantityView: View {
                 .onAppear{
                     updateHeight = CGFloat(updateHeightRaw)
                     progress = CGFloat(progressRaw)
-                    selectedSound = profilTypeRaw
-                    selectedGlace = glaceRaw
+                    profilType = profilTypeRaw
+                    glace = glaceRaw
                     
                     withAnimation(
                         .linear(duration: 0.8)
@@ -185,7 +182,7 @@ struct WaterQuantityView: View {
                 .accessibilityAddTraits(.isButton)
             }
             
-            if throwError && selectedSound.isEmpty {
+            if throwError && profilType.isEmpty {
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(Color.orange)
@@ -233,7 +230,7 @@ struct WaterQuantityView: View {
         .onChange(of: updateHeight) {
             updateHeightRaw = Double(updateHeight)
             progressRaw = Double(progress)
-            profilTypeRaw = selectedSound
+            profilTypeRaw = profilType
             glaceRaw = glace
             
             if updateHeight >= 300 {
@@ -241,7 +238,7 @@ struct WaterQuantityView: View {
                 historyViewModel.name = profilType
                
                 
-                let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: selectedSound))
+                let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: profilType))
                 historyViewModel.quantity = formattedQuantity
                 
                 Task{
@@ -284,12 +281,7 @@ struct WaterQuantityView: View {
                 .sheet(isPresented: $sheetPresented) {
                     
                 } content: {
-                    UserSettingsView(
-                        profil:$profilType,
-                        glace:$glace,
-                        selectedSound: $selectedSound,
-                        selectedGlace: $selectedGlace
-                    )
+                    UserSettingsView(profil:$profilType,glace:$glace)
                 }
                 
             }else{
@@ -405,7 +397,7 @@ struct increaseWaterAmount : View {
                     }
                 })
                 
-                guard profilType.isEmpty && glace.isEmpty else { return }
+                guard !profilType.isEmpty, !glace.isEmpty else { return }
                 
                 let isFull = updateHeight != 300
                 let updateWater = userSettingsViewModel.updateWater(type:profilType) != 0
@@ -416,7 +408,7 @@ struct increaseWaterAmount : View {
                         chooseBottle: glace,
                         name: profilType
                     )
-                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace )
+                    let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: profilType,chooseBottle: glace)
                     
                     withAnimation {
                         
