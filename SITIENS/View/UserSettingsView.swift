@@ -20,8 +20,8 @@ struct UserSettingsView: View {
     @Binding var selectedGlace: String
     
     var emptyElement :  Bool  {
-        let selectedSound = selectedSound.isEmpty
-        let selectedGlace = selectedGlace.isEmpty
+        let selectedSound = !selectedSound.isEmpty
+        let selectedGlace = !selectedGlace.isEmpty
         let result = selectedSound && selectedGlace
         return result
     }

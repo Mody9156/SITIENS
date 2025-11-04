@@ -185,7 +185,7 @@ struct WaterQuantityView: View {
                 .accessibilityAddTraits(.isButton)
             }
             
-            if throwError && selectedSound == nil {
+            if throwError && selectedSound.isEmpty {
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(Color.orange)
@@ -233,7 +233,7 @@ struct WaterQuantityView: View {
         .onChange(of: updateHeight) {
             updateHeightRaw = Double(updateHeight)
             progressRaw = Double(progress)
-            profilTypeRaw = selectedSound ?? ""
+            profilTypeRaw = selectedSound
             glaceRaw = glace
             
             if updateHeight >= 300 {
@@ -241,7 +241,7 @@ struct WaterQuantityView: View {
                 historyViewModel.name = profilType
                
                 
-                let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: selectedSound ?? ""))
+                let formattedQuantity = String(format: "%.1fL", Double(updateHeight) * userSettingsViewModel.updateType(name: selectedSound))
                 historyViewModel.quantity = formattedQuantity
                 
                 Task{
