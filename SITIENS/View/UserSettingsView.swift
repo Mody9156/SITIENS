@@ -66,7 +66,6 @@ struct UserSettingsView: View {
                 })
                 .padding()
             }
-            
         }
     }
     
