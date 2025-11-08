@@ -53,7 +53,9 @@ struct Chronograph: View {
                 }
             }
             .toolbar(
+                content: {
                     toolbarContent()
+                }
             )
             .onAppear {
                 //                UserDefaults.standard.removeObject(forKey: "hour")
