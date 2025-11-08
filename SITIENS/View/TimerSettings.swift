@@ -120,7 +120,7 @@ struct TimerSettings: View {
                                 
                                 //Ici ajouter l'elements
                                 
-                                Text(selectedSound)
+                                Text(selectedSound ?? "")
                                     .foregroundColor(Color("TextBackground"))
                                     .padding()
                                 
