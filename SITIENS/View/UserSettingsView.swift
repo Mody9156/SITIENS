@@ -58,28 +58,8 @@ struct UserSettingsView: View {
                         }
                     }
                     
-                    
                     Spacer()
-                    //
-                    //                        Button {
-                    //                            withAnimation {
-                    //                                if !emptyElement {
-                    //                                    dismiss()
-                    //                                }
-                    //                            }
-                    //
-                    //                        } label: {
-                    //                            ZStack {
-                    //                                RoundedRectangle(cornerRadius: 12)
-                    //                                    .frame(height: 50)
-                    //                                Text("Valider")
-                    //                                    .foregroundStyle(.white)
-                    //                            }
-                    //                        }
-                    //                        .disabled(!emptyElement)
-                    //                        .accessibilityLabel("Bouton Valider")
-                    //                        .accessibilityHint("Valide vos préférences de profil et de récipient")
-                    //                        .accessibilityAddTraits(.isButton)
+              
                 }
                 .toolbar(content: {
                     toolbar()
