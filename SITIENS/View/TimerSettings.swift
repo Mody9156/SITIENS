@@ -87,7 +87,7 @@ struct TimerSettings: View {
                                                     insertion: .move(edge: .top),
                                                     removal: .move(edge: .bottom)
                                                 )
-                                                )
+                                   )
                                 }
                             }
                             .pickerStyle(.inline)
@@ -117,6 +117,13 @@ struct TimerSettings: View {
                                 Image(systemName: "chevron.right")
                                     .foregroundColor(Color("TextBackground"))
                                     .padding()
+                                
+                                //Ici ajouter l'elements
+                                
+                                Text(selectedSound)
+                                    .foregroundColor(Color("TextBackground"))
+                                    .padding()
+                                
                             }
                             .background(.gray.opacity(0.7))
                             .cornerRadius(12)
