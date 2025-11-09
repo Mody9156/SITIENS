@@ -424,13 +424,14 @@ struct increaseWaterAmount : View {
                 .padding(verticalSizeClass == .compact ? 12 : 25)
                 .background(
                     Circle()
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.white.opacity(0.6))
                         .overlay(content: {
                             Circle()
                                 .stroke(.blue,lineWidth:verticalSizeClass == .compact ? 3 : 6)
                         })
                 )
         }
+        .glassEffect()
         .accessibilityLabel("Ajouter un verre d'eau")
         .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
         .accessibilityAddTraits(.isButton)
