@@ -105,7 +105,7 @@ struct TimerSettings: View {
                         } label: {
                             HStack {
                                 Text("Sélectionner")
-                                    .foregroundColor(Color("backgroundBoutton"))
+                                    .foregroundColor(Color("TextBackground"))
                                     .padding()
                                 
                                 Spacer()
@@ -121,12 +121,13 @@ struct TimerSettings: View {
                                     .padding()
                                 
                             }
-                            .background(.gray.opacity(0.7))
-                            .cornerRadius(12)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(.gray, lineWidth: 1)
-                            )
+                            .glassEffect()
+//                            .background(.gray.opacity(0.7))
+//                            .cornerRadius(12)
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 12)
+//                                    .stroke(.gray, lineWidth: 1)
+//                            )
                             .accessibilityLabel("Sélectionner un son")
                             .accessibilityHint("Double-cliquez pour choisir un audio")
                         }
