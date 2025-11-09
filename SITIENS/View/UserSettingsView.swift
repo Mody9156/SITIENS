@@ -38,7 +38,7 @@ struct UserSettingsView: View {
                     ZStack{
                         RoundedRectangle(cornerRadius: 12)
                             .frame(height: 130)
-                            .foregroundStyle(Color("TextBackground"))
+                            .foregroundStyle(.white)
                         
                         VStack {
                             CustomPicker(
@@ -132,21 +132,21 @@ struct CustomPicker: View {
         } label: {
             HStack {
                 Text(name)
-                    .foregroundColor(Color("TextBackground"))
+                    .foregroundColor(.black)
                     .padding()
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                    .foregroundColor(Color("TextBackground"))
+                    .foregroundColor(.black)
                     .padding()
                 
                 Text(selectedSound)
-                    .foregroundColor(Color("TextBackground"))
+                    .foregroundColor(.black)
                     .padding()
                 
             }
-            .background(Color("TextBackground"))
+            .background(Color("backgroundBoutton"))
             .cornerRadius(12)
             .accessibilityLabel("Sélectionner un son")
             .accessibilityHint("Double-cliquez pour choisir un audio")
