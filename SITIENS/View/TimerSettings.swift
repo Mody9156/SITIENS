@@ -70,10 +70,6 @@ struct TimerSettings: View {
                             .pickerStyle(.wheel)
                             .padding()
                             .clipped()
-                            .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-                                //                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
-                                print(type(of: $0))
-                            }
                             
                             Picker("",selection: $inserMinutes) {
                                 ForEach(
