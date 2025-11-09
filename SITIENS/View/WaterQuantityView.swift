@@ -69,7 +69,7 @@ struct WaterQuantityView: View {
                         .resizable()
                         .renderingMode(.template)
                         .aspectRatio(contentMode: .fill)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.white.opacity(0.6))
                         .padding()
                     
                     WaterWave(
@@ -267,6 +267,7 @@ struct WaterQuantityView: View {
                 } label: {
                     Image(systemName: "gearshape.fill")
                         .font(.title2)
+                        .foregroundStyle(.blue)
                         
                 }
                 .glassEffect()
@@ -408,12 +409,8 @@ struct increaseWaterAmount : View {
                     let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: selectedSound,chooseBottle: selectedGlace)
                     
                     withAnimation {
-                        
                             updateHeight += water
-                        
-                        print("updateHeight: \(updateHeight)")
-                        progress += result
-                        print("progress: \(progress)")
+                            progress += result
                     }
                 }
             }
