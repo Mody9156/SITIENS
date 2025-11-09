@@ -105,7 +105,7 @@ struct TimerSettings: View {
                         } label: {
                             HStack {
                                 Text("Sélectionner")
-                                    .foregroundColor(Color("TextBackground"))
+                                    .foregroundColor(Color("backgroundBoutton"))
                                     .padding()
                                 
                                 Spacer()

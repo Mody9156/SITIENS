@@ -59,7 +59,7 @@ struct UserSettingsView: View {
                     }
                     
                     Spacer()
-              
+                    
                 }
                 .toolbar(content: {
                     toolbar()
@@ -124,7 +124,7 @@ struct CustomPicker: View {
     @Binding var isActive : Bool
     @Binding var selectedSound: String
     var name : String
-
+    
     var body: some View {
         
         Button {
@@ -159,7 +159,7 @@ struct CustomPicker: View {
 struct ChoosElement: View {
     @Binding var sound : [String]
     @Binding var selectedSound: String
-   
+    
     var body : some View {
         
         List(sound,id:\.self) { items in
@@ -175,7 +175,7 @@ struct ChoosElement: View {
                         selectedSound = items
                         print(selectedSound)
                     }
-                   
+                    
                 } label: {
                     
                     Text(items)
