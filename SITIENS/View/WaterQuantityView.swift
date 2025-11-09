@@ -68,8 +68,9 @@ struct WaterQuantityView: View {
                     Image(systemName: "drop.fill")
                         .resizable()
                         .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(contentMode: .fill)
                         .foregroundStyle(.white)
+                        .padding()
                     
                     WaterWave(
                         progress: progress,
