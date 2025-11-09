@@ -122,12 +122,6 @@ struct TimerSettings: View {
                                 
                             }
                             .glassEffect()
-//                            .background(.gray.opacity(0.7))
-//                            .cornerRadius(12)
-//                            .overlay(
-//                                RoundedRectangle(cornerRadius: 12)
-//                                    .stroke(.gray, lineWidth: 1)
-//                            )
                             .accessibilityLabel("Sélectionner un son")
                             .accessibilityHint("Double-cliquez pour choisir un audio")
                         }
@@ -240,7 +234,7 @@ struct ChoosSong: View {
                 } label: {
                     
                     Text(items)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color("TextBackground"))
                 }
             }
         }
