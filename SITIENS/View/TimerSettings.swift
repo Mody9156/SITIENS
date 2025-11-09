@@ -9,35 +9,18 @@ import SwiftUI
 import UIKit
 import AVFAudio
 import Combine
-import MediaPlayer
-import SwiftUIIntrospect
 
 struct TimerSettings: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze","alone","kugelsicher-by-tremoxbeatz","gardens-stylish-chill","future-design","lofi-effect","lofi-sample-if-i-cant-have-you","mystical-music","music-box","meditation-music-sound-bite","ringtone","cool-guitar-loop","basique"]
-    @State var hour : [Int] = [10,600,3600,7200,5400,1800]
     @State var inserTimerHour = Array(0..<24)
     @State var inserTimerMinutes = Array(0..<61)
     @State var inserHour = 0
     @State var inserMinutes = 0
-    @Binding var selectedItems : String
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
-    @State private var audio : AVAudioPlayer?
-    @State private var cancellable: AnyCancellable?
-    @State private var slide : Double = 0.0
-    @State private var activeSlide : Bool = false
-    @Environment(\.scenePhase) var scenePhase
-    @State private var updateSlide : Double = 0.0
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State private var progress: Double = 0.0
-    @State private var isUserScrubbing = false
-    @State private var time = 0
-    @State private var isVisualizing : Bool = false
-    @State var activeBoutton: Bool = false
     @State var selectedSound: String? = nil
-    @State var isDetailLink : Bool = false
     @State var isActive : Bool = false
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
@@ -47,6 +30,7 @@ struct TimerSettings: View {
     private func CombienEquatableTime() -> CombienEquatable {
         return CombienEquatable(inserHour: inserHour, inserMinutes: inserMinutes)
     }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -70,24 +54,20 @@ struct TimerSettings: View {
                             .pickerStyle(.wheel)
                             .padding()
                             .clipped()
-                            .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-                                //                                picker.subviews[1].backgroundColor = UIColor.clear // or any color you want
-                                print(type(of: $0))
-                            }
                             
                             Picker("",selection: $inserMinutes) {
                                 ForEach(
                                     0 ..< inserTimerMinutes.count,
                                     id: \.self
                                 ) { value in
-                                        Text("\(value)")
-                                                //Modifier la ligne
-                                            .transition(
-                                                .asymmetric(
-                                                    insertion: .move(edge: .top),
-                                                    removal: .move(edge: .bottom)
-                                                )
-                                   )
+                                    Text("\(value)")
+                                    //Modifier la ligne
+                                        .transition(
+                                            .asymmetric(
+                                                insertion: .move(edge: .top),
+                                                removal: .move(edge: .bottom)
+                                            )
+                                        )
                                 }
                             }
                             .pickerStyle(.inline)
@@ -125,12 +105,7 @@ struct TimerSettings: View {
                                     .padding()
                                 
                             }
-                            .background(.gray.opacity(0.7))
-                            .cornerRadius(12)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(.gray, lineWidth: 1)
-                            )
+                            .glassEffect()
                             .accessibilityLabel("Sélectionner un son")
                             .accessibilityHint("Double-cliquez pour choisir un audio")
                         }
@@ -243,7 +218,7 @@ struct ChoosSong: View {
                 } label: {
                     
                     Text(items)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color("TextBackground"))
                 }
             }
         }
@@ -251,10 +226,8 @@ struct ChoosSong: View {
 }
 
 #Preview {
-    @Previewable @State var selectedItems : String = ""
     @Previewable @State var selectedHour : Int = 0
     TimerSettings(
-        selectedItems: $selectedItems,
         selectedHour: $selectedHour,
         hydrationActivationViewModel: HydrationActivationViewModel()
     )
@@ -500,11 +473,7 @@ struct ActiveAudio : View {
                             .padding()
                     }
                 }
-                
-                VolumeSlider()
-                    .frame(height: 40)
-                    .foregroundStyle(.blue)
-                    .padding()
+
             }
         }
     }
@@ -526,25 +495,4 @@ struct CustomSystemName: View {
                 .padding()
         }
     }
-}
-
-
-extension MPVolumeView {
-    static func setVolume(_ volume: Float){
-        let volumeView = MPVolumeView()
-        let slider = volumeView.subviews.first { $0 is UISlider } as? UISlider
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) {
-            slider?.value = volume
-        }
-    }
-}
-
-struct VolumeSlider: UIViewRepresentable {
-    func makeUIView(context: Context) -> MPVolumeView {
-        let volumeView = MPVolumeView()
-        volumeView.showsVolumeSlider = true
-        return volumeView
-    }
-    func updateUIView(_ uiView: MPVolumeView, context: Context) {}
 }

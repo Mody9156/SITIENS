@@ -210,7 +210,6 @@ struct Chronograph: View {
                 
             } content: {
                 TimerSettings(
-                    selectedItems: $selectedItems,
                     selectedHour: $timeInterval, hydrationActivationViewModel: hydrationActivationViewModel
                 )
             }

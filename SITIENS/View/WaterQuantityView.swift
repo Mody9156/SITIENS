@@ -68,8 +68,9 @@ struct WaterQuantityView: View {
                     Image(systemName: "drop.fill")
                         .resizable()
                         .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(.white)
+                        .aspectRatio(contentMode: .fill)
+                        .foregroundStyle(.white.opacity(0.6))
+                        .padding()
                     
                     WaterWave(
                         progress: progress,
@@ -211,7 +212,6 @@ struct WaterQuantityView: View {
                 }
             }
         }
-       
         .toolbar {
             settingsToolbar
             historyToolbar
@@ -267,10 +267,10 @@ struct WaterQuantityView: View {
                 } label: {
                     Image(systemName: "gearshape.fill")
                         .font(.title2)
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(.blue)
                         
                 }
-                
+                .glassEffect()
                 .sheet(isPresented: $sheetPresented) {
                     
                 } content: {
@@ -409,12 +409,8 @@ struct increaseWaterAmount : View {
                     let water = userSettingsViewModel.uptateQuanittyOfWater2(quantityWater: selectedSound,chooseBottle: selectedGlace)
                     
                     withAnimation {
-                        
                             updateHeight += water
-                        
-                        print("updateHeight: \(updateHeight)")
-                        progress += result
-                        print("progress: \(progress)")
+                            progress += result
                     }
                 }
             }
@@ -428,13 +424,14 @@ struct increaseWaterAmount : View {
                 .padding(verticalSizeClass == .compact ? 12 : 25)
                 .background(
                     Circle()
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.white.opacity(0.6))
                         .overlay(content: {
                             Circle()
                                 .stroke(.blue,lineWidth:verticalSizeClass == .compact ? 3 : 6)
                         })
                 )
         }
+        .glassEffect()
         .accessibilityLabel("Ajouter un verre d'eau")
         .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
         .accessibilityAddTraits(.isButton)

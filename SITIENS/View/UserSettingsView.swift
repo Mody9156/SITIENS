@@ -10,7 +10,6 @@ import SwiftUI
 struct UserSettingsView: View {
     @State var profileType : [String] = ["Nourrissons","Femmes enceintes", "Personnes âgées","Sportifs","Enfants et adolescents","Travailleurs en environnement chaud","Personnes souffrant de maladies chroniques","Personnes en surpoids ou obèses","Voyageurs ou personnes en altitude","Personnes sous traitement médicamenteux"]
     @State var sizeOfGlace : [String] = ["Petit – 200 ml","Moyen – 300 ml",  "Grand – 500 ml"]
-    @State var selectedProfileType : String = "nourrissons"
     @Environment(\.dismiss) var dismiss
     @State var isActive : Bool = false
     @State var isActiveForGlace : Bool = false
@@ -35,31 +34,23 @@ struct UserSettingsView: View {
                 .ignoresSafeArea()
                 
                 VStack {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(height: 130)
-                            .foregroundStyle(.gray)
+                    
+                    VStack {
+                        CustomPicker(
+                            type: $profileType,
+                            isActive: $isActive,
+                            selectedSound: $selectedSound, name: "Profile"
+                        )
                         
-                        VStack {
-                            CustomPicker(
-                                type: $profileType,
-                                isActive: $isActive,
-                                selectedSound: $selectedSound, name: "Profile"
-                            )
-                            
-                            Divider()
-                                .foregroundStyle(.white)
-                            
-                            CustomPicker(
-                                type: $sizeOfGlace,
-                                isActive: $isActiveForGlace,
-                                selectedSound: $selectedGlace, name: "Recipient"
-                            )
-                        }
+                        CustomPicker(
+                            type: $sizeOfGlace,
+                            isActive: $isActiveForGlace,
+                            selectedSound: $selectedGlace, name: "Recipient"
+                        )
                     }
                     
                     Spacer()
-              
+                    
                 }
                 .toolbar(content: {
                     toolbar()
@@ -124,7 +115,7 @@ struct CustomPicker: View {
     @Binding var isActive : Bool
     @Binding var selectedSound: String
     var name : String
-
+    
     var body: some View {
         
         Button {
@@ -146,8 +137,7 @@ struct CustomPicker: View {
                     .padding()
                 
             }
-            .background(.gray)
-            .cornerRadius(12)
+            .glassEffect()
             .accessibilityLabel("Sélectionner un son")
             .accessibilityHint("Double-cliquez pour choisir un audio")
         }
@@ -160,7 +150,7 @@ struct CustomPicker: View {
 struct ChoosElement: View {
     @Binding var sound : [String]
     @Binding var selectedSound: String
-   
+    
     var body : some View {
         
         List(sound,id:\.self) { items in
@@ -176,11 +166,11 @@ struct ChoosElement: View {
                         selectedSound = items
                         print(selectedSound)
                     }
-                   
+                    
                 } label: {
                     
                     Text(items)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color("TextBackground"))
                 }
             }
         }
