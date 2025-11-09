@@ -38,7 +38,7 @@ struct UserSettingsView: View {
                     ZStack{
                         RoundedRectangle(cornerRadius: 12)
                             .frame(height: 130)
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(Color("TextBackground"))
                         
                         VStack {
                             CustomPicker(
@@ -146,7 +146,7 @@ struct CustomPicker: View {
                     .padding()
                 
             }
-            .background(.gray)
+            .background(Color("TextBackground"))
             .cornerRadius(12)
             .accessibilityLabel("Sélectionner un son")
             .accessibilityHint("Double-cliquez pour choisir un audio")
