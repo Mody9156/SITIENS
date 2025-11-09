@@ -132,7 +132,7 @@ struct CustomPicker: View {
         } label: {
             HStack {
                 Text(name)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("TextBackground"))
                     .padding()
                 
                 Spacer()
@@ -142,7 +142,7 @@ struct CustomPicker: View {
                     .padding()
                 
                 Text(selectedSound)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("TextBackground"))
                     .padding()
                 
             }
