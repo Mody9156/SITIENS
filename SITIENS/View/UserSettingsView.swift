@@ -38,7 +38,7 @@ struct UserSettingsView: View {
                     ZStack{
                         RoundedRectangle(cornerRadius: 12)
                             .frame(height: 130)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Color("backgroundBoutton"))
                         
                         VStack {
                             CustomPicker(
