@@ -180,7 +180,7 @@ struct ChoosElement: View {
                 } label: {
                     
                     Text(items)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color("TextBackground"))
                 }
             }
         }
