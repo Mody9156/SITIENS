@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4F4B18E72E3D610F00ADD5B4 /* AppClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 4F4B18C52E3D610D00ADD5B4 /* AppClip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4F6295BC2EA8438B0085EF20 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 4F6295BB2EA8438B0085EF20 /* SwiftUIIntrospect */; };
-		4FFA61C42EABD96300128962 /* WheelPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 4FFA61C32EABD96300128962 /* WheelPicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -179,8 +177,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FFA61C42EABD96300128962 /* WheelPicker in Frameworks */,
-				4F6295BC2EA8438B0085EF20 /* SwiftUIIntrospect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,8 +323,6 @@
 			);
 			name = SITIENS;
 			packageProductDependencies = (
-				4F6295BB2EA8438B0085EF20 /* SwiftUIIntrospect */,
-				4FFA61C32EABD96300128962 /* WheelPicker */,
 			);
 			productName = SITIENS;
 			productReference = 4FA205952DA40CAF004C8CC4 /* SITIENS.app */;
@@ -425,8 +419,6 @@
 			mainGroup = 4FA2058C2DA40CAF004C8CC4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				4F6295BA2EA842C40085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
-				4FFA61C22EABD7AB00128962 /* XCRemoteSwiftPackageReference "WheelPicker" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4FA205962DA40CAF004C8CC4 /* Products */;
@@ -1034,38 +1026,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		4F6295BA2EA842C40085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/swiftui-introspect";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 26.0.0;
-			};
-		};
-		4FFA61C22EABD7AB00128962 /* XCRemoteSwiftPackageReference "WheelPicker" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/tokiensis/WheelPicker";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		4F6295BB2EA8438B0085EF20 /* SwiftUIIntrospect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4F6295BA2EA842C40085EF20 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
-			productName = SwiftUIIntrospect;
-		};
-		4FFA61C32EABD96300128962 /* WheelPicker */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4FFA61C22EABD7AB00128962 /* XCRemoteSwiftPackageReference "WheelPicker" */;
-			productName = WheelPicker;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4FA2058D2DA40CAF004C8CC4 /* Project object */;
 }
