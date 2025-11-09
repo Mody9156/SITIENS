@@ -138,7 +138,7 @@ struct CustomPicker: View {
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("TextBackground"))
                     .padding()
                 
                 Text(selectedSound)
@@ -146,7 +146,6 @@ struct CustomPicker: View {
                     .padding()
                 
             }
-            .background(Color("backgroundBoutton"))
             .cornerRadius(12)
             .accessibilityLabel("Sélectionner un son")
             .accessibilityHint("Double-cliquez pour choisir un audio")
