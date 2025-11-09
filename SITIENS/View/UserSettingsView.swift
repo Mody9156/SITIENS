@@ -35,11 +35,7 @@ struct UserSettingsView: View {
                 .ignoresSafeArea()
                 
                 VStack {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(height: 130)
-                            .foregroundStyle(Color("backgroundBoutton"))
-                        
+
                         VStack {
                             CustomPicker(
                                 type: $profileType,
@@ -47,15 +43,11 @@ struct UserSettingsView: View {
                                 selectedSound: $selectedSound, name: "Profile"
                             )
                             
-                            Divider()
-                                .foregroundStyle(.white)
-                            
                             CustomPicker(
                                 type: $sizeOfGlace,
                                 isActive: $isActiveForGlace,
                                 selectedSound: $selectedGlace, name: "Recipient"
                             )
-                        }
                     }
                     
                     Spacer()
@@ -146,7 +138,7 @@ struct CustomPicker: View {
                     .padding()
                 
             }
-            .cornerRadius(12)
+            .glassEffect()
             .accessibilityLabel("Sélectionner un son")
             .accessibilityHint("Double-cliquez pour choisir un audio")
         }
