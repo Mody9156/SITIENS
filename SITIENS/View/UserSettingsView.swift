@@ -10,7 +10,6 @@ import SwiftUI
 struct UserSettingsView: View {
     @State var profileType : [String] = ["Nourrissons","Femmes enceintes", "Personnes âgées","Sportifs","Enfants et adolescents","Travailleurs en environnement chaud","Personnes souffrant de maladies chroniques","Personnes en surpoids ou obèses","Voyageurs ou personnes en altitude","Personnes sous traitement médicamenteux"]
     @State var sizeOfGlace : [String] = ["Petit – 200 ml","Moyen – 300 ml",  "Grand – 500 ml"]
-    @State var selectedProfileType : String = "nourrissons"
     @Environment(\.dismiss) var dismiss
     @State var isActive : Bool = false
     @State var isActiveForGlace : Bool = false
@@ -35,19 +34,19 @@ struct UserSettingsView: View {
                 .ignoresSafeArea()
                 
                 VStack {
-
-                        VStack {
-                            CustomPicker(
-                                type: $profileType,
-                                isActive: $isActive,
-                                selectedSound: $selectedSound, name: "Profile"
-                            )
-                            
-                            CustomPicker(
-                                type: $sizeOfGlace,
-                                isActive: $isActiveForGlace,
-                                selectedSound: $selectedGlace, name: "Recipient"
-                            )
+                    
+                    VStack {
+                        CustomPicker(
+                            type: $profileType,
+                            isActive: $isActive,
+                            selectedSound: $selectedSound, name: "Profile"
+                        )
+                        
+                        CustomPicker(
+                            type: $sizeOfGlace,
+                            isActive: $isActiveForGlace,
+                            selectedSound: $selectedGlace, name: "Recipient"
+                        )
                     }
                     
                     Spacer()
