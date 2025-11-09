@@ -212,7 +212,6 @@ struct WaterQuantityView: View {
                 }
             }
         }
-       
         .toolbar {
             settingsToolbar
             historyToolbar
@@ -268,10 +267,9 @@ struct WaterQuantityView: View {
                 } label: {
                     Image(systemName: "gearshape.fill")
                         .font(.title2)
-                        .foregroundStyle(.primary)
                         
                 }
-                
+                .glassEffect()
                 .sheet(isPresented: $sheetPresented) {
                     
                 } content: {
