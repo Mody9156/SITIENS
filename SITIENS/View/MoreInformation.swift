@@ -54,7 +54,6 @@ struct MoreInformation: View {
                         
                         VStack(alignment: .leading) {
                             
-                            
                             HStack {
                                 Image(systemName: "drop.fill")
                                     .resizable()
@@ -67,7 +66,6 @@ struct MoreInformation: View {
                                     .foregroundStyle(.blue)
                                     .fontWeight(.bold)
                             }
-                            
                             .padding()
                             
                             HStack {
@@ -108,13 +106,9 @@ struct MoreInformation: View {
                     .padding()
                 }
             }
-            
             .padding()
             
         }
-           
-
-        
     }
 }
 

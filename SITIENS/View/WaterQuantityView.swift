@@ -40,8 +40,8 @@ struct WaterQuantityView: View {
                 backgroundGradient
                 
                 if verticalSizeClass == .compact {
-                    ScrollView(.vertical,showsIndicators: true) {
-                            container
+                    ScrollView {
+                         container
                     }
                     
                 }else {
@@ -62,7 +62,9 @@ struct WaterQuantityView: View {
             Text("\(currentWater > targetWater ? targetWater : currentWater ,format: .number.precision(.fractionLength(1)))L / \(targetWater,format: .number.precision(.fractionLength(1)))L")
                 .foregroundStyle(.gray)
                 .font(.title2)
-                
+                .padding()
+            
+            ZStack(alignment:.topTrailing) {
                 ZStack{
                     
                     Image(systemName: "drop.fill")
@@ -123,7 +125,12 @@ struct WaterQuantityView: View {
                             .font(.title)
                             .offset(y:40)
                     }
+                    
+                    
+                    
+                    
                 }
+                .padding()
                 .frame(
                     maxWidth: verticalSizeClass == .compact ? 300 : .infinity,
                     maxHeight: verticalSizeClass == .compact ? 300 : .infinity,
@@ -140,7 +147,42 @@ struct WaterQuantityView: View {
                             isScaledUp = true
                         }
                 }
-
+                .padding()
+                
+                
+                if !selectedGlace.isEmpty {
+                    VStack {
+                        HStack{
+                            ZStack {
+                                Circle()
+                                    .frame(width: 70,height: 70)
+                                    .foregroundStyle(.blue)
+                                
+                                Circle()
+                                    .frame(width: 70,height: 60)
+                                    .foregroundStyle(.white)
+                                Image(userSettingsViewModel.chooseBottleOfWater(name: selectedGlace))
+                                    .resizable()
+                                    .frame(width: 40, height: 40, alignment: .center)
+                            }
+                        }
+                        
+                        let type = userSettingsViewModel.uptateQuanittyOfWater(
+                            quantityWater : selectedSound,
+                            chooseBottle:selectedGlace
+                        )
+                        
+                        let rounded = ceil(type)
+                      
+                        Text("X \(Int(rounded))")
+                        
+                    }
+                    .padding()
+                }
+                   
+            }
+            .padding()
+            
             if updateHeight != 0 {
                 
                 Button {
@@ -183,34 +225,7 @@ struct WaterQuantityView: View {
                 )
             }
             
-            if !selectedGlace.isEmpty {
-                VStack {
-                    HStack{
-                        ZStack {
-                            Circle()
-                                .frame(width: 70,height: 70)
-                                .foregroundStyle(.blue)
-                            
-                            Circle()
-                                .frame(width: 70,height: 60)
-                                .foregroundStyle(.white)
-                            Image(userSettingsViewModel.chooseBottleOfWater(name: selectedGlace))
-                                .resizable()
-                                .frame(width: 40, height: 40, alignment: .center)
-                        }
-                    }
-                    
-                    let type = userSettingsViewModel.uptateQuanittyOfWater(
-                        quantityWater : selectedSound,
-                        chooseBottle:selectedGlace
-                    )
-                    
-                    let rounded = ceil(type)
-                  
-                    Text("X \(Int(rounded))")
-                    
-                }
-            }
+         
         }
         .toolbar {
             settingsToolbar
@@ -270,7 +285,6 @@ struct WaterQuantityView: View {
                         .foregroundStyle(.blue)
                         
                 }
-                .glassEffect()
                 .sheet(isPresented: $sheetPresented) {
                     
                 } content: {
@@ -279,7 +293,7 @@ struct WaterQuantityView: View {
                         selectedGlace: $selectedGlace
                     )
                 }
-                
+
             }else{
                 
                 Image(systemName: "gearshape.fill")
@@ -418,7 +432,7 @@ struct increaseWaterAmount : View {
         } label: {
             
             Image(systemName: "plus")
-                .font(.system(size:verticalSizeClass == .compact ? 20 : 45,weight:.bold))
+                .font(.system(size: 45,weight:.bold))
                 .foregroundStyle(.blue)
                 .shadow(radius: 2)
                 .padding(verticalSizeClass == .compact ? 12 : 25)
@@ -431,7 +445,6 @@ struct increaseWaterAmount : View {
                         })
                 )
         }
-        .glassEffect()
         .accessibilityLabel("Ajouter un verre d'eau")
         .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
         .accessibilityAddTraits(.isButton)

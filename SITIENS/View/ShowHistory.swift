@@ -11,7 +11,6 @@ import CoreData
 struct ShowHistory: View {
     @Bindable var historyViewModel : HistoryViewModel
     @Environment(\.dismiss) var dismiss
-    var dateformatted = Date.now.formatted(date: .numeric, time: .shortened)
     @State private var searchText = ""
     
     var body: some View {
@@ -50,6 +49,7 @@ struct ShowHistory: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
+                        .foregroundStyle(.blue)
                 }
             }
         }

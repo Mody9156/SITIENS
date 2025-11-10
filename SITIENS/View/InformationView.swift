@@ -10,13 +10,13 @@ import Playgrounds
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
     @State private var showSheet: Bool = false
-   
+    
     @State private var openIndicator : Bool = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
     var body: some View {
         NavigationStack {
-                ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
+            ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
         }
     }
     
@@ -90,15 +90,18 @@ struct ValueNavigationLink :View {
     @ToolbarContentBuilder
     func toolBarContent() -> some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
-            Button {
-                withAnimation {
-                    showSheet.toggle()
+           
+                Button {
+                    withAnimation {
+                        showSheet.toggle()
+                    }
+                } label: {
+                    Image(systemName: "info.circle")
+                        .foregroundStyle(.blue)
                 }
-            } label: {
-                Image(systemName: "info.circle")
-                    .foregroundStyle(Color("TextBackground"))
-            }
-            .accessibilityLabel("Ouvrir la fiche d’information")
+                .padding()
+                .accessibilityLabel("Ouvrir la fiche d’information")
+            
         }
     }
     
@@ -115,7 +118,7 @@ struct ValueNavigationLink :View {
                 .accessibilityLabel("Image de présentation")
             
             VStack(alignment: .center, spacing: 16){
-             
+                
                 Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                     .font(.subheadline)
                     .italic()
@@ -125,16 +128,11 @@ struct ValueNavigationLink :View {
                     withAnimation {hasSeenIntro = true }
                 }) {
                     Label("Ignorer", systemImage: "arrowshape.turn.up.left")
-                        .foregroundStyle(Color("ForegroundColorForTheText"))
-                        .font(.headline)
+                        .foregroundStyle(.blue)
                         .frame(maxWidth: .infinity)
                         .padding()
                 }
-                
-                .background {
-                        RoundedRectangle(cornerRadius: 26, style: .continuous)
-                            .fill(Color("TextBackground"))
-                }
+                .glassEffect()
                 .scaleEffect(isPressed ? 0.95 : 1.0)
                 .animation(.spring(), value: isPressed)
                 .accessibilityLabel("Ignorer l'introduction")

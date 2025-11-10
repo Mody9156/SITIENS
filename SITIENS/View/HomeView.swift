@@ -83,7 +83,6 @@ struct SettingNavigation: View {
                     .overlay(Circle().stroke(Color.white.opacity(0.4), lineWidth: 4))
                     .shadow(color: .gray.opacity(0.4), radius: 10, x: 0, y: 5)
                     .accessibilityLabel("Image de présentation")
-                
             
             VStack(alignment: .center, spacing: 16) {
 
@@ -97,19 +96,12 @@ struct SettingNavigation: View {
                     withAnimation { hasSeenIntro = true }
                 }) {
                     Label("Ignorer", systemImage: "arrowshape.turn.up.left")
-                        .foregroundStyle(Color("ForegroundColorForTheText"))
-                        .font(.headline)
+                        .foregroundStyle(.blue)
                         .frame(maxWidth: .infinity)
                         .padding()
                 }
-                .background {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 26, style: .continuous)
-                            .fill(Color("TextBackground"))
-                            
-                    }
-                }
-                .padding(.horizontal)
+                .glassEffect()
+                .padding()
             }
             Spacer()
         }
@@ -125,7 +117,7 @@ struct SettingNavigation: View {
                 }
             } label: {
                 Image(systemName: "info.circle")
-                    .foregroundStyle(Color("TextBackground"))
+                    .foregroundStyle(.blue)
                     .onAppear{
                         openIndicator = true
                     }
