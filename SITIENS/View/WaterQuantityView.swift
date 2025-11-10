@@ -417,7 +417,7 @@ struct increaseWaterAmount : View {
         } label: {
             
             Image(systemName: "plus")
-                .font(.system(size:verticalSizeClass == .compact ? 20 : 45,weight:.bold))
+                .font(.system(size: 45,weight:.bold))
                 .foregroundStyle(.blue)
                 .shadow(radius: 2)
                 .padding(verticalSizeClass == .compact ? 12 : 25)
