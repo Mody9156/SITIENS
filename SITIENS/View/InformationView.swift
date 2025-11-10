@@ -10,13 +10,13 @@ import Playgrounds
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
     @State private var showSheet: Bool = false
-   
+    
     @State private var openIndicator : Bool = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
     var body: some View {
         NavigationStack {
-                ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
+            ValueNavigationLink(hasSeenIntro: $hasSeenIntro, showSheet: $showSheet, openIndicator: $openIndicator)
         }
     }
     
@@ -115,7 +115,7 @@ struct ValueNavigationLink :View {
                 .accessibilityLabel("Image de présentation")
             
             VStack(alignment: .center, spacing: 16){
-             
+                
                 Text("Boire de l’eau : quelle est la limite à ne pas dépasser ?")
                     .font(.subheadline)
                     .italic()
@@ -125,15 +125,17 @@ struct ValueNavigationLink :View {
                     withAnimation {hasSeenIntro = true }
                 }) {
                     Label("Ignorer", systemImage: "arrowshape.turn.up.left")
+                    
                         .foregroundStyle(Color("ForegroundColorForTheText"))
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
+                        .glassEffect()
                 }
                 
                 .background {
-                        RoundedRectangle(cornerRadius: 26, style: .continuous)
-                            .fill(Color("TextBackground"))
+                    RoundedRectangle(cornerRadius: 26, style: .continuous)
+                        .fill(Color("TextBackground"))
                 }
                 .scaleEffect(isPressed ? 0.95 : 1.0)
                 .animation(.spring(), value: isPressed)
