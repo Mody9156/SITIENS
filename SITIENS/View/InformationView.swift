@@ -125,18 +125,11 @@ struct ValueNavigationLink :View {
                     withAnimation {hasSeenIntro = true }
                 }) {
                     Label("Ignorer", systemImage: "arrowshape.turn.up.left")
-                    
-                        .foregroundStyle(Color("ForegroundColorForTheText"))
-                        .font(.headline)
+                        .foregroundStyle(Color("TextBackground"))
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .glassEffect()
                 }
-                
-                .background {
-                    RoundedRectangle(cornerRadius: 26, style: .continuous)
-                        .fill(Color("TextBackground"))
-                }
+                .glassEffect()
                 .scaleEffect(isPressed ? 0.95 : 1.0)
                 .animation(.spring(), value: isPressed)
                 .accessibilityLabel("Ignorer l'introduction")
