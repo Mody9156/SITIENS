@@ -49,6 +49,7 @@ struct ShowHistory: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
+                        .foregroundStyle(.blue)
                 }
             }
         }
