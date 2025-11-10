@@ -90,15 +90,18 @@ struct ValueNavigationLink :View {
     @ToolbarContentBuilder
     func toolBarContent() -> some ToolbarContent {
         ToolbarItem(placement: .confirmationAction) {
-            Button {
-                withAnimation {
-                    showSheet.toggle()
+           
+                Button {
+                    withAnimation {
+                        showSheet.toggle()
+                    }
+                } label: {
+                    Image(systemName: "info.circle")
+                        .foregroundStyle(.blue)
                 }
-            } label: {
-                Image(systemName: "info.circle")
-                    .foregroundStyle(Color("TextBackground"))
-            }
-            .accessibilityLabel("Ouvrir la fiche d’information")
+                .padding()
+                .accessibilityLabel("Ouvrir la fiche d’information")
+            
         }
     }
     
@@ -125,7 +128,7 @@ struct ValueNavigationLink :View {
                     withAnimation {hasSeenIntro = true }
                 }) {
                     Label("Ignorer", systemImage: "arrowshape.turn.up.left")
-                        .foregroundStyle(Color("TextBackground"))
+                        .foregroundStyle(.blue)
                         .frame(maxWidth: .infinity)
                         .padding()
                 }
