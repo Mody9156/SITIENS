@@ -96,12 +96,12 @@ struct SettingNavigation: View {
                     withAnimation { hasSeenIntro = true }
                 }) {
                     Label("Ignorer", systemImage: "arrowshape.turn.up.left")
-                        .foregroundStyle(Color("TextBackground"))
-                        .font(.headline)
+                        .foregroundStyle(.blue)
                         .frame(maxWidth: .infinity)
                         .padding()
                 }
                 .glassEffect()
+                .padding()
             }
             Spacer()
         }
@@ -117,7 +117,7 @@ struct SettingNavigation: View {
                 }
             } label: {
                 Image(systemName: "info.circle")
-                    .foregroundStyle(Color("TextBackground"))
+                    .foregroundStyle(.blue)
                     .onAppear{
                         openIndicator = true
                     }
