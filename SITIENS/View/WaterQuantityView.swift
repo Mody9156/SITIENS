@@ -270,7 +270,6 @@ struct WaterQuantityView: View {
                         .foregroundStyle(.blue)
                         
                 }
-                .glassEffect()
                 .sheet(isPresented: $sheetPresented) {
                     
                 } content: {
@@ -279,7 +278,7 @@ struct WaterQuantityView: View {
                         selectedGlace: $selectedGlace
                     )
                 }
-                
+
             }else{
                 
                 Image(systemName: "gearshape.fill")
