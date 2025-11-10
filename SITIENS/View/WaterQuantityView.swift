@@ -445,7 +445,6 @@ struct increaseWaterAmount : View {
                         })
                 )
         }
-        .glassEffect()
         .accessibilityLabel("Ajouter un verre d'eau")
         .accessibilityHint("Ajoute la quantité d'eau choisie au suivi journalier")
         .accessibilityAddTraits(.isButton)
