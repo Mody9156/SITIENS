@@ -40,8 +40,8 @@ struct WaterQuantityView: View {
                 backgroundGradient
                 
                 if verticalSizeClass == .compact {
-                    ScrollView(.vertical,showsIndicators: true) {
-                            container
+                    ScrollView {
+                         container
                     }
                     
                 }else {
