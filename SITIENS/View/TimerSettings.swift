@@ -46,7 +46,7 @@ struct TimerSettings: View {
                 ScrollView {
                     VStack{
                         HStack{
-                            Picker("",selection: $inserHour) {
+                            Picker("",selection: $timerInserHour) {
                                 ForEach(inserTimerHour, id: \.self) { value in
                                     Text("\(value)")
                                     
@@ -57,7 +57,7 @@ struct TimerSettings: View {
                             .padding()
                             .clipped()
                             
-                            Picker("",selection: $inserMinutes) {
+                            Picker("",selection: $timerInserMinutes) {
                                 ForEach(
                                     0 ..< inserTimerMinutes.count,
                                     id: \.self
@@ -82,6 +82,8 @@ struct TimerSettings: View {
                         .onChange(of: CombienEquatableTime()) {
                             let result = formatTime(inserHour, inserMinutes)
                             selectedHour = result
+                            timerInserHour = inserHour
+                            timerInserMinutes = inserMinutes
                             let _ = hydrationActivationViewModel.formatHour(result)
 //                            selectedSound = nil
                         }
