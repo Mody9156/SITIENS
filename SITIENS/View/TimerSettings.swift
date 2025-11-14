@@ -15,11 +15,13 @@ struct TimerSettings: View {
     @State var inserTimerHour = Array(0..<24)
     @State var inserTimerMinutes = Array(0..<61)
     @State var inserHour = 0
-    @Binding var inserMinutes = 0
+    @State var inserMinutes = 0
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
+    @AppStorage("inserHour",store: .standard) var timerInserHour : Int = 0
+    @AppStorage("inserMinutes",store: .standard) var timerInserMinutes : Int = 0
     @State var selectedSound: String? = nil
     @State var isActive : Bool = false
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
