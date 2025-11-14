@@ -81,7 +81,7 @@ struct TimerSettings: View {
                             let result = formatTime(inserHour, inserMinutes)
                             selectedHour = result
                             let _ = hydrationActivationViewModel.formatHour(result)
-                            selectedSound = nil
+//                            selectedSound = nil
                         }
                         
                         Button {
