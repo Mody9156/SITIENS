@@ -20,16 +20,16 @@ struct TimerSettings: View {
     @Environment(\.dismiss) var dismiss
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
     @AppStorage("hour",store: .standard) var timerhour : Int = 0
-    @State var selectedSound: String? = nil
+    @AppStorage("inserHour",store: .standard) var timerInserHour : Int = 0
+    @AppStorage("inserMinutes",store: .standard) var timerInserMinutes : Int = 0
+    @AppStorage("selectedSound",store: .standard) var choosSong : String = ""
+    @State var selectedSound: String = ""
     @State var isActive : Bool = false
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
         return a
     }
     
-    private func CombienEquatableTime() -> CombienEquatable {
-        return CombienEquatable(inserHour: inserHour, inserMinutes: inserMinutes)
-    }
     
     var body: some View {
         NavigationStack {
@@ -61,7 +61,6 @@ struct TimerSettings: View {
                                     id: \.self
                                 ) { value in
                                     Text("\(value)")
-                                    //Modifier la ligne
                                         .transition(
                                             .asymmetric(
                                                 insertion: .move(edge: .top),
@@ -76,12 +75,34 @@ struct TimerSettings: View {
                             .onReceive(Just(inserMinutes), perform: { newValue in
                                 print("value:\(newValue)")
                             })
+                             
                         }
-                        .onChange(of: CombienEquatableTime()) {
-                            let result = formatTime(inserHour, inserMinutes)
+                        .onAppear {
+                            inserHour = timerInserHour
+                            inserMinutes = timerInserMinutes
+                            choosSong = selectedSound
+                        }
+                        .onChange(of: inserHour) {
+                            timerInserHour = inserHour
+                            
+                            let result = formatTime(timerInserHour, timerInserMinutes)
+                            
                             selectedHour = result
-                            let _ = hydrationActivationViewModel.formatHour(result)
-                            selectedSound = nil
+                            
+                             _ = hydrationActivationViewModel.formatHour(result)
+//                            selectedSound = nil
+                        }
+                        .onChange(of:  selectedSound) {
+                            choosSong  = selectedSound
+                        }
+                        .onChange(of: inserMinutes) {
+                            timerInserMinutes = inserMinutes
+                            
+                            let result = formatTime(timerInserHour, timerInserMinutes)
+                            
+                            selectedHour = result
+                            
+                             _ = hydrationActivationViewModel.formatHour(result)
                         }
                         
                         Button {
@@ -98,9 +119,7 @@ struct TimerSettings: View {
                                     .foregroundColor(Color("TextBackground"))
                                     .padding()
                                 
-                                //Ici ajouter l'elements
-                                
-                                Text(selectedSound ?? "")
+                                Text(selectedSound)
                                     .foregroundColor(Color("TextBackground"))
                                     .padding()
                                 
@@ -133,7 +152,6 @@ struct TimerSettings: View {
             hydrationActivationViewModel.stopPlaying()
             
         }
-        .environment(hydrationActivationViewModel.self)
         
     }
     
@@ -188,15 +206,10 @@ struct TimerSettings: View {
     
 }
 
-struct CombienEquatable : Equatable {
-    let inserHour : Int
-    let inserMinutes : Int
-}
-
 struct ChoosSong: View {
     @Binding var sound : [String]
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
-    @Binding var selectedSound: String?
+    @Binding var selectedSound: String
     
     var body : some View {
         
@@ -208,7 +221,7 @@ struct ChoosSong: View {
                 Button {
                     
                     if selectedSound == items {
-                        selectedSound = nil
+                        selectedSound = ""
                         hydrationActivationViewModel.stopPlaying()
                     }else {
                         selectedSound = items
@@ -473,7 +486,6 @@ struct ActiveAudio : View {
                             .padding()
                     }
                 }
-
             }
         }
     }

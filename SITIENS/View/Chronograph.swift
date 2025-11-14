@@ -17,13 +17,13 @@ struct Chronograph: View {
     @State var selectedItems: String = ""
     @State var selectedHour : Int = 0
     @AppStorage("selectedItems") var selectedItemsRaw: String = ""
-    @AppStorage("hour") var timerhour : Int = 0 {
-        didSet{
-            if timerhour < 60 {
-                timerhour = 0
-            }
-        }
-    }
+    @AppStorage("hour") var timerhour : Int = 0
+//        didSet{
+//            if timerhour < 60 {
+//                timerhour = 0
+//            }
+//        }
+//    }
     @State var showMessage: Bool = false
     @AppStorage("showMessage") var showMessageRaw: Bool = false
     @State var elapseBeforPause: Int = 0
@@ -144,7 +144,7 @@ struct Chronograph: View {
                     selectedItems: $selectedItems,
                     nameBtm: "Start"
                 )
-                .disabled(selectedItems.isEmpty)
+                .disabled(timerhour == 0)
                 .accessibilityLabel("Bouton démarrer le minuteur")
                 
                 Start_timer(
@@ -157,7 +157,7 @@ struct Chronograph: View {
                     selectedItems: $selectedItems,
                     nameBtm: "stop"
                 )
-                .disabled(selectedItems.isEmpty)
+                .disabled(timerhour == 0)
                 .accessibilityLabel("Bouton arrêter le minuteur")
             }
             
