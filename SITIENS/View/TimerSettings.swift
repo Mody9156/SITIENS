@@ -14,8 +14,8 @@ struct TimerSettings: View {
     @State var sound : [String] = ["asphalt-sizzle","clover-feast","fresh-breeze","alone","kugelsicher-by-tremoxbeatz","gardens-stylish-chill","future-design","lofi-effect","lofi-sample-if-i-cant-have-you","mystical-music","music-box","meditation-music-sound-bite","ringtone","cool-guitar-loop","basique"]
     @State var inserTimerHour = Array(0..<24)
     @State var inserTimerMinutes = Array(0..<61)
-    @Binding var inserHour
-    @Binding var inserMinutes 
+    @State var inserHour = 0
+    @Binding var inserMinutes = 0
     @Binding var selectedHour : Int
     @Environment(\.dismiss) var dismiss
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
