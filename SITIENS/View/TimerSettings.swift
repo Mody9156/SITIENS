@@ -23,7 +23,7 @@ struct TimerSettings: View {
     @AppStorage("inserHour",store: .standard) var timerInserHour : Int = 0
     @AppStorage("inserMinutes",store: .standard) var timerInserMinutes : Int = 0
     @AppStorage("selectedSound",store: .standard) var choosSong : String = ""
-    @State var selectedSound: String? = nil
+    @State var selectedSound: String = ""
     @State var isActive : Bool = false
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
@@ -75,11 +75,12 @@ struct TimerSettings: View {
                             .onReceive(Just(inserMinutes), perform: { newValue in
                                 print("value:\(newValue)")
                             })
+                             
                         }
                         .onAppear {
                             inserHour = timerInserHour
                             inserMinutes = timerInserMinutes
-                            choosSong = selectedSound ?? ""
+                            choosSong = selectedSound
                         }
                         .onChange(of: inserHour) {
                             timerInserHour = inserHour
@@ -92,7 +93,7 @@ struct TimerSettings: View {
 //                            selectedSound = nil
                         }
                         .onChange(of:  selectedSound) {
-                            selectedSound = choosSong
+                            choosSong  = selectedSound
                         }
                         .onChange(of: inserMinutes) {
                             timerInserMinutes = inserMinutes
@@ -118,7 +119,7 @@ struct TimerSettings: View {
                                     .foregroundColor(Color("TextBackground"))
                                     .padding()
                                 
-                                Text(selectedSound ?? "")
+                                Text(selectedSound)
                                     .foregroundColor(Color("TextBackground"))
                                     .padding()
                                 
@@ -208,7 +209,7 @@ struct TimerSettings: View {
 struct ChoosSong: View {
     @Binding var sound : [String]
     @Bindable var hydrationActivationViewModel : HydrationActivationViewModel
-    @Binding var selectedSound: String?
+    @Binding var selectedSound: String
     
     var body : some View {
         
@@ -220,7 +221,7 @@ struct ChoosSong: View {
                 Button {
                     
                     if selectedSound == items {
-                        selectedSound = nil
+                        selectedSound = ""
                         hydrationActivationViewModel.stopPlaying()
                     }else {
                         selectedSound = items
