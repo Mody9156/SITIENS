@@ -31,6 +31,10 @@ struct TimerSettings: View {
         return a
     }
     
+    var validELement:Bool {
+        !selectedSound.isEmpty && selectedHour != 0
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -162,7 +166,7 @@ struct TimerSettings: View {
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                     timerhour = selectedHour
                     hydrationActivationViewModel.stopPlaying()
-                    if selectedHour != 0  {
+                    if validELement  {
                         dismiss()
                     }
                 }
