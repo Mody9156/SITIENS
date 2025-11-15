@@ -25,11 +25,15 @@ struct TimerSettings: View {
     @AppStorage("selectedSound",store: .standard) var choosSong : String = ""
     @State var selectedSound: String = ""
     @State var isActive : Bool = false
+    
     func formatTime(_ hour :Int,_ minutes:Int ) -> Int {
         let a = (hour * 3600) + (minutes * 60)
         return a
     }
     
+    var validELement:Bool {
+        !selectedSound.isEmpty && selectedHour != 0
+    }
     
     var body: some View {
         NavigationStack {
@@ -80,7 +84,7 @@ struct TimerSettings: View {
                         .onAppear {
                             inserHour = timerInserHour
                             inserMinutes = timerInserMinutes
-                            choosSong = selectedSound
+                            selectedSound = choosSong
                         }
                         .onChange(of: inserHour) {
                             timerInserHour = inserHour
@@ -90,7 +94,6 @@ struct TimerSettings: View {
                             selectedHour = result
                             
                              _ = hydrationActivationViewModel.formatHour(result)
-//                            selectedSound = nil
                         }
                         .onChange(of:  selectedSound) {
                             choosSong  = selectedSound
@@ -150,10 +153,8 @@ struct TimerSettings: View {
         })
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
-            
         }
-        
-    }
+   }
     
     @ToolbarContentBuilder
     func ToolBarItem() -> some ToolbarContent {
@@ -165,7 +166,7 @@ struct TimerSettings: View {
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                     timerhour = selectedHour
                     hydrationActivationViewModel.stopPlaying()
-                    if selectedHour != 0  {
+                    if validELement  {
                         dismiss()
                     }
                 }

@@ -50,7 +50,7 @@ struct SITIENSApp: App {
                     .ignoresSafeArea()
                     .onAppear {
                         UIPageControl.appearance().pageIndicatorTintColor = .gray
-                        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color("TextBackground"))
+                        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color("ToBegin"))
                     }
                 }
             }
