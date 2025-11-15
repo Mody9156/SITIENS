@@ -58,7 +58,6 @@ struct Chronograph: View {
                 }
             )
             .onAppear {
-//                                UserDefaults.standard.removeObject(forKey: "hour")
                 timeInterval = timeIntervalRaw
                 selectedItems = selectedItemsRaw
                 showMessage = false
