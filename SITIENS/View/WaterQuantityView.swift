@@ -74,22 +74,19 @@ struct WaterQuantityView: View {
                         }
                         
                     } label: {
-//                        ZStack {
-//                            RoundedRectangle(cornerRadius: 12)
-//                                .frame(height: 50)
-//                                .foregroundStyle(.orange)
-//                                .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
-//                            
-//                            
-//                            HStack {
-//                                Text("Reinitialiser")
-//                                    .foregroundStyle(.white)
-//                                Image(systemName: "arrow.counterclockwise")
-//                                    .foregroundStyle(.white)
-//                            }
-//                        }
-                        
-                        
+                        ZStack {
+                            Circle()
+                                .fill(.orange.gradient)
+                                .frame(width: 70, height: 70)
+                                .shadow(color: .black.opacity(0.25), radius: 6, y: 4)
+
+                            Image(systemName: "arrow.clockwise")
+                                .font(.system(size: 28, weight: .bold))
+                                .foregroundStyle(.white)
+                                .symbolRenderingMode(.hierarchical)
+                        }
+                        .padding()
+                       
                     }
                     .padding()
                     .accessibilityLabel("Réinitialiser le suivi")
