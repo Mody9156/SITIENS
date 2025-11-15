@@ -18,12 +18,6 @@ struct Chronograph: View {
     @State var selectedHour : Int = 0
     @AppStorage("selectedItems") var selectedItemsRaw: String = ""
     @AppStorage("hour") var timerhour : Int = 0
-//        didSet{
-//            if timerhour < 60 {
-//                timerhour = 0
-//            }
-//        }
-//    }
     @State var showMessage: Bool = false
     @AppStorage("showMessage") var showMessageRaw: Bool = false
     @State var elapseBeforPause: Int = 0
@@ -124,7 +118,7 @@ struct Chronograph: View {
                 
                 Text(hydrationActivationViewModel.formatTimer(timeInterval))
                     .font(.system(size: 48, weight: .bold, design: .monospaced))
-                    .foregroundStyle(Color.blue)
+                    .foregroundStyle(Color("TextBackground"))
                     .accessibilityLabel("Temps restant")
                     .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
                 

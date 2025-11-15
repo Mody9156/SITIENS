@@ -93,6 +93,7 @@ struct WaterQuantityView: View {
                     .accessibilityHint("Remet le niveau d'eau et la progression à zéro")
                     .accessibilityAddTraits(.isButton)
                 }
+                
                 ZStack(alignment:.topTrailing) {
                     ZStack{
                         
