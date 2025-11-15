@@ -80,7 +80,7 @@ struct TimerSettings: View {
                         .onAppear {
                             inserHour = timerInserHour
                             inserMinutes = timerInserMinutes
-                            selectedSound = choosSong  
+                            selectedSound = choosSong
                         }
                         .onChange(of: inserHour) {
                             timerInserHour = inserHour
@@ -90,7 +90,6 @@ struct TimerSettings: View {
                             selectedHour = result
                             
                              _ = hydrationActivationViewModel.formatHour(result)
-//                            selectedSound = nil
                         }
                         .onChange(of:  selectedSound) {
                             choosSong  = selectedSound
@@ -151,7 +150,7 @@ struct TimerSettings: View {
         .onDisappear{
             hydrationActivationViewModel.stopPlaying()
         }
-x    }
+   }
     
     @ToolbarContentBuilder
     func ToolBarItem() -> some ToolbarContent {
