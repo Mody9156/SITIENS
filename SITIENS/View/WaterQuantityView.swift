@@ -42,6 +42,7 @@ struct WaterQuantityView: View {
                 if verticalSizeClass == .compact {
                     ScrollView {
                          container
+                            
                     }
                     
                 }else {
@@ -65,34 +66,7 @@ struct WaterQuantityView: View {
                 .padding()
             
             ZStack(alignment: .topLeading) {
-                if updateHeight != 0 {
-                    
-                    Button {
-                        withAnimation {
-                            updateHeight = 0
-                            progress = 0
-                        }
-                        
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(.orange.gradient)
-                                .frame(width: 70, height: 70)
-                                .shadow(color: .black.opacity(0.25), radius: 6, y: 4)
-
-                            Image(systemName: "arrow.clockwise")
-                                .font(.system(size: 28, weight: .bold))
-                                .foregroundStyle(.white)
-                                .symbolRenderingMode(.hierarchical)
-                        }
-                        .padding()
-                       
-                    }
-                    .padding()
-                    .accessibilityLabel("Réinitialiser le suivi")
-                    .accessibilityHint("Remet le niveau d'eau et la progression à zéro")
-                    .accessibilityAddTraits(.isButton)
-                }
+            
                 
                 ZStack(alignment:.topTrailing) {
                     ZStack{
@@ -100,7 +74,7 @@ struct WaterQuantityView: View {
                         Image(systemName: "drop.fill")
                             .resizable()
                             .renderingMode(.template)
-                            .aspectRatio(contentMode: .fill)
+                            .aspectRatio(contentMode: .fit)
                             .foregroundStyle(.white.opacity(0.6))
                             .padding()
                         
@@ -209,6 +183,35 @@ struct WaterQuantityView: View {
                     
                 }
                 .padding()
+                
+                if updateHeight != 0 {
+                    
+                    Button {
+                        withAnimation {
+                            updateHeight = 0
+                            progress = 0
+                        }
+                        
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(.orange.gradient)
+                                .frame(width: 70, height: 70)
+                                .shadow(color: .black.opacity(0.25), radius: 6, y: 4)
+
+                            Image(systemName: "arrow.clockwise")
+                                .font(.system(size: 28, weight: .bold))
+                                .foregroundStyle(.white)
+                                .symbolRenderingMode(.hierarchical)
+                        }
+                        .padding()
+                       
+                    }
+                    .padding()
+                    .accessibilityLabel("Réinitialiser le suivi")
+                    .accessibilityHint("Remet le niveau d'eau et la progression à zéro")
+                    .accessibilityAddTraits(.isButton)
+                }
             }
             
            
