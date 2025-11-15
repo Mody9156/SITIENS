@@ -45,7 +45,7 @@ struct Start_timer: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .fill(.gray)
+                                .fill(.blue)
                                 .frame(width: 13, height: 13)
                                 .shadow(radius: 10)
                             
@@ -162,7 +162,7 @@ struct Start_timer: View {
     var fill : Color {
         switch buttonLabel{
         case "Démarrer" :
-            return .green
+            return .blue
         case "Arrêter" :
             return .red
         default:

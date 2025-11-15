@@ -91,7 +91,7 @@ struct Chronograph: View {
                 Text("Hydratation")
                     .font(.system(.largeTitle, design: .rounded))
                     .fontWeight(.bold)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(Color.blue)
                     .accessibilityAddTraits(.isHeader)
                     .accessibilityLabel("Titre: Hydradation")
                 
@@ -124,7 +124,7 @@ struct Chronograph: View {
                 
                 Text(hydrationActivationViewModel.formatTimer(timeInterval))
                     .font(.system(size: 48, weight: .bold, design: .monospaced))
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(Color.blue)
                     .accessibilityLabel("Temps restant")
                     .accessibilityValue(hydrationActivationViewModel.formatTimer(timeInterval))
                 
@@ -182,11 +182,7 @@ struct Chronograph: View {
         var disableActive : Bool {
             timerIsReading && timeInterval != 0 && timeInterval != timerhour
         }
-        
-        var toogleEditMode : Bool  {
-            colorScheme == .light
-        }
-        
+    
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 withAnimation {
@@ -197,10 +193,7 @@ struct Chronograph: View {
                     .font(.title2)
                     .frame(width: 32, height: 32, alignment: .center)
                     .contentShape(Rectangle())
-                    .foregroundStyle(
-                        (disableActive ? (toogleEditMode ? .gray :  .black)
-                         :
-                            (toogleEditMode ? Color("TextBackground") : .gray )) )
+                    .foregroundStyle(disableActive ? .gray :.blue)
             }
             .accessibilityLabel("Bouton des réglages")
             .accessibilityHint("Appuyez pour modifier les paramètres du minuteur")
