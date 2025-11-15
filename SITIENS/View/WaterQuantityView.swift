@@ -64,154 +64,156 @@ struct WaterQuantityView: View {
                 .font(.title2)
                 .padding()
             
-            ZStack(alignment:.topTrailing) {
-                ZStack{
+            ZStack(alignment: .topLeading) {
+                if updateHeight != 0 {
                     
-                    Image(systemName: "drop.fill")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fill)
-                        .foregroundStyle(.white.opacity(0.6))
-                        .padding()
-                    
-                    WaterWave(
-                        progress: progress,
-                        waveHeight:0.1,
-                        offset: startAnimation
-                    )
-                    .fill(Color.blue)
-                    .scaleEffect(x: isScaledUp ? 1.1:1,y:isScaledUp ? 1:1.1)
-                    .overlay(
-                        content: {
-                            CircleView(width: 15, height: 15, x: -20, y: 0)
-                            CircleView(width: 15, height: 15, x: 40, y: 30)
-                            CircleView(width: 25, height: 25, x: -30, y: 80)
-                            CircleView(width: 25, height: 25, x: 50, y: 70)
-                            CircleView(width: 10, height: 10, x: 40, y: 100)
-                            CircleView(width: 10, height: 10, x: -40, y: 50)
-                            
-                        })
-                    .mask {
-                        Image(systemName: "drop.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .padding(20)
-                    }
-                    .overlay(
-                        alignment:.bottom
-                    ){
-                        increaseWaterAmount(
-                            throwError: $throwError,
-                            showMessage: $showMessage,
-                            selectedSound: $selectedSound,
-                            selectedGlace: $selectedGlace,
-                            updateHeight: $updateHeight,
-                            userSettingsViewModel: userSettingsViewModel,
-                            progress: $progress
-                        )
-                    }
-                    
-                    let percentFilled = (updateHeight / 300) * 100
-                    
-                    if progress > 1.0 {
-                        Text("100 %")
-                            .foregroundStyle(updateHeight >= 150 ? .white: .blue)
-                            .font(.title)
-                            .offset(y:75)
-                        //attention
-                    }else {
-                        Text("\(Int(percentFilled)) %")
-                            .foregroundStyle(Int(percentFilled) > 40 ? .white: .blue)
-                            .font(.title)
-                            .offset(y:40)
-                    }
-                    
-                    
-                    
-                    
-                }
-                .padding()
-                .frame(
-                    maxWidth: verticalSizeClass == .compact ? 300 : .infinity,
-                    maxHeight: verticalSizeClass == .compact ? 300 : .infinity,
-                    alignment: .center
-                )
-                .onAppear{
-                    updateHeight = CGFloat(updateHeightRaw)
-                    progress = CGFloat(progressRaw)
-                    
-                    withAnimation(
-                        .linear(duration: 0.8)
-                        .repeatForever(autoreverses: true)){
-                            startAnimation = 300
-                            isScaledUp = true
-                        }
-                }
-                .padding()
-                
-                
-                if !selectedGlace.isEmpty {
-                    VStack {
-                        HStack{
-                            ZStack {
-                                Circle()
-                                    .frame(width: 70,height: 70)
-                                    .foregroundStyle(.blue)
-                                
-                                Circle()
-                                    .frame(width: 70,height: 60)
-                                    .foregroundStyle(.white)
-                                Image(userSettingsViewModel.chooseBottleOfWater(name: selectedGlace))
-                                    .resizable()
-                                    .frame(width: 40, height: 40, alignment: .center)
-                            }
+                    Button {
+                        withAnimation {
+                            updateHeight = 0
+                            progress = 0
                         }
                         
-                        let type = userSettingsViewModel.uptateQuanittyOfWater(
-                            quantityWater : selectedSound,
-                            chooseBottle:selectedGlace
-                        )
+                    } label: {
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 12)
+//                                .frame(height: 50)
+//                                .foregroundStyle(.orange)
+//                                .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
+//                            
+//                            
+//                            HStack {
+//                                Text("Reinitialiser")
+//                                    .foregroundStyle(.white)
+//                                Image(systemName: "arrow.counterclockwise")
+//                                    .foregroundStyle(.white)
+//                            }
+//                        }
                         
-                        let rounded = ceil(type)
-                      
-                        Text("X \(Int(rounded))")
                         
                     }
                     .padding()
+                    .accessibilityLabel("Réinitialiser le suivi")
+                    .accessibilityHint("Remet le niveau d'eau et la progression à zéro")
+                    .accessibilityAddTraits(.isButton)
                 }
-                   
-            }
-            .padding()
-            
-            if updateHeight != 0 {
-                
-                Button {
-                    withAnimation {
-                        updateHeight = 0
-                        progress = 0
+                ZStack(alignment:.topTrailing) {
+                    ZStack{
+                        
+                        Image(systemName: "drop.fill")
+                            .resizable()
+                            .renderingMode(.template)
+                            .aspectRatio(contentMode: .fill)
+                            .foregroundStyle(.white.opacity(0.6))
+                            .padding()
+                        
+                        WaterWave(
+                            progress: progress,
+                            waveHeight:0.1,
+                            offset: startAnimation
+                        )
+                        .fill(Color.blue)
+                        .scaleEffect(x: isScaledUp ? 1.1:1,y:isScaledUp ? 1:1.1)
+                        .overlay(
+                            content: {
+                                CircleView(width: 15, height: 15, x: -20, y: 0)
+                                CircleView(width: 15, height: 15, x: 40, y: 30)
+                                CircleView(width: 25, height: 25, x: -30, y: 80)
+                                CircleView(width: 25, height: 25, x: 50, y: 70)
+                                CircleView(width: 10, height: 10, x: 40, y: 100)
+                                CircleView(width: 10, height: 10, x: -40, y: 50)
+                                
+                            })
+                        .mask {
+                            Image(systemName: "drop.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding(20)
+                        }
+                        .overlay(
+                            alignment:.bottom
+                        ){
+                            increaseWaterAmount(
+                                throwError: $throwError,
+                                showMessage: $showMessage,
+                                selectedSound: $selectedSound,
+                                selectedGlace: $selectedGlace,
+                                updateHeight: $updateHeight,
+                                userSettingsViewModel: userSettingsViewModel,
+                                progress: $progress
+                            )
+                        }
+                        
+                        let percentFilled = (updateHeight / 300) * 100
+                        
+                        if progress > 1.0 {
+                            Text("100 %")
+                                .foregroundStyle(updateHeight >= 150 ? .white: .blue)
+                                .font(.title)
+                                .offset(y:75)
+                            //attention
+                        }else {
+                            Text("\(Int(percentFilled)) %")
+                                .foregroundStyle(Int(percentFilled) > 40 ? .white: .blue)
+                                .font(.title)
+                                .offset(y:40)
+                        }
+                        
+                    }
+                    .padding()
+                    .frame(
+                        maxWidth: verticalSizeClass == .compact ? 300 : .infinity,
+                        maxHeight: verticalSizeClass == .compact ? 300 : .infinity,
+                        alignment: .center
+                    )
+                    .onAppear{
+                        updateHeight = CGFloat(updateHeightRaw)
+                        progress = CGFloat(progressRaw)
+                        
+                        withAnimation(
+                            .linear(duration: 0.8)
+                            .repeatForever(autoreverses: true)){
+                                startAnimation = 300
+                                isScaledUp = true
+                            }
+                    }
+                    .padding()
+                    
+                    
+                    if !selectedGlace.isEmpty {
+                        VStack {
+                            HStack{
+                                ZStack {
+                                    Circle()
+                                        .frame(width: 70,height: 70)
+                                        .foregroundStyle(.blue)
+                                    
+                                    Circle()
+                                        .frame(width: 70,height: 60)
+                                        .foregroundStyle(.white)
+                                    Image(userSettingsViewModel.chooseBottleOfWater(name: selectedGlace))
+                                        .resizable()
+                                        .frame(width: 40, height: 40, alignment: .center)
+                                }
+                            }
+                            
+                            let type = userSettingsViewModel.uptateQuanittyOfWater(
+                                quantityWater : selectedSound,
+                                chooseBottle:selectedGlace
+                            )
+                            
+                            let rounded = ceil(type)
+                            
+                            Text("X \(Int(rounded))")
+                            
+                        }
+                        .padding()
                     }
                     
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(height: 50)
-                            .foregroundStyle(.orange)
-                            .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 2)
-                        
-                        
-                        HStack {
-                            Text("Reinitialiser")
-                                .foregroundStyle(.white)
-                            Image(systemName: "arrow.counterclockwise")
-                                .foregroundStyle(.white)
-                        }
-                    }
                 }
                 .padding()
-                .accessibilityLabel("Réinitialiser le suivi")
-                .accessibilityHint("Remet le niveau d'eau et la progression à zéro")
-                .accessibilityAddTraits(.isButton)
             }
+            
+           
             
             if throwError && selectedSound.isEmpty {
                 HStack {
