@@ -5,6 +5,7 @@
 //  Created by Modibo on 07/04/2025.
 //
 import SwiftUI
+import NaturalLanguage
 
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
