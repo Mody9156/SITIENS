@@ -5,12 +5,10 @@
 //  Created by Modibo on 07/04/2025.
 //
 import SwiftUI
-import NaturalLanguage
 
 struct InformationView: View {
     @Binding var hasSeenIntro: Bool
     @State private var showSheet: Bool = false
-    
     @State private var openIndicator : Bool = false
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
@@ -28,7 +26,7 @@ struct ValueNavigationLink :View {
     @Binding var openIndicator : Bool
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @State  var isPressed : Bool = false
-    
+
     var body: some View {
         ZStack{
             LinearGradient(
@@ -125,6 +123,7 @@ struct ValueNavigationLink :View {
                     .italic()
                     .foregroundStyle(.secondary)
                 
+             
                 Button(action: {
                     withAnimation {hasSeenIntro = true }
                 }) {
