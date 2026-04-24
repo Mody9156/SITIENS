@@ -18,7 +18,7 @@ struct HistoryRepository: HistoryProtocol {
     }
     
     func getHisoData()  throws -> [History] {
-        let result: [History] = try context.performAndWait {
+            let result: [History] = try context.performAndWait {
             let request: NSFetchRequest<History> = History.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
             return try context.fetch(request)
