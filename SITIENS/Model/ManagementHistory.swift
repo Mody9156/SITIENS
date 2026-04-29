@@ -13,4 +13,10 @@ struct ManagementHistory: Identifiable {
     var quantity : String
     var date : String
     
+    
+    init(name: String, quantity: String, date: String) {
+        self.name = name
+        self.quantity = quantity
+        self.date = date
+    }
 }
