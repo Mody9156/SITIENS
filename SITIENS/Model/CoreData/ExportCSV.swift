@@ -12,7 +12,7 @@ struct ExportCSV {
     
     func exportCSV(context:NSManagedObjectContext){
         let request = NSFetchRequest<NSManagedObject>(entityName: "History")
-        var minutesSinceLAstDrink : Int = 0
+        var minutesSinceLastDrink : Int = 0
         
         do{
             let result = try context.fetch(request)
@@ -60,12 +60,12 @@ struct ExportCSV {
                 ) - 1
                 
                 if index == 0 {
-                    minutesSinceLAstDrink = 120
+                    minutesSinceLastDrink = 120
                 }else {
                     let previousEntry = sorted[index - 1]
                     guard let previousEntryDate = formatter.date(from: previousEntry.date) else { continue }
                     let diff = entryDay.timeIntervalSince(previousEntryDate) / 60
-                    minutesSinceLatDrink = Int(diff)
+                    minutesSinceLastDrink = Int(diff)
                     
                 }
                 
